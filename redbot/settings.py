@@ -180,5 +180,4 @@ AUTH_USER_MODEL = 'accounts.User'
 X_FRAME_OPTIONS = 'ALLOWALL'
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
-import os
-PORT = os.environ.get('PORT', '10000')
+

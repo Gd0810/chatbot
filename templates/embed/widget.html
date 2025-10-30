@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>{{ bot.name }} • Chat</title>
+  <style>
+    :root { color-scheme: light; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; padding: 10px; font-family: Arial, sans-serif;
+      display: flex; flex-direction: column; background: #f8fafc;
+    }
+    #messages {
+      flex: 1; overflow-y: auto; border: 1px solid #e5e7eb;
+      background: #fff; border-radius: 8px; padding: 10px; margin-bottom: 10px;
+    }
+    .message { margin-bottom: 10px; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }
+    .user { text-align: right; }
+    .bot { text-align: left; }
+    .sources { font-size: 12px; color: #6b7280; margin-top: 5px; }
+    #input-container { display: flex; gap: 0; }
+    #input {
+      flex: 1; padding: 10px; border: 1px solid #e5e7eb; border-right: 0;
+      border-radius: 8px 0 0 8px; outline: none;
+    }
+    #send-btn {
+      padding: 10px 14px; border: 1px solid #2563eb; background: #2563eb; color: white;
+      border-radius: 0 8px 8px 0; cursor: pointer;
+    }
+    #send-btn:hover { background: #1d4ed8; }
+    #send-btn:disabled, #input:disabled { opacity: .6; cursor: not-allowed; }
+    .center { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; }
+    .title { font-weight: 600; font-size: 18px; margin-bottom: 6px; }
+    .muted { color: #6b7280; }
+    .debug { margin-top: 12px; font-size: 12px; color: #374151; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px; }
+    .debug code { display: block; white-space: pre-wrap; word-break: break-word; }
+  </style>
+
+  {{ cfg|json_script:"redbot-config" }}
+  {{ debug|json_script:"redbot-debug" }}
+</head>
+
+<body>
+  {% if blocked or not jwt %}
+    <div class="center">
+      <div>
+        <div class="title">Chat Unavailable</div>
+        <div class="muted">{{ block_msg|default:"This chatbot is currently unavailable." }}</div>
+
+        {% if debug_on %}
+          <div class="debug">
+            <div style="font-weight:600; margin-bottom:4px;">Debug (DEV only)</div>
+            <code id="dbg"></code>
+          </div>
+          <script>
+            (function () {
+              const d = JSON.parse(document.getElementById('redbot-debug').textContent);
+              document.getElementById('dbg').textContent = JSON.stringify(d, null, 2);
+              console.log('[Widget Debug]', d);
+            })();
+          </script>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div id="messages">
+      <div class="message bot"><strong>{{ bot.name }}:</strong> Hi! I'm {{ bot.name }}. How can I help you?</div>
+    </div>
+
+    <div id="input-container">
+      <input id="input" type="text" placeholder="Type your message..." />
+      <button id="send-btn" type="button">Send</button>
+    </div>
+
+    <script>
+      (function () {
+        const cfg = JSON.parse(document.getElementById('redbot-config').textContent);
+        console.log('[Widget] jwt length:', (cfg.jwt || '').length);
+
+        const messagesDiv = document.getElementById('messages');
+        const input = document.getElementById('input');
+        const sendBtn = document.getElementById('send-btn');
+
+        const sessionKey = 'redbot_session_' + String(cfg.botId || '');
+        const sessionId = localStorage.getItem(sessionKey) || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
+        localStorage.setItem(sessionKey, sessionId);
+
+        function escapeHtml(str) {
+          return String(str).replace(/[&<>"'`=\/]/g, function (s) {
+            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#x60;','=':'&#x3D;','/':'&#x2F;'}[s]);
+          });
+        }
+
+        function addMessage(text, who, sources) {
+          const div = document.createElement('div');
+          div.className = 'message ' + who;
+          const label = who === 'user' ? 'You' : (cfg.botName || 'Bot');
+          div.innerHTML = '<strong>' + escapeHtml(label) + ':</strong> ' + escapeHtml(text);
+          if (Array.isArray(sources) && sources.length) {
+            div.innerHTML += '<div class="sources">Sources: ' + sources.map(s => escapeHtml(String(s))).join(', ') + '</div>';
+          }
+          messagesDiv.appendChild(div);
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function setLoading(on) {
+          input.disabled = on;
+          sendBtn.disabled = on;
+        }
+
+        async function sendMessage() {
+          const msg = (input.value || '').trim();
+          if (!msg) return;
+
+          addMessage(msg, 'user');
+          input.value = '';
+          setLoading(true);
+
+          try {
+            const res = await fetch('/api/chat/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                message: msg,
+                session_id: sessionId,
+                jwt: cfg.jwt
+              })
+            });
+
+            let data;
+            try { data = await res.json(); } catch { data = { error: 'Invalid JSON from server' }; }
+
+            if (res.ok && data.answer) {
+              addMessage(data.answer, 'bot', data.sources || []);
+            } else if (data && data.answer) {
+              addMessage(data.answer, 'bot');
+            } else {
+              addMessage('⚠️ ' + (data.error || ('HTTP ' + res.status)), 'bot');
+            }
+          } catch (e) {
+            addMessage('⚠️ Connection error. Please try again.', 'bot');
+          } finally {
+            setLoading(false);
+            input.focus();
+          }
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+        input.focus();
+      })();
+    </script>
+  {% endif %}
+</body>
+</html>

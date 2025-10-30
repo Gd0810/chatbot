@@ -1,0 +1,63 @@
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-4">Your Data</h2>
+
+  {% if plan %}
+    {% if plan.includes_ai or plan.includes_qa %}
+      <form class="mb-6 space-y-2" method="post" hx-post="{% url 'dashboard:knowledge_add' %}" hx-target="#main">
+        {% csrf_token %}
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+          <div>
+            <label class="block text-sm text-gray-600">Bot</label>
+            <select name="bot_id" class="border rounded px-2 py-1 w-full">
+              {% for b in bots %}<option value="{{ b.id }}">{{ b.name }}</option>{% endfor %}
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-600">Source Type</label>
+            <select name="source_type" class="border rounded px-2 py-1 w-full">
+              <option value="TEXT">Text</option>
+              <option value="JSON">JSON</option>
+            </select>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm text-gray-600">Content</label>
+            <textarea name="content" class="border rounded px-2 py-1 w-full" rows="3" placeholder="Enter text or JSON"></textarea>
+          </div>
+        </div>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded" type="submit">Add</button>
+      </form>
+
+      <div class="space-y-2">
+        {% for s in sources %}
+          <div class="border rounded p-3">
+            <div class="text-sm text-gray-500 mb-1">{{ s.bot.name }} • {{ s.get_source_type_display }} • {{ s.created_at }}</div>
+
+            <form method="post" action="{% url 'dashboard:knowledge_edit' s.id %}">
+              {% csrf_token %}
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+                <div>
+                  <select name="source_type" class="border rounded px-2 py-1 w-full">
+                    <option value="TEXT" {% if s.source_type == 'TEXT' %}selected{% endif %}>Text</option>
+                    <option value="JSON" {% if s.source_type == 'JSON' %}selected{% endif %}>JSON</option>
+                  </select>
+                </div>
+                <div class="md:col-span-3">
+                  <textarea name="content" rows="3" class="border rounded px-2 py-1 w-full">{{ s.content }}</textarea>
+                </div>
+              </div>
+              <div class="mt-2 flex gap-2">
+                <button class="px-3 py-1 bg-blue-600 text-white rounded" type="submit">Save</button>
+              </div>
+            </form>
+          </div>
+        {% empty %}
+          <div class="text-gray-500">No knowledge added yet.</div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="text-gray-600">Your plan does not include AI or Q&A features.</div>
+    {% endif %}
+  {% else %}
+    <div class="text-gray-600">No active plan.</div>
+  {% endif %}
+</div>

@@ -1,0 +1,33 @@
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-4">Bots</h2>
+  <div class="mb-2 text-sm text-gray-600">
+    Current plan: {% if plan %}{{ plan.get_bundle_display }}{% else %}—{% endif %}
+  </div>
+  <div class="space-y-2">
+    {% for b in bots %}
+      <div class="border rounded p-3 flex items-center justify-between">
+        <div>
+          <div class="font-medium">{{ b.name }}</div>
+          <div class="text-xs text-gray-500">Public Key: {{ b.public_key }}</div>
+          {% if plan and plan.includes_ai and b.ai_provider and b.ai_model %}
+            <div class="text-xs text-gray-500 mt-1">AI: {{ b.ai_provider }} / {{ b.ai_model }}</div>
+          {% endif %}
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            class="px-3 py-1 rounded text-white {{ b.is_enabled|yesno:'bg-green-600,bg-gray-500' }}"
+            hx-post="{% url 'dashboard:toggle_bot' b.id %}"
+            hx-target="#main"
+          >{{ b.is_enabled|yesno:'Enabled,Disabled' }}</button>
+          <button
+            class="px-3 py-1 rounded border"
+            hx-get="{% url 'dashboard:bot_edit' b.id %}"
+            hx-target="#main"
+          >Edit</button>
+        </div>
+      </div>
+    {% empty %}
+      <div class="text-gray-500">No bots yet.</div>
+    {% endfor %}
+  </div>
+</div>

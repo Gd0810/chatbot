@@ -1,0 +1,8 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+  <div class="mb-4">
+    <h1 class="text-2xl font-semibold">Welcome</h1>
+    <p class="text-gray-600">Select a module from the sidebar.</p>
+  </div>
+  <div id="main" hx-get="{% url 'dashboard:partial_account' %}" hx-trigger="load"></div>
+{% endblock %}

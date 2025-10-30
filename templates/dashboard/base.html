@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redbot Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body class="min-h-screen bg-gray-50">
+  <div class="flex">
+    <aside class="w-64 bg-white shadow min-h-screen">
+      <div class="p-4 font-semibold text-lg">Dashboard</div>
+      <nav class="px-2">
+        <div class="text-xs text-gray-500 px-2 mt-4 mb-2">Profile</div>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_account' %}" hx-target="#main" hx-swap="innerHTML">Account</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_plan' %}" hx-target="#main" hx-swap="innerHTML">Your Plan</a>
+
+        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Bot</div>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_bots' %}" hx-target="#main" hx-swap="innerHTML">Manage Bots</a>
+
+        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Conversation</div>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">Live Chat</a>
+
+        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Your Data</div>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">Knowledge</a>
+      </nav>
+      <div class="p-4 mt-6">
+      
+        <a class="text-sm text-blue-600" href="{% url 'accounts:logout' %}">Logout</a>
+      </div>
+    </aside>
+    <main class="flex-1 p-6">
+      {% block content %}{% endblock %}
+      <div id="main"></div>
+    </main>
+  </div>
+
+  <script>
+    // CSRF for HTMX
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    document.body.addEventListener('htmx:configRequest', (e) => {
+      const csrf = getCookie('csrftoken');
+      if (csrf) e.detail.headers['X-CSRFToken'] = csrf;
+    });
+  </script>
+</body>
+</html>

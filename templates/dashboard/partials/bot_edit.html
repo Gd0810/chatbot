@@ -1,0 +1,36 @@
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-4">Edit Bot</h2>
+  <form method="post" hx-post="{% url 'dashboard:bot_edit' bot.id %}" hx-target="#main" class="space-y-3">
+    {% csrf_token %}
+    <div>
+      <label class="block text-sm text-gray-600">Name</label>
+      <input name="name" value="{{ bot.name }}" class="border rounded px-2 py-1 w-full"/>
+    </div>
+
+    {% if plan and plan.includes_ai %}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-sm text-gray-600">AI Provider</label>
+          <input name="ai_provider" value="{{ bot.ai_provider|default_if_none:'' }}" class="border rounded px-2 py-1 w-full" placeholder="e.g., openrouter"/>
+        </div>
+        <div>
+          <label class="block text-sm text-gray-600">AI Model</label>
+          <input name="ai_model" value="{{ bot.ai_model|default_if_none:'' }}" class="border rounded px-2 py-1 w-full" placeholder="e.g., openai/gpt-4o-mini"/>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600">API Key</label>
+        <input name="ai_api_key" type="password" value="" class="border rounded px-2 py-1 w-full" placeholder="•••••• (leave blank to keep)"/>
+      </div>
+      <p class="text-xs text-gray-500">Supports Google, OpenAI, OpenRouter, Anthropic, Cohere, HF, Replicate, etc.</p>
+    {% else %}
+      <div class="text-sm text-gray-600">AI fields hidden (your plan does not include AI).</div>
+    {% endif %}
+
+    <div class="flex gap-2">
+      <button class="px-4 py-2 bg-blue-600 text-white rounded" type="submit">Save</button>
+      <button class="px-4 py-2 border rounded"
+              hx-get="{% url 'dashboard:partial_bots' %}" hx-target="#main" type="button">Back</button>
+    </div>
+  </form>
+</div>

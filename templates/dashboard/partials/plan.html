@@ -1,0 +1,29 @@
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-4">Your Plan</h2>
+  {% if plan %}
+    <div class="mb-2">Bundle: <span class="font-medium">{{ plan.get_bundle_display }}</span></div>
+    <div class="mb-2">Term: <span class="font-medium">{{ plan.get_term_display }}</span></div>
+    <div class="mb-2">Active: <span class="font-medium">{{ plan.is_current_active|yesno:"Yes,No" }}</span></div>
+    <div class="mb-2">Start: <span class="font-medium">{{ plan.start_at }}</span></div>
+    {% if plan.term == 'LIMITED' %}
+      <div class="mb-2">End: <span class="font-medium">{{ plan.end_at }}</span></div>
+      {% if remaining %}
+        <div class="mb-2">Remaining:
+          <span class="font-medium">
+            {% with s=remaining.total_seconds %}
+              {% if s > 0 %}
+                {{ remaining.days }} day(s), {{ remaining.seconds|divisibleby:3600 }} hour(s)
+              {% endif %}
+            {% endwith %}
+          </span>
+        </div>
+      {% else %}
+        <div class="text-red-600">Expired</div>
+      {% endif %}
+    {% else %}
+      <div class="text-green-700">Lifetime purchase</div>
+    {% endif %}
+  {% else %}
+    <div>No active plan.</div>
+  {% endif %}
+</div>

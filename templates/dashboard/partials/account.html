@@ -1,0 +1,16 @@
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-4">Account</h2>
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <div class="text-gray-500 text-sm">Username</div>
+      <div>{{ user.username }}</div>
+    </div>
+    <div>
+      <div class="text-gray-500 text-sm">Email</div>
+      <div>{{ user.email }}</div>
+    </div>
+  </div>
+  <div class="mt-4">
+    <a class="text-blue-600" href="/accounts/password_change/">Change Password</a>
+  </div>
+</div>

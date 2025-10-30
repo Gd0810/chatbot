@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Welcome, {{ user.username }}!</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>{{ bots_count }}</h5>
+                        <p>AI Bots</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>{{ sources_count }}</h5>
+                        <p>Knowledge Sources</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>{% if plan.active %}Active{% else %}Inactive{% endif %}</h5>
+                        <p>Plan Status</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'bots:list' %}" class="btn btn-primary">Manage Bots</a>
+            <a href="{% url 'knowledge:list' 1 %}" class="btn btn-secondary">Manage Knowledge</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

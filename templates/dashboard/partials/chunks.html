@@ -15,10 +15,15 @@
           <button class="px-3 py-1 border rounded"
                   hx-get="{% url 'dashboard:chunk_edit_form' ks.id ch.id %}"
                   hx-target="#main">Edit</button>
-          <form method="post" hx-post="{% url 'dashboard:chunk_delete' ks.id ch.id %}" hx-target="#main">
-            {% csrf_token %}
-            <button class="px-3 py-1 border rounded text-red-600">Delete</button>
-          </form>
+          <!-- templates/dashboard/partials/chunks.html (only the delete form lines updated with confirmations) -->
+              <form method="post"
+                    hx-post="{% url 'dashboard:chunk_delete' ks.id ch.id %}"
+                    hx-target="#main"
+                    hx-confirm="Delete this chunk? Its vector will be removed from Qdrant."
+                    onsubmit="return confirm('Delete this chunk? Its vector will be removed from Qdrant.');">
+                {% csrf_token %}
+                <button class="px-3 py-1 border rounded text-red-600">Delete</button>
+              </form>
         </div>
       </div>
     {% empty %}

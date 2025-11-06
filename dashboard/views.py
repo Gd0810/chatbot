@@ -452,13 +452,10 @@ def chunk_delete(request, source_id, chunk_id):
 
     ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
     ch = get_object_or_404(Chunk, id=chunk_id, knowledge_source=ks)
-    messages.info(request, "Processing chunk deletion request...")
     try:
         ch.delete()
         messages.success(request, "Chunk has been successfully deleted!")
     except Exception as e:
         messages.error(request, f"Failed to delete chunk: {e}. Please try again or contact support if the issue persists.")
-
-    return chunks_list(request, source_id)
 
 

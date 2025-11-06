@@ -58,7 +58,12 @@
                         hx-get="{% url 'dashboard:chunks_list' s.id %}"
                         hx-target="#main">Manage Chunks</button>
 
-                <form method="post" hx-post="{% url 'dashboard:knowledge_delete' s.id %}" hx-target="#main">
+                <!-- templates/dashboard/partials/knowledge.html (only the delete form lines updated with confirmations) -->
+                <form method="post"
+                      hx-post="{% url 'dashboard:knowledge_delete' s.id %}"
+                      hx-target="#main"
+                      hx-confirm="Delete this knowledge and all of its chunks? This will also remove vectors from Qdrant."
+                      onsubmit="return confirm('Delete this knowledge and all of its chunks? This will also remove vectors from Qdrant.');">
                   {% csrf_token %}
                   <button class="px-3 py-1 border rounded text-red-600">Delete</button>
                 </form>

@@ -27,7 +27,9 @@ def _require_operational(request):
 def index(request):
     ws = _get_user_workspace(request.user)
     if not ws or not ws.approved or not ws.is_operational:
+        messages.error(request, "Access denied. Your workspace is not active or approved.")
         return redirect('accounts:not_allowed')
+    messages.success(request, "Welcome to your dashboard!")
     return render(request, 'dashboard/index.html', {'workspace': ws})
 
 # Partials
@@ -102,10 +104,12 @@ def toggle_bot(request, bot_id):
         return HttpResponseBadRequest("Invalid method")
     ws, bounce = _require_operational(request)
     if bounce: return bounce
+    
+    messages.info(request, "Processing bot status change...")
     bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
     bot.is_enabled = not bot.is_enabled
     bot.save()
-    messages.success(request, f"Bot {'enabled' if bot.is_enabled else 'disabled'}.")
+    messages.success(request, f"Bot '{bot.name}' has been successfully {'enabled' if bot.is_enabled else 'disabled'}!")
     # Return the refreshed bots panel (HTMX)
     bots = Bot.objects.filter(workspace=ws).order_by('-id')
     plan = ws.active_plan
@@ -113,20 +117,47 @@ def toggle_bot(request, bot_id):
         'workspace': ws, 'bots': bots, 'plan': plan
     })
 
+# dashboard/views.py (updated bot_edit view)
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+
+from bots.models import Bot
+
+# assumes you already have _require_operational helper
+
 @login_required
 def bot_edit(request, bot_id):
     ws, bounce = _require_operational(request)
-    if bounce: return bounce
+    if bounce:
+        return bounce
+
     bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
     plan = ws.active_plan
 
+    # Pull choices for dropdown from model field
+    ai_providers = list(Bot._meta.get_field('ai_provider').choices)  # [(value, label), ...]
+
     if request.method == 'POST':
-        name = request.POST.get('name', '').strip()
+        messages.info(request, "Processing bot update request...")
+
+        name = (request.POST.get('name') or '').strip()
         if name:
             bot.name = name
+
         if plan and plan.includes_ai:
-            bot.ai_provider = request.POST.get('ai_provider') or bot.ai_provider
+            # Validate provider against choices
+            selected_provider = request.POST.get('ai_provider') or bot.ai_provider
+            valid_values = {v for v, _ in ai_providers}
+            if selected_provider and selected_provider not in valid_values:
+                messages.error(request, "Invalid AI provider selected.")
+                return render(request, 'dashboard/partials/bot_edit.html', {
+                    'bot': bot, 'plan': plan, 'ai_providers': ai_providers
+                })
+
+            bot.ai_provider = selected_provider or bot.ai_provider
             bot.ai_model = request.POST.get('ai_model') or bot.ai_model
+
             api_key = request.POST.get('ai_api_key', '')
             if api_key != '':
                 bot.ai_api_key = api_key  # setter encrypts; empty string clears
@@ -135,65 +166,299 @@ def bot_edit(request, bot_id):
             bot.ai_provider = None
             bot.ai_model = None
             bot.ai_api_key = None
+
         try:
             bot.full_clean()
             bot.save()
-            messages.success(request, "Bot updated.")
+            messages.success(request, f"Bot '{bot.name}' has been successfully updated!")
+
+            # If HTMX request, return refreshed bots list; else redirect
+            if request.headers.get('HX-Request'):
+                bots = Bot.objects.filter(workspace=ws).order_by('-id')
+                return render(request, 'dashboard/partials/bots.html', {
+                    'workspace': ws,
+                    'bots': bots,
+                    'plan': ws.active_plan,
+                })
+            return redirect('dashboard:partial_bots')
         except Exception as e:
-            messages.error(request, f"Failed to update bot: {e}")
+            messages.error(request, f"Failed to update bot: {e}. Please check your input and try again.")
 
     return render(request, 'dashboard/partials/bot_edit.html', {
-        'bot': bot, 'plan': plan
+        'bot': bot, 'plan': plan, 'ai_providers': ai_providers
     })
+
+# dashboard/views.py
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseBadRequest
+from django.utils import timezone
+
+import json
+
+from accounts.models import Workspace
+from bots.models import Bot
+from knowledge.models import KnowledgeSource, Chunk
+
+
+def _get_user_workspace(user):
+    return Workspace.objects.filter(owner=user).order_by('-created_at').first()
+
+
+def _require_operational(request):
+    ws = _get_user_workspace(request.user)
+    if not ws:
+        messages.error(request, "No workspace found.")
+        return None, redirect('accounts:not_allowed')
+    if not ws.approved or not ws.is_operational:
+        messages.error(request, "Workspace not active.")
+        return ws, redirect('accounts:not_allowed')
+    return ws, None
+
+
+@login_required
+def knowledge_page(request):
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+    return render(request, 'dashboard/knowledge.html', {'workspace': ws})
+
+
+@login_required
+def partial_knowledge(request):
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+    plan = ws.active_plan
+    bots = Bot.objects.filter(workspace=ws, is_enabled=True).order_by('name')
+    sources = KnowledgeSource.objects.filter(bot__workspace=ws).select_related('bot').order_by('-created_at')
+    return render(request, 'dashboard/partials/knowledge.html', {
+        'workspace': ws, 'plan': plan, 'bots': bots, 'sources': sources
+    })
+
 
 @login_required
 def knowledge_add(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+
     ws, bounce = _require_operational(request)
-    if bounce: return bounce
+    if bounce:
+        return bounce
+
+    messages.info(request, "Processing knowledge addition request...")
     plan = ws.active_plan
     if not plan or (not plan.includes_ai and not plan.includes_qa):
-        messages.error(request, "Your plan does not include AI or Q&A.")
-        return redirect('dashboard:partial_knowledge')
+        messages.error(request, "Cannot add knowledge: Your current plan does not include AI or Q&A features. Please upgrade your plan.")
+        return redirect('dashboard:knowledge_page')
 
-    if request.method == 'POST':
-        bot_id = request.POST.get('bot_id')
-        source_type = request.POST.get('source_type')
-        content = request.POST.get('content', '')
-        bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
-        ks = KnowledgeSource(bot=bot, source_type=source_type, content=content)
+    bot_id = request.POST.get('bot_id')
+    source_type = request.POST.get('source_type')
+    content = (request.POST.get('content') or '').strip()
+    title = (request.POST.get('title') or '').strip()
+    qdrant_url = (request.POST.get('qdrant_url') or '').strip()
+    qdrant_api_key = (request.POST.get('qdrant_api_key') or '').strip()
+
+    if source_type == 'JSON':
         try:
-            ks.full_clean()
-            ks.save()
-            messages.success(request, "Knowledge saved.")
+            json.loads(content or '')
         except Exception as e:
-            messages.error(request, f"Failed to save knowledge: {e}")
+            messages.error(request, f"Invalid JSON content: {e}")
+            if request.headers.get('HX-Request'):
+                return partial_knowledge(request)
+            return redirect('dashboard:knowledge_page')
 
-    # Render refreshed list
-    bots = Bot.objects.filter(workspace=ws, is_enabled=True).order_by('name')
-    sources = KnowledgeSource.objects.filter(bot__workspace=ws).select_related('bot').order_by('-created_at')
-    return render(request, 'dashboard/partials/knowledge.html', {
-        'workspace': ws, 'plan': plan, 'bots': bots, 'sources': sources
-    })
+    bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
+
+    ks = KnowledgeSource(bot=bot, source_type=source_type, content=content, title=title or None)
+    try:
+        ks.full_clean()
+        ks.save()
+
+        if qdrant_url and qdrant_api_key:
+            for ch in ks.chunks.all():
+                ch.qdrant_url = qdrant_url
+                ch.qdrant_api_key = qdrant_api_key
+                ch.push_to_qdrant()
+
+        messages.success(request, "Knowledge saved.")
+    except Exception as e:
+        messages.error(request, f"Failed to save knowledge: {e}")
+
+    if request.headers.get('HX-Request'):
+        return partial_knowledge(request)
+    return redirect('dashboard:knowledge_page')
+
 
 @login_required
-def knowledge_edit(request, source_id):
+def knowledge_edit_form(request, source_id):
     ws, bounce = _require_operational(request)
-    if bounce: return bounce
+    if bounce:
+        return bounce
     ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
-    if request.method == 'POST':
-        ks.source_type = request.POST.get('source_type') or ks.source_type
-        ks.content = request.POST.get('content', ks.content)
-        try:
-            ks.full_clean()
-            ks.save()
-            messages.success(request, "Knowledge updated.")
-        except Exception as e:
-            messages.error(request, f"Failed to update knowledge: {e}")
 
-    # Re-render the knowledge panel
-    plan = ws.active_plan
-    bots = Bot.objects.filter(workspace=ws, is_enabled=True).order_by('name')
-    sources = KnowledgeSource.objects.filter(bot__workspace=ws).select_related('bot').order_by('-created_at')
-    return render(request, 'dashboard/partials/knowledge.html', {
-        'workspace': ws, 'plan': plan, 'bots': bots, 'sources': sources
+    first_chunk = ks.chunks.order_by('id').first()
+    initial_qdrant_url = first_chunk.qdrant_url if first_chunk else ''
+    initial_qdrant_api_key = first_chunk.qdrant_api_key if first_chunk else ''
+
+    return render(request, 'dashboard/partials/knowledge_edit.html', {
+        'workspace': ws, 'ks': ks,
+        'qdrant_url': initial_qdrant_url,
+        'qdrant_api_key': initial_qdrant_api_key,
     })
+
+
+@login_required
+def knowledge_update(request, source_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+
+    messages.info(request, "Processing knowledge update request...")
+    ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
+
+    ks.title = request.POST.get('title', ks.title)
+    ks.source_type = request.POST.get('source_type') or ks.source_type
+    ks.content = request.POST.get('content', ks.content)
+
+    qdrant_url = (request.POST.get('qdrant_url') or '').strip()
+    qdrant_api_key = (request.POST.get('qdrant_api_key') or '').strip()
+
+    if ks.source_type == 'JSON':
+        try:
+            json.loads(ks.content or '')
+        except Exception as e:
+            messages.error(request, f"Invalid JSON content: {e}")
+            if request.headers.get('HX-Request'):
+                return knowledge_edit_form(request, source_id)
+            return redirect('dashboard:knowledge_page')
+
+    try:
+        ks.full_clean()
+        ks.save()
+
+        if qdrant_url and qdrant_api_key:
+            for ch in ks.chunks.all():
+                ch.qdrant_url = qdrant_url
+                ch.qdrant_api_key = qdrant_api_key
+                ch.push_to_qdrant()
+
+        messages.success(request, "Knowledge updated.")
+    except Exception as e:
+        messages.error(request, f"Failed to update knowledge: {e}")
+
+    if request.headers.get('HX-Request'):
+        return partial_knowledge(request)
+    return redirect('dashboard:knowledge_page')
+
+
+@login_required
+def knowledge_delete(request, source_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+
+    ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
+    try:
+        ks.delete()
+        messages.success(request, "Knowledge deleted.")
+    except Exception as e:
+        messages.error(request, f"Failed to delete knowledge: {e}")
+
+    if request.headers.get('HX-Request'):
+        return partial_knowledge(request)
+    return redirect('dashboard:knowledge_page')
+
+
+@login_required
+def chunks_list(request, source_id):
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+    ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
+    chunks = ks.chunks.order_by('id')
+    return render(request, 'dashboard/partials/chunks.html', {
+        'workspace': ws, 'ks': ks, 'chunks': chunks,
+    })
+
+
+@login_required
+def chunk_edit_form(request, source_id, chunk_id):
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+    ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
+    ch = get_object_or_404(Chunk, id=chunk_id, knowledge_source=ks)
+    return render(request, 'dashboard/partials/chunk_edit.html', {
+        'workspace': ws, 'ks': ks, 'chunk': ch
+    })
+
+
+@login_required
+def chunk_update(request, source_id, chunk_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+        
+    messages.info(request, "Processing chunk update request...")
+
+    ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
+    ch = get_object_or_404(Chunk, id=chunk_id, knowledge_source=ks)
+
+    new_text = (request.POST.get('text') or '').strip()
+    qdrant_url = (request.POST.get('qdrant_url') or '').strip()
+    qdrant_api_key = (request.POST.get('qdrant_api_key') or '').strip()
+
+    try:
+        if new_text and new_text != ch.text:
+            ch.text = new_text
+            ch.embedding = None  # triggers re-embed on save()
+
+        if qdrant_url:
+            ch.qdrant_url = qdrant_url
+        if qdrant_api_key:
+            ch.qdrant_api_key = qdrant_api_key
+
+        ch.save()
+
+        if ch.qdrant_url and ch.qdrant_api_key:
+            ch.push_to_qdrant()
+
+        messages.success(request, "Chunk updated.")
+    except Exception as e:
+        messages.error(request, f"Failed to update chunk: {e}")
+
+    return chunks_list(request, source_id)
+
+
+@login_required
+def chunk_delete(request, source_id, chunk_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+
+    ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
+    ch = get_object_or_404(Chunk, id=chunk_id, knowledge_source=ks)
+    messages.info(request, "Processing chunk deletion request...")
+    try:
+        ch.delete()
+        messages.success(request, "Chunk has been successfully deleted!")
+    except Exception as e:
+        messages.error(request, f"Failed to delete chunk: {e}. Please try again or contact support if the issue persists.")
+
+    return chunks_list(request, source_id)
+
+

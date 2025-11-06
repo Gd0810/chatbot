@@ -11,7 +11,8 @@ urlpatterns = [
     path('partial/account/', views.partial_account, name='partial_account'),
     path('partial/plan/', views.partial_plan, name='partial_plan'),
     path('partial/bots/', views.partial_bots, name='partial_bots'),
-    path('partial/knowledge/', views.partial_knowledge, name='partial_knowledge'),
+   
+    
     path('partial/live/', views.partial_live, name='partial_live'),
 
     # Bot actions
@@ -19,6 +20,22 @@ urlpatterns = [
     path('bots/<int:bot_id>/edit/', views.bot_edit, name='bot_edit'),
 
     # Knowledge actions (basic)
+     # Partials (HTMX)
+    path('partial/knowledge/', views.partial_knowledge, name='partial_knowledge'),
+
+    # Full page (for redirect after edits)
+    path('knowledge/', views.knowledge_page, name='knowledge_page'),
+
+    # Knowledge actions
     path('knowledge/add/', views.knowledge_add, name='knowledge_add'),
-    path('knowledge/<int:source_id>/edit/', views.knowledge_edit, name='knowledge_edit'),
+    path('knowledge/<int:source_id>/edit/', views.knowledge_edit_form, name='knowledge_edit_form'),
+    path('knowledge/<int:source_id>/update/', views.knowledge_update, name='knowledge_update'),
+    path('knowledge/<int:source_id>/delete/', views.knowledge_delete, name='knowledge_delete'),
+
+    # Chunk actions
+    path('knowledge/<int:source_id>/chunks/', views.chunks_list, name='chunks_list'),
+    path('knowledge/<int:source_id>/chunks/<int:chunk_id>/edit/', views.chunk_edit_form, name='chunk_edit_form'),
+    path('knowledge/<int:source_id>/chunks/<int:chunk_id>/update/', views.chunk_update, name='chunk_update'),
+    path('knowledge/<int:source_id>/chunks/<int:chunk_id>/delete/', views.chunk_delete, name='chunk_delete'),
+    
 ]

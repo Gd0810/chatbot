@@ -1,0 +1,33 @@
+<!-- templates/dashboard/partials/chunks.html -->
+{% include 'toast.html' %}
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-2">Chunks for: {{ ks.title|default:"(Untitled)" }}</h2>
+  <div class="text-xs text-gray-500 mb-4">{{ ks.bot.name }} • {{ ks.get_source_type_display }} • {{ ks.created_at }}</div>
+
+  <div class="space-y-2">
+    {% for ch in chunks %}
+      <div class="border rounded p-3">
+        <div class="text-sm text-gray-500 mb-1">
+          Chunk #{{ ch.id }} • Vector ID: {{ ch.vector_id|default:"—" }} • Collection: {{ ch.collection_name|default:"—" }}
+        </div>
+        <pre class="text-sm bg-gray-50 p-2 rounded overflow-auto max-h-40">{{ ch.text }}</pre>
+        <div class="flex gap-2 mt-2">
+          <button class="px-3 py-1 border rounded"
+                  hx-get="{% url 'dashboard:chunk_edit_form' ks.id ch.id %}"
+                  hx-target="#main">Edit</button>
+          <form method="post" hx-post="{% url 'dashboard:chunk_delete' ks.id ch.id %}" hx-target="#main">
+            {% csrf_token %}
+            <button class="px-3 py-1 border rounded text-red-600">Delete</button>
+          </form>
+        </div>
+      </div>
+    {% empty %}
+      <div class="text-gray-500">No chunks for this knowledge yet.</div>
+    {% endfor %}
+  </div>
+
+  <div class="mt-4">
+    <button class="px-3 py-1 border rounded"
+            hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main">Back</button>
+  </div>
+</div>

@@ -1,3 +1,5 @@
+<!-- templates/dashboard/partials/account.html (update the Change Password link to load partial via HTMX) -->
+{% include 'toast.html' %}
 <div class="bg-white shadow rounded p-4">
   <h2 class="text-lg font-semibold mb-4">Account</h2>
   <div class="grid grid-cols-2 gap-4">
@@ -11,6 +13,11 @@
     </div>
   </div>
   <div class="mt-4">
-    <a class="text-blue-600" href="/accounts/password_change/">Change Password</a>
+    <a class="text-blue-600"
+       href="#"
+       hx-get="{% url 'accounts:password_change' %}"
+       hx-target="#main">
+      Change Password
+    </a>
   </div>
 </div>

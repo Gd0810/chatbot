@@ -65,3 +65,43 @@ def not_allowed(request):
         'reason': reason,
         'detail': detail
     })
+    
+    
+# accounts/views.py (add/replace this view)
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from django.shortcuts import render
+from .forms import TailwindPasswordChangeForm
+from accounts.models import Workspace  # to render account partial after success
+
+def _get_user_workspace(user):
+    return Workspace.objects.filter(owner=user).order_by('-created_at').first()
+
+@login_required
+def password_change_view(request):
+    """
+    HTMX-friendly password change.
+    - GET: returns the password change partial form.
+    - POST (valid): updates password and returns the updated account panel.
+    - POST (invalid): returns the form partial with errors.
+    """
+    if request.method == 'POST':
+        form = TailwindPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # keep user logged in
+            messages.success(request, "Your password has been updated.")
+
+            # Re-render the account panel into #main
+            ws = _get_user_workspace(request.user)
+            return render(request, 'dashboard/partials/account.html', {
+                'user': request.user,
+                'workspace': ws
+            })
+        else:
+            messages.error(request, "Please correct the errors below.")
+            return render(request, 'accounts/partials/password_change.html', {'form': form})
+    else:
+        form = TailwindPasswordChangeForm(user=request.user)
+        return render(request, 'accounts/partials/password_change.html', {'form': form})

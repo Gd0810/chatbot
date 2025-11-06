@@ -1,0 +1,36 @@
+<!-- templates/dashboard/partials/knowledge_edit.html -->
+{% include 'toast.html' %}
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-4">Edit Knowledge</h2>
+
+  <form method="post"
+        hx-post="{% url 'dashboard:knowledge_update' ks.id %}"
+        hx-target="#main" class="space-y-2">
+    {% csrf_token %}
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <div>
+        <label class="block text-sm text-gray-600">Title</label>
+        <input name="title" value="{{ ks.title|default_if_none:'' }}" class="border rounded px-2 py-1 w-full"/>
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600">Source Type</label>
+        <select name="source_type" class="border rounded px-2 py-1 w-full">
+          <option value="TEXT" {% if ks.source_type == 'TEXT' %}selected{% endif %}>Text</option>
+          <option value="JSON" {% if ks.source_type == 'JSON' %}selected{% endif %}>JSON</option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm text-gray-600">Content</label>
+      <textarea name="content" rows="6" class="border rounded px-2 py-1 w-full">{{ ks.content }}</textarea>
+    </div>
+
+    <div class="flex gap-2 mt-2">
+      <button class="px-4 py-2 bg-blue-600 text-white rounded" type="submit">Save</button>
+      <button class="px-4 py-2 border rounded"
+              hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" type="button">Back</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,33 @@
+<!-- templates/dashboard/partials/chunk_edit.html -->
+{% include 'toast.html' %}
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-4">Edit Chunk #{{ chunk.id }}</h2>
+
+  <form method="post"
+        hx-post="{% url 'dashboard:chunk_update' ks.id chunk.id %}"
+        hx-target="#main" class="space-y-2">
+    {% csrf_token %}
+
+    <div>
+      <label class="block text-sm text-gray-600">Text</label>
+      <textarea name="text" rows="6" class="border rounded px-2 py-1 w-full">{{ chunk.text }}</textarea>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <div>
+        <label class="block text-sm text-gray-600">Qdrant URL</label>
+        <input name="qdrant_url" value="{{ chunk.qdrant_url|default_if_none:'' }}" class="border rounded px-2 py-1 w-full"/>
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600">Qdrant API Key</label>
+        <input name="qdrant_api_key" value="{{ chunk.qdrant_api_key|default_if_none:'' }}" class="border rounded px-2 py-1 w-full"/>
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <button class="px-4 py-2 bg-blue-600 text-white rounded" type="submit">Save</button>
+      <button class="px-4 py-2 border rounded"
+              hx-get="{% url 'dashboard:chunks_list' ks.id %}" hx-target="#main" type="button">Back</button>
+    </div>
+  </form>
+</div>

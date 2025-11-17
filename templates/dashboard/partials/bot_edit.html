@@ -59,4 +59,28 @@
               type="button">Back</button>
     </div>
   </form>
+  <div class="mt-8 p-4 bg-gray-50 rounded border border-gray-200">
+    <h3 class="text-md font-semibold mb-2">Embed This Bot</h3>
+    <p class="text-sm text-gray-600 mb-2">Copy and paste this code into your website to embed the chatbot:</p>
+      <pre id="embed-script-block" class="bg-white border rounded p-3 text-xs overflow-x-auto select-all"><code>&lt;script src="http://{{ request.get_host }}/static/embed/bot.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
+          RedbotLoad('{{ bot.public_key }}');
+          RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));
+        &lt;/script&gt;</code></pre>
+      <button type="button" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs" onclick="copyEmbedScript()">Copy to clipboard</button>
+      <script>
+        function copyEmbedScript() {
+          const block = document.getElementById('embed-script-block');
+          if (!block) return;
+          const code = block.innerText || block.textContent;
+          navigator.clipboard.writeText(code).then(function() {
+            alert('Embed script copied to clipboard!');
+          }, function() {
+            alert('Failed to copy. Please copy manually.');
+          });
+        }
+      </script>
+    <p class="text-xs text-gray-500 mt-2">In production, this will use your actual domain automatically.</p>
+  </div>
+  </form>
 </div>

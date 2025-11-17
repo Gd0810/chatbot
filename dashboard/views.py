@@ -457,5 +457,138 @@ def chunk_delete(request, source_id, chunk_id):
         messages.success(request, "Chunk has been successfully deleted!")
     except Exception as e:
         messages.error(request, f"Failed to delete chunk: {e}. Please try again or contact support if the issue persists.")
+        
+        
+        
+        
+# dashboard/views.py (Bot Styling views)
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseBadRequest
+
+from accounts.models import Workspace
+from bots.models import Bot
+
+def _get_user_workspace(user):
+    return Workspace.objects.filter(owner=user).order_by('-created_at').first()
+
+def _require_operational(request):
+    ws = _get_user_workspace(request.user)
+    if not ws or not ws.approved or not ws.is_operational:
+        messages.error(request, "Workspace not active.")
+        from django.shortcuts import redirect
+        return ws, redirect('accounts:not_allowed')
+    return ws, None
+
+@login_required
+def partial_bot_style(request):
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    bots = Bot.objects.filter(workspace=ws).order_by('name')
+    return render(request, 'dashboard/partials/bot_style_list.html', {'workspace': ws, 'bots': bots})
+
+@login_required
+def bot_style_edit(request, bot_id):
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
+    fonts = [
+        ("Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif", "Inter / System"),
+        ("Segoe UI, Tahoma, Geneva, Verdana, sans-serif", "Segoe UI"),
+        ("Roboto, Arial, sans-serif", "Roboto"),
+        ("Poppins, Arial, sans-serif", "Poppins"),
+        ("Arial, Helvetica, sans-serif", "Arial"),
+        ("Georgia, serif", "Georgia"),
+        ("'Times New Roman', Times, serif", "Times New Roman"),
+        ("'Courier New', Courier, monospace", "Courier New"),
+        ("monospace", "Monospace"),
+    ]
+    return render(request, 'dashboard/partials/bot_style_edit.html', {
+        'bot': bot, 'fonts': fonts
+    })
+
+@login_required
+def bot_style_save(request, bot_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
+
+    # Collect fields
+    bot.ui_primary_color = (request.POST.get('ui_primary_color') or bot.ui_primary_color).strip()
+    # Save reset button setting to workspace
+    ws.enable_reset_button = True if request.POST.get('enable_reset_button') == '1' else False
+    ws.save()
+    bot.ui_bg_color = (request.POST.get('ui_bg_color') or getattr(bot, 'ui_bg_color', '#1E1E2E')).strip()
+    bot.ui_font_family = (request.POST.get('ui_font_family') or bot.ui_font_family).strip()
+    try:
+        size_val = int(request.POST.get('ui_font_size') or bot.ui_font_size)
+        bot.ui_font_size = max(12, min(20, size_val))
+    except Exception:
+        pass
+    bot.ui_welcome_message = (request.POST.get('ui_welcome_message') or bot.ui_welcome_message).strip()
+    bot.ui_sound_enabled = True if request.POST.get('ui_sound_enabled') == 'on' else False
+
+    pos = (request.POST.get('ui_widget_position') or getattr(bot, 'ui_widget_position', 'bottom-right')).strip().lower()
+    if pos not in ('bottom-right','bottom-left'):
+        pos = 'bottom-right'
+    bot.ui_widget_position = pos
+
+    spd = (request.POST.get('ui_animation_speed') or getattr(bot, 'ui_animation_speed', 'normal')).strip().lower()
+    if spd not in ('fast','normal','slow') and not (spd.endswith('ms') or spd.endswith('s')):
+        spd = 'normal'
+    bot.ui_animation_speed = spd
+
+    try:
+        bot.full_clean()
+        bot.save()
+        messages.success(request, "Bot styling updated.")
+    except Exception as e:
+        messages.error(request, f"Failed to save styling: {e}")
+
+    bots = Bot.objects.filter(workspace=ws).order_by('name')
+    return render(request, 'dashboard/partials/bot_style_list.html', {'workspace': ws, 'bots': bots})
 
 
+@login_required
+def partial_enquiries(request):
+    """Display all enquiry form submissions for the workspace with pagination."""
+    from bots.models import BotEnquiry
+    from django.core.paginator import Paginator
+    
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    # Handle POST to toggle enquiry form
+    if request.method == 'POST':
+        enable_form = request.POST.get('enable_enquiry_form') == '1'
+        ws.enable_enquiry_form = enable_form
+        try:
+            ws.save()
+            messages.success(request, f"Enquiry form {('enabled' if enable_form else 'disabled')}.")
+        except Exception as e:
+            messages.error(request, f"Failed to update setting: {e}")
+    
+    # Get all enquiries for this workspace
+    all_enquiries = BotEnquiry.objects.filter(workspace=ws).order_by('-created_at')
+    
+    # Pagination - 10 items per page
+    paginator = Paginator(all_enquiries, 10)
+    page_num = request.GET.get('page', 1)
+    
+    try:
+        page_num = int(page_num)
+    except (ValueError, TypeError):
+        page_num = 1
+    
+    page_obj = paginator.get_page(page_num)
+    enquiries = page_obj.object_list
+    
+    return render(request, 'dashboard/partials/enquiries.html', {
+        'workspace': ws,
+        'enquiries': enquiries,
+        'page_obj': page_obj,
+        'enquiry_count': all_enquiries.count()
+    })

@@ -1,124 +1,1143 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{{ bot.name }} • Chat</title>
+  
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Load Iconify -->
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  
   <style>
-    :root { color-scheme: light; }
-    html, body { height: 100%; }
-    body {
-      margin: 0; padding: 10px; font-family: Arial, sans-serif;
-      display: flex; flex-direction: column; background: #f8fafc;
+    :root {
+      --rb-primary: {{ bot.ui_primary_color|default:"#3A5F3A" }};
+      --rb-primary-dark: {{ bot.ui_primary_color|default:"#2a4a2a" }};
+      --rb-bg: {{ bot.ui_bg_color|default:"#f9fafb" }};
+      --rb-bg-alt: #ffffff;
+      --rb-border: #e5e7eb;
+      --rb-text: #111827;
+      --rb-text-light: #374151;
+      --rb-subtext: #6b7280;
+      --rb-font: {{ bot.ui_font_family|default:"Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" }};
+      --rb-font-size: {{ bot.ui_font_size|default:"14" }}px;
+      --rb-bot-bubble-1: rgba(58, 95, 58, 0.1);
+      --rb-bot-bubble-2: rgba(58, 95, 58, 0.18);
+      --rb-user-bubble-1: rgba(17, 24, 39, 0.06);
+      --rb-user-bubble-2: rgba(17, 24, 39, 0.12);
+      --rb-shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --rb-shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --rb-shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+      --rb-animation-speed: {{ bot.ui_animation_speed|default:"normal" }};
+      color-scheme: light;
     }
-    #messages {
-      flex: 1; overflow-y: auto; border: 1px solid #e5e7eb;
-      background: #fff; border-radius: 8px; padding: 10px; margin-bottom: 10px;
-    }
-    .message { margin-bottom: 10px; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }
-    .user { text-align: right; }
-    .bot { text-align: left; }
-    .sources { font-size: 12px; color: #6b7280; margin-top: 5px; }
-    #input-container { display: flex; gap: 0; }
-    #input {
-      flex: 1; padding: 10px; border: 1px solid #e5e7eb; border-right: 0;
-      border-radius: 8px 0 0 8px; outline: none;
-    }
-    #send-btn {
-      padding: 10px 14px; border: 1px solid #2563eb; background: #2563eb; color: white;
-      border-radius: 0 8px 8px 0; cursor: pointer;
-    }
-    #send-btn:hover { background: #1d4ed8; }
-    #send-btn:disabled, #input:disabled { opacity: .6; cursor: not-allowed; }
-    .center { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; }
-    .title { font-weight: 600; font-size: 18px; margin-bottom: 6px; }
-    .muted { color: #6b7280; }
-    .debug { margin-top: 12px; font-size: 12px; color: #374151; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px; }
-    .debug code { display: block; white-space: pre-wrap; word-break: break-word; }
-  </style>
 
+    /* Animation Speed Variables */
+    :root[data-animation="normal"] {
+      --anim-duration: 0.3s;
+      --anim-duration-fast: 0.2s;
+      --anim-duration-slow: 0.15s;
+    }
+    :root[data-animation="fast"] {
+      --anim-duration: 0.15s;
+      --anim-duration-fast: 0.1s;
+      --anim-duration-slow: 0.08s;
+    }
+    :root[data-animation="slow"] {
+      --anim-duration: 0.5s;
+      --anim-duration-fast: 0.3s;
+      --anim-duration-slow: 0.25s;
+    }
+    :root[data-animation="none"] {
+      --anim-duration: 0s;
+      --anim-duration-fast: 0s;
+      --anim-duration-slow: 0s;
+    }
+
+    * { box-sizing: border-box; }
+    
+    html, body { 
+      height: 100%; 
+      margin: 0; 
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    body {
+      font-family: var(--rb-font); 
+      font-size: var(--rb-font-size);
+      background: var(--rb-bg-alt); 
+      color: var(--rb-text);
+      display: flex; 
+      flex-direction: column; 
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+    }
+
+    /* Header */
+    .rb-header {
+      background: linear-gradient(135deg, var(--rb-primary) 0%, var(--rb-primary-dark) 100%);
+      color: #fff;
+      padding: 16px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--rb-shadow-md);
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    
+    .rb-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    
+    .rb-header .left { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .rb-header .bot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+    .rb-header .title { 
+      font-weight: 600; 
+      font-size: 16px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .rb-header .status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    
+    .rb-header .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16,185,129,0.5);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+    
+    .rb-header .actions { 
+      display: flex; 
+      align-items: center; 
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .rb-header .btn {
+      background: rgba(255,255,255,0.15); 
+      border: 1px solid rgba(255,255,255,0.25); 
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 8px 12px; 
+      border-radius: 10px; 
+      font-size: 13px; 
+      cursor: pointer;
+      transition: all var(--anim-duration-fast) ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .rb-header .btn:hover { 
+      background: rgba(255,255,255,0.25); 
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    .rb-header .btn:active { 
+      transform: translateY(0); 
+      box-shadow: none;
+    }
+    
+    .rb-header .icon {
+      background: transparent; 
+      border: none; 
+      color: #fff; 
+      cursor: pointer; 
+      opacity: 0.9;
+      font-size: 20px; 
+      padding: 8px; 
+      border-radius: 10px;
+      transition: all var(--anim-duration-fast) ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .rb-header .icon:hover { 
+      background: rgba(255,255,255,0.15); 
+      opacity: 1; 
+    }
+
+    /* Messages Area */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--rb-bg);
+      padding: 20px 16px;
+      scroll-behavior: smooth;
+    }
+    
+    #messages::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    #messages::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    #messages::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 4px;
+    }
+    
+    #messages::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
+    }
+
+    /* Message Bubbles */
+    .bubble {
+      max-width: 85%; 
+      padding: 12px 16px; 
+      border-radius: 18px; 
+      margin-bottom: 16px;
+      line-height: 1.5; 
+      word-wrap: break-word; 
+      white-space: pre-wrap;
+      box-shadow: var(--rb-shadow-sm);
+      animation: fadeSlideIn var(--anim-duration) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      position: relative;
+    }
+    
+    @keyframes fadeSlideIn { 
+      from { 
+        opacity: 0; 
+        transform: translateY(12px) scale(0.95); 
+      } 
+      to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      } 
+    }
+    
+    .bubble.user {
+      margin-left: auto; 
+      color: var(--rb-text);
+      background: linear-gradient(135deg, var(--rb-user-bubble-1), var(--rb-user-bubble-2));
+      border-top-right-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    
+    .bubble.bot {
+      margin-right: auto; 
+      color: var(--rb-text);
+      background: linear-gradient(135deg, var(--rb-bot-bubble-1), var(--rb-bot-bubble-2));
+      border-top-left-radius: 6px;
+      border: 1px solid rgba(58, 95, 58, 0.15);
+    }
+    
+    .bubble .from { 
+      font-weight: 600; 
+      display: block; 
+      margin-bottom: 4px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    
+    .bubble .sources { 
+      font-size: 11px; 
+      color: var(--rb-subtext); 
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    
+    .bubble .sources a {
+      color: var(--rb-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .bubble .sources a:hover {
+      text-decoration: underline;
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 16px;
+      max-width: 80px;
+    }
+    
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--rb-primary);
+      animation: typing 1.4s ease-in-out infinite;
+      opacity: 0.6;
+    }
+    
+    .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+      30% { transform: translateY(-10px); opacity: 1; }
+    }
+
+    /* Typing indicator with label and animated dots */
+    .typing-indicator-label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      color: var(--rb-text-light);
+      font-weight: 500;
+    }
+
+    .typing-dot {
+      display: inline-block;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--rb-text-light);
+      animation: dot-bounce 1.4s ease-in-out infinite;
+      margin: 0 2px;
+    }
+
+    .typing-dot:nth-child(1) { animation-delay: 0s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes dot-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* Message timestamp */
+    .message-timestamp {
+      font-size: 11px;
+      color: var(--rb-subtext);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* Enquiry Form */
+    .enquiry-form-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(2px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      border-radius: 16px;
+    }
+
+    .enquiry-form-container.show {
+      display: flex;
+    }
+
+    .enquiry-form-header {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--rb-text);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    #enquiry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    #enquiry-form input {
+      padding: 12px 10px;
+      border: 2px solid var(--rb-border);
+      border-radius: 10px;
+      font-family: var(--rb-font);
+      font-size: var(--rb-font-size);
+      outline: none;
+      background: #fff;
+      color: var(--rb-text);
+      width: 100%;
+      transition: all var(--anim-duration-fast) ease;
+    }
+
+    /* Input with left icon */
+    .enquiry-input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .enquiry-input-icon {
+      position: absolute;
+      left: 250px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 1;
+      transition: color var(--anim-duration-fast) ease;
+    }
+
+    /* Ensure Iconify icons inherit color and have consistent size */
+    .enquiry-input-icon iconify-icon {
+      color: inherit;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Add left padding to inputs to make room for icon */
+    .enquiry-input-wrapper input {
+      padding-left: 48px;
+      padding-right: 14px;
+    }
+
+    /* Icon color changes on input focus */
+    .enquiry-input-wrapper input:focus ~ .enquiry-input-icon,
+    .enquiry-input-wrapper input:hover ~ .enquiry-input-icon {
+      color: var(--rb-primary);
+    }
+
+    #enquiry-form input:focus {
+      border-color: var(--rb-primary);
+      box-shadow: 0 0 0 3px rgba(58, 95, 58, 0.1);
+    }
+
+    #enquiry-form input::placeholder {
+      color: var(--rb-subtext);
+      opacity: 0.7;
+    }
+
+    #enquiry-submit-btn {
+      padding: 12px 16px;
+      background: linear-gradient(135deg, var(--rb-primary) 0%, var(--rb-primary-dark) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: var(--rb-font-size);
+      cursor: pointer;
+      transition: all var(--anim-duration-fast) ease;
+      box-shadow: var(--rb-shadow-sm);
+      margin-top: 8px;
+    }
+
+    #enquiry-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--rb-shadow-md);
+    }
+
+    #enquiry-submit-btn:active {
+      transform: translateY(0);
+      box-shadow: var(--rb-shadow-sm);
+    }
+
+    #enquiry-submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #enquiry-message {
+      font-size: 12px;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 12px;
+    }
+
+    #enquiry-message.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #047857;
+    }
+
+    #enquiry-message.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: #dc2626;
+    }
+
+    /* Input Container */
+    #input-container { 
+      display: flex; 
+      gap: 10px; 
+      padding: 16px;
+      background: var(--rb-bg-alt);
+      border-top: 1px solid var(--rb-border);
+      flex-shrink: 0;
+    }
+    
+    #input {
+      flex: 1; 
+      padding: 14px 16px; 
+      border: 2px solid var(--rb-border);
+      border-radius: 14px; 
+      outline: none;
+      background: #fff;
+      font-family: var(--rb-font);
+      font-size: var(--rb-font-size);
+      transition: all var(--anim-duration-fast) ease;
+      color: var(--rb-text);
+    }
+    
+    #input:focus { 
+      border-color: var(--rb-primary); 
+      box-shadow: 0 0 0 4px rgba(58, 95, 58, 0.1);
+    }
+    
+    #input::placeholder {
+      color: var(--rb-subtext);
+      opacity: 0.7;
+    }
+
+    #send-btn {
+      padding: 12px 16px; 
+      border: none;
+      background: linear-gradient(135deg, var(--rb-primary) 0%, var(--rb-primary-dark) 100%);
+      color: #fff; 
+      border-radius: 14px; 
+      cursor: pointer;
+      min-width: auto;
+      font-weight: 600;
+      font-size: var(--rb-font-size);
+      transition: all var(--anim-duration-fast) ease;
+      box-shadow: var(--rb-shadow-sm);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #send-btn iconify-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #send-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.4s ease;
+    }
+    
+    #send-btn:hover::before {
+      left: 100%;
+    }
+    
+    #send-btn:hover { 
+      transform: translateY(-2px);
+      box-shadow: var(--rb-shadow-md);
+    }
+    
+    #send-btn:active { 
+      transform: translateY(0); 
+      box-shadow: var(--rb-shadow-sm);
+    }
+    
+    #send-btn:disabled, #input:disabled { 
+      opacity: 0.5; 
+      cursor: not-allowed; 
+      transform: none;
+    }
+
+    /* Empty State */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--rb-subtext);
+    }
+    
+    .empty-state-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rb-bot-bubble-1), var(--rb-bot-bubble-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 32px;
+    }
+    
+    .empty-state-title {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--rb-text);
+      margin-bottom: 8px;
+    }
+    
+    .empty-state-text {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 480px) {
+      .rb-header { padding: 12px; }
+      .rb-header .title { font-size: 15px; }
+      .rb-header .btn { padding: 6px 10px; font-size: 12px; }
+      #messages { padding: 16px 12px; }
+      .bubble { max-width: 90%; padding: 10px 14px; }
+      #input-container { padding: 12px; gap: 8px; }
+      #input { padding: 12px 14px; font-size: 14px; }
+      #send-btn { padding: 12px 16px; min-width: 70px; font-size: 14px; }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Blocked State */
+    .blocked-state {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px;
+      background: var(--rb-bg);
+    }
+    
+    .blocked-state-content {
+      max-width: 300px;
+    }
+    
+    .blocked-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+    
+    .blocked-state-title {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--rb-text);
+    }
+    
+    .blocked-state-text {
+      color: var(--rb-subtext);
+      line-height: 1.5;
+    }
+  </style>
+  
   {{ cfg|json_script:"redbot-config" }}
   {{ debug|json_script:"redbot-debug" }}
+  <script id="redbot-welcome-text" type="application/json">"{{ bot.ui_welcome_message|default:"Hi! How can I help you?"|escapejs }}"</script>
 </head>
-
 <body>
   {% if blocked or not jwt %}
-    <div class="center">
-      <div>
-        <div class="title">Chat Unavailable</div>
-        <div class="muted">{{ block_msg|default:"This chatbot is currently unavailable." }}</div>
-
-        {% if debug_on %}
-          <div class="debug">
-            <div style="font-weight:600; margin-bottom:4px;">Debug (DEV only)</div>
-            <code id="dbg"></code>
-          </div>
-          <script>
-            (function () {
-              const d = JSON.parse(document.getElementById('redbot-debug').textContent);
-              document.getElementById('dbg').textContent = JSON.stringify(d, null, 2);
-              console.log('[Widget Debug]', d);
-            })();
-          </script>
-        {% endif %}
+    <div class="blocked-state">
+      <div class="blocked-state-content">
+        <div class="blocked-state-icon">
+          <span class="iconify" data-icon="mdi:alert-circle" data-width="48"></span>
+        </div>
+        <div class="blocked-state-title">Chat Unavailable</div>
+        <div class="blocked-state-text">{{ block_msg|default:"This chatbot is currently unavailable. Please try again later." }}</div>
       </div>
     </div>
   {% else %}
-    <div id="messages">
-      <div class="message bot"><strong>{{ bot.name }}:</strong> Hi! I'm {{ bot.name }}. How can I help you?</div>
+    <div class="rb-header">
+      <div class="left">
+        <div class="bot-avatar">
+          
+          <iconify-icon icon="fluent:bot-sparkle-28-regular" width="33" height="33" class="iconify"></iconify-icon>
+        </div>
+        <div>
+          <div class="title">{{ bot.name }}</div>
+          
+        </div>
+      </div>
+      <div class="actions">
+          {% if workspace.enable_reset_button %}
+          <button id="rb-reset" class="btn" type="button" title="Reset conversation">
+            <span class="iconify" data-icon="mdi:refresh" data-width="16"></span>
+            <span>Reset</span>
+          </button>
+          {% endif %}
+        <button class="icon" title="Minimize chat" type="button" onclick="parent.postMessage('redbot:close','*')" aria-label="Minimize">
+          <span class="iconify" data-icon="mdi:window-minimize" data-width="20"></span>
+        </button>
+      </div>
     </div>
 
-    <div id="input-container">
-      <input id="input" type="text" placeholder="Type your message..." />
-      <button id="send-btn" type="button">Send</button>
+    <div id="messages"></div>
+
+    {% if enquiry_form_enabled %}
+    <div id="enquiry-form-container" class="enquiry-form-container">
+      <div class="enquiry-form-header">Please introduce yourself:</div>
+      <form id="enquiry-form">
+        <div class="enquiry-input-wrapper">
+          <input 
+            id="enquiry-name" 
+            type="text" 
+            placeholder="Enter your name..." 
+            autocomplete="name"
+            minlength="2"
+            maxlength="50"
+            pattern="[a-zA-Z\s]+"
+            title="Name should contain only letters and spaces"
+            required />
+          <span class="enquiry-input-icon"><iconify-icon icon="fa:user" width="18" height="18"></iconify-icon></span>
+        </div>
+
+        <div class="enquiry-input-wrapper" style="margin-top:10px;">
+          <input 
+            id="enquiry-phone" 
+            type="tel" 
+            placeholder="Enter your phone..." 
+            autocomplete="tel"
+            inputmode="numeric"
+            pattern="[0-9\-\+\s\(\)]+"
+            minlength="7"
+            maxlength="20"
+            title="Phone should contain only numbers, spaces, dashes, +, and parentheses" />
+          <span class="enquiry-input-icon"><iconify-icon icon="iconoir:phone-solid" width="18" height="18"></iconify-icon></span>
+        </div>
+
+        <div class="enquiry-input-wrapper" style="margin-top:10px;">
+          <input 
+            id="enquiry-email" 
+            type="email" 
+            placeholder="Enter your email..." 
+            autocomplete="email"
+            maxlength="100" />
+          <span class="enquiry-input-icon"><iconify-icon icon="garden:email-fill-12" width="18" height="18"></iconify-icon></span>
+        </div>
+
+        <button id="enquiry-submit-btn" type="button" style="margin-top:14px;">Submit</button>
+        <div id="enquiry-message" style="display:none;text-align:center;font-size:12px;margin-top:8px;padding:8px;border-radius:6px;"></div>
+      </form>
     </div>
+    {% endif %}
+
+    <div id="input-container">
+      <input id="input" 
+             type="text" 
+             placeholder="Type your message..." 
+             autocomplete="off"
+             aria-label="Message input" />
+      <button id="send-btn" type="button" aria-label="Send message">
+        <iconify-icon icon="tdesign:send" width="24" height="24"></iconify-icon>
+      </button>
+    </div>
+
+    <audio id="rb-sound" src="{% static 'embed/notify.mp3' %}" preload="auto"></audio>
 
     <script>
       (function () {
         const cfg = JSON.parse(document.getElementById('redbot-config').textContent);
-        console.log('[Widget] jwt length:', (cfg.jwt || '').length);
-
+        // Debug: print server-provided config and workspace reset setting
+        try {
+          console.debug('[redbot.widget] cfg:', cfg);
+          console.debug('[redbot.widget] cfg.workspace_enable_reset_button:', cfg.workspace_enable_reset_button);
+        } catch (e) { /* ignore console errors in some embed contexts */ }
         const messagesDiv = document.getElementById('messages');
         const input = document.getElementById('input');
         const sendBtn = document.getElementById('send-btn');
-
-        const sessionKey = 'redbot_session_' + String(cfg.botId || '');
-        const sessionId = localStorage.getItem(sessionKey) || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
-        localStorage.setItem(sessionKey, sessionId);
-
-        function escapeHtml(str) {
-          return String(str).replace(/[&<>"'`=\/]/g, function (s) {
-            return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#x60;','=':'&#x3D;','/':'&#x2F;'}[s]);
-          });
+        const resetBtn = document.getElementById('rb-reset');
+        // Debug: if config says reset should be shown but element missing, log a warning
+        if (cfg && cfg.workspace_enable_reset_button && !resetBtn) {
+          try { console.warn('[redbot.widget] WARNING: workspace_enable_reset_button is true but reset button element is missing in DOM'); } catch(e) {}
+        }
+        const notify = document.getElementById('rb-sound');
+        
+        // Enquiry form elements (if enabled)
+        const enquiryFormContainer = document.getElementById('enquiry-form-container');
+        const enquiryForm = document.getElementById('enquiry-form');
+        const enquiryNameInput = document.getElementById('enquiry-name');
+        const enquiryPhoneInput = document.getElementById('enquiry-phone');
+        const enquiryEmailInput = document.getElementById('enquiry-email');
+        const enquirySubmitBtn = document.getElementById('enquiry-submit-btn');
+        const enquiryMessage = document.getElementById('enquiry-message');
+        
+        // Enquiry state key for localStorage
+        const enquirySubmittedKey = 'redbot_enquiry_submitted_' + String(cfg.botId || '');
+        
+        // Check if enquiry was already submitted in this session
+        function isEnquirySubmitted() {
+          try {
+            return localStorage.getItem(enquirySubmittedKey) === 'true';
+          } catch(e) { return false; }
+        }
+        
+        // Mark enquiry as submitted
+        function markEnquirySubmitted() {
+          try {
+            localStorage.setItem(enquirySubmittedKey, 'true');
+          } catch(e) {}
+        }
+        
+        // Clear enquiry submission (when resetting chat)
+        function clearEnquirySubmission() {
+          try {
+            localStorage.removeItem(enquirySubmittedKey);
+          } catch(e) {}
+        }
+        
+        // Hide enquiry form if already submitted
+        function initializeEnquiryForm() {
+          if (!enquiryFormContainer) return;
+          
+          if (isEnquirySubmitted()) {
+            // Form was submitted before, keep it hidden
+            enquiryFormContainer.classList.remove('show');
+          } else {
+            // Form not submitted, keep it hidden until user clicks input
+            enquiryFormContainer.classList.remove('show');
+          }
         }
 
-        function addMessage(text, who, sources) {
-          const div = document.createElement('div');
-          div.className = 'message ' + who;
-          const label = who === 'user' ? 'You' : (cfg.botName || 'Bot');
-          div.innerHTML = '<strong>' + escapeHtml(label) + ':</strong> ' + escapeHtml(text);
-          if (Array.isArray(sources) && sources.length) {
-            div.innerHTML += '<div class="sources">Sources: ' + sources.map(s => escapeHtml(String(s))).join(', ') + '</div>';
+        // Show enquiry form as overlay
+        function showEnquiryForm() {
+          if (!enquiryFormContainer) return;
+          if (isEnquirySubmitted()) return; // Don't show if already submitted
+          enquiryFormContainer.classList.add('show');
+          // Auto-focus and select cursor in first field (name)
+          if (enquiryNameInput) {
+            setTimeout(() => {
+              enquiryNameInput.focus();
+              enquiryNameInput.select ? enquiryNameInput.select() : enquiryNameInput.setSelectionRange(0, enquiryNameInput.value.length);
+            }, 50);
           }
-          messagesDiv.appendChild(div);
+        }
+
+        // Hide enquiry form
+        function hideEnquiryForm() {
+          if (!enquiryFormContainer) return;
+          enquiryFormContainer.classList.remove('show');
+        }
+        
+        // Get welcome text from template (like old code)
+        let welcomeText = '';
+        try {
+          const welcomeScript = document.getElementById('redbot-welcome-text');
+          if (welcomeScript && welcomeScript.textContent) {
+            let rawWelcome = JSON.parse(welcomeScript.textContent);
+            if (rawWelcome && rawWelcome.trim().length > 0) {
+              welcomeText = rawWelcome.replace(/{name}/g, cfg.botName || 'Bot');
+            } else {
+              welcomeText = `Hi! I'm ${cfg.botName || 'Bot'}. How can I help you?`;
+            }
+          } else {
+            welcomeText = `Hi! I'm ${cfg.botName || 'Bot'}. How can I help you?`;
+          }
+        } catch(e) {
+          welcomeText = `Hi! I'm ${cfg.botName || 'Bot'}. How can I help you?`;
+        }
+
+        // Apply theme overrides from query params
+        (function applyThemeFromQuery() {
+          try {
+            const p = new URLSearchParams(window.location.search);
+            const root = document.documentElement;
+            
+            // Theme color
+            const theme = p.get('theme');
+            if (theme) {
+              const hex = theme.startsWith('#') ? theme : ('#' + theme);
+              root.style.setProperty('--rb-primary', hex);
+              root.style.setProperty('--rb-primary-dark', adjustBrightness(hex, -15));
+              root.style.setProperty('--rb-bot-bubble-1', hexToRgba(hex, 0.1));
+              root.style.setProperty('--rb-bot-bubble-2', hexToRgba(hex, 0.18));
+            }
+            
+            // Background color
+            const bgColor = p.get('bgcolor');
+            if (bgColor) {
+              const hex = bgColor.startsWith('#') ? bgColor : ('#' + bgColor);
+              root.style.setProperty('--rb-bg', hex);
+            }
+            
+            // Font family - Load from Google Fonts
+            const font = p.get('font');
+            if (font) {
+              const fontName = font.split(',')[0].trim().replace(/['"]/g, '');
+              const link = document.createElement('link');
+              link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName)}:wght@400;500;600;700&display=swap`;
+              link.rel = 'stylesheet';
+              document.head.appendChild(link);
+              root.style.setProperty('--rb-font', font);
+            }
+            
+            // Font size
+            const fontSize = p.get('fontsize');
+            if (fontSize && !isNaN(fontSize)) {
+              root.style.setProperty('--rb-font-size', fontSize + 'px');
+            }
+
+            // Animation speed
+            const animSpeed = p.get('animspeed') || 'normal';
+            root.setAttribute('data-animation', animSpeed);
+          } catch(e) {
+            console.error('Theme application error:', e);
+          }
+        })();
+
+        function adjustBrightness(hex, percent) {
+          hex = hex.replace('#', '');
+          let r = parseInt(hex.substring(0, 2), 16);
+          let g = parseInt(hex.substring(2, 4), 16);
+          let b = parseInt(hex.substring(4, 6), 16);
+          
+          r = Math.max(0, Math.min(255, r + (r * percent / 100)));
+          g = Math.max(0, Math.min(255, g + (g * percent / 100)));
+          b = Math.max(0, Math.min(255, b + (b * percent / 100)));
+          
+          return '#' + 
+            ('0' + Math.round(r).toString(16)).slice(-2) +
+            ('0' + Math.round(g).toString(16)).slice(-2) +
+            ('0' + Math.round(b).toString(16)).slice(-2);
+        }
+
+        function hexToRgba(hex, alpha) {
+          hex = hex.replace('#', '');
+          const r = parseInt(hex.substring(0, 2), 16);
+          const g = parseInt(hex.substring(2, 4), 16);
+          const b = parseInt(hex.substring(4, 6), 16);
+          return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        // Sound toggle
+        const soundEnabled = !!cfg.sound;
+        function playSound() {
+          if (!soundEnabled || !notify) return;
+          try { 
+            notify.currentTime = 0; 
+            notify.play().catch(() => {}); 
+          } catch(e){}
+        }
+
+        // Session + history
+        const sessionKey = 'redbot_session_' + String(cfg.botId || '');
+        const histKey = 'rb_hist_' + String(cfg.botId || '');
+
+        const sessionId = (function() {
+          try {
+            const existing = localStorage.getItem(sessionKey);
+            if (existing) return existing;
+            const sid = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
+            localStorage.setItem(sessionKey, sid);
+            return sid;
+          } catch(e) {
+            return String(Date.now());
+          }
+        })();
+
+        function loadHistory() {
+          try {
+            const raw = localStorage.getItem(histKey);
+            if (!raw) return [];
+            const arr = JSON.parse(raw);
+            return Array.isArray(arr) ? arr : [];
+          } catch(e){ return []; }
+        }
+
+        function saveHistory(arr) {
+          try { localStorage.setItem(histKey, JSON.stringify(arr)); } catch(e){}
+        }
+
+        function clearHistory() {
+          try { localStorage.removeItem(histKey); } catch(e){}
+        }
+
+        function escapeHtml(str) {
+          const div = document.createElement('div');
+          div.textContent = str;
+          return div.innerHTML;
+        }
+
+        function addBubble(who, text, sources) {
+          const wrap = document.createElement('div');
+          wrap.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
+          wrap.setAttribute('role', 'article');
+          wrap.setAttribute('aria-label', who === 'user' ? 'Your message' : 'Bot response');
+          
+          const from = document.createElement('span');
+          from.className = 'from';
+          from.textContent = (who === 'user') ? 'You' : (cfg.botName || 'Bot');
+
+          const body = document.createElement('div');
+          body.innerHTML = escapeHtml(text || '');
+
+          wrap.appendChild(from);
+          wrap.appendChild(body);
+
+          if (Array.isArray(sources) && sources.length) {
+            const src = document.createElement('div');
+            src.className = 'sources';
+            src.innerHTML = '<span class="iconify" data-icon="mdi:paperclip" data-width="12"></span> Sources: ' + sources.map((s, i) => 
+              `<a href="${escapeHtml(s)}" target="_blank" rel="noopener noreferrer">Source ${i + 1}</a>`
+            ).join(', ');
+            wrap.appendChild(src);
+          }
+
+          messagesDiv.appendChild(wrap);
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
-        function setLoading(on) {
-          input.disabled = on;
-          sendBtn.disabled = on;
+        function getFormattedTime() {
+          const now = new Date();
+          let hours = now.getHours();
+          const minutes = String(now.getMinutes()).padStart(2, '0');
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12 || 12;
+          return `${hours}:${minutes}${ampm}`;
+        }
+
+        function removeLastMessageTimestamp() {
+          const timestamps = messagesDiv.querySelectorAll('.message-timestamp');
+          timestamps.forEach(ts => ts.remove());
+        }
+
+        function addTimestampToLastMessage() {
+          removeLastMessageTimestamp();
+          const bubbles = messagesDiv.querySelectorAll('.bubble');
+          if (bubbles.length > 0) {
+            const lastBubble = bubbles[bubbles.length - 1];
+            const ts = document.createElement('div');
+            ts.className = 'message-timestamp';
+            ts.textContent = getFormattedTime();
+            lastBubble.appendChild(ts);
+          }
+        }
+
+        function showTypingIndicator() {
+          const indicator = document.createElement('div');
+          indicator.className = 'bubble bot';
+          indicator.id = 'typing-indicator';
+          
+          const from = document.createElement('span');
+          from.className = 'from';
+          from.textContent = cfg.botName || 'Bot';
+          
+          const label = document.createElement('div');
+          label.className = 'typing-indicator-label';
+          label.innerHTML = `${cfg.botName || 'Bot'} typing<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>`;
+          
+          indicator.appendChild(from);
+          indicator.appendChild(label);
+          messagesDiv.appendChild(indicator);
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+          const indicator = document.getElementById('typing-indicator');
+          if (indicator) indicator.remove();
+        }
+
+        function renderHistory() {
+          messagesDiv.innerHTML = '';
+          const hist = loadHistory();
+          
+          if (!hist.length) {
+            // Use welcomeText from template (same as old code logic)
+            const initial = { who: 'bot', text: welcomeText, sources: [] };
+            saveHistory([initial]);
+            addBubble(initial.who, initial.text, initial.sources);
+            return;
+          }
+          
+          hist.forEach(m => addBubble(m.who, m.text, m.sources || []));
+          // Add timestamp to the last message only
+          addTimestampToLastMessage();
+        }
+
+        function pushToHistory(who, text, sources) {
+          const hist = loadHistory();
+          hist.push({ who, text, sources: sources || [] });
+          saveHistory(hist);
         }
 
         async function sendMessage() {
           const msg = (input.value || '').trim();
           if (!msg) return;
 
-          addMessage(msg, 'user');
+          // Render + store user message
+          removeLastMessageTimestamp();
+          addBubble('user', msg, []);
+          addTimestampToLastMessage();
+          pushToHistory('user', msg, []);
           input.value = '';
           setLoading(true);
+          showTypingIndicator();
 
           try {
             const res = await fetch('/api/chat/', {
@@ -134,26 +1153,255 @@
             let data;
             try { data = await res.json(); } catch { data = { error: 'Invalid JSON from server' }; }
 
-            if (res.ok && data.answer) {
-              addMessage(data.answer, 'bot', data.sources || []);
-            } else if (data && data.answer) {
-              addMessage(data.answer, 'bot');
-            } else {
-              addMessage('⚠️ ' + (data.error || ('HTTP ' + res.status)), 'bot');
+            hideTypingIndicator();
+
+            // Token refresh on expiry
+            if (res.status === 401 && data && (String(data.error || '').toLowerCase().includes('token expired'))) {
+              try {
+                const url = new URL(window.location.href);
+                url.searchParams.set('v', String(Date.now()));
+                window.location.replace(url.toString());
+                return;
+              } catch(e){}
             }
+
+            let answer = data && data.answer ? data.answer : (data && data.error ? '⚠️ ' + data.error : '⚠️ Unexpected response.');
+            const sources = data && Array.isArray(data.sources) ? data.sources : [];
+
+            removeLastMessageTimestamp();
+            addBubble('bot', answer, sources);
+            addTimestampToLastMessage();
+            pushToHistory('bot', answer, sources);
+            playSound();
           } catch (e) {
-            addMessage('⚠️ Connection error. Please try again.', 'bot');
+            hideTypingIndicator();
+            const err = '⚠️ Connection error. Please try again.';
+            removeLastMessageTimestamp();
+            addBubble('bot', err, []);
+            addTimestampToLastMessage();
+            pushToHistory('bot', err, []);
           } finally {
             setLoading(false);
+            // Auto-focus input after sending message
             input.focus();
           }
         }
 
+        function setLoading(on) {
+          input.disabled = on; 
+          sendBtn.disabled = on;
+        }
+
+        // Validation helpers
+        function isValidName(name) {
+          name = (name || '').trim();
+          return name.length >= 2 && /^[a-zA-Z\s]+$/.test(name);
+        }
+
+        function isValidPhone(phone) {
+          phone = (phone || '').trim();
+          if (!phone) return true; // Optional field
+          return /^[0-9\-\+\s\(\)]{7,20}$/.test(phone) && /[0-9]/.test(phone);
+        }
+
+        function isValidEmail(email) {
+          email = (email || '').trim();
+          if (!email) return true; // Optional field
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Enquiry form submission
+        async function submitEnquiry() {
+          const name = (enquiryNameInput?.value || '').trim();
+          const phone = (enquiryPhoneInput?.value || '').trim();
+          const email = (enquiryEmailInput?.value || '').trim();
+
+          // Clear previous error messages
+          if (enquiryMessage) {
+            enquiryMessage.style.display = 'none';
+          }
+
+          // Validation: require at least two fields filled
+          const filledCount = (name ? 1 : 0) + (phone ? 1 : 0) + (email ? 1 : 0);
+          if (filledCount < 2) {
+            if (enquiryMessage) {
+              enquiryMessage.textContent = 'Please fill at least two fields before submitting.';
+              enquiryMessage.className = 'error';
+              enquiryMessage.style.display = 'block';
+            }
+            // Focus first empty field
+            if (!name && enquiryNameInput) { enquiryNameInput.focus(); }
+            else if (!phone && enquiryPhoneInput) { enquiryPhoneInput.focus(); }
+            else if (!email && enquiryEmailInput) { enquiryEmailInput.focus(); }
+            return;
+          }
+
+          // Validate individual fields only if they are filled
+          if (name && !isValidName(name)) {
+            if (enquiryMessage) {
+              enquiryMessage.textContent = 'Name should contain only letters and spaces (min 2 characters).';
+              enquiryMessage.className = 'error';
+              enquiryMessage.style.display = 'block';
+            }
+            if (enquiryNameInput) enquiryNameInput.focus();
+            return;
+          }
+
+          if (phone && !isValidPhone(phone)) {
+            if (enquiryMessage) {
+              enquiryMessage.textContent = 'Phone should contain only numbers and common separators (7-20 characters).';
+              enquiryMessage.className = 'error';
+              enquiryMessage.style.display = 'block';
+            }
+            if (enquiryPhoneInput) enquiryPhoneInput.focus();
+            return;
+          }
+
+          if (email && !isValidEmail(email)) {
+            if (enquiryMessage) {
+              enquiryMessage.textContent = 'Please enter a valid email address (e.g., user@example.com).';
+              enquiryMessage.className = 'error';
+              enquiryMessage.style.display = 'block';
+            }
+            if (enquiryEmailInput) enquiryEmailInput.focus();
+            return;
+          }
+
+          // All validations passed - proceed with submission
+          enquirySubmitBtn.disabled = true;
+
+          try {
+            const res = await fetch('/embed/save-enquiry/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                public_key: cfg.publicKey,
+                name: name || '',
+                phone: phone || '',
+                email: email || ''
+              })
+            });
+
+            const data = await res.json();
+            if (res.ok && data.success) {
+              // Clear form and show success
+              if (enquiryForm) enquiryForm.reset();
+              if (enquiryMessage) {
+                enquiryMessage.textContent = 'Thank you! Your information has been saved. You can now chat.';
+                enquiryMessage.className = 'success';
+                enquiryMessage.style.display = 'block';
+              }
+              // Mark enquiry as submitted in localStorage
+              markEnquirySubmitted();
+              // Hide form after 2 seconds
+              setTimeout(() => {
+                hideEnquiryForm();
+              }, 2000);
+            } else {
+              if (enquiryMessage) {
+                enquiryMessage.textContent = data.error || 'Failed to save information.';
+                enquiryMessage.className = 'error';
+                enquiryMessage.style.display = 'block';
+              }
+            }
+          } catch (e) {
+            if (enquiryMessage) {
+              enquiryMessage.textContent = 'Connection error. Please try again.';
+              enquiryMessage.className = 'error';
+              enquiryMessage.style.display = 'block';
+            }
+          } finally {
+            enquirySubmitBtn.disabled = false;
+          }
+        }
+
+        // Events
         sendBtn.addEventListener('click', sendMessage);
-        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+        
+        // Show enquiry form when user clicks input (if form is enabled and not submitted)
+        input.addEventListener('click', function() {
+          if (enquiryFormContainer && !isEnquirySubmitted()) {
+            showEnquiryForm();
+          }
+        });
+        
+        input.addEventListener('keypress', (e) => {
+          // Show enquiry form on any key press (if form is enabled and not submitted)
+          if (enquiryFormContainer && !isEnquirySubmitted()) {
+            showEnquiryForm();
+          }
+          
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage(); 
+          }
+        });
+
+        if (enquirySubmitBtn) {
+          enquirySubmitBtn.addEventListener('click', submitEnquiry);
+        }
+
+        // Phone input - only allow numbers and common separators
+        if (enquiryPhoneInput) {
+          enquiryPhoneInput.addEventListener('input', function(e) {
+            // Remove any non-numeric and non-separator characters
+            let value = e.target.value.replace(/[^0-9\-\+\s\(\)]/g, '');
+            e.target.value = value;
+          });
+        }
+
+        // Name input - only allow letters and spaces
+        if (enquiryNameInput) {
+          enquiryNameInput.addEventListener('input', function(e) {
+            // Remove any non-letter and non-space characters
+            let value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+            e.target.value = value;
+          });
+        }
+
+        if (resetBtn) {
+          resetBtn.addEventListener('click', function () {
+            if (confirm('Are you sure you want to reset the conversation? This will clear all messages.')) {
+              clearHistory();
+              clearEnquirySubmission(); // Clear enquiry submission state
+              renderHistory();
+              initializeEnquiryForm(); // Hide form on reset
+              hideEnquiryForm(); // Make sure form is hidden
+              input.focus();
+            }
+          });
+        }
+
+        // Init
+        renderHistory();
+        initializeEnquiryForm(); // Initialize enquiry form visibility on page load
         input.focus();
+        
+        // Announce to screen readers
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.className = 'sr-only';
+        document.body.appendChild(announcement);
       })();
     </script>
+    {% comment %} Optional footer rendered when workspace allows and a footer exists {% endcomment %}
+    {% if bot.workspace.bot_footer and bot_footer %}
+      <footer class="rb-footer" style="padding: 4px 45px; text-align: right; background: linear-gradient(to top, #f9fafb 0%, transparent 100%); border-top: 1px solid #e5e7eb;">
+        <p style="margin: 0; line-height: 1.6; display: inline-flex; align-items: center; justify-content: flex-end; width: 100%;">
+          <span style="font-size: 10px; color: #6b7280; font-weight: 400; letter-spacing: 0.5px;">POWERED BY</span>
+          <iconify-icon icon="fluent:bot-sparkle-32-regular" width="21" height="21" style="margin: 0 4px; color: #6b7280;"></iconify-icon>
+          <a href="{{ bot_footer.c_url }}" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style="font-size: 13px; color: #6b7280; text-decoration: none; font-weight: 700; transition: color 0.3s ease;"
+            onmouseover="this.style.color='#111827'" 
+            onmouseout="this.style.color='#6b7280'">
+            {{ bot_footer.c_name }}
+          </a>
+        </p>
+      </footer>
+    {% endif %}
   {% endif %}
 </body>
 </html>

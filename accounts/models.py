@@ -11,6 +11,12 @@ class Workspace(models.Model):
     name = models.CharField(max_length=255)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     approved = models.BooleanField(default=False)
+    # Toggle whether this workspace shows the bot footer in the embedded widget
+    bot_footer = models.BooleanField(default=False)
+    # Toggle whether chatbot shows enquiry form (name/phone/email) to visitors
+    enable_enquiry_form = models.BooleanField(default=False, help_text="Show name/phone/email form to chat visitors")
+    # Toggle whether the bot widget shows the Reset button
+    enable_reset_button = models.BooleanField(default=True, help_text="Show the Reset button in the chat widget")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

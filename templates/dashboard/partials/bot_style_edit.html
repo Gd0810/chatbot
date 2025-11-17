@@ -1,0 +1,519 @@
+{% include 'toast.html' %}
+
+<!-- Load Iconify -->
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="bg-[#F4F6F8] shadow-lg rounded-xl overflow-hidden">
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-[#4C3BCF] to-[#9B7FD7] text-white px-6 py-5">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-white">Customize: {{ bot.name }}</h2>
+        <p class="text-white/80 text-sm mt-1">Design your perfect chatbot experience</p>
+      </div>
+      <button class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"
+              hx-get="{% url 'dashboard:partial_bot_style' %}"
+              hx-target="#main"
+              type="button">
+        <span class="iconify" data-icon="mdi:arrow-left" data-width="18"></span>
+        Back to List
+      </button>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form method="post"
+        hx-post="{% url 'dashboard:bot_style_save' bot.id %}"
+        hx-target="#main"
+        class="p-6">
+    {% csrf_token %}
+
+    <!-- Live Preview Section -->
+    <div class="mb-8 bg-[#FFFFFF] rounded-xl p-6 border-2 border-[#4C3BCF]">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="iconify text-[#4C3BCF]" data-icon="mdi:eye" data-width="24"></span>
+        <h3 class="text-lg font-semibold text-[#0B0C0C]">Live Preview</h3>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-lg max-w-sm mx-auto overflow-hidden" id="live-preview">
+        <div class="preview-header px-4 py-3 flex items-center gap-3" id="preview-header">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg" id="preview-avatar">
+            <span class="iconify" data-icon="mdi:robot" data-width="24"></span>
+          </div>
+          <div>
+            <div class="font-semibold text-white" id="preview-bot-name">{{ bot.name }}</div>
+            <div class="text-xs text-white/80 flex items-center gap-1">
+              <span class="iconify" data-icon="mdi:circle" data-width="8"></span>
+              Online
+            </div>
+          </div>
+        </div>
+        <div class="p-4 min-h-[200px]" id="preview-body" style="background: #f9fafb;">
+          <div class="bubble-bot mb-3" id="preview-bubble">
+            <div class="text-xs font-semibold mb-1 opacity-75">Bot</div>
+            <div id="preview-message">Hi! How can I help you today?</div>
+          </div>
+          <div class="bubble-user">
+            <div class="text-xs font-semibold mb-1 opacity-75 text-right">You</div>
+            <div class="text-right">This looks great!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme Settings -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="iconify text-[#4C3BCF]" data-icon="mdi:palette" data-width="24"></span>
+        <h3 class="text-lg font-semibold text-[#0B0C0C]">Theme & Colors</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Primary Color -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-[#4C4F56]">Primary Color</label>
+          <div class="flex items-center gap-3">
+            <input type="color" 
+                   id="color-picker"
+                   name="ui_primary_color"
+                   value="{{ bot.ui_primary_color|default:'#4C3BCF' }}"
+                   class="w-16 h-16 rounded-lg border-2 border-[#9B7FD7] cursor-pointer shadow-md hover:shadow-lg transition-shadow bg-transparent"
+                   oninput="updatePreview()" />
+            <div class="flex-1">
+              <input type="text" 
+                     id="color-hex"
+                     name="ui_primary_color_text"
+                     value="{{ bot.ui_primary_color|default:'#4C3BCF' }}"
+                     class="w-full px-4 py-3 border-2 border-[#4C3BCF] bg-[#FFFFFF] text-[#0B0C0C] rounded-lg focus:ring-2 focus:ring-[#00C896] focus:border-[#00C896] font-mono text-sm"
+                     placeholder="#4C3BCF"
+                     oninput="updateColorFromHex()" />
+              <div class="text-xs text-[#4C4F56] mt-1">Used for header, buttons, and accents</div>
+            </div>
+          </div>
+          
+          <!-- Quick Color Presets -->
+          <div class="flex gap-2 mt-3 items-center">
+            <div class="text-xs text-[#4C4F56] font-medium">Quick colors:</div>
+            <button type="button" class="w-8 h-8 rounded-full border-2 border-[#9B7FD7] shadow-sm hover:scale-110 transition-transform" 
+                    style="background: #4C3BCF;" onclick="setColor('#4C3BCF')"></button>
+            <button type="button" class="w-8 h-8 rounded-full border-2 border-[#9B7FD7] shadow-sm hover:scale-110 transition-transform" 
+                    style="background: #00C896;" onclick="setColor('#00C896')"></button>
+            <button type="button" class="w-8 h-8 rounded-full border-2 border-[#9B7FD7] shadow-sm hover:scale-110 transition-transform" 
+                    style="background: #9B7FD7;" onclick="setColor('#9B7FD7')"></button>
+            <button type="button" class="w-8 h-8 rounded-full border-2 border-[#9B7FD7] shadow-sm hover:scale-110 transition-transform" 
+                    style="background: #667eea;" onclick="setColor('#667eea')"></button>
+            <button type="button" class="w-8 h-8 rounded-full border-2 border-[#9B7FD7] shadow-sm hover:scale-110 transition-transform" 
+                    style="background: #f43f5e;" onclick="setColor('#f43f5e')"></button>
+            <button type="button" class="w-8 h-8 rounded-full border-2 border-[#9B7FD7] shadow-sm hover:scale-110 transition-transform" 
+                    style="background: #f59e0b;" onclick="setColor('#f59e0b')"></button>
+          </div>
+        </div>
+
+        <!-- Chat Background Color -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-[#4C4F56]">Chat Background Color</label>
+          <div class="flex items-center gap-3">
+            <input type="color" 
+                   id="bg-color-picker"
+                   name="ui_bg_color"
+                   value="{{ bot.ui_bg_color|default:'#f9fafb' }}"
+                   class="w-16 h-16 rounded-lg border-2 border-[#9B7FD7] cursor-pointer shadow-md hover:shadow-lg transition-shadow bg-transparent"
+                   oninput="updatePreview()" />
+            <div class="flex-1">
+              <input type="text" 
+                     id="bg-color-hex"
+                     name="ui_bg_color_text"
+                     value="{{ bot.ui_bg_color|default:'#f9fafb' }}"
+                     class="w-full px-4 py-3 border-2 border-[#4C3BCF] bg-[#FFFFFF] text-[#0B0C0C] rounded-lg focus:ring-2 focus:ring-[#00C896] focus:border-[#00C896] font-mono text-sm"
+                     placeholder="#f9fafb"
+                     oninput="updateBgColorFromHex()" />
+              <div class="text-xs text-[#4C4F56] mt-1">Background color for message area</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typography Settings -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="iconify text-[#4C3BCF]" data-icon="mdi:format-font" data-width="24"></span>
+        <h3 class="text-lg font-semibold text-[#0B0C0C]">Typography</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Font Family -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-[#4C4F56]">Font Family</label>
+          <select id="font-select" 
+                  name="ui_font_family" 
+                  class="w-full px-4 py-3 border-2 border-[#4C3BCF] bg-[#FFFFFF] text-[#0B0C0C] rounded-lg focus:ring-2 focus:ring-[#00C896] focus:border-[#00C896]"
+                  onchange="updatePreview()">
+            <!-- Popular Google fonts (value is CSS font-family string) -->
+            <option value="Inter, system-ui, sans-serif" {% if bot.ui_font_family == "Inter, system-ui, sans-serif" %}selected{% endif %}>Inter (Modern & Clean)</option>
+            <option value="Poppins, sans-serif" {% if bot.ui_font_family == "Poppins, sans-serif" %}selected{% endif %}>Poppins (Bold & Modern)</option>
+            <option value="Outfit, sans-serif" {% if bot.ui_font_family == "Outfit, sans-serif" %}selected{% endif %}>Outfit (Contemporary)</option>
+            <option value="Roboto, sans-serif" {% if bot.ui_font_family == "Roboto, sans-serif" %}selected{% endif %}>Roboto (Classic)</option>
+            <option value="Open Sans, sans-serif" {% if bot.ui_font_family == "Open Sans, sans-serif" %}selected{% endif %}>Open Sans (Friendly)</option>
+            <option value="Lato, sans-serif" {% if bot.ui_font_family == "Lato, sans-serif" %}selected{% endif %}>Lato (Professional)</option>
+            <option value="Nunito, sans-serif" {% if bot.ui_font_family == "Nunito, sans-serif" %}selected{% endif %}>Nunito (Rounded & Soft)</option>
+            <option value="Montserrat, sans-serif" {% if bot.ui_font_family == "Montserrat, sans-serif" %}selected{% endif %}>Montserrat (Geometric)</option>
+            <option value="Raleway, sans-serif" {% if bot.ui_font_family == "Raleway, sans-serif" %}selected{% endif %}>Raleway (Elegant)</option>
+            <option value="Source Sans Pro, sans-serif" {% if bot.ui_font_family == "Source Sans Pro, sans-serif" %}selected{% endif %}>Source Sans Pro (Readable)</option>
+            <option value="Merriweather, serif" {% if bot.ui_font_family == "Merriweather, serif" %}selected{% endif %}>Merriweather (Serif)</option>
+            <option value="Playfair Display, serif" {% if bot.ui_font_family == "Playfair Display, serif" %}selected{% endif %}>Playfair Display (Editorial)</option>
+            <option value="Ubuntu, sans-serif" {% if bot.ui_font_family == "Ubuntu, sans-serif" %}selected{% endif %}>Ubuntu (Friendly)</option>
+            <option value="Rubik, sans-serif" {% if bot.ui_font_family == "Rubik, sans-serif" %}selected{% endif %}>Rubik (Rounded)</option>
+            <option value="Work Sans, sans-serif" {% if bot.ui_font_family == "Work Sans, sans-serif" %}selected{% endif %}>Work Sans (Neutral)</option>
+            <option value="Fira Sans, sans-serif" {% if bot.ui_font_family == "Fira Sans, sans-serif" %}selected{% endif %}>Fira Sans (Tech)</option>
+            <option value="Karla, sans-serif" {% if bot.ui_font_family == "Karla, sans-serif" %}selected{% endif %}>Karla (Humanist)</option>
+            <option value="DM Sans, sans-serif" {% if bot.ui_font_family == "DM Sans, sans-serif" %}selected{% endif %}>DM Sans (Clean)</option>
+            <option value="Inconsolata, monospace" {% if bot.ui_font_family == "Inconsolata, monospace" %}selected{% endif %}>Inconsolata (Monospace)</option>
+            <option value="JetBrains Mono, monospace" {% if bot.ui_font_family == "JetBrains Mono, monospace" %}selected{% endif %}>JetBrains Mono (Developer)</option>
+          </select>
+          <div class="text-xs text-[#4C4F56]">Choose a font that matches your brand</div>
+        </div>
+
+        <!-- Font Size -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-[#4C4F56]">
+            Font Size: <span id="font-size-display" class="font-semibold text-[#4C3BCF]">{{ bot.ui_font_size|default:14 }}px</span>
+          </label>
+          <input type="range" 
+                 id="font-size-slider"
+                 name="ui_font_size"
+                 min="10" 
+                 max="20" 
+                 step="1"
+                 value="{{ bot.ui_font_size|default:14 }}"
+                 class="w-full h-2 bg-[#F4F6F8] rounded-lg appearance-none cursor-pointer accent-[#4C3BCF]"
+                 oninput="updateFontSize(this.value)" />
+          <div class="flex justify-between text-xs text-[#4C4F56]">
+            <span>Small (10px)</span>
+            <span>Medium (15px)</span>
+            <span>Large (20px)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message Settings -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="iconify text-[#4C3BCF]" data-icon="mdi:message-text" data-width="24"></span>
+        <h3 class="text-lg font-semibold text-[#0B0C0C]">Messages & Behavior</h3>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Welcome Message -->
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-[#4C4F56]">Welcome Message</label>
+          <textarea id="welcome-input"
+                    name="ui_welcome_message" 
+                    rows="3"
+                    class="w-full px-4 py-3 border-2 border-[#4C3BCF] bg-[#FFFFFF] text-[#0B0C0C] rounded-lg focus:ring-2 focus:ring-[#00C896] focus:border-[#00C896] resize-none"
+                    placeholder="Hi! I'm {name}. How can I help you?"
+                    oninput="updatePreview()">{{ bot.ui_welcome_message|default:"Hi! I'm {name}. How can I help you?" }}</textarea>
+          <div class="flex items-start gap-2 text-xs text-[#4C4F56] bg-[#F4F6F8] border border-[#4C3BCF] rounded-lg p-3">
+            <span class="iconify" data-icon="mdi:lightbulb" data-width="16"></span>
+            <div>
+              <strong>Tip:</strong> Use <code class="bg-[#FFFFFF] px-1 py-0.5 rounded">{name}</code> placeholder to insert the bot's name automatically.
+              <br>Example: "Hi! I'm {name}. How can I help you?" becomes "Hi! I'm {{ bot.name }}. How can I help you?"
+            </div>
+          </div>
+        </div>
+
+        <!-- Sound Notification -->
+        <div class="bg-[#FFFFFF] rounded-lg p-4 border-2 border-[#4C3BCF]">
+          <div class="flex items-start gap-3">
+            <input id="ui_sound_enabled" 
+                   type="checkbox" 
+                   name="ui_sound_enabled" 
+                   {% if bot.ui_sound_enabled %}checked{% endif %}
+                   class="mt-1 w-5 h-5 text-[#4C3BCF] bg-[#FFFFFF] border-[#9B7FD7] rounded focus:ring-2 focus:ring-[#00C896] cursor-pointer" />
+            <div class="flex-1">
+              <label for="ui_sound_enabled" class="text-sm font-medium text-[#0B0C0C] cursor-pointer flex items-center gap-2">
+                <span class="iconify" data-icon="mdi:bell-ring" data-width="18"></span>
+                Enable notification sound
+              </label>
+              <p class="text-xs text-[#4C4F56] mt-1">Play a subtle sound when the bot sends a new message</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced Settings -->
+    <div class="mb-8">
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-[#FFFFFF] rounded-lg hover:bg-[#F4F6F8] transition-colors border border-[#4C3BCF]">
+          <div class="flex items-center gap-2">
+            <span class="iconify text-[#4C3BCF]" data-icon="mdi:cog" data-width="24"></span>
+            <h3 class="text-lg font-semibold text-[#0B0C0C]">Advanced Settings</h3>
+          </div>
+          <span class="iconify text-[#4C4F56] group-open:rotate-180 transition-transform" data-icon="mdi:chevron-down" data-width="24"></span>
+        </summary>
+        
+        <div class="mt-4 p-4 border-2 border-[#4C3BCF] bg-[#FFFFFF] rounded-lg space-y-4">
+          <!-- Animation Speed -->
+          <div>
+            <label class="block text-sm font-medium text-[#4C4F56] mb-2">Animation Speed</label>
+            <select name="ui_animation_speed" 
+                    class="w-full px-4 py-2 border-2 border-[#4C3BCF] bg-[#FFFFFF] text-[#0B0C0C] rounded-lg focus:ring-2 focus:ring-[#00C896]">
+              <option value="normal" {% if bot.ui_animation_speed == "normal" or not bot.ui_animation_speed %}selected{% endif %}>Normal (Recommended)</option>
+              <option value="fast" {% if bot.ui_animation_speed == "fast" %}selected{% endif %}>Fast</option>
+              <option value="slow" {% if bot.ui_animation_speed == "slow" %}selected{% endif %}>Slow</option>
+              <option value="none" {% if bot.ui_animation_speed == "none" %}selected{% endif %}>None (Accessibility)</option>
+            </select>
+          </div>
+          
+          <!-- Widget Position -->
+          <div>
+            <label class="block text-sm font-medium text-[#4C4F56] mb-2">Widget Position</label>
+            <div class="grid grid-cols-2 gap-3">
+              <button type="button" 
+                      class="p-3 border-2 rounded-lg transition-all {% if bot.ui_widget_position == 'bottom-right' or not bot.ui_widget_position %}border-[#00C896] bg-[#4C3BCF] text-white{% else %}border-[#4C3BCF] bg-[#FFFFFF] text-[#4C4F56]{% endif %}"
+                      onclick="setWidgetPosition('bottom-right', this)">
+                <span class="iconify" data-icon="mdi:dock-bottom" data-width="20"></span>
+                Bottom Right
+              </button>
+              <button type="button" 
+                      class="p-3 border-2 rounded-lg transition-all {% if bot.ui_widget_position == 'bottom-left' %}border-[#00C896] bg-[#4C3BCF] text-white{% else %}border-[#4C3BCF] bg-[#FFFFFF] text-[#4C4F56]{% endif %}"
+                      onclick="setWidgetPosition('bottom-left', this)">
+                <span class="iconify" data-icon="mdi:dock-bottom" data-width="20"></span>
+                Bottom Left
+              </button>
+            </div>
+            <input type="hidden" name="ui_widget_position" id="widget-position-input" value="{{ bot.ui_widget_position|default:'bottom-right' }}">
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- Reset Button Control -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="iconify text-[#4C3BCF]" data-icon="mdi:refresh" data-width="22"></span>
+        <h3 class="text-lg font-semibold text-[#0B0C0C]">Reset Button</h3>
+      </div>
+      <label class="flex items-center gap-3">
+        <input type="checkbox" name="enable_reset_button" id="enable-reset-btn" value="1" {% if bot.workspace.enable_reset_button %}checked{% endif %} class="w-5 h-5 rounded border-2 border-[#4C3BCF] focus:ring-2 focus:ring-[#00C896]">
+        <span class="text-sm text-[#4C4F56]">Show the Reset button in the chat widget</span>
+      </label>
+      <div class="text-xs text-gray-500 mt-2">If disabled, users will not see the Reset button in the chat widget. This can also be controlled by the workspace admin.</div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-3 pt-6 border-t-2 border-[#4C3BCF]">
+      <button type="submit" 
+              class="flex-1 px-6 py-3 bg-[#4C3BCF] hover:bg-[#00C896] text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
+        <span class="iconify" data-icon="mdi:content-save" data-width="20"></span>
+        Save Changes
+      </button>
+      
+      <button type="button"
+              class="px-6 py-3 bg-[#FFFFFF] hover:bg-[#F4F6F8] text-[#0B0C0C] border border-[#4C3BCF] rounded-lg font-semibold transition-all duration-200"
+              hx-get="{% url 'dashboard:partial_bot_style' %}"
+              hx-target="#main">
+        Cancel
+      </button>
+      
+      <button type="button"
+              onclick="resetToDefaults()"
+              class="px-6 py-3 border-2 border-[#4C3BCF] hover:border-[#00C896] text-[#4C4F56] bg-[#FFFFFF] rounded-lg font-semibold transition-all duration-200 flex items-center gap-2">
+        <span class="iconify" data-icon="mdi:refresh" data-width="20"></span>
+        Reset
+      </button>
+    </div>
+  </form>
+
+  <!-- Help Section -->
+  <div class="bg-[#FFFFFF] px-6 py-4 border-t-2 border-[#4C3BCF]">
+    <div class="flex items-start gap-3">
+      <span class="iconify text-[#4C3BCF]" data-icon="mdi:lightbulb-on" data-width="28"></span>
+      <div class="flex-1">
+        <h4 class="font-semibold text-[#0B0C0C] mb-1">Styling Tips</h4>
+        <ul class="text-sm text-[#4C4F56] space-y-1">
+          <li>• Choose colors that match your brand identity for consistency</li>
+          <li>• Test font sizes on mobile devices for readability</li>
+          <li>• Personalized welcome messages improve user engagement</li>
+          <li>• Changes apply immediately to all active widget instances</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #preview-header {
+    background: linear-gradient(135deg, {{ bot.ui_primary_color|default:'#4C3BCF' }} 0%, {{ bot.ui_primary_color|default:'#4C3BCF' }} 100%);
+  }
+  
+  #preview-avatar {
+    background: rgba(255,255,255,0.2);
+  }
+  
+  .bubble-bot, .bubble-user {
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: {{ bot.ui_font_size|default:14 }}px;
+    line-height: 1.5;
+    max-width: 80%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  
+  .bubble-bot {
+    background: linear-gradient(135deg, rgba(76, 59, 207, 0.1), rgba(76, 59, 207, 0.18));
+    border: 1px solid rgba(76, 59, 207, 0.15);
+    margin-right: auto;
+    border-top-left-radius: 6px;
+  }
+  
+  .bubble-user {
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.06), rgba(17, 24, 39, 0.12));
+    margin-left: auto;
+    border-top-right-radius: 6px;
+  }
+</style>
+
+<script>
+  // Live preview updates
+  function updatePreview() {
+    const color = document.getElementById('color-picker').value;
+    const bgColor = document.getElementById('bg-color-picker').value;
+    const font = document.getElementById('font-select').value;
+    const fontSize = document.getElementById('font-size-slider').value;
+    const welcome = document.getElementById('welcome-input').value;
+    
+    // Update hex input fields to match color pickers
+    document.getElementById('color-hex').value = color;
+    document.getElementById('bg-color-hex').value = bgColor;
+    
+    // Update header
+    const header = document.getElementById('preview-header');
+    header.style.background = `linear-gradient(135deg, ${color} 0%, ${color} 100%)`;
+    
+    // Update background color
+    document.getElementById('preview-body').style.background = bgColor;
+    
+    // Update font (and dynamically load Google font family for preview)
+    try {
+      const familyName = (font || '').split(',')[0].replace(/['"]/g, '').trim();
+      if (familyName) {
+        const safeId = 'gf-' + familyName.replace(/\s+/g, '-').toLowerCase();
+        if (!document.getElementById(safeId)) {
+          const link = document.createElement('link');
+          link.id = safeId;
+          link.rel = 'stylesheet';
+          link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(familyName)}:wght@300;400;500;600;700&display=swap`;
+          document.head.appendChild(link);
+          // attempt to wait for font to be available
+          if (document.fonts && document.fonts.load) {
+            document.fonts.load(`1em ${familyName}`).then(function(){
+              document.getElementById('preview-body').style.fontFamily = font;
+            }).catch(function(){
+              document.getElementById('preview-body').style.fontFamily = font;
+            });
+          } else {
+            document.getElementById('preview-body').style.fontFamily = font;
+          }
+        } else {
+          document.getElementById('preview-body').style.fontFamily = font;
+        }
+      } else {
+        document.getElementById('preview-body').style.fontFamily = font;
+      }
+    } catch (e) {
+      document.getElementById('preview-body').style.fontFamily = font;
+    }
+    document.getElementById('preview-body').style.fontSize = fontSize + 'px';
+    
+    // Update welcome message
+    const botName = '{{ bot.name }}';
+    const processedMessage = welcome.replace(/{name}/g, botName);
+    document.getElementById('preview-message').textContent = processedMessage;
+    
+    // Update bubble colors
+    const bubbleBot = document.querySelector('.bubble-bot');
+    const rgba1 = hexToRgba(color, 0.1);
+    const rgba2 = hexToRgba(color, 0.18);
+    const rgba3 = hexToRgba(color, 0.15);
+    bubbleBot.style.background = `linear-gradient(135deg, ${rgba1}, ${rgba2})`;
+    bubbleBot.style.borderColor = rgba3;
+  }
+
+  function updateColorFromHex() {
+    const hexInput = document.getElementById('color-hex');
+    const colorPicker = document.getElementById('color-picker');
+    let hex = hexInput.value.trim();
+    
+    if (!hex.startsWith('#')) hex = '#' + hex;
+    
+    if (/^#[0-9A-F]{6}$/i.test(hex)) {
+      colorPicker.value = hex;
+      updatePreview();
+    }
+  }
+
+  function updateBgColorFromHex() {
+    const hexInput = document.getElementById('bg-color-hex');
+    const colorPicker = document.getElementById('bg-color-picker');
+    let hex = hexInput.value.trim();
+    
+    if (!hex.startsWith('#')) hex = '#' + hex;
+    
+    if (/^#[0-9A-F]{6}$/i.test(hex)) {
+      colorPicker.value = hex;
+      updatePreview();
+    }
+  }
+
+  function updateFontSize(value) {
+    document.getElementById('font-size-display').textContent = value + 'px';
+    updatePreview();
+  }
+
+  function setColor(hex) {
+    document.getElementById('color-picker').value = hex;
+    document.getElementById('color-hex').value = hex;
+    updatePreview();
+  }
+
+  function setWidgetPosition(position, button) {
+    document.getElementById('widget-position-input').value = position;
+    try { console.log('[Bot Style] setWidgetPosition ->', position); } catch (e) {}
+    
+    // Update button styles
+    const buttons = button.parentElement.querySelectorAll('button');
+    buttons.forEach(btn => {
+      btn.classList.remove('border-[#00C896]', 'bg-[#4C3BCF]', 'text-white');
+      btn.classList.add('border-[#4C3BCF]', 'bg-[#FFFFFF]', 'text-[#4C4F56]');
+    });
+    
+    button.classList.remove('border-[#4C3BCF]', 'bg-[#FFFFFF]', 'text-[#4C4F56]');
+    button.classList.add('border-[#00C896]', 'bg-[#4C3BCF]', 'text-white');
+  }
+
+  function hexToRgba(hex, alpha) {
+    hex = hex.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  function resetToDefaults() {
+    if (confirm('Reset all styling to default values? This cannot be undone.')) {
+      document.getElementById('color-picker').value = '#4C3BCF';
+      document.getElementById('color-hex').value = '#4C3BCF';
+      document.getElementById('bg-color-picker').value = '#f9fafb';
+      document.getElementById('bg-color-hex').value = '#f9fafb';
+      document.getElementById('font-select').value = 'Inter, system-ui, sans-serif';
+      document.getElementById('font-size-slider').value = '14';
+      document.getElementById('welcome-input').value = "Hi! I'm {name}. How can I help you?";
+      document.getElementById('ui_sound_enabled').checked = false;
+      updatePreview();
+      updateFontSize(14);
+    }
+  }
+</script>

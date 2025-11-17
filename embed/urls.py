@@ -6,8 +6,10 @@ from . import views
 
 urlpatterns = [
     path('widget/<str:public_key>/', views.widget_iframe, name='widget'),
-    # path('test/', views.test_embed, name='test_page'),
+    path('config/<str:public_key>/', views.bot_config_api, name='bot_config_api'),
+    path('save-enquiry/', views.save_enquiry, name='save_enquiry'),
     path('bot.js', lambda request: serve(request, 'embed/bot.js', document_root=settings.STATIC_ROOT or 'static'), name='bot_js'),
-    path('test/', TemplateView.as_view(template_name='embed/test.html'), name='test_page'),
-    path('testing/', TemplateView.as_view(template_name='testing/ok.html'), name='test_page'),  # Add this# Add this
+    path('test/<str:public_key>/', views.test_embed_page, name='test_page_with_bot'),
+    path('test/', views.test_embed_page, name='test_page'),
+    path('testing/', TemplateView.as_view(template_name='testing/ok.html'), name='test_page'),
 ]

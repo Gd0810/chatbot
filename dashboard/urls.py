@@ -37,5 +37,9 @@ urlpatterns = [
     path('knowledge/<int:source_id>/chunks/<int:chunk_id>/edit/', views.chunk_edit_form, name='chunk_edit_form'),
     path('knowledge/<int:source_id>/chunks/<int:chunk_id>/update/', views.chunk_update, name='chunk_update'),
     path('knowledge/<int:source_id>/chunks/<int:chunk_id>/delete/', views.chunk_delete, name='chunk_delete'),
+    path('partial/bot_style/', views.partial_bot_style, name='partial_bot_style'),
+    path('partial/enquiries/', views.partial_enquiries, name='partial_enquiries'),
+    path('bot/<int:bot_id>/style/', views.bot_style_edit, name='bot_style_edit'),
+    path('bot/<int:bot_id>/style/save/', views.bot_style_save, name='bot_style_save'),
     
 ]

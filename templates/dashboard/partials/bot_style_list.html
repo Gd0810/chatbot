@@ -1,0 +1,121 @@
+{% include 'toast.html' %}
+
+<!-- Load Iconify -->
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="bg-[#F4F6F8] shadow-lg rounded-xl p-6">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h2 class="text-2xl font-bold text-[#0B0C0C]">Bot Styling & Themes</h2>
+      <p class="text-sm text-[#4C4F56] mt-1">Customize the appearance and behavior of your chatbot widgets</p>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    {% for b in bots %}
+      <div class="border-2 border-[#4C3BCF] bg-[#FFFFFF] rounded-xl p-5 hover:border-[#00C896] hover:shadow-lg transition-all duration-200">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <!-- Bot Name & Preview -->
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white shadow-lg"
+                   style="background: linear-gradient(135deg, {{ b.ui_primary_color|default:'#4C3BCF' }} 0%, {{ b.ui_primary_color|default:'#4C3BCF' }} 100%);">
+                <span class="iconify" data-icon="mdi:robot" data-width="28"></span>
+              </div>
+              <div>
+                <div class="text-lg font-semibold text-[#0B0C0C]">{{ b.name }}</div>
+                <div class="text-xs text-[#4C4F56]">ID: {{ b.id }}</div>
+              </div>
+            </div>
+
+            <!-- Theme Details Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+              <!-- Primary Color -->
+              <div class="bg-[#F4F6F8] rounded-lg p-3 border border-[#4C3BCF]">
+                <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
+                  <span class="iconify" data-icon="mdi:palette" data-width="14"></span>
+                  Primary Color
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg shadow-md border-2 border-[#9B7FD7]"
+                       style="background: {{ b.ui_primary_color|default:'#4C3BCF' }};"></div>
+                  <span class="text-sm font-mono text-[#0B0C0C]">{{ b.ui_primary_color|default:'#4C3BCF' }}</span>
+                </div>
+              </div>
+
+              <!-- Font Family -->
+              <div class="bg-[#F4F6F8] rounded-lg p-3 border border-[#4C3BCF]">
+                <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
+                  <span class="iconify" data-icon="mdi:format-font" data-width="14"></span>
+                  Font Family
+                </div>
+                <div class="text-sm text-[#0B0C0C] truncate" title="{{ b.ui_font_family|default:'Inter' }}">
+                  {{ b.ui_font_family|default:'Inter'|truncatechars:20 }}
+                </div>
+              </div>
+
+              <!-- Font Size -->
+              <div class="bg-[#F4F6F8] rounded-lg p-3 border border-[#4C3BCF]">
+                <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
+                  <span class="iconify" data-icon="mdi:format-size" data-width="14"></span>
+                  Font Size
+                </div>
+                <div class="text-sm font-semibold text-[#0B0C0C]">{{ b.ui_font_size|default:14 }}px</div>
+              </div>
+
+              <!-- Sound -->
+              <div class="bg-[#F4F6F8] rounded-lg p-3 border border-[#4C3BCF]">
+                <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
+                  <span class="iconify" data-icon="mdi:volume-high" data-width="14"></span>
+                  Notification Sound
+                </div>
+                <div class="flex items-center gap-2">
+                  {% if b.ui_sound_enabled %}
+                    <span class="iconify text-[#00C896]" data-icon="mdi:bell-ring" data-width="16"></span>
+                    <span class="text-[#00C896] text-sm">Enabled</span>
+                  {% else %}
+                    <span class="iconify text-gray-500" data-icon="mdi:bell-off" data-width="16"></span>
+                    <span class="text-gray-500 text-sm">Disabled</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <!-- Welcome Message -->
+            <div class="bg-[#F4F6F8] rounded-lg p-4 border border-[#4C3BCF]">
+              <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
+                <span class="iconify" data-icon="mdi:message-text" data-width="14"></span>
+                Welcome Message
+              </div>
+              <div class="text-sm text-[#0B0C0C] italic">
+                "{{ b.ui_welcome_message|default:'Hi! How can I help you?'|truncatechars:100 }}"
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex flex-col gap-2 ml-4">
+            <button class="px-4 py-2 bg-[#4C3BCF] hover:bg-[#00C896] text-white rounded-lg font-medium shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2"
+                    hx-get="{% url 'dashboard:bot_style_edit' b.id %}"
+                    hx-target="#main">
+              <span class="iconify" data-icon="mdi:palette-outline" data-width="18"></span>
+              Customize
+            </button>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="text-center py-16 bg-[#FFFFFF] rounded-xl border-2 border-[#4C3BCF]">
+        <div class="mb-4">
+          <span class="iconify text-[#9B7FD7]" data-icon="mdi:robot-outline" data-width="64"></span>
+        </div>
+        <div class="text-xl font-semibold text-[#0B0C0C] mb-2">No Bots Found</div>
+        <div class="text-[#4C4F56] mb-6">Create your first bot to start customizing its appearance</div>
+        <button class="px-6 py-3 bg-[#4C3BCF] hover:bg-[#00C896] text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 inline-flex items-center gap-2">
+          <span class="iconify" data-icon="mdi:plus-circle" data-width="20"></span>
+          Create New Bot
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+</div>

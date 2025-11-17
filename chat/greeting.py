@@ -94,6 +94,7 @@ def _handle_greeting(message, bot=None, workspace=None):
     "oi": f"🇧🇷 Oi! {bot_name} from {workspace_name} — what's up?",
     "ello": f"👋 Ello! {bot_name} from {workspace_name}.",
     "heya": f"😄 Heya! {bot_name} from {workspace_name} here.",
+    "name": f"🪪 I'm {bot_name}, your virtual assistant from {workspace_name}.",
 
     # -------------- FAREWELLS (Short + Casual) --------------
     "bye": f"👋 Bye! Have a great day from all of us at {workspace_name}.",

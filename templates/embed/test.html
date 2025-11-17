@@ -1,17 +1,21 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="UTF-8" />
   <title>AI Website</title>
-<script src="http://localhost:8000/static/embed/bot.js"></script>
 </head>
 
 <body>
   <h1>AI Website</h1>
-  <div id="redbot-chat"></div>
-  <script> RedbotLoad('12377e00d6344f0296eba208daee90fb'); // your bot key </script>
+  
+   <script src="http://127.0.0.1:8000/static/embed/bot.js"></script>
+        <script>
+          RedbotLoad('0267975bea9a461d8a2e7b9cd5a768f9');
+          RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));
+        </script>
 </body>
 
 </html>

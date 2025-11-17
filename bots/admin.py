@@ -3,7 +3,8 @@ from django.contrib import admin
 from django import forms
 from django.utils.html import format_html
 
-from .models import Bot
+from .models import Bot, BotFooter, BotEnquiry
+
 
 class BotAdminForm(forms.ModelForm):
     # Expose a plain text field for API key; stored encrypted
@@ -18,13 +19,17 @@ class BotAdminForm(forms.ModelForm):
         fields = [
             'workspace', 'name', 'preferred_mode',
             'ai_provider', 'ai_model', 'ai_api_key',
-            'allowed_domains', 'is_enabled'
+            'allowed_domains', 'is_enabled',
+            # UI Styling fields
+            'ui_primary_color', 'ui_bg_color', 'ui_font_family', 'ui_font_size',
+            'ui_welcome_message', 'ui_sound_enabled', 'ui_animation_speed', 'ui_widget_position'
         ]
 
     def clean(self):
         cleaned = super().clean()
         # Let model.clean() enforce plan rules (AI fields req/forbidden)
         return cleaned
+
 
 
 @admin.register(Bot)
@@ -98,3 +103,28 @@ class BotAdmin(admin.ModelAdmin):
     def disable_bots(self, request, queryset):
         updated = queryset.update(is_enabled=False)
         self.message_user(request, f"Disabled {updated} bot(s).")
+
+
+@admin.register(BotFooter)
+class BotFooterAdmin(admin.ModelAdmin):
+    """Admin for BotFooter to allow creating/editing the powered-by footer per workspace."""
+    list_display = ['c_name', 'c_url', 'workspace']
+    search_fields = ['c_name', 'workspace__name']
+    list_filter = ['workspace']
+    raw_id_fields = ('workspace',)
+    ordering = ('workspace__name', 'c_name')
+
+
+@admin.register(BotEnquiry)
+class BotEnquiryAdmin(admin.ModelAdmin):
+    """Admin for viewing form submissions from chat visitors."""
+    list_display = ['name', 'phone', 'email', 'workspace', 'created_at']
+    list_filter = ['workspace', 'created_at']
+    search_fields = ['name', 'phone', 'email', 'workspace__name']
+    readonly_fields = ['created_at']
+    raw_id_fields = ('workspace',)
+    ordering = ('-created_at',)
+
+    def has_add_permission(self, request):
+        """Prevent manual creation in admin; only stored from widget form."""
+        return False

@@ -244,3 +244,7 @@ def ChatAPI(request):
 
 def chat_page_view(request):
     return render(request, 'chat.html')
+
+
+
+

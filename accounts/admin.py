@@ -12,8 +12,8 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Workspace)
 class WorkspaceAdmin(admin.ModelAdmin):
-    list_display = ['name', 'owner', 'approved', 'operational', 'active_plan_bundle', 'created_at']
-    list_filter = ['approved', 'owner']
+    list_display = ['name', 'owner', 'approved', 'operational', 'active_plan_bundle', 'created_at', 'enable_reset_button']
+    list_filter = ['approved', 'owner', 'enable_reset_button']
     search_fields = ['name', 'owner__username']
     actions = ['approve_workspaces', 'reject_workspaces']
 

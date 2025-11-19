@@ -5,7 +5,8 @@
 
   <form method="post"
         hx-post="{% url 'dashboard:chunk_update' ks.id chunk.id %}"
-        hx-target="#main" class="space-y-2">
+        hx-target="#main" class="space-y-2"
+        data-processing-message="Processing chunk update request...">
     {% csrf_token %}
 
     <div>

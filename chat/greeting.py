@@ -184,6 +184,25 @@ def _handle_greeting(message, bot=None, workspace=None):
     "fr": f"💯 FR! {bot_name} from {workspace_name} — real talk.",
     "tbh": f"🤔 TBH, I’m just here to help! — {bot_name}",
     "idk": f"😅 IDK either! But I can help you find out — {bot_name}.",
+    "ikr": f"😄 IKR! {bot_name} from {workspace_name} agrees!",
+    "love you": f"🥰 Aww, love you too! {bot_name} from {workspace_name}.",
+    "love": f"🥰 Love you too! {bot_name} from {workspace_name}.",
+    "love u": f"🥰 Love you too! {bot_name} from {workspace_name}.",
+    "love you too": f"🥰 Love you too! {bot_name} from {workspace_name}.",
+    "love u too": f"🥰 Love you too! {bot_name} from {workspace_name}.",
+    "i love you": f"🥰 I love you too! {bot_name} from {workspace_name}.",
+    "i love u": f"🥰 I love you too! {bot_name} from {workspace_name}.",
+    "i love you too": f"🥰 I love you too! {bot_name} from {workspace_name}.",
+    "i love u too": f"🥰 I love you too! {bot_name} from {workspace_name}.",
+    "love you so much": f"🥰 Love you so much too! {bot_name} from {workspace_name}.",
+    "love u so much": f"🥰 Love you so much too! {bot_name} from {workspace_name}.",
+    "love you so much too": f"🥰 Love you so much too! {bot_name} from {workspace_name}.",
+    "love u so much too": f"🥰 Love you so much too! {bot_name} from {workspace_name}.",
+    "i love you so much": f"🥰 I love you so much too! {bot_name} from {workspace_name}.",
+    "i love u so much": f"🥰 I love you so much too! {bot_name} from {workspace_name}.",
+    "i love you so much too": f"🥰 I love you so much too! {bot_name} from {workspace_name}.",
+    "i love u so much too": f"🥰 I love you so much too! {bot_name} from {workspace_name}.",
+    "i love you so much": f"🥰 I love you so much too! {bot_name} from {workspace_name}.",
 
     # -------------- ACKNOWLEDGMENTS (Short + Casual) --------------
     "ok": "👌 Okay!",
@@ -231,9 +250,12 @@ def _handle_greeting(message, bot=None, workspace=None):
     # =====================================================
     # MATCH LOGIC
     # =====================================================
-    for key, reply in responses.items():
-    # use regex word-boundary match
-        if re.search(rf'\b{re.escape(key)}\b', msg):
+    # Sort keys by length (descending) to prioritize more specific matches
+    sorted_keys = sorted(responses.keys(), key=lambda k: -len(k))
+    for key in sorted_keys:
+        reply = responses[key]
+        # Only match if the message is exactly the key
+        if msg == key:
             return reply
 
     return None

@@ -16,8 +16,43 @@ def _build_prompt(user_question: str, retrieved_data: str) -> str:
         "'Sorry, I don’t have relevant information for that.' "
         "Do not invent information or provide general knowledge outside the data.\n\n"
         f"Data:\n{retrieved_data}\n\n"
-        f"Question:\n{user_question}"
+        f"Question:\n{user_question}\n\n"
+        "Important: If the Data includes any web links or labeled pages (for example: 'Service Page: https://...', "
+        "or 'Contact Page: https://...'), include a short 'For more details:' section at the end of your answer listing those links that are relevant. "
+        "If the user specifically asks for contact information, prioritize including contact details and the Contact Page link if present in the Data. "
+        "Keep the answer concise and only use information present in the Data."
     )
+
+
+def _extract_labeled_urls(retrieved_data: str) -> dict:
+    """Extract labeled URLs from retrieved_data.
+
+    Returns a dict like {'service': 'https://...', 'contact': 'https://...', 'others': [..]}.
+    """
+    import re
+    urls = {'service': None, 'contact': None, 'others': []}
+    if not retrieved_data:
+        return urls
+
+    # look for labeled forms first
+    m = re.search(r"Service Page:\s*(https?://\S+)", retrieved_data, re.IGNORECASE)
+    if m:
+        urls['service'] = m.group(1).strip()
+    m = re.search(r"Contact Page:\s*(https?://\S+)", retrieved_data, re.IGNORECASE)
+    if m:
+        urls['contact'] = m.group(1).strip()
+
+    # find any other http(s) links
+    found = re.findall(r"https?://[\w\-./?&=%#]+", retrieved_data)
+    for u in found:
+        if urls['service'] and u == urls['service']:
+            continue
+        if urls['contact'] and u == urls['contact']:
+            continue
+        if u not in urls['others']:
+            urls['others'].append(u)
+
+    return urls
 
 def _call_google_generative(api_key: str, model: str, prompt: str):
     # Google Generative Language API (v1beta) — key typically passed as ?key=API_KEY
@@ -162,14 +197,13 @@ def _call_replicate(api_key: str, model: str, prompt: str):
     # If prediction id provided, user may want to poll — but we keep simple
     return json.dumps(j)
 
+# services.py (replace only the get_ai_response function)
+
 def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None, model: str = 'gpt-4o', bot_id: int = None):
     """
     Main entry: route to provider-specific callers based on the Bot.ai_provider.
-    - user_question: user question string
-    - retrieved_data: the RAG context string (what the assistant must use)
-    - api_key: optional global API key (used if bot doesn't have its own)
-    - model: provider model string (e.g., 'gpt-4o' or 'gemini-2.5-pro')
-    - bot_id: optional Bot id to use stored provider/model/key
+    Appends a clickable 'For more details:' section with hyperlinks if labeled URLs are found
+    in retrieved_data (Service Page / Contact Page / Others).
     """
     try:
         bot = Bot.objects.get(id=bot_id) if bot_id else None
@@ -183,44 +217,43 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         return "⚠️ No API key provided."
 
     prompt = _build_prompt(user_question, retrieved_data)
+    answer_text = ""
 
     try:
         provider = provider.lower()
         if provider == 'google':
             # For Google, model examples: 'gemini-2.5-pro' or 'models/gemini-2.5-pro' accepted
-            return _call_google_generative(used_api_key, model, prompt)
+            answer_text = _call_google_generative(used_api_key, model, prompt)
 
         elif provider == 'openai':
-            return _call_openai(used_api_key, model, prompt)
+            answer_text = _call_openai(used_api_key, model, prompt)
 
         elif provider == 'openrouter':
-            return _call_openrouter(used_api_key, model, prompt)
+            answer_text = _call_openrouter(used_api_key, model, prompt)
 
         elif provider == 'anthropic':
-            return _call_anthropic(used_api_key, model, prompt)
+            answer_text = _call_anthropic(used_api_key, model, prompt)
 
         elif provider == 'cohere':
-            return _call_cohere(used_api_key, model, prompt)
+            answer_text = _call_cohere(used_api_key, model, prompt)
 
         elif provider == 'huggingface':
             # model should be huggingface repo id like "bigscience/bloom" or "meta-llama/Llama-2-13b-chat"
-            return _call_huggingface(used_api_key, model, prompt)
+            answer_text = _call_huggingface(used_api_key, model, prompt)
 
         elif provider == 'replicate':
             # model should be replicate version id (not repo); check Replicate docs for correct value
-            return _call_replicate(used_api_key, model, prompt)
+            answer_text = _call_replicate(used_api_key, model, prompt)
 
         else:
             return f"⚠️ Unsupported or not-yet-implemented AI provider: {provider}"
 
     except requests.HTTPError as e:
-        # Return a friendly explanation and log actual response if needed
         status = getattr(e.response, "status_code", None)
         try:
             body = e.response.text
         except Exception:
             body = "<unavailable>"
-        # Log for server-side debugging
         print(f"HTTPError calling provider {provider}: status={status} body={body}")
         return f"⚠️ AI service error (HTTP {status})."
 
@@ -233,6 +266,99 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         return "⚠️ Received invalid response from AI service."
 
     except Exception as e:
-        # catch-all
         print(f"Unexpected error in get_ai_response: {e}")
         return f"⚠️ Unexpected error: {str(e)}"
+
+    # Post-process: convert plain URLs to clickable links and avoid duplicates
+    try:
+        import re
+        # Normalize to string
+        answer_text = "" if answer_text is None else str(answer_text)
+        link_style = 'style="color:#5A4FCF;text-decoration:underline;font-weight:600" rel="noopener noreferrer" target="_blank"'
+
+        # If the model responded with the 'no relevant information' phrase, try a deterministic
+        # fallback: extract contact/service links, emails, phones, and address from retrieved_data
+        no_info_variants = [
+            "Sorry, I don’t have relevant information for that.",
+            "Sorry, I don't have relevant information for that."
+        ]
+
+        workspace_name = None
+        try:
+            if bot and getattr(bot, 'workspace', None):
+                workspace_name = getattr(bot.workspace, 'name', None)
+        except Exception:
+            workspace_name = None
+
+        if any(v in answer_text for v in no_info_variants):
+            urls = _extract_labeled_urls(retrieved_data)
+            phones = re.findall(r"\+?\d[\d\-\s\(\)]{6,}\d", retrieved_data or "")
+            emails = re.findall(r"[\w\.-]+@[\w\.-]+\.\w+", retrieved_data or "")
+            addr_match = re.search(r"Address[:\-]?\s*(.+)", retrieved_data or "", re.IGNORECASE)
+
+            # If we found any contact-like info, build a concise contact answer
+            if urls.get('contact') or phones or emails or addr_match or urls.get('service') or urls.get('others'):
+                parts = []
+                if phones:
+                    # keep unique in original order
+                    uniq_phones = list(dict.fromkeys(phones))
+                    parts.append("Phones: " + ", ".join(uniq_phones))
+                if emails:
+                    uniq_emails = list(dict.fromkeys(emails))
+                    parts.append("Emails: " + ", ".join(uniq_emails))
+                if addr_match:
+                    parts.append("Address: " + addr_match.group(1).strip())
+
+                # Links (prefer labeled contact/service)
+                links_html = []
+                if urls.get('contact'):
+                    links_html.append(f'Contact Page: <a href="{urls["contact"]}" {link_style}>Check this link</a>')
+                if urls.get('service'):
+                    links_html.append(f'Service Page: <a href="{urls["service"]}" {link_style}>Check this link</a>')
+                for o in urls.get('others', []):
+                    links_html.append(f'<a href="{o}" {link_style}>Check this link</a>')
+
+                if links_html:
+                    parts.append('For more details: ' + ' '.join(links_html))
+
+                # Prepend a short header that is natural when speaking as the bot
+                header = ""
+                if workspace_name:
+                    header = f"Here are the contact details I found for {workspace_name}:\n"
+                else:
+                    header = "Here are the contact details I found:\n"
+
+                answer_text = header + "\n".join(parts)
+
+        # Normalize phrasing: prefer 'Our company' when the model used 'your company'
+        if workspace_name:
+            answer_text = re.sub(r"\b[Yy]our company\b", "Our company", answer_text)
+            answer_text = re.sub(r"\bthis company\b", "our company", answer_text, flags=re.IGNORECASE)
+
+        # 1. Convert plain URLs in answer to clickable links (if not already <a> tags)
+        def make_url_clickable(url_str):
+            # Only convert if it's not already inside an <a> tag
+            if f'href="{url_str}"' in answer_text or f"href='{url_str}'" in answer_text:
+                return f'<a href="{url_str}" {link_style}>{url_str}</a>'
+            return f'<a href="{url_str}" {link_style}>{url_str}</a>'
+
+        # Find all plain URLs (https://...) that are not already in <a> tags
+        plain_urls = re.findall(r'https?://\S+(?=\s|$|<)', answer_text)
+        for url in plain_urls:
+            # Only replace if not already a link
+            if f'href="{url}"' not in answer_text:
+                answer_text = answer_text.replace(url, f'<a href="{url}" {link_style}>{url}</a>')
+
+        # 2. Remove duplicate "For more details:" sections (keep only first)
+        # Split by "For more details:" and rejoin with only one
+        parts = answer_text.split('For more details:')
+        if len(parts) > 1:
+            # Keep first part and only first "For more details:" section
+            answer_text = parts[0] + 'For more details:' + parts[1]
+
+        return answer_text
+
+    except Exception as e:
+        print(f"Post-process error: {e}")
+        # If post-process fails, still return the model's raw answer
+        return answer_text or ""

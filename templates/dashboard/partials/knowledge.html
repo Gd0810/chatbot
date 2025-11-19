@@ -10,7 +10,8 @@
         <h3 class="text-base font-semibold mb-3">AI Knowledge</h3>
 
         <form class="mb-6 space-y-2" method="post"
-              hx-post="{% url 'dashboard:knowledge_add' %}" hx-target="#main">
+              hx-post="{% url 'dashboard:knowledge_add' %}" hx-target="#main"
+              data-processing-message="Processing knowledge addition request...">
           {% csrf_token %}
           <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
             <div class="md:col-span-2">

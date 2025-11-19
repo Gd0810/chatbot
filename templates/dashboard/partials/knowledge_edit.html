@@ -5,7 +5,8 @@
 
   <form method="post"
         hx-post="{% url 'dashboard:knowledge_update' ks.id %}"
-        hx-target="#main" class="space-y-2">
+        hx-target="#main" class="space-y-2"
+        data-processing-message="Processing knowledge update request...">
     {% csrf_token %}
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-2">

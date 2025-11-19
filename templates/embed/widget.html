@@ -1035,7 +1035,12 @@
           from.textContent = (who === 'user') ? 'You' : (cfg.botName || 'Bot');
 
           const body = document.createElement('div');
-          body.innerHTML = escapeHtml(text || '');
+          // For bot messages, allow HTML (for links); for user messages, escape HTML for safety
+          if (who === 'bot') {
+            body.innerHTML = text || '';
+          } else {
+            body.innerHTML = escapeHtml(text || '');
+          }
 
           wrap.appendChild(from);
           wrap.appendChild(body);

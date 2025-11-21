@@ -247,7 +247,6 @@ def knowledge_add(request):
     if bounce:
         return bounce
 
-    messages.info(request, "Processing knowledge addition request...")
     plan = ws.active_plan
     if not plan or (not plan.includes_ai and not plan.includes_qa):
         messages.error(request, "Cannot add knowledge: Your current plan does not include AI or Q&A features. Please upgrade your plan.")
@@ -318,7 +317,6 @@ def knowledge_update(request, source_id):
     if bounce:
         return bounce
 
-    messages.info(request, "Processing knowledge update request...")
     ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
 
     ks.title = request.POST.get('title', ks.title)
@@ -409,8 +407,6 @@ def chunk_update(request, source_id, chunk_id):
     ws, bounce = _require_operational(request)
     if bounce:
         return bounce
-        
-    messages.info(request, "Processing chunk update request...")
 
     ks = get_object_or_404(KnowledgeSource, id=source_id, bot__workspace=ws)
     ch = get_object_or_404(Chunk, id=chunk_id, knowledge_source=ks)

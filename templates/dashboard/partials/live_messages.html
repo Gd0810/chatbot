@@ -1,0 +1,12 @@
+<!-- dashboard/partials/live_messages.html -->
+{% for msg in messages %}
+<div class="flex flex-col {% if msg.sender == 'BOT' %}items-end{% else %}items-start{% endif %}">
+  <div class="max-w-[80%] rounded-lg px-4 py-2 
+              {% if msg.sender == 'BOT' %}bg-blue-600 text-white rounded-br-none{% else %}bg-white border border-gray-200 text-gray-800 rounded-bl-none shadow-sm{% endif %}">
+    <div class="text-sm">{{ msg.text }}</div>
+  </div>
+  <div class="text-[10px] text-gray-400 mt-1 px-1">
+    {% if msg.sender == 'BOT' %}You{% else %}Visitor{% endif %} • {{ msg.timestamp|date:"H:i" }}
+  </div>
+</div>
+{% endfor %}

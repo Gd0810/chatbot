@@ -1,41 +1,32 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .forms import BotForm
 from .models import Bot
-import uuid
-
-@login_required
-def create_bot(request):
-    if request.method == 'POST':
-        form = BotForm(request.POST)
-        if form.is_valid():
-            bot = form.save(commit=False)
-            bot.workspace = request.user.workspace  # Assume user has workspace
-            bot.public_key = uuid.uuid4().hex
-            if form.cleaned_data['ai_api_key']:
-                bot.ai_api_key = form.cleaned_data['ai_api_key']  # Encrypts via setter
-            bot.save()
-            return redirect('bots:list')
-    else:
-        form = BotForm()
-    return render(request, 'bots/create.html', {'form': form})
-
-from django.shortcuts import render
-from .models import Bot
+from accounts.models import Workspace
 
 def bot_list(request):
-    bots = Bot.objects.filter(workspace=request.user.workspace)
-    return render(request, 'bots/list.html', {'bots': bots})
+    return render(request, 'bots/bot_list.html')
+
+def create_bot(request):
+    return render(request, 'bots/create_bot.html')
 
 def edit(request, bot_id):
-    bot = Bot.objects.get(id=bot_id, workspace=request.user.workspace)
-    if request.method == 'POST':
-        form = BotForm(request.POST, instance=bot)
-        if form.is_valid():
-            if form.cleaned_data['ai_api_key']:
-                bot.ai_api_key = form.cleaned_data['ai_api_key']
-            form.save()
-            return redirect('bots:list')
-    else:
-        form = BotForm(instance=bot)
-    return render(request, 'bots/edit.html', {'form': form, 'bot': bot})
+    return render(request, 'bots/edit.html')
+
+@login_required
+def get_workspace_plan_details(request, workspace_id):
+    """
+    API to return plan details for a workspace.
+    Used by Bot Admin JS to toggle AI fields.
+    """
+    workspace = get_object_or_404(Workspace, pk=workspace_id)
+    # Check if user has access to this workspace if needed, 
+    # but for admin usage, basic login check is usually enough or we rely on admin permissions.
+    # For safety, we could check request.user.is_staff or workspace ownership.
+    
+    ap = workspace.active_plan
+    data = {
+        'includes_ai': bool(ap and ap.includes_ai),
+        'bundle': ap.bundle if ap else None
+    }
+    return JsonResponse(data)

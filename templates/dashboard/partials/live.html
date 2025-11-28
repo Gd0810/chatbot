@@ -1,9 +1,26 @@
-{% include 'toast.html' %}
-<div class="bg-white shadow rounded p-4">
-  <h2 class="text-lg font-semibold mb-4">Live Chat</h2>
-  {% if includes_live %}
-    <div>Live Chat module placeholder. Implement operator console here.</div>
-  {% else %}
-    <div class="text-gray-600">Your plan does not include Live Chat.</div>
-  {% endif %}
+<!-- dashboard/partials/live.html -->
+<div class="flex h-[calc(100vh-100px)] bg-white rounded-lg shadow overflow-hidden">
+  <!-- Sidebar: Conversation List -->
+  <div class="w-1/3 border-r border-gray-200 flex flex-col">
+    <div class="p-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+      <h2 class="font-semibold text-gray-700">Live Conversations</h2>
+      <button class="text-xs text-blue-600 hover:underline" 
+              hx-get="{% url 'dashboard:partial_live' %}" 
+              hx-target="#main" 
+              hx-swap="innerHTML">Refresh</button>
+    </div>
+    <div class="flex-1 overflow-y-auto" id="conversation-list"
+         hx-get="{% url 'dashboard:live_chat_list' %}" 
+         hx-trigger="load, every 5s">
+      <!-- Loaded via HTMX -->
+      <div class="p-4 text-center text-gray-500">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="w-2/3 flex flex-col bg-gray-50" id="chat-area">
+    <div class="flex-1 flex items-center justify-center text-gray-400">
+      Select a conversation to start chatting
+    </div>
+  </div>
 </div>

@@ -11,9 +11,15 @@ urlpatterns = [
     path('partial/account/', views.partial_account, name='partial_account'),
     path('partial/plan/', views.partial_plan, name='partial_plan'),
     path('partial/bots/', views.partial_bots, name='partial_bots'),
-   
+    
     
     path('partial/live/', views.partial_live, name='partial_live'),
+
+    path('partial/live/list/', views.live_chat_list, name='live_chat_list'),
+    path('partial/live/<int:conversation_id>/', views.live_chat_detail, name='live_chat_detail'),
+    path('partial/live/<int:conversation_id>/messages/', views.live_chat_messages, name='live_chat_messages'),
+    path('partial/live/<int:conversation_id>/reply/', views.live_chat_reply, name='live_chat_reply'),
+    path('partial/live/<int:conversation_id>/delete/', views.live_chat_delete, name='live_chat_delete'),
 
     # Bot actions
     path('bots/<int:bot_id>/toggle/', views.toggle_bot, name='toggle_bot'),

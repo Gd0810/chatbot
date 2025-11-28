@@ -1,15 +1,20 @@
 # embed/views.py (update: include jwt_exp in cfg and pre-render welcome_text)
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import csrf_exempt
 
 import jwt
 from datetime import timedelta, datetime, timezone as dt_timezone
 from urllib.parse import urlparse
+import json
 
 from bots.models import Bot
+from chat.models import Conversation, Message
+from chat.views import get_relevant_data
+from chat.services import get_ai_response
 
 
 def _host_from_url(url: str) -> str:
@@ -28,6 +33,12 @@ def widget_iframe(request, public_key):
     try:
         bot = Bot.objects.get(public_key=public_key)
         ws = bot.workspace
+
+        # Check if plan includes Live Chat. If so, serve the live widget instead.
+        # This ensures persistent chat history and dashboard visibility.
+        ap = ws.active_plan
+        if ap and ap.includes_live:
+             return live_widget_iframe(request, public_key)
 
         origin = request.GET.get('origin', '') or ''
         origin_host = _host_from_url(origin)
@@ -58,7 +69,6 @@ def widget_iframe(request, public_key):
             block_reason = 'not_approved'
             block_msg = "Workspace is not approved yet."
         elif not ws.is_operational:
-            ap = ws.active_plan
             if ap and ap.term == 'LIMITED' and ap.end_at and timezone.now() > ap.end_at:
                 block_reason = 'out_of_plan'
                 block_msg = "You’re out of plan."
@@ -85,7 +95,6 @@ def widget_iframe(request, public_key):
             exp_ts = payload['exp']
 
         # Debug for page and server
-        ap = ws.active_plan
         debug = {
             'origin': origin,
             'origin_host': origin_host,
@@ -165,6 +174,268 @@ def widget_iframe(request, public_key):
 
 
 @xframe_options_exempt
+def live_widget_iframe(request, public_key):
+    """
+    Serves the live chat widget iframe.
+    Similar to widget_iframe but uses embed/live.html and might have different logic.
+    """
+    try:
+        bot = Bot.objects.get(public_key=public_key)
+        ws = bot.workspace
+
+        origin = request.GET.get('origin', '') or ''
+        origin_host = _host_from_url(origin)
+        request_host = (request.get_host().split(':')[0] or '').lower()
+
+        # Domain allowance logic (same as widget_iframe)
+        allowed = False
+        allowed_by = None
+        if origin and bot.is_origin_allowed(origin):
+            allowed = True; allowed_by = 'allowed_domains'
+        elif origin_host and origin_host == request_host:
+            allowed = True; allowed_by = 'same_origin'
+        elif settings.DEBUG and origin_host and _is_local_host(origin_host):
+            allowed = True; allowed_by = 'debug_local'
+        elif settings.DEBUG and not origin:
+            allowed = True; allowed_by = 'debug_no_origin'
+
+        # Block reasons
+        block_reason = None
+        block_msg = None
+        if not allowed:
+            block_reason = 'domain'
+            block_msg = "This domain is not allowed for this bot."
+        elif not bot.is_enabled:
+            block_reason = 'disabled'
+            block_msg = "This bot is disabled by the owner."
+        elif not ws.approved:
+            block_reason = 'not_approved'
+            block_msg = "Workspace is not approved yet."
+        elif not ws.is_operational:
+            ap = ws.active_plan
+            if ap and ap.term == 'LIMITED' and ap.end_at and timezone.now() > ap.end_at:
+                block_reason = 'out_of_plan'
+                block_msg = "You’re out of plan."
+            else:
+                block_reason = 'inactive'
+                block_msg = "Workspace is not active."
+
+        # Token generation
+        token = None
+        exp_ts = None
+        if block_reason is None:
+            now = datetime.now(dt_timezone.utc)
+            exp = now + timedelta(minutes=30)
+            payload = {
+                'bot_id': bot.id,
+                'public_key': public_key,
+                'iat': int(now.timestamp()),
+                'nbf': int((now - timedelta(seconds=5)).timestamp()),
+                'exp': int(exp.timestamp()),
+            }
+            token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+            if isinstance(token, bytes):
+                token = token.decode('utf-8')
+            exp_ts = payload['exp']
+
+        # Debug info
+        ap = ws.active_plan
+        debug = {
+            'origin': origin,
+            'allowed': allowed,
+            'blocked': bool(block_reason),
+            'block_reason': block_reason,
+            'has_jwt': bool(token),
+        }
+
+        # Welcome text
+        default_welcome = "Hi! I'm {name}. How can I help you?"
+        welcome_raw = bot.ui_welcome_message or default_welcome
+        welcome_text = welcome_raw.replace("{name}", bot.name)
+
+        cfg = {
+            'jwt': token or '',
+            'botId': bot.id,
+            'botName': bot.name,
+            'publicKey': public_key,
+            'origin': origin,
+            'jwt_exp': exp_ts,
+            'sound': bool(bot.ui_sound_enabled),
+            'sound_enabled': bool(bot.ui_sound_enabled),
+            'workspace_enable_reset_button': getattr(ws, 'enable_reset_button', False),
+            'primary_color': bot.ui_primary_color or '',
+            'bg_color': bot.ui_bg_color or '',
+            'font_family': bot.ui_font_family or '',
+            'font_size': bot.ui_font_size or 14,
+            'animation_speed': bot.ui_animation_speed or 'normal',
+            'widget_position': bot.ui_widget_position or 'bottom-right',
+        }
+
+        # Bot footer
+        footer = None
+        try:
+            if getattr(ws, 'bot_footer', False):
+                footer = getattr(ws, 'bot_footers', None)
+                if footer is not None:
+                    footer = footer.first()
+        except Exception:
+            footer = None
+
+        enquiry_form_enabled = getattr(ws, 'enable_enquiry_form', False)
+
+        response = render(request, 'embed/live.html', {
+            'public_key': public_key,
+            'bot': bot,
+            'workspace': ws,
+            'bot_footer': footer,
+            'enquiry_form_enabled': enquiry_form_enabled,
+            'jwt': token,
+            'blocked': bool(block_reason),
+            'block_reason': block_reason,
+            'block_msg': block_msg,
+            'origin': origin,
+            'welcome_text': welcome_text,
+            'cfg': cfg,
+            'debug': debug,
+            'debug_on': settings.DEBUG,
+        })
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
+        return response
+
+    except Bot.DoesNotExist:
+        return HttpResponse("Bot not found", status=404)
+    except Exception as e:
+        return HttpResponse(f"Error: {str(e)}", status=500)
+
+
+@csrf_exempt
+def live_chat_send(request):
+    """
+    API to send a message in live chat.
+    Expects JSON: { jwt, session_id, text }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    try:
+        data = json.loads(request.body)
+        token = data.get('jwt')
+        session_id = data.get('session_id')
+        text = data.get('text', '').strip()
+
+        if not token:
+            return JsonResponse({'error': 'Missing JWT'}, status=401)
+        
+        # Decode JWT
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+            bot_id = payload.get('bot_id')
+        except jwt.ExpiredSignatureError:
+            return JsonResponse({'error': 'Token expired'}, status=401)
+        except jwt.InvalidTokenError:
+            return JsonResponse({'error': 'Invalid token'}, status=401)
+
+        bot = Bot.objects.get(id=bot_id)
+        ws = bot.workspace
+        ap = ws.active_plan
+
+        # Find or create conversation
+        conversation, created = Conversation.objects.get_or_create(
+            bot=bot,
+            session_id=session_id,
+            defaults={'effective_mode': 'AI'} # Default to AI, can be switched
+        )
+
+        # Save User Message
+        Message.objects.create(
+            conversation=conversation,
+            sender='USER',
+            text=text
+        )
+
+        # Trigger AI response if in AI mode and plan includes AI
+        if conversation.effective_mode == 'AI' and ap and ap.includes_ai:
+            try:
+                retrieved_data, source_ids = get_relevant_data(bot, text, top_k=1)
+                answer = get_ai_response(
+                    user_question=text,
+                    retrieved_data=retrieved_data,
+                    api_key=bot.ai_api_key,
+                    model=bot.ai_model,
+                    bot_id=bot.id,
+                )
+                
+                # Save Bot Message
+                Message.objects.create(
+                    conversation=conversation,
+                    sender='BOT',
+                    text=answer,
+                    sources=json.dumps(source_ids) if source_ids else ''
+                )
+            except Exception as e:
+                print(f"AI generation failed: {e}")
+                # Optionally save an error message or fail silently (user just sees no reply)
+
+        return JsonResponse({'success': True})
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+def live_chat_poll(request):
+    """
+    API to poll for new messages.
+    Expects GET: jwt, session_id, last_id (optional)
+    """
+    token = request.GET.get('jwt')
+    session_id = request.GET.get('session_id')
+    last_id = request.GET.get('last_id', 0)
+
+    if not token:
+        return JsonResponse({'error': 'Missing JWT'}, status=401)
+
+    try:
+        # Decode JWT
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+            bot_id = payload.get('bot_id')
+        except jwt.ExpiredSignatureError:
+            return JsonResponse({'error': 'Token expired'}, status=401)
+        except jwt.InvalidTokenError:
+            return JsonResponse({'error': 'Invalid token'}, status=401)
+
+        bot = Bot.objects.get(id=bot_id)
+        
+        try:
+            conversation = Conversation.objects.get(bot=bot, session_id=session_id)
+        except Conversation.DoesNotExist:
+             return JsonResponse({'messages': []})
+
+        messages = Message.objects.filter(
+            conversation=conversation,
+            id__gt=last_id
+        ).order_by('id')
+
+        data = []
+        for msg in messages:
+            data.append({
+                'id': msg.id,
+                'sender': msg.sender,
+                'text': msg.text,
+                'timestamp': msg.timestamp.isoformat(),
+                'sources': msg.sources
+            })
+
+        return JsonResponse({'messages': data})
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@xframe_options_exempt
 def bot_config_api(request, public_key):
     """
     JSON API endpoint that returns bot configuration for embedding.
@@ -174,7 +445,7 @@ def bot_config_api(request, public_key):
     try:
         bot = Bot.objects.get(public_key=public_key)
         return HttpResponse(
-            __import__('json').dumps({
+            json.dumps({
                 'public_key': bot.public_key,
                 'primary_color': bot.ui_primary_color or '',
                 'bg_color': bot.ui_bg_color or '',
@@ -214,8 +485,6 @@ def test_embed_page(request, public_key=None):
     return render(request, 'embed/test.html', {'bot': bot})
 
 
-from django.views.decorators.csrf import csrf_exempt
-
 @csrf_exempt
 def save_enquiry(request):
     """
@@ -229,7 +498,6 @@ def save_enquiry(request):
         return HttpResponse('{"error": "Method not allowed"}', status=405, content_type='application/json')
     
     try:
-        import json
         data = json.loads(request.body)
         public_key = data.get('public_key', '')
         name = data.get('name', '').strip()
@@ -254,7 +522,7 @@ def save_enquiry(request):
                 email=email or None
             )
             return HttpResponse(
-                __import__('json').dumps({'success': True, 'enquiry_id': enquiry.id}),
+                json.dumps({'success': True, 'enquiry_id': enquiry.id}),
                 content_type='application/json'
             )
         else:

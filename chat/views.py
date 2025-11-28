@@ -44,7 +44,7 @@ def embed_text(text: str):
     return emb.tolist()
 
 
-def _get_relevant_data(bot, user_question: str, top_k: int = 3):
+def get_relevant_data(bot, user_question: str, top_k: int = 3):
     """Retrieve semantically relevant chunks from Qdrant Cloud."""
     if not user_question:
         return "", []
@@ -227,7 +227,7 @@ def ChatAPI(request):
 
 
         # Retrieve knowledge and call AI
-        retrieved_data, source_ids = _get_relevant_data(bot_obj, message, top_k=1)
+        retrieved_data, source_ids = get_relevant_data(bot_obj, message, top_k=1)
         answer = get_ai_response(
             user_question=message,
             retrieved_data=retrieved_data,

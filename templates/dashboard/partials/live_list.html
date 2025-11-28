@@ -1,0 +1,42 @@
+<!-- dashboard/partials/live_list.html -->
+{% for conv in conversations %}
+<div class="p-3 border-b border-gray-100 hover:bg-blue-50 transition-colors {% if selected_id == conv.id %}bg-blue-50 border-l-4 border-l-blue-500{% endif %} group relative">
+  <div class="cursor-pointer"
+       hx-get="{% url 'dashboard:live_chat_detail' conv.id %}"
+       hx-target="#chat-area"
+       hx-swap="innerHTML">
+    <div class="flex justify-between items-start">
+      <div class="font-medium text-gray-800 truncate w-32">
+        {{ conv.session_id|truncatechars:10 }}
+      </div>
+      <div class="text-xs text-gray-400">
+        {{ conv.updated_at|timesince }} ago
+      </div>
+    </div>
+    <div class="text-xs text-gray-500 mt-1 truncate">
+      {{ conv.last_message|default:"No messages" }}
+    </div>
+    <div class="mt-2 flex gap-1">
+      <span class="px-1.5 py-0.5 bg-green-100 text-green-700 text-[10px] rounded">Live</span>
+      <span class="px-1.5 py-0.5 bg-gray-100 text-gray-600 text-[10px] rounded">{{ conv.bot.name }}</span>
+    </div>
+  </div>
+  
+  <!-- Delete Button -->
+  <button class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500 hover:bg-red-600 text-white rounded p-1.5"
+          hx-delete="{% url 'dashboard:live_chat_delete' conv.id %}"
+          hx-confirm="Are you sure you want to delete this conversation?"
+          hx-target="#conversation-list"
+          hx-swap="innerHTML"
+          title="Delete conversation"
+          onclick="event.stopPropagation()">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+    </svg>
+  </button>
+</div>
+{% empty %}
+<div class="p-8 text-center text-gray-400 text-sm">
+  No active live conversations.
+</div>
+{% endfor %}

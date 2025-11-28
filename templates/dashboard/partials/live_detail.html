@@ -1,0 +1,336 @@
+<!-- dashboard/partials/live_detail.html -->
+
+
+
+<div class="flex-1 flex flex-col h-full">
+  <!-- Header -->
+  <div class="p-4 bg-white border-b border-gray-200 flex justify-between items-center shadow-sm">
+    <div>
+      <div class="font-semibold text-gray-800">Session: {{ conversation.session_id }}</div>
+      <div class="text-xs text-gray-500">Bot: {{ conversation.bot.name }}</div>
+      <div class="text-xs" id="connection-status">
+        <span class="inline-block w-2 h-2 rounded-full bg-gray-400 mr-1"></span>
+        <span>Connecting...</span>
+      </div>
+      <div class="text-xs text-blue-500 italic mt-1 h-4" id="admin-typing-indicator" style="display:none;">Visitor is typing...</div>
+    </div>
+    <div class="flex gap-2">
+        <!-- Optional actions like End Chat -->
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="flex-1 overflow-y-auto p-4 space-y-4" id="admin-messages">
+       {% include 'dashboard/partials/live_messages.html' %}
+  </div>
+
+  <!-- Input -->
+  <div class="p-4 bg-white border-t border-gray-200">
+    <form id="admin-reply-form">
+      <div class="flex gap-2 relative items-center">
+        <!-- Emoji Picker Container -->
+        <div id="admin-emoji-picker" style="display:none; position: absolute; bottom: 100%; left: 0; margin-bottom: 10px; z-index: 50;"></div>
+        
+        <!-- Emoji Button -->
+       <button type="button" id="admin-emoji-btn"
+style="
+    background: #f1f5f9;
+    border: none;
+    padding: 5px;
+    border-radius: 7px;
+    cursor: pointer;
+    color: #6b7280;
+    transition: all 0.3s ease;
+"
+onmouseover="this.style.background='#f1f5f9'; this.style.color='#2563eb';"
+
+>
+    <iconify-icon icon="line-md:emoji-smile-filled" width="24" height="24"></iconify-icon>
+</button>
+
+
+        <input type="text" name="text" id="admin-message-input"
+               class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="Type a reply..." required autocomplete="off">
+        <button type="submit" id="admin-send-btn"
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+          Send
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script>
+(function() {
+  'use strict';
+  
+  const conversationId = {{ conversation.id }};
+  const sessionId = '{{ conversation.session_id }}';
+  const publicKey = '{{ conversation.bot.public_key }}';
+  const messagesDiv = document.getElementById('admin-messages');
+  const form = document.getElementById('admin-reply-form');
+  const input = document.getElementById('admin-message-input');
+  const sendBtn = document.getElementById('admin-send-btn');
+  const statusDiv = document.getElementById('connection-status');
+  const typingIndicator = document.getElementById('admin-typing-indicator');
+  
+  let ws = null;
+  let reconnectAttempts = 0;
+  let shouldReconnect = true; // Flag to control reconnection
+  let typingTimeout = null;
+  let showTypingTimeout = null;
+  const MAX_RECONNECT_ATTEMPTS = 5;
+  
+  // Typing indicator sender
+  if (input) {
+      input.addEventListener('input', () => {
+          if (!typingTimeout) {
+              if (ws && ws.readyState === WebSocket.OPEN) {
+                  ws.send(JSON.stringify({
+                      type: 'typing',
+                      sender: 'BOT',
+                      agent_name: '{{ conversation.bot.name }}'
+                  }));
+              }
+              typingTimeout = setTimeout(() => {
+                  typingTimeout = null;
+              }, 2000);
+          }
+      });
+  }
+  
+  function updateStatus(connected) {
+    if (connected) {
+      statusDiv.innerHTML = '<span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span><span class="text-green-600">Connected</span>';
+    } else {
+      statusDiv.innerHTML = '<span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-1"></span><span class="text-red-600">Disconnected</span>';
+    }
+  }
+  
+  function connectWebSocket() {
+    if (ws && (ws.readyState === WebSocket.CONNECTING || ws.readyState === WebSocket.OPEN)) {
+      return;
+    }
+    
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/ws/chat/${publicKey}/${sessionId}/?role=agent`;
+    
+    console.log('[Dashboard] Connecting to:', wsUrl);
+    
+    try {
+      ws = new WebSocket(wsUrl);
+      
+      ws.onopen = function() {
+        console.log('[Dashboard] WebSocket connected');
+        reconnectAttempts = 0;
+        updateStatus(true);
+        if (input) input.disabled = false;
+        if (sendBtn) sendBtn.disabled = false;
+      };
+      
+      ws.onmessage = function(event) {
+        console.log('[Dashboard] Message received:', event.data);
+        
+        try {
+          const data = JSON.parse(event.data);
+          
+          if (data.type === 'chat_message') {
+            // Add message to UI
+            addMessageToUI(data.sender, data.text, data.timestamp);
+            // Hide typing indicator immediately
+            if (typingIndicator) typingIndicator.style.display = 'none';
+          } else if (data.type === 'typing' && data.sender === 'USER') {
+             if (typingIndicator) {
+                 typingIndicator.style.display = 'block';
+                 if (showTypingTimeout) clearTimeout(showTypingTimeout);
+                 showTypingTimeout = setTimeout(() => {
+                     typingIndicator.style.display = 'none';
+                 }, 3000);
+             }
+          }
+        } catch (e) {
+          console.error('[Dashboard] Failed to parse message:', e);
+        }
+      };
+      
+      ws.onerror = function(error) {
+        console.error('[Dashboard] WebSocket error:', error);
+      };
+      
+      ws.onclose = function(event) {
+        console.log('[Dashboard] WebSocket closed:', event.code);
+        ws = null;
+        updateStatus(false);
+        
+        if (input) input.disabled = true;
+        if (sendBtn) sendBtn.disabled = true;
+        
+        // Only attempt reconnection if we should (not manually disconnected)
+        if (shouldReconnect && reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+          const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+          reconnectAttempts++;
+          console.log(`[Dashboard] Reconnecting in ${delay}ms (attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
+          setTimeout(connectWebSocket, delay);
+        }
+      };
+    } catch (e) {
+      console.error('[Dashboard] Failed to create WebSocket:', e);
+    }
+  }
+  
+  // Cleanup function to properly close WebSocket
+  function cleanup() {
+    console.log('[Dashboard] Cleaning up WebSocket for session:', sessionId);
+    shouldReconnect = false; // Prevent reconnection attempts
+    if (ws) {
+      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+        ws.close();
+      }
+      ws = null;
+    }
+  }
+  
+  // Clean up any previous session's WebSocket before registering this one
+  if (typeof window.cleanupDashboardWebSocket === 'function') {
+    console.log('[Dashboard] Cleaning up previous session');
+    window.cleanupDashboardWebSocket();
+  }
+  
+  // Register cleanup function globally for this session
+  window.cleanupDashboardWebSocket = cleanup;
+  
+  function addMessageToUI(sender, text, timestamp) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = sender === 'USER' ? 'flex justify-start' : 'flex justify-end';
+    
+    const bubble = document.createElement('div');
+    bubble.className = sender === 'USER' 
+      ? 'bg-gray-100 text-gray-800 px-4 py-2 rounded-lg max-w-md'
+      : 'bg-blue-600 text-white px-4 py-2 rounded-lg max-w-md';
+    
+    const textDiv = document.createElement('div');
+    textDiv.textContent = text;
+    bubble.appendChild(textDiv);
+    
+    if (timestamp) {
+      const timeDiv = document.createElement('div');
+      timeDiv.className = 'text-xs mt-1 opacity-75';
+      timeDiv.textContent = new Date(timestamp).toLocaleTimeString();
+      bubble.appendChild(timeDiv);
+    }
+    
+    messageDiv.appendChild(bubble);
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+  
+  function sendMessage(text) {
+    if (!text || !text.trim()) return;
+    
+    text = text.trim();
+    
+    if (!ws || ws.readyState !== WebSocket.OPEN) {
+      console.error('[Dashboard] WebSocket not connected');
+      alert('Connection lost. Please refresh the page.');
+      return;
+    }
+    
+    // Send via WebSocket
+    try {
+      ws.send(JSON.stringify({
+        type: 'chat_message',
+        text: text,
+        sender: 'BOT'  // Mark as BOT message from dashboard
+      }));
+      
+      // Clear input
+      if (input) input.value = '';
+    } catch (e) {
+      console.error('[Dashboard] Failed to send message:', e);
+      alert('Failed to send message. Please try again.');
+    }
+  }
+  
+  // Form submit handler
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (input) sendMessage(input.value);
+    });
+  }
+  
+  // Emoji Picker Logic
+  const emojiBtn = document.getElementById('admin-emoji-btn');
+  const emojiPickerContainer = document.getElementById('admin-emoji-picker');
+  let emojiClickHandler = null;
+  let documentClickHandler = null;
+  
+  if (emojiBtn && emojiPickerContainer) {
+    // Clear any existing picker
+    emojiPickerContainer.innerHTML = '';
+    emojiPickerContainer.style.display = 'none';
+    
+    // Wait for EmojiMart to load
+    const initPicker = () => {
+        if (typeof EmojiMart === 'undefined') {
+            setTimeout(initPicker, 100);
+            return;
+        }
+        
+        try {
+            const picker = new EmojiMart.Picker({
+                onEmojiSelect: (emoji) => {
+                    if (input) {
+                        const start = input.selectionStart;
+                        const end = input.selectionEnd;
+                        const text = input.value;
+                        const before = text.substring(0, start);
+                        const after = text.substring(end, text.length);
+                        input.value = before + emoji.native + after;
+                        input.selectionStart = input.selectionEnd = start + emoji.native.length;
+                        input.focus();
+                    }
+                },
+                set: 'native',
+                theme: 'light',
+                previewPosition: 'none',
+                skinTonePosition: 'none'
+            });
+            
+            emojiPickerContainer.appendChild(picker);
+            
+            emojiClickHandler = (e) => {
+                e.stopPropagation();
+                const isVisible = emojiPickerContainer.style.display === 'block';
+                emojiPickerContainer.style.display = isVisible ? 'none' : 'block';
+            };
+            
+            documentClickHandler = (e) => {
+                if (emojiPickerContainer.style.display === 'block' && 
+                    !emojiPickerContainer.contains(e.target) && 
+                    !emojiBtn.contains(e.target)) {
+                    emojiPickerContainer.style.display = 'none';
+                }
+            };
+            
+            emojiBtn.addEventListener('click', emojiClickHandler);
+            document.addEventListener('click', documentClickHandler);
+        } catch (e) {
+            console.error('[Dashboard] Failed to initialize emoji picker:', e);
+        }
+    };
+    
+    initPicker();
+  }
+
+  // Connect on load
+  connectWebSocket();
+  
+  // Auto-scroll to bottom on load
+  if (messagesDiv) {
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+})();
+</script>

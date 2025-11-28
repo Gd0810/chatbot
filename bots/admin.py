@@ -31,7 +31,6 @@ class BotAdminForm(forms.ModelForm):
         return cleaned
 
 
-
 @admin.register(Bot)
 class BotAdmin(admin.ModelAdmin):
     form = BotAdminForm
@@ -65,24 +64,15 @@ class BotAdmin(admin.ModelAdmin):
         return f"{obj.public_key[:8]}..." if obj.public_key else "Not generated"
     public_key_short.short_description = 'Public Key'
 
+    class Media:
+        js = ('js/bot_admin.js',)
+
     def get_form(self, request, obj=None, **kwargs):
         """
-        Hide AI fields if the workspace active plan does not include AI.
-        When adding (obj is None), we can't know until workspace chosen, so we show fields;
-        model.clean() will still enforce rules on save.
+        We leave all fields in the form so the JS can toggle them.
+        The JS will hide/show based on the selected workspace's plan.
         """
         form = super().get_form(request, obj, **kwargs)
-        if obj:
-            ap = obj.active_plan
-            includes_ai = bool(ap and ap.includes_ai)
-            if not includes_ai:
-                # Dynamically remove AI-related fields
-                if 'ai_provider' in form.base_fields:
-                    form.base_fields['ai_provider'].widget = forms.HiddenInput()
-                if 'ai_model' in form.base_fields:
-                    form.base_fields['ai_model'].widget = forms.HiddenInput()
-                if 'ai_api_key' in form.base_fields:
-                    form.base_fields['ai_api_key'].widget = forms.HiddenInput()
         return form
 
     def save_model(self, request, obj, form, change):

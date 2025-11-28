@@ -34,18 +34,22 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+
+
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'rest_framework',
     'celery',
-    'django_celery_beat',
+    # 'django_celery_beat',  # Commented out - not needed for WebSocket
     'accounts',
     'billing',
     'bots',
@@ -55,6 +59,15 @@ INSTALLED_APPS = [
     'embed',
     'adminpanel',
 ]
+
+ASGI_APPLICATION = 'redbot.asgi.application'
+
+# Channel layers configuration (using in-memory for development)
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -142,6 +155,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Local development static folders
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'embed', 'static'),
+    BASE_DIR / 'static',
 ]
 
 # Default primary key field type

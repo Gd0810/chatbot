@@ -9,6 +9,7 @@ from accounts.models import Workspace
 from billing.models import Plan
 from bots.models import Bot
 from knowledge.models import KnowledgeSource
+from chat.models import Conversation, Message
 
 def _get_user_workspace(user):
     return Workspace.objects.filter(owner=user).order_by('-created_at').first()
@@ -588,3 +589,87 @@ def partial_enquiries(request):
         'page_obj': page_obj,
         'enquiry_count': all_enquiries.count()
     })
+
+@login_required
+def live_chat_list(request):
+    """List all live chat conversations for the workspace"""
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    # Get all conversations for this workspace's bots
+    conversations = Conversation.objects.filter(bot__workspace=ws).order_by('-created_at')
+    
+    return render(request, 'dashboard/partials/live_list.html', {
+        'workspace': ws,
+        'conversations': conversations
+    })
+@login_required
+def live_chat_detail(request, conversation_id):
+    """Show detailed view of a specific conversation"""
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    conversation = get_object_or_404(Conversation, id=conversation_id, bot__workspace=ws)
+    messages_list = Message.objects.filter(conversation=conversation).order_by('timestamp')
+    
+    return render(request, 'dashboard/partials/live_detail.html', {
+        'workspace': ws,
+        'conversation': conversation,
+        'messages': messages_list
+    })
+@login_required
+def live_chat_messages(request, conversation_id):
+    """Get messages for a conversation (used for HTMX updates)"""
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    conversation = get_object_or_404(Conversation, id=conversation_id, bot__workspace=ws)
+    messages_list = Message.objects.filter(conversation=conversation).order_by('timestamp')
+    
+    return render(request, 'dashboard/partials/live_messages.html', {
+        'workspace': ws,
+        'conversation': conversation,
+        'messages': messages_list
+    })
+@login_required
+def live_chat_reply(request, conversation_id):
+    """Send a reply to a conversation"""
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+        
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    conversation = get_object_or_404(Conversation, id=conversation_id, bot__workspace=ws)
+    text = request.POST.get('text', '').strip()
+    
+    if text:
+        Message.objects.create(
+            conversation=conversation,
+            sender='BOT',
+            text=text
+        )
+        # Switch to LIVE mode if replying manually
+        if conversation.effective_mode != 'LIVE':
+            conversation.effective_mode = 'LIVE'
+            conversation.save()
+            
+    return live_chat_messages(request, conversation_id)    
+    
+@login_required
+def live_chat_delete(request, conversation_id):
+    """Delete a live chat conversation"""
+    if request.method != 'DELETE':
+        return HttpResponseBadRequest("Invalid method")
+        
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    conversation = get_object_or_404(Conversation, id=conversation_id, bot__workspace=ws)
+    conversation.delete()
+    
+    # Return updated conversation list
+    return live_chat_list(request)    
+
+
+    

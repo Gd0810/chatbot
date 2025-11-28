@@ -161,8 +161,10 @@ class Bot(models.Model):
                 raise ValidationError("ai_provider and ai_model are required for plans that include AI.")
         else:
             # Plans without AI must not store provider/model/API key
-            if self.ai_provider or self.ai_model or self._ai_api_key:
-                raise ValidationError("This workspace plan does not include AI. Remove ai_provider/ai_model/API key.")
+            # Automatically clear them instead of raising an error
+            self.ai_provider = None
+            self.ai_model = None
+            self._ai_api_key = None
 
     # Allowed domains helpers
     def parsed_allowed_domains(self):

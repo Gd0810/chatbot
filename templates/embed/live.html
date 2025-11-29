@@ -1430,7 +1430,15 @@
         }
 
         // Events
-        sendBtn.addEventListener('click', sendMessage);
+        sendBtn.addEventListener('click', function(e) {
+          // Show enquiry form when send button is clicked (if form is enabled and not submitted)
+          if (enquiryFormContainer && !isEnquirySubmitted()) {
+            e.preventDefault();
+            showEnquiryForm();
+            return;
+          }
+          sendMessage();
+        });
         
         // Show enquiry form when user clicks input (if form is enabled and not submitted)
         input.addEventListener('click', function() {

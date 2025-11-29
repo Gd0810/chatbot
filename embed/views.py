@@ -500,9 +500,9 @@ def save_enquiry(request):
     try:
         data = json.loads(request.body)
         public_key = data.get('public_key', '')
-        name = data.get('name', '').strip()
-        phone = data.get('phone', '').strip()
-        email = data.get('email', '').strip()
+        name = (data.get('name') or '').strip()
+        phone = (data.get('phone') or '').strip()
+        email = (data.get('email') or '').strip()
         
         # Find bot by public key
         bot = Bot.objects.get(public_key=public_key)
@@ -512,8 +512,13 @@ def save_enquiry(request):
         if not getattr(ws, 'enable_enquiry_form', False):
             return HttpResponse('{"error": "Enquiry form is not enabled"}', status=400, content_type='application/json')
         
-        # Save enquiry (at least one field must be filled)
-        if name or phone or email:
+        # Validation: At least two fields must be filled
+        filled_count = 0
+        if name: filled_count += 1
+        if phone: filled_count += 1
+        if email: filled_count += 1
+        
+        if filled_count >= 2:
             from bots.models import BotEnquiry
             enquiry = BotEnquiry.objects.create(
                 workspace=ws,
@@ -526,7 +531,7 @@ def save_enquiry(request):
                 content_type='application/json'
             )
         else:
-            return HttpResponse('{"error": "At least one field is required"}', status=400, content_type='application/json')
+            return HttpResponse('{"error": "Please fill at least two fields"}', status=400, content_type='application/json')
     
     except Bot.DoesNotExist:
         return HttpResponse('{"error": "Bot not found"}', status=404, content_type='application/json')

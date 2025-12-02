@@ -166,6 +166,41 @@ class Chunk(models.Model):
             except Exception as e:
                 print("⚠️ Qdrant vector deletion failed:", e)
 
+
         # finally delete local DB row
         super().delete(*args, **kwargs)
+
+
+# ---------------------------------
+# QA PAIR MODEL (Hierarchical)
+# ---------------------------------
+class QAPair(models.Model):
+    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='qa_pairs')
+    question = models.CharField(max_length=255, help_text="The main question or category.")
+    answer = models.TextField(blank=True, null=True, help_text="The answer (if leaf node) or description.")
+    
+    # Hierarchy: parent=None means it's a root-level question
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    
+    order = models.PositiveIntegerField(default=0, help_text="Ordering index")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order', 'created_at']
+        verbose_name = "Q&A Pair"
+        verbose_name_plural = "Q&A Pairs"
+
+    def __str__(self):
+        return f"{'--' * self.depth} {self.question}"
+
+    @property
+    def depth(self):
+        """Calculate depth for display purposes (0 = root)."""
+        d = 0
+        p = self.parent
+        while p:
+            d += 1
+            p = p.parent
+        return d
 

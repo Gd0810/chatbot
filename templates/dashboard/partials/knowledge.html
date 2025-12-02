@@ -59,7 +59,6 @@
                         hx-get="{% url 'dashboard:chunks_list' s.id %}"
                         hx-target="#main">Manage Chunks</button>
 
-                <!-- templates/dashboard/partials/knowledge.html (only the delete form lines updated with confirmations) -->
                 <form method="post"
                       hx-post="{% url 'dashboard:knowledge_delete' s.id %}"
                       hx-target="#main"
@@ -77,14 +76,19 @@
       </div>
     {% endif %}
 
-    {# Show Q&A placeholder when plan includes Q&A (QA_ONLY, LIVE_QA, FULL) #}
+    {# Show Q&A Manager when plan includes Q&A (QA_ONLY, LIVE_QA, FULL) #}
     {% if plan.includes_qa %}
-      <div class="border rounded p-4 bg-gray-50">
-        <h3 class="text-base font-semibold mb-2">Q&A Manager (Placeholder)</h3>
-        <p class="text-sm text-gray-600">
-          Your plan includes Q&amp;A. This section will let you create question/answer pairs for your bot.
-          UI coming soon. For now, you can proceed with AI Knowledge above if your plan also includes AI.
-        </p>
+      <div class="mt-8 border-t pt-6" id="qa-list-container" hx-get="{% url 'dashboard:partial_qa' %}" hx-trigger="load">
+        <div class="animate-pulse flex space-x-4">
+            <div class="flex-1 space-y-4 py-1">
+                <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div class="space-y-2">
+                    <div class="h-4 bg-gray-200 rounded"></div>
+                    <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+                </div>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-2">Loading Q&A Manager...</p>
       </div>
     {% endif %}
 

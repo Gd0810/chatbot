@@ -48,4 +48,10 @@ urlpatterns = [
     path('bot/<int:bot_id>/style/', views.bot_style_edit, name='bot_style_edit'),
     path('bot/<int:bot_id>/style/save/', views.bot_style_save, name='bot_style_save'),
     
+    # QA Actions
+    path('partial/qa/', views.partial_qa, name='partial_qa'),
+    path('qa/add/', views.qa_add, name='qa_add'),
+    path('qa/<int:qa_id>/edit/', views.qa_edit_form, name='qa_edit_form'),
+    path('qa/<int:qa_id>/update/', views.qa_update, name='qa_update'),
+    path('qa/<int:qa_id>/delete/', views.qa_delete, name='qa_delete'),
 ]

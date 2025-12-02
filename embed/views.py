@@ -39,6 +39,10 @@ def widget_iframe(request, public_key):
         ap = ws.active_plan
         if ap and ap.includes_live:
              return live_widget_iframe(request, public_key)
+        
+        # Check if plan is QA_ONLY or preferred_mode is QA
+        if ap and (ap.bundle == 'QA_ONLY' or bot.preferred_mode == 'QA'):
+             return qa_widget_iframe(request, public_key)
 
         origin = request.GET.get('origin', '') or ''
         origin_host = _host_from_url(origin)
@@ -537,3 +541,144 @@ def save_enquiry(request):
         return HttpResponse('{"error": "Bot not found"}', status=404, content_type='application/json')
     except Exception as e:
         return HttpResponse(f'{{"error": "{str(e)}"}}', status=500, content_type='application/json')
+
+
+@xframe_options_exempt
+def qa_widget_iframe(request, public_key):
+    """
+    Serves the QA-only widget iframe.
+    """
+    try:
+        bot = Bot.objects.get(public_key=public_key)
+        ws = bot.workspace
+
+        origin = request.GET.get('origin', '') or ''
+        origin_host = _host_from_url(origin)
+        request_host = (request.get_host().split(':')[0] or '').lower()
+
+        # Domain allowance (reused logic)
+        allowed = False
+        if origin and bot.is_origin_allowed(origin):
+            allowed = True
+        elif origin_host and origin_host == request_host:
+            allowed = True
+        elif settings.DEBUG and origin_host and _is_local_host(origin_host):
+            allowed = True
+        elif settings.DEBUG and not origin:
+            allowed = True
+
+        block_reason = None
+        block_msg = None
+        if not allowed:
+            block_reason = 'domain'
+            block_msg = "Domain not allowed."
+        elif not bot.is_enabled:
+            block_reason = 'disabled'
+            block_msg = "Bot disabled."
+        elif not ws.approved:
+            block_reason = 'not_approved'
+            block_msg = "Workspace not approved."
+        elif not ws.is_operational:
+            block_reason = 'inactive'
+            block_msg = "Workspace inactive."
+
+        # Token
+        token = None
+        if block_reason is None:
+            now = datetime.now(dt_timezone.utc)
+            exp = now + timedelta(minutes=30)
+            payload = {
+                'bot_id': bot.id,
+                'public_key': public_key,
+                'iat': int(now.timestamp()),
+                'exp': int(exp.timestamp()),
+            }
+            token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+            if isinstance(token, bytes):
+                token = token.decode('utf-8')
+
+        # Welcome text
+        default_welcome = "Hi! I'm {name}. How can I help you?"
+        welcome_raw = bot.ui_welcome_message or default_welcome
+        welcome_text = welcome_raw.replace("{name}", bot.name)
+
+        cfg = {
+            'jwt': token or '',
+            'botId': bot.id,
+            'botName': bot.name,
+            'publicKey': public_key,
+            'origin': origin,
+            'sound': bool(bot.ui_sound_enabled),
+            'workspace_enable_reset_button': getattr(ws, 'enable_reset_button', False),
+            'primary_color': bot.ui_primary_color or '',
+            'bg_color': bot.ui_bg_color or '',
+            'font_family': bot.ui_font_family or '',
+            'font_size': bot.ui_font_size or 14,
+            'animation_speed': bot.ui_animation_speed or 'normal',
+            'widget_position': bot.ui_widget_position or 'bottom-right',
+        }
+
+        footer = None
+        try:
+            if getattr(ws, 'bot_footer', False):
+                footer = getattr(ws, 'bot_footers', None)
+                if footer: footer = footer.first()
+        except: pass
+
+        enquiry_form_enabled = getattr(ws, 'enable_enquiry_form', False)
+
+        response = render(request, 'embed/qa.html', {
+            'public_key': public_key,
+            'bot': bot,
+            'workspace': ws,
+            'bot_footer': footer,
+            'enquiry_form_enabled': enquiry_form_enabled,
+            'jwt': token,
+            'blocked': bool(block_reason),
+            'block_reason': block_reason,
+            'block_msg': block_msg,
+            'origin': origin,
+            'welcome_text': welcome_text,
+            'cfg': cfg,
+            'debug_on': settings.DEBUG,
+        })
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        return response
+
+    except Bot.DoesNotExist:
+        return HttpResponse("Bot not found", status=404)
+    except Exception as e:
+        return HttpResponse(f"Error: {str(e)}", status=500)
+
+@csrf_exempt
+def qa_data_api(request, public_key):
+    """
+    Returns JSON of Q&A pairs for the bot.
+    Can accept ?parent_id=... to fetch children, or defaults to root.
+    """
+    try:
+        bot = Bot.objects.get(public_key=public_key)
+        parent_id = request.GET.get('parent_id')
+        
+        from knowledge.models import QAPair
+        if parent_id:
+            pairs = QAPair.objects.filter(bot=bot, parent_id=parent_id).order_by('order', 'created_at')
+        else:
+            pairs = QAPair.objects.filter(bot=bot, parent__isnull=True).order_by('order', 'created_at')
+            
+        data = []
+        for p in pairs:
+            # Check if it has children
+            has_children = p.children.exists()
+            data.append({
+                'id': p.id,
+                'question': p.question,
+                'answer': p.answer,
+                'has_children': has_children
+            })
+            
+        return JsonResponse({'pairs': data})
+    except Bot.DoesNotExist:
+        return JsonResponse({'error': 'Bot not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

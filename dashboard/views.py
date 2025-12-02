@@ -664,6 +664,201 @@ def live_chat_delete(request, conversation_id):
         
     ws, bounce = _require_operational(request)
     if bounce: return bounce
+
+def _require_operational(request):
+    ws = _get_user_workspace(request.user)
+    if not ws or not ws.approved or not ws.is_operational:
+        messages.error(request, "Workspace not active.")
+        from django.shortcuts import redirect
+        return ws, redirect('accounts:not_allowed')
+    return ws, None
+
+@login_required
+def partial_bot_style(request):
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    bots = Bot.objects.filter(workspace=ws).order_by('name')
+    return render(request, 'dashboard/partials/bot_style_list.html', {'workspace': ws, 'bots': bots})
+
+@login_required
+def bot_style_edit(request, bot_id):
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
+    fonts = [
+        ("Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif", "Inter / System"),
+        ("Segoe UI, Tahoma, Geneva, Verdana, sans-serif", "Segoe UI"),
+        ("Roboto, Arial, sans-serif", "Roboto"),
+        ("Poppins, Arial, sans-serif", "Poppins"),
+        ("Arial, Helvetica, sans-serif", "Arial"),
+        ("Georgia, serif", "Georgia"),
+        ("'Times New Roman', Times, serif", "Times New Roman"),
+        ("'Courier New', Courier, monospace", "Courier New"),
+        ("monospace", "Monospace"),
+    ]
+    return render(request, 'dashboard/partials/bot_style_edit.html', {
+        'bot': bot, 'fonts': fonts
+    })
+
+@login_required
+def bot_style_save(request, bot_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
+
+    # Collect fields
+    bot.ui_primary_color = (request.POST.get('ui_primary_color') or bot.ui_primary_color).strip()
+    # Save reset button setting to workspace
+    ws.enable_reset_button = True if request.POST.get('enable_reset_button') == '1' else False
+    ws.save()
+    bot.ui_bg_color = (request.POST.get('ui_bg_color') or getattr(bot, 'ui_bg_color', '#1E1E2E')).strip()
+    bot.ui_font_family = (request.POST.get('ui_font_family') or bot.ui_font_family).strip()
+    try:
+        size_val = int(request.POST.get('ui_font_size') or bot.ui_font_size)
+        bot.ui_font_size = max(12, min(20, size_val))
+    except Exception:
+        pass
+    bot.ui_welcome_message = (request.POST.get('ui_welcome_message') or bot.ui_welcome_message).strip()
+    bot.ui_sound_enabled = True if request.POST.get('ui_sound_enabled') == 'on' else False
+
+    pos = (request.POST.get('ui_widget_position') or getattr(bot, 'ui_widget_position', 'bottom-right')).strip().lower()
+    if pos not in ('bottom-right','bottom-left'):
+        pos = 'bottom-right'
+    bot.ui_widget_position = pos
+
+    spd = (request.POST.get('ui_animation_speed') or getattr(bot, 'ui_animation_speed', 'normal')).strip().lower()
+    if spd not in ('fast','normal','slow') and not (spd.endswith('ms') or spd.endswith('s')):
+        spd = 'normal'
+    bot.ui_animation_speed = spd
+
+    try:
+        bot.full_clean()
+        bot.save()
+        messages.success(request, "Bot styling updated.")
+    except Exception as e:
+        messages.error(request, f"Failed to save styling: {e}")
+
+    bots = Bot.objects.filter(workspace=ws).order_by('name')
+    return render(request, 'dashboard/partials/bot_style_list.html', {'workspace': ws, 'bots': bots})
+
+
+@login_required
+def partial_enquiries(request):
+    """Display all enquiry form submissions for the workspace with pagination."""
+    from bots.models import BotEnquiry
+    from django.core.paginator import Paginator
+    
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    # Handle POST to toggle enquiry form
+    if request.method == 'POST':
+        enable_form = request.POST.get('enable_enquiry_form') == '1'
+        ws.enable_enquiry_form = enable_form
+        try:
+            ws.save()
+            messages.success(request, f"Enquiry form {('enabled' if enable_form else 'disabled')}.")
+        except Exception as e:
+            messages.error(request, f"Failed to update setting: {e}")
+    
+    # Get all enquiries for this workspace
+    all_enquiries = BotEnquiry.objects.filter(workspace=ws).order_by('-created_at')
+    
+    # Pagination - 10 items per page
+    paginator = Paginator(all_enquiries, 10)
+    page_num = request.GET.get('page', 1)
+    
+    try:
+        page_num = int(page_num)
+    except (ValueError, TypeError):
+        page_num = 1
+    
+    page_obj = paginator.get_page(page_num)
+    enquiries = page_obj.object_list
+    
+    return render(request, 'dashboard/partials/enquiries.html', {
+        'workspace': ws,
+        'enquiries': enquiries,
+        'page_obj': page_obj,
+        'enquiry_count': all_enquiries.count()
+    })
+
+@login_required
+def live_chat_list(request):
+    """List all live chat conversations for the workspace"""
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    # Get all conversations for this workspace's bots
+    conversations = Conversation.objects.filter(bot__workspace=ws).order_by('-created_at')
+    
+    return render(request, 'dashboard/partials/live_list.html', {
+        'workspace': ws,
+        'conversations': conversations
+    })
+@login_required
+def live_chat_detail(request, conversation_id):
+    """Show detailed view of a specific conversation"""
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    conversation = get_object_or_404(Conversation, id=conversation_id, bot__workspace=ws)
+    messages_list = Message.objects.filter(conversation=conversation).order_by('timestamp')
+    
+    return render(request, 'dashboard/partials/live_detail.html', {
+        'workspace': ws,
+        'conversation': conversation,
+        'messages': messages_list
+    })
+@login_required
+def live_chat_messages(request, conversation_id):
+    """Get messages for a conversation (used for HTMX updates)"""
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    conversation = get_object_or_404(Conversation, id=conversation_id, bot__workspace=ws)
+    messages_list = Message.objects.filter(conversation=conversation).order_by('timestamp')
+    
+    return render(request, 'dashboard/partials/live_messages.html', {
+        'workspace': ws,
+        'conversation': conversation,
+        'messages': messages_list
+    })
+@login_required
+def live_chat_reply(request, conversation_id):
+    """Send a reply to a conversation"""
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+        
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    conversation = get_object_or_404(Conversation, id=conversation_id, bot__workspace=ws)
+    text = request.POST.get('text', '').strip()
+    
+    if text:
+        Message.objects.create(
+            conversation=conversation,
+            sender='BOT',
+            text=text
+        )
+        # Switch to LIVE mode if replying manually
+        if conversation.effective_mode != 'LIVE':
+            conversation.effective_mode = 'LIVE'
+            conversation.save()
+            
+    return live_chat_messages(request, conversation_id)    
+    
+@login_required
+def live_chat_delete(request, conversation_id):
+    """Delete a live chat conversation"""
+    if request.method != 'DELETE':
+        return HttpResponseBadRequest("Invalid method")
+        
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
     
     conversation = get_object_or_404(Conversation, id=conversation_id, bot__workspace=ws)
     conversation.delete()
@@ -672,4 +867,143 @@ def live_chat_delete(request, conversation_id):
     return live_chat_list(request)    
 
 
+# -------------------------------------------------------------------
+# QA Management Views
+# -------------------------------------------------------------------
+
+@login_required
+def partial_qa(request):
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
     
+    plan = ws.active_plan
+    # Check if plan includes QA
+    if not plan or not plan.includes_qa:
+        return HttpResponse("QA feature is not available in your current plan.", status=403)
+
+    from knowledge.models import QAPair
+    # Fetch all pairs for this workspace's bots
+    # We might want to group by bot or just show all
+    # For now, let's show all, ordered by bot and hierarchy
+    qa_pairs = QAPair.objects.filter(bot__workspace=ws).select_related('bot', 'parent').order_by('bot', 'order', 'created_at')
+    
+    bots = Bot.objects.filter(workspace=ws, is_enabled=True)
+    
+    return render(request, 'dashboard/partials/qa_list.html', {
+        'workspace': ws,
+        'qa_pairs': qa_pairs,
+        'bots': bots,
+    })
+
+@login_required
+def qa_add(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+        
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    bot_id = request.POST.get('bot_id')
+    question = (request.POST.get('question') or '').strip()
+    answer = (request.POST.get('answer') or '').strip()
+    parent_id = request.POST.get('parent_id')
+    
+    if not bot_id or not question:
+        messages.error(request, "Bot and Question are required.")
+        return partial_qa(request)
+        
+    bot = get_object_or_404(Bot, id=bot_id, workspace=ws)
+    
+    from knowledge.models import QAPair
+    parent = None
+    if parent_id:
+        parent = get_object_or_404(QAPair, id=parent_id, bot=bot)
+        
+    try:
+        QAPair.objects.create(
+            bot=bot,
+            question=question,
+            answer=answer,
+            parent=parent
+        )
+        messages.success(request, "Q&A Pair added.")
+    except Exception as e:
+        messages.error(request, f"Error adding Q&A: {e}")
+        
+    return partial_qa(request)
+
+@login_required
+def qa_edit_form(request, qa_id):
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    from knowledge.models import QAPair
+    qa = get_object_or_404(QAPair, id=qa_id, bot__workspace=ws)
+    
+    # Get potential parents (exclude self and children to avoid cycles)
+    # Simple cycle prevention: just exclude self for now. 
+    # Ideally should exclude subtree.
+    potential_parents = QAPair.objects.filter(bot=qa.bot).exclude(id=qa.id)
+    
+    return render(request, 'dashboard/partials/qa_edit.html', {
+        'qa': qa,
+        'potential_parents': potential_parents
+    })
+
+@login_required
+def qa_update(request, qa_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+        
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    from knowledge.models import QAPair
+    qa = get_object_or_404(QAPair, id=qa_id, bot__workspace=ws)
+    
+    question = (request.POST.get('question') or '').strip()
+    answer = (request.POST.get('answer') or '').strip()
+    parent_id = request.POST.get('parent_id')
+    
+    if not question:
+        messages.error(request, "Question is required.")
+        return partial_qa(request)
+        
+    qa.question = question
+    qa.answer = answer
+    
+    if parent_id:
+        if int(parent_id) == qa.id:
+            messages.error(request, "Cannot be parent of self.")
+        else:
+            parent = get_object_or_404(QAPair, id=parent_id, bot=qa.bot)
+            qa.parent = parent
+    else:
+        qa.parent = None
+        
+    try:
+        qa.save()
+        messages.success(request, "Q&A Pair updated.")
+    except Exception as e:
+        messages.error(request, f"Error updating Q&A: {e}")
+        
+    return partial_qa(request)
+
+@login_required
+def qa_delete(request, qa_id):
+    if request.method != 'DELETE' and request.method != 'POST':
+        return HttpResponseBadRequest("Invalid method")
+        
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    from knowledge.models import QAPair
+    qa = get_object_or_404(QAPair, id=qa_id, bot__workspace=ws)
+    
+    try:
+        qa.delete()
+        messages.success(request, "Q&A Pair deleted.")
+    except Exception as e:
+        messages.error(request, f"Error deleting Q&A: {e}")
+        
+    return partial_qa(request)

@@ -165,36 +165,9 @@ class Bot(models.Model):
             self.ai_provider = None
             self.ai_model = None
             self._ai_api_key = None
-
-    # Allowed domains helpers
-    def parsed_allowed_domains(self):
-        if not self.allowed_domains:
-            return []
-        raw = self.allowed_domains.replace(',', '\n').splitlines()
-        domains = [d.strip().lower() for d in raw if d.strip()]
-        return list(dict.fromkeys(domains))  # unique, preserve order
-
-    def is_origin_allowed(self, origin: str) -> bool:
-        """
-        Check if an origin (e.g., http://app.example.com) is allowed by this bot.
-        - Matches exact host or parent domain (example.com allows subdomains too).
-        """
-        try:
-            host = urlparse(origin).hostname or ''
-        except Exception:
-            host = ''
-        host = (host or '').lower()
-        if not host:
-            return False
-        allowed = self.parsed_allowed_domains()
-        if not allowed:
-            # In dev, you might bypass this. In production, enforce non-empty list.
-            return False
-        for rule in allowed:
-            rule = rule.lstrip('.')
-            if host == rule or host.endswith(f".{rule}"):
-                return True
-        return False
+            
+        if self.preferred_mode == 'QA' and not self.plan_includes_qa:
+             raise ValidationError("QA mode is not available in your current plan.")
 
 
 class BotFooter(models.Model):

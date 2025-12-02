@@ -1,9 +1,10 @@
 from django.urls import path
-from django.urls import path
 from django.views.generic import TemplateView
 from django.views.static import serve
 from django.conf import settings
 from . import views
+
+app_name = 'embed'
 
 urlpatterns = [
     path('widget/<str:public_key>/', views.widget_iframe, name='widget'),
@@ -18,4 +19,9 @@ urlpatterns = [
     path('test/', views.test_embed_page, name='test_page'),
     path('testing/', TemplateView.as_view(template_name='testing/ok.html'), name='test_page'),
     path('livetest/', TemplateView.as_view(template_name='testing/livetest.html'), name='livetest_page'),
+    path('qa-test/', TemplateView.as_view(template_name='testing/qa.html'), name='qa_test_page'),
+    
+    # QA Widget
+    path('qa/<str:public_key>/', views.qa_widget_iframe, name='qa_widget'),
+    path('qa/data/<str:public_key>/', views.qa_data_api, name='qa_data_api'),
 ]

@@ -1,0 +1,102 @@
+<div class="space-y-6">
+    <div class="flex justify-between items-center">
+        <h3 class="text-lg font-medium text-gray-900">Q&A Pairs</h3>
+        <button onclick="document.getElementById('add-qa-form').classList.toggle('hidden')" 
+                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Add Q&A Pair
+        </button>
+    </div>
+
+    <!-- Add Form -->
+    <div id="add-qa-form" class="hidden bg-gray-50 p-4 rounded-md border border-gray-200">
+        <form hx-post="{% url 'dashboard:qa_add' %}" hx-target="#qa-list-container" hx-swap="innerHTML">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                    <label for="bot_id" class="block text-sm font-medium text-gray-700">Bot</label>
+                    <select name="bot_id" id="bot_id" required class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        {% for bot in bots %}
+                        <option value="{{ bot.id }}">{{ bot.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="parent_id" class="block text-sm font-medium text-gray-700">Parent Question (Optional)</label>
+                    <select name="parent_id" id="parent_id" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="">-- None (Root) --</option>
+                        {% for pair in qa_pairs %}
+                        <option value="{{ pair.id }}">{{ pair.question }} ({{ pair.bot.name }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="question" class="block text-sm font-medium text-gray-700">Question</label>
+                    <input type="text" name="question" id="question" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="answer" class="block text-sm font-medium text-gray-700">Answer (Optional if it has children)</label>
+                    <textarea name="answer" id="answer" rows="3" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                </div>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- List -->
+    <div class="bg-white shadow overflow-hidden sm:rounded-md">
+        <ul role="list" class="divide-y divide-gray-200">
+            {% for pair in qa_pairs %}
+            <li class="px-4 py-4 sm:px-6 hover:bg-gray-50">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center">
+                            <p class="text-sm font-medium text-indigo-600 truncate">{{ pair.question }}</p>
+                            <span class="ml-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                {{ pair.bot.name }}
+                            </span>
+                            {% if pair.parent %}
+                            <span class="ml-2 text-xs text-gray-500">
+                                (Child of: {{ pair.parent.question }})
+                            </span>
+                            {% endif %}
+                        </div>
+                        <div class="mt-2 text-sm text-gray-500">
+                            {{ pair.answer|truncatechars:100|default:"(No answer - Container)" }}
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button hx-get="{% url 'dashboard:qa_edit_form' pair.id %}" hx-target="#qa-edit-modal-content" hx-trigger="click" onclick="document.getElementById('qa-edit-modal').classList.remove('hidden')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Edit</button>
+                        <button hx-delete="{% url 'dashboard:qa_delete' pair.id %}" hx-confirm="Are you sure?" hx-target="#qa-list-container" class="text-red-600 hover:text-red-900 text-sm font-medium">Delete</button>
+                    </div>
+                </div>
+            </li>
+            {% empty %}
+            <li class="px-4 py-4 sm:px-6 text-center text-gray-500">
+                No Q&A pairs found. Add one to get started.
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- Edit Modal (Hidden by default) -->
+<div id="qa-edit-modal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="document.getElementById('qa-edit-modal').classList.add('hidden')"></div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" id="qa-edit-modal-content">
+        <!-- Content loaded via HTMX -->
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="document.getElementById('qa-edit-modal').classList.add('hidden')">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

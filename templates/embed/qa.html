@@ -1,0 +1,912 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{{ bot.name }} • Q&A</title>
+  
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  
+  <style>
+    :root {
+      --rb-primary: {{ bot.ui_primary_color|default:"#3A5F3A" }};
+      --rb-primary-dark: {{ bot.ui_primary_color|default:"#2a4a2a" }};
+      --rb-bg: {{ bot.ui_bg_color|default:"#f9fafb" }};
+      --rb-bg-alt: #ffffff;
+      --rb-border: #e5e7eb;
+      --rb-text: #111827;
+      --rb-text-light: #374151;
+      --rb-subtext: #6b7280;
+      /* Font family will be set via JS to ensure correct parsing */
+      --rb-font: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --rb-font-size: {{ bot.ui_font_size|default:"14" }}px;
+      --rb-bot-bubble-1: rgba(58, 95, 58, 0.1); /* Will be overridden by JS */
+      --rb-bot-bubble-2: rgba(58, 95, 58, 0.18); /* Will be overridden by JS */
+      --rb-user-bubble-1: #f3f4f6;
+      --rb-user-bubble-2: #e5e7eb;
+      --rb-shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --rb-shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --rb-shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+      --rb-animation-speed: {{ bot.ui_animation_speed|default:"normal" }};
+      color-scheme: light;
+    }
+
+    /* Animation Speed Variables */
+    :root[data-animation="normal"] { --anim-duration: 0.3s; --anim-duration-fast: 0.2s; }
+    :root[data-animation="fast"] { --anim-duration: 0.15s; --anim-duration-fast: 0.1s; }
+    :root[data-animation="slow"] { --anim-duration: 0.5s; --anim-duration-fast: 0.3s; }
+    :root[data-animation="none"] { --anim-duration: 0s; --anim-duration-fast: 0s; }
+
+    * { box-sizing: border-box; }
+    
+    html, body { 
+      height: 100%; 
+      margin: 0; 
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    body {
+      font-family: var(--rb-font); 
+      font-size: var(--rb-font-size);
+      background: var(--rb-bg-alt); 
+      color: var(--rb-text);
+      display: flex; 
+      flex-direction: column; 
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+    }
+
+    /* Header */
+    .rb-header {
+      background: linear-gradient(135deg, var(--rb-primary) 0%, var(--rb-primary-dark) 100%);
+      color: #fff;
+      padding: 16px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--rb-shadow-md);
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    
+    .rb-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    
+    .rb-header .left { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .rb-header .bot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+    .rb-header .title { 
+      font-weight: 600; 
+      font-size: 16px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .rb-header .status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    
+    .rb-header .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16,185,129,0.5);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+    
+    .rb-header .actions { 
+      display: flex; 
+      align-items: center; 
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .rb-header .btn {
+      background: rgba(255,255,255,0.15); 
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 8px 12px; 
+      border-radius: 10px; 
+      font-size: 13px; 
+      cursor: pointer;
+      transition: all var(--anim-duration-fast) ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .rb-header .btn:hover { 
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    .rb-header .btn:active { 
+      transform: translateY(0); 
+      box-shadow: none;
+    }
+    
+    .rb-header .icon {
+      background: transparent; 
+      border: none; 
+      color: #fff;
+      cursor: pointer; 
+      opacity: 0.9;
+      font-size: 20px; 
+      padding: 8px;
+      border-radius: 10px;
+      transition: all var(--anim-duration-fast) ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .rb-header .icon:hover { 
+      background: rgba(255,255,255,0.15);
+      opacity: 1;
+    }
+
+    /* Messages Area */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--rb-bg); /* Use theme background */
+      padding: 20px 16px;
+      scroll-behavior: smooth;
+    }
+    
+    #messages::-webkit-scrollbar { width: 8px; }
+    #messages::-webkit-scrollbar-track { background: transparent; }
+    #messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+    #messages::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+    /* Message Bubbles */
+    .bubble {
+      max-width: 85%; 
+      padding: 12px 16px; 
+      border-radius: 18px; 
+      margin-bottom: 16px;
+      line-height: 1.5; 
+      word-wrap: break-word; 
+      white-space: pre-wrap;
+      box-shadow: var(--rb-shadow-sm);
+      position: relative;
+      font-size: var(--rb-font-size);
+      animation: fadeSlideIn var(--anim-duration) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    
+    @keyframes fadeSlideIn { 
+      from { opacity: 0; transform: translateY(12px) scale(0.95); } 
+      to { opacity: 1; transform: translateY(0) scale(1); } 
+    }
+    
+    .bubble.user {
+      margin-left: auto; 
+      color: var(--rb-text);
+      background: linear-gradient(135deg, var(--rb-user-bubble-1), var(--rb-user-bubble-2));
+      border-top-right-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    
+    .bubble.bot {
+      margin-right: auto; 
+      color: var(--rb-text);
+      background: linear-gradient(135deg, var(--rb-bot-bubble-1), var(--rb-bot-bubble-2));
+      border-top-left-radius: 6px;
+      border: 1px solid var(--rb-bot-bubble-2);
+    }
+    
+    .bubble .from { 
+      font-weight: 600; 
+      display: block; 
+      margin-bottom: 4px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    /* QA Options List */
+    .qa-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .qa-option-btn {
+      text-align: left;
+      padding: 10px 14px;
+      background: #fff;
+      border: 1px solid var(--rb-primary);
+      color: var(--rb-primary);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all var(--anim-duration-fast) ease;
+      font-size: var(--rb-font-size);
+      font-family: var(--rb-font);
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .qa-option-btn:hover {
+      background: var(--rb-bot-bubble-1);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .qa-option-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Enquiry Form */
+    .enquiry-form-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(2px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      border-radius: 16px;
+    }
+    
+    .enquiry-form-container.show { display: flex; }
+    
+    .enquiry-form-header {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--rb-text);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    
+    #enquiry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 280px;
+    }
+    
+    #enquiry-form input {
+      padding: 12px 10px;
+      border: 2px solid var(--rb-border);
+      border-radius: 10px;
+      font-family: var(--rb-font);
+      font-size: var(--rb-font-size);
+      outline: none;
+      background: #fff;
+      color: var(--rb-text);
+      width: 100%;
+      transition: all var(--anim-duration-fast) ease;
+    }
+    
+    .enquiry-input-wrapper { position: relative; width: 100%; }
+    
+    .enquiry-input-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 1;
+      transition: color var(--anim-duration-fast) ease;
+    }
+    
+    .enquiry-input-icon iconify-icon { color: inherit; width: 18px; height: 18px; }
+    
+    .enquiry-input-wrapper input { padding-left: 48px; padding-right: 14px; }
+    
+    .enquiry-input-wrapper input:focus ~ .enquiry-input-icon,
+    .enquiry-input-wrapper input:hover ~ .enquiry-input-icon { color: var(--rb-primary); }
+    
+    #enquiry-form input:focus {
+      border-color: var(--rb-primary);
+      box-shadow: 0 0 0 3px rgba(58, 95, 58, 0.1);
+    }
+    
+    #enquiry-form input::placeholder { color: var(--rb-subtext); opacity: 0.7; }
+    
+    #enquiry-submit-btn {
+      padding: 12px 16px;
+      background: linear-gradient(135deg, var(--rb-primary) 0%, var(--rb-primary-dark) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: var(--rb-font-size);
+      cursor: pointer;
+      transition: all var(--anim-duration-fast) ease;
+      box-shadow: var(--rb-shadow-sm);
+      margin-top: 8px;
+    }
+    
+    #enquiry-submit-btn:hover { transform: translateY(-2px); box-shadow: var(--rb-shadow-md); }
+    #enquiry-submit-btn:active { transform: translateY(0); box-shadow: var(--rb-shadow-sm); }
+    #enquiry-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    
+    #enquiry-message {
+      font-size: 12px;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 12px;
+    }
+    
+    #enquiry-message.success { background: rgba(16, 185, 129, 0.1); color: #047857; }
+    #enquiry-message.error { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
+
+    /* Footer */
+    .rb-footer {
+      padding: 4px 45px;
+      text-align: right;
+      background: linear-gradient(to top, #f9fafb 0%, transparent 100%);
+      border-top: 1px solid #e5e7eb;
+      flex-shrink: 0;
+    }
+    
+    .rb-footer p {
+      margin: 0;
+      line-height: 1.6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+    }
+    
+    .rb-footer a { color: var(--rb-primary); text-decoration: none; font-weight: 500; }
+    .rb-footer a:hover { text-decoration: underline; }
+
+    /* Blocked State */
+    .blocked-state {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px;
+      background: var(--rb-bg);
+    }
+    
+    .blocked-state-content { max-width: 300px; }
+    .blocked-state-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.6; }
+    .blocked-state-title { font-weight: 600; font-size: 18px; margin-bottom: 8px; color: var(--rb-text); }
+    .blocked-state-text { color: var(--rb-subtext); line-height: 1.5; }
+    
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+  {{ cfg|json_script:"redbot-config" }}
+  {{ debug|json_script:"redbot-debug" }}
+  <script id="redbot-welcome-text" type="application/json">"{{ welcome_text|escapejs }}"</script>
+</head>
+<body data-animation="{{ bot.ui_animation_speed|default:'normal' }}">
+  {% if blocked or not jwt %}
+    <div class="blocked-state">
+      <div class="blocked-state-content">
+        <div class="blocked-state-icon">
+          <span class="iconify" data-icon="mdi:alert-circle" data-width="48"></span>
+        </div>
+        <div class="blocked-state-title">Q&A Unavailable</div>
+        <div class="blocked-state-text">{{ block_msg|default:"This Q&A bot is currently unavailable. Please try again later." }}</div>
+      </div>
+    </div>
+  {% else %}
+    <div class="rb-header">
+      <div class="left">
+        <div class="bot-avatar">
+          <iconify-icon icon="mdi:help-circle-outline" width="20" height="20"></iconify-icon>
+        </div>
+        <div>
+          <div class="title">{{ bot.name }}</div>
+          <div class="status">
+            <span class="status-dot"></span>
+            <span>Q&A Support</span>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        {% if workspace.enable_reset_button %}
+        <button id="rb-reset" class="btn" type="button" title="Reset conversation">
+          <span class="iconify" data-icon="mdi:refresh" data-width="16"></span>
+          <span>Reset</span>
+        </button>
+        {% endif %}
+        <button class="icon" title="Minimize" type="button" onclick="parent.postMessage('redbot:close','*')" aria-label="Minimize">
+          <span class="iconify" data-icon="mdi:window-minimize" data-width="20"></span>
+        </button>
+      </div>
+    </div>
+
+    <div id="messages"></div>
+
+    {% if bot.workspace.bot_footer and bot_footer %}
+    <footer class="rb-footer">
+      <p>
+        <span style="font-size: 10px; color: #6b7280; font-weight: 400; letter-spacing: 0.5px;">POWERED BY</span>
+        <iconify-icon icon="fluent:bot-sparkle-32-regular" width="21" height="21" style="margin: 0 4px; color: #6b7280;"></iconify-icon>
+        <a href="{{ bot_footer.c_url }}" target="_blank" style="font-size: 11px; font-weight: 600; color: #4b5563; text-decoration: none; transition: color 0.2s;">{{ bot_footer.c_name }}</a>
+      </p>
+    </footer>
+    {% endif %}
+  {% endif %}
+
+  <!-- Enquiry Form -->
+  {% if enquiry_form_enabled %}
+  <div id="enquiry-form-container" class="enquiry-form-container">
+    <div class="enquiry-form-header">Please introduce yourself:</div>
+    <form id="enquiry-form">
+      <div class="enquiry-input-wrapper">
+        <input id="enquiry-name" type="text" placeholder="Enter your name..." autocomplete="name" minlength="2" maxlength="50" pattern="[a-zA-Z\s]+" title="Name should contain only letters and spaces" required />
+        <span class="enquiry-input-icon"><iconify-icon icon="fa:user" width="18" height="18"></iconify-icon></span>
+      </div>
+      <div class="enquiry-input-wrapper" style="margin-top:10px;">
+        <input id="enquiry-phone" type="tel" placeholder="Enter your phone..." autocomplete="tel" inputmode="numeric" pattern="[0-9\-\+\s\(\)]+" minlength="7" maxlength="20" title="Phone should contain only numbers, spaces, dashes, +, and parentheses" />
+        <span class="enquiry-input-icon"><iconify-icon icon="iconoir:phone-solid" width="18" height="18"></iconify-icon></span>
+      </div>
+      <div class="enquiry-input-wrapper" style="margin-top:10px;">
+        <input id="enquiry-email" type="email" placeholder="Enter your email..." autocomplete="email" maxlength="100" />
+        <span class="enquiry-input-icon"><iconify-icon icon="garden:email-fill-12" width="18" height="18"></iconify-icon></span>
+      </div>
+      <button id="enquiry-submit-btn" type="button" style="margin-top:14px;">Start chat</button>
+      <div id="enquiry-message" style="display:none;"></div>
+    </form>
+  </div>
+  {% endif %}
+
+  <audio id="rb-sound" src="{% static 'embed/notify.mp3' %}" preload="auto"></audio>
+
+<script>
+    const PUBLIC_KEY = "{{ public_key }}";
+    const API_URL = "{% url 'embed:qa_data_api' public_key %}";
+    const ENQUIRY_URL = "{% url 'embed:save_enquiry' %}";
+    const ENQUIRY_ENABLED = {{ enquiry_form_enabled|yesno:"true,false" }};
+    const BOT_NAME = "{{ bot.name }}";
+    
+    const messagesDiv = document.getElementById('messages');
+    const notify = document.getElementById('rb-sound');
+    const resetBtn = document.getElementById('rb-reset');
+    
+    // Enquiry elements
+    const enquiryFormContainer = document.getElementById('enquiry-form-container');
+    const enquirySubmitBtn = document.getElementById('enquiry-submit-btn');
+    const enquiryMessage = document.getElementById('enquiry-message');
+    const enquiryNameInput = document.getElementById('enquiry-name');
+    const enquiryPhoneInput = document.getElementById('enquiry-phone');
+    const enquiryEmailInput = document.getElementById('enquiry-email');
+
+    // State
+    let soundEnabled = true;
+    let pendingQuestion = null;
+    
+    // Persistence Keys
+    const HISTORY_KEY = 'redbot_qa_history_' + PUBLIC_KEY;
+    const ENQUIRY_KEY = 'rb_enquiry_submitted_' + PUBLIC_KEY;
+
+    // Initialize
+    (function() {
+        // 1. Apply Font Family and Background Color from Config
+        try {
+            const cfg = JSON.parse(document.getElementById('redbot-config').textContent);
+            const root = document.documentElement;
+            
+            // Sound Settings
+            if (typeof cfg.sound !== 'undefined') {
+                soundEnabled = !!cfg.sound;
+            }
+
+            // Font Family
+            if (cfg.font_family) {
+                const fontName = cfg.font_family.split(',')[0].trim().replace(/['"]/g, '');
+                if (fontName && fontName !== 'Inter') {
+                    const link = document.createElement('link');
+                    link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName)}:wght@400;500;600;700&display=swap`;
+                    link.rel = 'stylesheet';
+                    document.head.appendChild(link);
+                    root.style.setProperty('--rb-font', cfg.font_family);
+                }
+            }
+            
+            // Background Color
+            if (cfg.bg_color) {
+                root.style.setProperty('--rb-bg', cfg.bg_color);
+                document.body.style.backgroundColor = cfg.bg_color;
+            }
+
+            // Theme Color Logic (Ported from live.html)
+            if (cfg.primary_color) {
+                const hex = cfg.primary_color.startsWith('#') ? cfg.primary_color : ('#' + cfg.primary_color);
+                root.style.setProperty('--rb-primary', hex);
+                root.style.setProperty('--rb-primary-dark', adjustBrightness(hex, -15));
+                root.style.setProperty('--rb-bot-bubble-1', hexToRgba(hex, 0.1));
+                root.style.setProperty('--rb-bot-bubble-2', hexToRgba(hex, 0.18));
+            }
+
+        } catch(e) { console.error('Config parse error', e); }
+
+        // 2. Load History or Start New
+        loadHistory();
+    })();
+
+    // Helper functions for theme
+    function adjustBrightness(hex, percent) {
+        hex = hex.replace('#', '');
+        let r = parseInt(hex.substring(0, 2), 16);
+        let g = parseInt(hex.substring(2, 4), 16);
+        let b = parseInt(hex.substring(4, 6), 16);
+        
+        r = Math.max(0, Math.min(255, r + (r * percent / 100)));
+        g = Math.max(0, Math.min(255, g + (g * percent / 100)));
+        b = Math.max(0, Math.min(255, b + (b * percent / 100)));
+        
+        return '#' + 
+            ('0' + Math.round(r).toString(16)).slice(-2) +
+            ('0' + Math.round(g).toString(16)).slice(-2) +
+            ('0' + Math.round(b).toString(16)).slice(-2);
+    }
+
+    function hexToRgba(hex, alpha) {
+        hex = hex.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    function playSound() {
+        if (soundEnabled && notify) {
+            try {
+                notify.currentTime = 0;
+                notify.play().catch(() => {});
+            } catch(e) {}
+        }
+    }
+
+    // Chat Rendering
+    function addBubble(who, text, save = true) {
+        const wrap = document.createElement('div');
+        wrap.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
+        
+        const from = document.createElement('span');
+        from.className = 'from';
+        from.textContent = who === 'user' ? 'You' : BOT_NAME;
+        
+        const body = document.createElement('div');
+        body.innerHTML = text; 
+        if (who === 'user') body.textContent = text; 
+
+        wrap.appendChild(from);
+        wrap.appendChild(body);
+        messagesDiv.appendChild(wrap);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        if (save) {
+            saveToHistory({ type: 'bubble', who, text });
+        }
+    }
+
+    function renderQAOptions(pairs, save = true) {
+        // Remove any existing options first to prevent duplication
+        const existingOptions = messagesDiv.querySelectorAll('.qa-options');
+        existingOptions.forEach(el => el.remove());
+
+        const container = document.createElement('div');
+        container.className = 'qa-options';
+        
+        pairs.forEach(p => {
+            const btn = document.createElement('button');
+            btn.className = 'qa-option-btn';
+            btn.textContent = p.question;
+            btn.onclick = () => handleQuestionClick(p);
+            container.appendChild(btn);
+        });
+
+        messagesDiv.appendChild(container);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        if (save) {
+            // Overwrite the last 'options' entry in history instead of appending new one
+            // This ensures only the latest set of options is saved
+            updateHistoryOptions({ type: 'options', pairs });
+        }
+    }
+
+    function fetchQA(parentId) {
+        fetch(`${API_URL}${parentId ? '?parent_id=' + parentId : ''}`)
+            .then(r => r.json())
+            .then(data => {
+                if (data.pairs && data.pairs.length > 0) {
+                    renderQAOptions(data.pairs);
+                } else if (!parentId) {
+                    addBubble('bot', "I don't have any questions set up yet.");
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+    function handleQuestionClick(pair) {
+        // Check localStorage for enquiry submission
+        if (ENQUIRY_ENABLED && !localStorage.getItem(ENQUIRY_KEY)) {
+            pendingQuestion = pair;
+            showEnquiryForm();
+            return;
+        }
+        proceedWithQuestion(pair);
+    }
+
+    function proceedWithQuestion(pair) {
+        // 1. Add user bubble
+        addBubble('user', pair.question);
+
+        // 2. Remove options from UI
+        const optionsContainers = messagesDiv.querySelectorAll('.qa-options');
+        optionsContainers.forEach(el => el.remove());
+
+        // 3. Remove options from history so they don't reappear on reload
+        removeFromHistory('options');
+
+        // 4. Process answer
+        setTimeout(() => {
+            if (pair.has_children) {
+                fetchQA(pair.id);
+            } else {
+                addBubble('bot', pair.answer || "(No answer provided)");
+                playSound(); 
+                setTimeout(() => fetchQA(null), 1000);
+            }
+        }, 500);
+    }
+
+    // History Management
+    function saveToHistory(item) {
+        const hist = getHistory();
+        hist.push(item);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+    }
+
+    function updateHistoryOptions(item) {
+        let hist = getHistory();
+        // Remove any trailing options to avoid duplicates
+        while (hist.length > 0 && hist[hist.length - 1].type === 'options') {
+            hist.pop();
+        }
+        hist.push(item);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+    }
+
+    function getHistory() {
+        try {
+            return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+        } catch(e) { return []; }
+    }
+
+    function removeFromHistory(type) {
+        let hist = getHistory();
+        // Remove all trailing items of 'type'
+        while (hist.length > 0 && hist[hist.length - 1].type === type) {
+            hist.pop();
+        }
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+    }
+
+    function loadHistory() {
+        const hist = getHistory();
+        if (hist.length === 0) {
+            // Start fresh
+            let welcomeText = '';
+            try {
+                const welcomeScript = document.getElementById('redbot-welcome-text');
+                if (welcomeScript && welcomeScript.textContent) {
+                    let rawWelcome = JSON.parse(welcomeScript.textContent);
+                    welcomeText = rawWelcome.replace(/{name}/g, BOT_NAME);
+                }
+            } catch(e) {}
+            if (!welcomeText) welcomeText = `Hi! I'm ${BOT_NAME}. How can I help you?`;
+            
+            addBubble('bot', welcomeText);
+            fetchQA(null);
+        } else {
+            // Replay history
+            messagesDiv.innerHTML = ''; // Clear first
+            hist.forEach(item => {
+                if (item.type === 'bubble') {
+                    addBubble(item.who, item.text, false); 
+                } else if (item.type === 'options') {
+                    renderQAOptions(item.pairs, false);
+                }
+            });
+        }
+    }
+
+    function clearHistory() {
+        localStorage.removeItem(HISTORY_KEY);
+        // Also clear enquiry submission state on reset
+        localStorage.removeItem(ENQUIRY_KEY);
+        messagesDiv.innerHTML = '';
+    }
+
+    // Enquiry Form Logic
+    function showEnquiryForm() {
+        if (enquiryFormContainer) enquiryFormContainer.classList.add('show');
+    }
+
+    function hideEnquiryForm() {
+        if (enquiryFormContainer) enquiryFormContainer.classList.remove('show');
+    }
+
+    if (enquirySubmitBtn) {
+        enquirySubmitBtn.onclick = (e) => {
+            e.preventDefault();
+            submitEnquiry();
+        };
+    }
+
+    // Validation helpers
+    function isValidName(name) {
+        name = (name || '').trim();
+        return name.length >= 2 && /^[a-zA-Z\s]+$/.test(name);
+    }
+
+    function isValidPhone(phone) {
+        phone = (phone || '').trim();
+        if (!phone) return true; // Optional field
+        return /^[0-9\-\+\s\(\)]{7,20}$/.test(phone) && /[0-9]/.test(phone);
+    }
+
+    function isValidEmail(email) {
+        email = (email || '').trim();
+        if (!email) return true; // Optional field
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function submitEnquiry() {
+        const name = enquiryNameInput.value.trim();
+        const phone = enquiryPhoneInput.value.trim();
+        const email = enquiryEmailInput.value.trim();
+
+        // Clear previous error messages
+        if (enquiryMessage) {
+            enquiryMessage.style.display = 'none';
+        }
+
+        // Validation: require at least two fields filled
+        const filledCount = (name ? 1 : 0) + (phone ? 1 : 0) + (email ? 1 : 0);
+        if (filledCount < 2) {
+            showMessage('Please fill at least two fields before submitting.', 'error');
+            return;
+        }
+
+        // Validate individual fields if filled
+        if (name && !isValidName(name)) {
+            showMessage('Name should contain only letters and spaces (min 2 characters).', 'error');
+            return;
+        }
+
+        if (phone && !isValidPhone(phone)) {
+            showMessage('Phone number is invalid.', 'error');
+            return;
+        }
+
+        if (email && !isValidEmail(email)) {
+            showMessage('Please enter a valid email address (e.g., user@example.com).', 'error');
+            return;
+        }
+
+        enquirySubmitBtn.disabled = true;
+
+        fetch(ENQUIRY_URL, {
+            method: 'POST',
+            body: JSON.stringify({ public_key: PUBLIC_KEY, name, phone, email })
+        })
+        .then(r => r.json())
+        .then(res => {
+            if (res.success) {
+                // Use localStorage for persistence
+                localStorage.setItem(ENQUIRY_KEY, 'true');
+                showMessage('Thank you! Your information has been saved.', 'success');
+                setTimeout(() => {
+                    hideEnquiryForm();
+                    if (pendingQuestion) {
+                        proceedWithQuestion(pendingQuestion);
+                        pendingQuestion = null;
+                    }
+                }, 1500);
+            } else {
+                showMessage(res.error || 'Failed to save information.', 'error');
+                enquirySubmitBtn.disabled = false;
+            }
+        })
+        .catch(() => {
+            showMessage('Connection error. Please try again.', 'error');
+            enquirySubmitBtn.disabled = false;
+        });
+    }
+
+    function showMessage(text, type) {
+        enquiryMessage.textContent = text;
+        enquiryMessage.className = type;
+        enquiryMessage.style.display = 'block';
+    }
+
+    // Reset Logic
+    if (resetBtn) {
+        resetBtn.onclick = () => {
+            if (confirm('Reset conversation?')) {
+                clearHistory();
+                loadHistory(); 
+            }
+        };
+    }
+
+</script>
+</body>
+</html>

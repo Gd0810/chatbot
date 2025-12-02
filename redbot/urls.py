@@ -27,7 +27,7 @@ urlpatterns = [
     path('knowledge/', include('knowledge.urls')),
     # path('api/chat/', include('chat.urls')),  # DRF API
     path('api/', include('chat.urls')),
-    path('embed/', include('embed.urls')),
+    path('embed/', include(('embed.urls', 'embed'), namespace='embed')),
     path('adminpanel/', include('adminpanel.urls')),
     path('dashboard/', include('dashboard.urls')),  # Dashboard as the root
 ]

@@ -72,6 +72,12 @@
             '?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
     }
 
+    function buildQAWidgetUrl(host, publicKey, parentOrigin) {
+        var t = Date.now(); // cache buster
+        return host.replace(/\/+$/, '') + '/embed/qa/' + encodeURIComponent(publicKey) +
+            '?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
+    }
+
     function createWrapper(opts) {
         var wrapper = document.createElement('div');
         wrapper.className = 'redbot-wrapper' + (opts.position === 'bottom-left' ? ' left' : '');
@@ -172,6 +178,11 @@
                 // Change iframe src to live widget
                 var liveUrl = buildWidgetUrl(opts.host, publicKey, parentOrigin).replace('/embed/widget/', '/embed/live/');
                 iframe.src = liveUrl;
+            },
+            switchToQA: function () {
+                // Change iframe src to QA widget
+                var qaUrl = buildQAWidgetUrl(opts.host, publicKey, parentOrigin);
+                iframe.src = qaUrl;
             }
         };
 
@@ -212,6 +223,14 @@
                 var widget = window.Redbot.widgets[pk];
                 if (widget && widget.switchToLive) {
                     widget.switchToLive();
+                }
+            });
+        }
+        if (e.data === 'redbot:switch-qa') {
+            Object.keys(window.Redbot.widgets).forEach(function (pk) {
+                var widget = window.Redbot.widgets[pk];
+                if (widget && widget.switchToQA) {
+                    widget.switchToQA();
                 }
             });
         }

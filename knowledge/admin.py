@@ -81,3 +81,12 @@ class ChunkAdmin(admin.ModelAdmin):
                 obj.push_to_qdrant()   # ✅ call instance method
             except Exception as e:
                 self.message_user(request, f"⚠️ Qdrant upload failed: {e}", level='error')
+
+from .models import QAPair
+
+@admin.register(QAPair)
+class QAPairAdmin(admin.ModelAdmin):
+    list_display = ['bot', 'question', 'parent', 'order', 'created_at']
+    list_filter = ['bot', 'created_at']
+    search_fields = ['question', 'answer', 'bot__name']
+    ordering = ['bot', 'order', 'created_at']

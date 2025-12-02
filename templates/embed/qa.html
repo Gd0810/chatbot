@@ -464,12 +464,11 @@
     <div class="rb-header">
       <div class="left">
         <div class="bot-avatar">
-          <iconify-icon icon="mdi:help-circle-outline" width="20" height="20"></iconify-icon>
+          <iconify-icon icon="tabler:message" width="30" height="30"></iconify-icon>
         </div>
         <div>
           <div class="title">{{ bot.name }}</div>
           <div class="status">
-            <span class="status-dot"></span>
             <span>Q&A Support</span>
           </div>
         </div>
@@ -716,12 +715,23 @@
 
         // 4. Process answer
         setTimeout(() => {
+            const hasAnswer = pair.answer && pair.answer.trim();
+            
+            if (hasAnswer) {
+                addBubble('bot', pair.answer);
+                playSound();
+            }
+
             if (pair.has_children) {
                 fetchQA(pair.id);
             } else {
-                addBubble('bot', pair.answer || "(No answer provided)");
-                playSound(); 
-                setTimeout(() => fetchQA(null), 1000);
+                // Leaf node
+                if (!hasAnswer) {
+                    addBubble('bot', "(No answer provided)");
+                    playSound();
+                }
+                // Go back to main menu
+                setTimeout(() => fetchQA(null), 1500);
             }
         }, 500);
     }

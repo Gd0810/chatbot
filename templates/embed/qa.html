@@ -489,14 +489,21 @@
     <div id="messages"></div>
 
     {% if bot.workspace.bot_footer and bot_footer %}
-    <footer class="rb-footer">
-      <p>
+    <footer class="rb-footer" style="padding: 4px 45px; text-align: right; background: linear-gradient(to top, #f9fafb 0%, transparent 100%); border-top: 1px solid #e5e7eb;">
+      <p style="margin: 0; line-height: 1.6; display: inline-flex; align-items: center; justify-content: flex-end; width: 100%;">
         <span style="font-size: 10px; color: #6b7280; font-weight: 400; letter-spacing: 0.5px;">POWERED BY</span>
         <iconify-icon icon="fluent:bot-sparkle-32-regular" width="21" height="21" style="margin: 0 4px; color: #6b7280;"></iconify-icon>
-        <a href="{{ bot_footer.c_url }}" target="_blank" style="font-size: 11px; font-weight: 600; color: #4b5563; text-decoration: none; transition: color 0.2s;">{{ bot_footer.c_name }}</a>
+        <a href="{{ bot_footer.c_url }}" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          style="font-size: 13px; color: #6b7280; text-decoration: none; font-weight: 700; transition: color 0.3s ease;"
+          onmouseover="this.style.color='#111827'" 
+          onmouseout="this.style.color='#6b7280'">
+          {{ bot_footer.c_name }}
+        </a>
       </p>
     </footer>
-    {% endif %}
+  {% endif %}
   {% endif %}
 
   <!-- Enquiry Form -->

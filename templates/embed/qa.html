@@ -797,6 +797,13 @@
     // Enquiry Form Logic
     function showEnquiryForm() {
         if (enquiryFormContainer) enquiryFormContainer.classList.add('show');
+        // Auto-focus and select cursor in first field (name)
+        if (enquiryNameInput) {
+            setTimeout(() => {
+                enquiryNameInput.focus();
+                enquiryNameInput.select ? enquiryNameInput.select() : enquiryNameInput.setSelectionRange(0, enquiryNameInput.value.length);
+            }, 50);
+        }
     }
 
     function hideEnquiryForm() {

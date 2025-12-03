@@ -553,6 +553,7 @@
     // State
     let soundEnabled = true;
     let pendingQuestion = null;
+    let previousHistory = [];
     
     // Persistence Keys
     const HISTORY_KEY = 'redbot_qa_history_' + PUBLIC_KEY;
@@ -744,6 +745,7 @@
     }
 
     // History Management
+
     function saveToHistory(item) {
         const hist = getHistory();
         hist.push(item);
@@ -776,32 +778,134 @@
     }
 
     function loadHistory() {
-        const hist = getHistory();
-        if (hist.length === 0) {
-            // Start fresh
-            let welcomeText = '';
-            try {
-                const welcomeScript = document.getElementById('redbot-welcome-text');
-                if (welcomeScript && welcomeScript.textContent) {
-                    let rawWelcome = JSON.parse(welcomeScript.textContent);
-                    welcomeText = rawWelcome.replace(/{name}/g, BOT_NAME);
-                }
-            } catch(e) {}
-            if (!welcomeText) welcomeText = `Hi! I'm ${BOT_NAME}. How can I help you?`;
-            
-            addBubble('bot', welcomeText);
-            fetchQA(null);
-        } else {
-            // Replay history
-            messagesDiv.innerHTML = ''; // Clear first
-            hist.forEach(item => {
-                if (item.type === 'bubble') {
-                    addBubble(item.who, item.text, false); 
-                } else if (item.type === 'options') {
-                    renderQAOptions(item.pairs, false);
-                }
-            });
+        // 1. Capture existing history before starting new session
+        previousHistory = getHistory();
+        
+        // 2. Clear UI
+        messagesDiv.innerHTML = '';
+
+        // 3. Show Previous Chat Button if history exists
+        if (previousHistory.length > 0) {
+            renderPreviousChatButton();
         }
+
+        // 4. Start New Session
+        startNewSession();
+    }
+
+    function startNewSession() {
+        let welcomeText = '';
+        try {
+            const welcomeScript = document.getElementById('redbot-welcome-text');
+            if (welcomeScript && welcomeScript.textContent) {
+                let rawWelcome = JSON.parse(welcomeScript.textContent);
+                welcomeText = rawWelcome.replace(/{name}/g, BOT_NAME);
+            }
+        } catch(e) {}
+        if (!welcomeText) welcomeText = `Hi! I'm ${BOT_NAME}. How can I help you?`;
+        
+        addBubble('bot', welcomeText);
+        fetchQA(null);
+    }
+
+    function renderPreviousChatButton() {
+        const btnContainer = document.createElement('div');
+        btnContainer.id = 'rb-prev-chat-container';
+        btnContainer.style.textAlign = 'center';
+        btnContainer.style.marginBottom = '16px';
+        
+        const btn = document.createElement('button');
+        btn.textContent = 'Show Previous Chat';
+        btn.style.padding = '8px 16px';
+        btn.style.borderRadius = '20px';
+        btn.style.border = '1px solid var(--rb-border)';
+        btn.style.background = '#fff';
+        btn.style.color = 'var(--rb-subtext)';
+        btn.style.fontSize = '12px';
+        btn.style.cursor = 'pointer';
+        btn.style.transition = 'all 0.2s';
+        
+        btn.onmouseover = () => {
+            btn.style.background = 'var(--rb-bg)';
+            btn.style.color = 'var(--rb-text)';
+        };
+        btn.onmouseout = () => {
+            btn.style.background = '#fff';
+            btn.style.color = 'var(--rb-subtext)';
+        };
+
+        btn.onclick = () => {
+            showPreviousHistory();
+            btnContainer.remove();
+        };
+
+        btnContainer.appendChild(btn);
+        messagesDiv.appendChild(btnContainer);
+    }
+
+    function showPreviousHistory() {
+        // We need to insert messages at the top, BUT preserving order.
+        // Also need to be careful not to mess up the current session at the bottom.
+        // Actually, prepending is tricky because we want them in order A, B, C... before Current.
+        
+        // Strategy: Create a container for old messages and insert it at the top.
+        const oldMsgContainer = document.createElement('div');
+        oldMsgContainer.className = 'old-messages';
+        
+        // Render previous history into this container
+        previousHistory.forEach(item => {
+            if (item.type === 'bubble') {
+                const wrap = createBubbleElement(item.who, item.text);
+                oldMsgContainer.appendChild(wrap);
+            }
+            // Skip 'options' in previous history to keep it clean (message format only)
+        });
+
+        // Add a separator
+        const separator = document.createElement('div');
+        separator.style.textAlign = 'center';
+        separator.style.margin = '16px 0';
+        separator.style.fontSize = '11px';
+        separator.style.color = 'var(--rb-subtext)';
+        separator.textContent = '— Previous Session —';
+        oldMsgContainer.appendChild(separator);
+
+        // Insert at the very top of messagesDiv
+        messagesDiv.insertBefore(oldMsgContainer, messagesDiv.firstChild);
+    }
+
+    // Refactored bubble creation to be reusable
+    function createBubbleElement(who, text) {
+        const wrap = document.createElement('div');
+        wrap.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
+        
+        const from = document.createElement('span');
+        from.className = 'from';
+        from.textContent = who === 'user' ? 'You' : BOT_NAME;
+        
+        const body = document.createElement('div');
+        body.innerHTML = text; 
+        if (who === 'user') body.textContent = text; 
+
+        wrap.appendChild(from);
+        wrap.appendChild(body);
+        return wrap;
+    }
+
+    function createOptionsElement(pairs) {
+        const container = document.createElement('div');
+        container.className = 'qa-options';
+        
+        pairs.forEach(p => {
+            const btn = document.createElement('button');
+            btn.className = 'qa-option-btn';
+            btn.textContent = p.question;
+            // We probably shouldn't make old options clickable if they trigger new events at the bottom?
+            // Or maybe we do? If I click an old option, it should probably act as a new interaction at the bottom.
+            btn.onclick = () => handleQuestionClick(p);
+            container.appendChild(btn);
+        });
+        return container;
     }
 
     function clearHistory() {
@@ -809,6 +913,7 @@
         // Also clear enquiry submission state on reset
         localStorage.removeItem(ENQUIRY_KEY);
         messagesDiv.innerHTML = '';
+        previousHistory = []; // Clear memory
     }
 
     // Enquiry Form Logic

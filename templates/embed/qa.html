@@ -639,7 +639,7 @@
     }
 
     // Chat Rendering
-    function addBubble(who, text, save = true) {
+    function addBubble(who, text, save = true, metadata = {}) {
         const wrap = document.createElement('div');
         wrap.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
         
@@ -657,7 +657,7 @@
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
         if (save) {
-            saveToHistory({ type: 'bubble', who, text });
+            saveToHistory({ type: 'bubble', who, text, ...metadata });
         }
     }
 
@@ -778,22 +778,49 @@
     }
 
     function loadHistory() {
-        // 1. Capture existing history before starting new session
-        previousHistory = getHistory();
+        // 1. Get current history
+        let hist = getHistory();
+        const welcomeText = getWelcomeText();
+
+        // 2. Remove trailing empty session artifacts (Options or Welcome)
+        // We peel back layers: if it's options or a welcome message, remove it.
+        // This ensures we clean up "Welcome + Options" pairs from abandoned sessions.
+        while (hist.length > 0) {
+            const last = hist[hist.length - 1];
+            
+            if (last.type === 'options') {
+                hist.pop();
+                continue;
+            }
+            
+            if (last.type === 'bubble' && (last.isWelcome || last.text === welcomeText)) {
+                hist.pop();
+                continue;
+            }
+            
+            // If we hit anything else (User message, or Bot answer), stop.
+            break;
+        }
         
-        // 2. Clear UI
+        // 3. Update LS with cleaned history
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+
+        // 4. Capture as previous history
+        previousHistory = hist;
+        
+        // 5. Clear UI
         messagesDiv.innerHTML = '';
 
-        // 3. Show Previous Chat Button if history exists
+        // 6. Show Previous Chat Button if history exists
         if (previousHistory.length > 0) {
             renderPreviousChatButton();
         }
 
-        // 4. Start New Session
+        // 7. Start New Session
         startNewSession();
     }
 
-    function startNewSession() {
+    function getWelcomeText() {
         let welcomeText = '';
         try {
             const welcomeScript = document.getElementById('redbot-welcome-text');
@@ -803,8 +830,12 @@
             }
         } catch(e) {}
         if (!welcomeText) welcomeText = `Hi! I'm ${BOT_NAME}. How can I help you?`;
-        
-        addBubble('bot', welcomeText);
+        return welcomeText;
+    }
+
+    function startNewSession() {
+        const welcomeText = getWelcomeText();
+        addBubble('bot', welcomeText, true, { isWelcome: true });
         fetchQA(null);
     }
 
@@ -815,7 +846,10 @@
         btnContainer.style.marginBottom = '16px';
         
         const btn = document.createElement('button');
-        btn.textContent = 'Show Previous Chat';
+        btn.innerHTML = '<iconify-icon icon="mdi:comment-previous-outline" width="16" height="16" style="margin-right:6px;"></iconify-icon> Show Previous Chat';
+        btn.style.display = 'inline-flex';
+        btn.style.alignItems = 'center';
+        btn.style.justifyContent = 'center';
         btn.style.padding = '8px 16px';
         btn.style.borderRadius = '20px';
         btn.style.border = '1px solid var(--rb-border)';

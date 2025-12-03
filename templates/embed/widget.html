@@ -722,6 +722,9 @@
         </div>
         <div>
           <div class="title">{{ bot.name }}</div>
+          <div class="status">
+            <span>AI Support</span>
+          </div>
           
         </div>
       </div>
@@ -1016,6 +1019,7 @@
 
         function clearHistory() {
           try { localStorage.removeItem(histKey); } catch(e){}
+          previousHistory = [];
         }
 
         function escapeHtml(str) {
@@ -1024,7 +1028,8 @@
           return div.innerHTML;
         }
 
-        function addBubble(who, text, sources) {
+        // Refactored bubble creation (extracted from addBubble for reuse)
+        function createBubbleElement(who, text, sources) {
           const wrap = document.createElement('div');
           wrap.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
           wrap.setAttribute('role', 'article');
@@ -1053,7 +1058,12 @@
             ).join(', ');
             wrap.appendChild(src);
           }
+          
+          return wrap;
+        }
 
+        function addBubble(who, text, sources) {
+          const wrap = createBubbleElement(who, text, sources);
           messagesDiv.appendChild(wrap);
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
@@ -1108,21 +1118,101 @@
           if (indicator) indicator.remove();
         }
 
+        // History Management
+        let previousHistory = [];
+
         function renderHistory() {
-          messagesDiv.innerHTML = '';
-          const hist = loadHistory();
+          // 1. Get current history
+          let hist = loadHistory();
           
-          if (!hist.length) {
-            // Use welcomeText from template (same as old code logic)
-            const initial = { who: 'bot', text: welcomeText, sources: [] };
-            saveHistory([initial]);
-            addBubble(initial.who, initial.text, initial.sources);
-            return;
+          // 2. Remove trailing welcome messages (empty sessions)
+          // Check for text match to clean up duplicates
+          while (hist.length > 0 && hist[hist.length - 1].text === welcomeText) {
+            hist.pop();
           }
           
-          hist.forEach(m => addBubble(m.who, m.text, m.sources || []));
-          // Add timestamp to the last message only
-          addTimestampToLastMessage();
+          // 3. Update LS with cleaned history
+          saveHistory(hist);
+
+          // 4. Capture as previous history
+          previousHistory = hist;
+          
+          // 5. Clear UI
+          messagesDiv.innerHTML = '';
+
+          // 6. Show Previous Chat Button if history exists
+          if (previousHistory.length > 0) {
+            renderPreviousChatButton();
+          }
+          
+          // 7. Start New Session
+          startNewSession();
+        }
+
+        function startNewSession() {
+            // Always start with welcome message for new session
+            const initial = { who: 'bot', text: welcomeText, sources: [] };
+            // Append to history (don't overwrite!)
+            pushToHistory(initial.who, initial.text, initial.sources);
+            addBubble(initial.who, initial.text, initial.sources);
+        }
+
+        function renderPreviousChatButton() {
+            const btnContainer = document.createElement('div');
+            btnContainer.id = 'rb-prev-chat-container';
+            btnContainer.style.textAlign = 'center';
+            btnContainer.style.marginBottom = '16px';
+            
+            const btn = document.createElement('button');
+            btn.innerHTML = '<iconify-icon icon="mdi:comment-previous-outline" width="16" height="16" style="margin-right:6px;"></iconify-icon> Show Previous Chat';
+            btn.style.display = 'inline-flex';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
+            btn.style.padding = '8px 16px';
+            btn.style.borderRadius = '20px';
+            btn.style.border = '1px solid var(--rb-border)';
+            btn.style.background = '#fff';
+            btn.style.color = 'var(--rb-subtext)';
+            btn.style.fontSize = '12px';
+            btn.style.cursor = 'pointer';
+            btn.style.transition = 'all 0.2s';
+            
+            btn.onmouseover = () => {
+                btn.style.background = 'var(--rb-bg)';
+                btn.style.color = 'var(--rb-text)';
+            };
+            btn.onmouseout = () => {
+                btn.style.background = '#fff';
+                btn.style.color = 'var(--rb-subtext)';
+            };
+
+            btn.onclick = () => {
+                showPreviousHistory();
+                btnContainer.remove();
+            };
+
+            btnContainer.appendChild(btn);
+            messagesDiv.appendChild(btnContainer);
+        }
+
+        function showPreviousHistory() {
+            const oldMsgContainer = document.createElement('div');
+            oldMsgContainer.className = 'old-messages';
+            
+            previousHistory.forEach(m => {
+                const wrap = createBubbleElement(m.who, m.text, m.sources || []);
+                oldMsgContainer.appendChild(wrap);
+            });
+
+            const separator = document.createElement('div');
+            separator.style.textAlign = 'center';
+            separator.style.margin = '16px 0';
+            separator.style.fontSize = '11px';
+            separator.style.color = 'var(--rb-subtext)';
+            separator.textContent = '— Previous Session —';
+            oldMsgContainer.appendChild(separator);
+
+            messagesDiv.insertBefore(oldMsgContainer, messagesDiv.firstChild);
         }
 
         function pushToHistory(who, text, sources) {

@@ -9,7 +9,23 @@
     {% csrf_token %}
 
     
-  
+  {% if available_bot_modes|length > 1 %}
+    <div>
+      <label class="block text-sm text-gray-600">Default Bot Mode</label>
+      <select name="default_bot_mode" class="border rounded px-2 py-1 w-full">
+        <option value="">-- Auto ({{ plan.get_bundle_display }} default) --</option>
+        {% for mode in available_bot_modes %}
+          <option value="{{ mode }}" {% if bot.workspace.default_bot_mode == mode %}selected{% endif %}>
+            {% if mode == 'AI' %}AI Bot
+            {% elif mode == 'LIVE' %}Live Chat
+            {% elif mode == 'QA' %}Q&A Bot
+            {% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      <p class="text-xs text-gray-500 mt-1">Choose which bot to display by default. Users can switch between available bots.</p>
+    </div>
+    {% endif %}
     <div>
       <label class="block text-sm text-gray-600">Name</label>
       <input name="name" value="{{ bot.name }}" class="border rounded px-2 py-1 w-full"/>

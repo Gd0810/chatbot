@@ -837,7 +837,7 @@
 }
 </script>
         <!-- Bot Switcher Button (only for multi-bot plans) -->
-        {% if cfg.available_bots|length > 1 %}
+        {% if True %}  <!-- Always render, hide via JS -->
         <div class="bot-switcher-container" style="position: relative;">
           <button id="bot-switcher-btn" class="icon" title="Switch bot" type="button" aria-label="Bot switcher">
             <span class="iconify" data-icon="mdi:dots-vertical" data-width="20"></span>
@@ -981,10 +981,16 @@
           const availableBots = config.available || [];
           const currentBot = config.current || 'AI';
           
-          if (availableBots.length <= 1) return;
-          
           const switcherBtn = document.getElementById('bot-switcher-btn');
           const switcherMenu = document.getElementById('bot-switcher-menu');
+          
+          // Hide the switcher if only 1 bot available
+          if (availableBots.length <= 1) {
+            if (switcherBtn && switcherBtn.parentElement) {
+              switcherBtn.parentElement.style.display = 'none';
+            }
+            return;
+          }
           
           if (!switcherBtn || !switcherMenu) return;
           
@@ -993,7 +999,7 @@
             'LIVE': { icon: 'mdi:chat', label: 'Live Chat' },
             'QA': { icon: 'mdi:help-circle', label: 'Q&A Bot' }
           };
-          
+  
           availableBots.forEach(botType => {
             const info = botInfo[botType] || { icon: 'mdi:robot', label: botType };
             const item = document.createElement('button');

@@ -138,6 +138,7 @@ def widget_iframe(request, public_key):
         default_welcome = "Hi! I'm {name}. How can I help you?"
         welcome_raw = bot.ui_welcome_message or default_welcome
         welcome_text = welcome_raw.replace("{name}", bot.name)
+        
 
         cfg = {
             'jwt': token or '',

@@ -137,7 +137,8 @@ def bot_edit(request, bot_id):
     plan = ws.active_plan
 
     # Pull choices for dropdown from model field
-    ai_providers = list(Bot._meta.get_field('ai_provider').choices)  # [(value, label), ...]
+    ai_providers = list(Bot._meta.get_field('ai_provider').choices)
+    available_bot_modes = ws.get_available_bot_modes() if ws else []  # [(value, label), ...]
 
     if request.method == 'POST':
         messages.info(request, "Processing bot update request...")
@@ -145,7 +146,14 @@ def bot_edit(request, bot_id):
         name = (request.POST.get('name') or '').strip()
         if name:
             bot.name = name
-
+        # Handle default_bot_mode (only for multi-bot plans)
+        if len(available_bot_modes) > 1:
+            default_bot_mode = request.POST.get('default_bot_mode', '').strip()
+            if default_bot_mode in available_bot_modes:
+                ws.default_bot_mode = default_bot_mode
+            elif default_bot_mode == '':  # Empty means auto
+                ws.default_bot_mode = None
+            ws.save()
         if plan and plan.includes_ai:
             # Validate provider against choices
             selected_provider = request.POST.get('ai_provider') or bot.ai_provider
@@ -153,12 +161,13 @@ def bot_edit(request, bot_id):
             if selected_provider and selected_provider not in valid_values:
                 messages.error(request, "Invalid AI provider selected.")
                 return render(request, 'dashboard/partials/bot_edit.html', {
-                    'bot': bot, 'plan': plan, 'ai_providers': ai_providers
+                    'bot': bot, 'plan': plan, 'ai_providers': ai_providers,
+                    'available_bot_modes': available_bot_modes,
                 })
 
             bot.ai_provider = selected_provider or bot.ai_provider
             bot.ai_model = request.POST.get('ai_model') or bot.ai_model
-
+           
             api_key = request.POST.get('ai_api_key', '')
             if api_key != '':
                 bot.ai_api_key = api_key  # setter encrypts; empty string clears
@@ -186,7 +195,8 @@ def bot_edit(request, bot_id):
             messages.error(request, f"Failed to update bot: {e}. Please check your input and try again.")
 
     return render(request, 'dashboard/partials/bot_edit.html', {
-        'bot': bot, 'plan': plan, 'ai_providers': ai_providers
+        'bot': bot, 'plan': plan, 'ai_providers': ai_providers,
+        'available_bot_modes': available_bot_modes,
     })
 
 # dashboard/views.py

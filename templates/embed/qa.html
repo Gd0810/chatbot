@@ -199,6 +199,50 @@
       opacity: 1;
     }
 
+    /* Bot Switcher */
+    .bot-switcher-container {
+      position: relative;
+    }
+    .bot-switcher-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      background: white;
+      border: 1px solid var(--rb-border);
+      border-radius: 12px;
+      box-shadow: var(--rb-shadow-lg);
+      min-width: 180px;
+      z-index: 1000;
+      overflow: hidden;
+    }
+    .bot-switcher-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background var(--anim-duration-fast) ease;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--rb-font);
+      font-size: var(--rb-font-size);
+      color: var(--rb-text);
+    }
+    .bot-switcher-item:hover {
+      background: var(--rb-bg);
+    }
+    .bot-switcher-item.active {
+      background: rgba(58, 95, 58, 0.1);
+      color: var(--rb-primary);
+      font-weight: 600;
+    }
+    .bot-switcher-item .iconify {
+      flex-shrink: 0;
+    }
+
     /* Messages Area */
     #messages {
       flex: 1;
@@ -473,6 +517,21 @@
           </div>
         </div>
       </div>
+       <script id="bot-switcher-config" type="application/json">
+{
+  "available": {{ cfg.available_bots|safe }},
+  "current": "{{ cfg.current_bot_type }}"
+}
+</script>
+        <!-- Bot Switcher Button (only for multi-bot plans) -->
+        {% if cfg.available_bots|length > 1 %}
+        <div class="bot-switcher-container" style="position: relative;">
+          <button id="bot-switcher-btn" class="icon" title="Switch bot" type="button" aria-label="Bot switcher">
+            <span class="iconify" data-icon="mdi:dots-vertical" data-width="20"></span>
+          </button>
+          <div id="bot-switcher-menu" class="bot-switcher-menu" style="display: none;"></div>
+        </div>
+        {% endif %}
       <div class="actions">
         {% if workspace.enable_reset_button %}
         <button id="rb-reset" class="btn" type="button" title="Reset conversation">
@@ -638,6 +697,57 @@
         }
     }
 
+    // Bot Switcher Logic
+    (function initBotSwitcher() {
+      const switcherConfig = document.getElementById('bot-switcher-config');
+      if (!switcherConfig) return;
+      
+      const config = JSON.parse(switcherConfig.textContent);
+      const availableBots = config.available || [];
+      const currentBot = config.current || 'AI';
+      
+      if (availableBots.length <= 1) return;
+      
+      const switcherBtn = document.getElementById('bot-switcher-btn');
+      const switcherMenu = document.getElementById('bot-switcher-menu');
+      
+      if (!switcherBtn || !switcherMenu) return;
+      
+      const botInfo = {
+        'AI': { icon: 'fluent:bot-sparkle-28-regular', label: 'AI Bot' },
+        'LIVE': { icon: 'mdi:chat', label: 'Live Chat' },
+        'QA': { icon: 'mdi:help-circle', label: 'Q&A Bot' }
+      };
+      
+      availableBots.forEach(botType => {
+        const info = botInfo[botType] || { icon: 'mdi:robot', label: botType };
+        const item = document.createElement('button');
+        item.className = 'bot-switcher-item' + (botType === currentBot ? ' active' : '');
+        item.innerHTML = `
+          <span class="iconify" data-icon="${info.icon}" data-width="20"></span>
+          <span>${info.label}</span>
+        `;
+        item.onclick = () => switchBot(botType);
+        switcherMenu.appendChild(item);
+      });
+      
+      switcherBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        switcherMenu.style.display = switcherMenu.style.display === 'none' ? 'block' : 'none';
+      });
+      
+      document.addEventListener('click', () => {
+        switcherMenu.style.display = 'none';
+      });
+      
+      function switchBot(botType) {
+        if (botType === currentBot) return;
+        const url = new URL(window.location.href);
+        url.searchParams.set('bot_type', botType);
+        window.location.href = url.toString();
+      }
+    })();
+        
     // Chat Rendering
     function addBubble(who, text, save = true, metadata = {}) {
         const wrap = document.createElement('div');

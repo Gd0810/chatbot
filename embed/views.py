@@ -34,15 +34,30 @@ def widget_iframe(request, public_key):
         bot = Bot.objects.get(public_key=public_key)
         ws = bot.workspace
 
-        # Check if plan includes Live Chat. If so, serve the live widget instead.
-        # This ensures persistent chat history and dashboard visibility.
         ap = ws.active_plan
-        if ap and ap.includes_live:
-             return live_widget_iframe(request, public_key)
         
-        # Check if plan is QA_ONLY or preferred_mode is QA
-        if ap and (ap.bundle == 'QA_ONLY' or bot.preferred_mode == 'QA'):
-             return qa_widget_iframe(request, public_key)
+        # Check for bot_type query parameter (for bot switching)
+        requested_bot_type = request.GET.get('bot_type', '').upper()
+        
+        # Determine which bot type to serve
+        if requested_bot_type:
+            # User explicitly requested a bot type
+            available_types = ws.get_available_bot_modes()
+            if requested_bot_type in available_types:
+                bot_type_to_serve = requested_bot_type
+            else:
+                # Requested type not available, fall back to default
+                bot_type_to_serve = ws.get_default_bot_mode()
+        else:
+            # Use workspace default
+            bot_type_to_serve = ws.get_default_bot_mode()
+        
+        # Route to appropriate widget
+        if bot_type_to_serve == 'LIVE':
+            return live_widget_iframe(request, public_key)
+        elif bot_type_to_serve == 'QA':
+            return qa_widget_iframe(request, public_key)
+        # If 'AI' or None, continue with AI widget below
 
         origin = request.GET.get('origin', '') or ''
         origin_host = _host_from_url(origin)
@@ -130,7 +145,9 @@ def widget_iframe(request, public_key):
             'botName': bot.name,
             'publicKey': public_key,
             'origin': origin,
-            'jwt_exp': exp_ts,                # pass exp for auto-refresh
+            'jwt_exp': exp_ts, 
+            'available_bots': json.dumps(ws.get_available_bot_modes()),
+            'current_bot_type': bot_type_to_serve,               # pass exp for auto-refresh
             'sound': bot.ui_sound_enabled,    # for sound toggle
             # expose workspace-level UI toggles for client debug/fallback
             'workspace_enable_reset_button': getattr(ws, 'enable_reset_button', False),
@@ -186,8 +203,36 @@ def live_widget_iframe(request, public_key):
     try:
         bot = Bot.objects.get(public_key=public_key)
         ws = bot.workspace
+        
+        # ADD THIS SECTION - Bot type routing logic
+        ap = ws.active_plan
+        
+        # Check for bot_type query parameter (for bot switching)
+        requested_bot_type = request.GET.get('bot_type', '').upper()
+        
+        # Determine which bot type to serve
+        if requested_bot_type:
+            # User explicitly requested a bot type
+            available_types = ws.get_available_bot_modes()
+            if requested_bot_type in available_types:
+                bot_type_to_serve = requested_bot_type
+            else:
+                # Requested type not available, fall back to default
+                bot_type_to_serve = ws.get_default_bot_mode()
+        else:
+            # Use workspace default
+            bot_type_to_serve = ws.get_default_bot_mode()
+        
+        # Route to appropriate widget
+        if bot_type_to_serve == 'AI':
+            return widget_iframe(request, public_key)
+        elif bot_type_to_serve == 'QA':
+            return qa_widget_iframe(request, public_key)
+        # If 'LIVE', continue with live widget below
+        # END OF ADDED SECTION
 
         origin = request.GET.get('origin', '') or ''
+        # ... rest of the function
         origin_host = _host_from_url(origin)
         request_host = (request.get_host().split(':')[0] or '').lower()
 
@@ -271,6 +316,8 @@ def live_widget_iframe(request, public_key):
             'bg_color': bot.ui_bg_color or '',
             'font_family': bot.ui_font_family or '',
             'font_size': bot.ui_font_size or 14,
+            'available_bots': json.dumps(ws.get_available_bot_modes()),
+'current_bot_type': bot_type_to_serve,
             'animation_speed': bot.ui_animation_speed or 'normal',
             'widget_position': bot.ui_widget_position or 'bottom-right',
         }
@@ -545,14 +592,36 @@ def save_enquiry(request):
 
 @xframe_options_exempt
 def qa_widget_iframe(request, public_key):
-    """
-    Serves the QA-only widget iframe.
-    """
     try:
         bot = Bot.objects.get(public_key=public_key)
         ws = bot.workspace
+        
+        # ADD THIS SECTION - Bot type routing logic
+        ap = ws.active_plan
+        
+        # Check for bot_type query parameter (for bot switching)
+        requested_bot_type = request.GET.get('bot_type', '').upper()
+        
+        # Determine which bot type to serve
+        if requested_bot_type:
+            available_types = ws.get_available_bot_modes()
+            if requested_bot_type in available_types:
+                bot_type_to_serve = requested_bot_type
+            else:
+                bot_type_to_serve = ws.get_default_bot_mode()
+        else:
+            bot_type_to_serve = ws.get_default_bot_mode()
+        
+        # Route to appropriate widget
+        if bot_type_to_serve == 'AI':
+            return widget_iframe(request, public_key)
+        elif bot_type_to_serve == 'LIVE':
+            return live_widget_iframe(request, public_key)
+        # If 'QA', continue with QA widget below
+        # END OF ADDED SECTION
 
         origin = request.GET.get('origin', '') or ''
+        # ... rest of the function
         origin_host = _host_from_url(origin)
         request_host = (request.get_host().split(':')[0] or '').lower()
 
@@ -608,6 +677,8 @@ def qa_widget_iframe(request, public_key):
             'botName': bot.name,
             'publicKey': public_key,
             'origin': origin,
+            'available_bots': json.dumps(ws.get_available_bot_modes()),
+            'current_bot_type': bot_type_to_serve,
             'sound': bool(bot.ui_sound_enabled),
             'workspace_enable_reset_button': getattr(ws, 'enable_reset_button', False),
             'primary_color': bot.ui_primary_color or '',

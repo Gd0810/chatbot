@@ -517,7 +517,15 @@
           </div>
         </div>
       </div>
-       <script id="bot-switcher-config" type="application/json">
+      
+      <div class="actions">
+        {% if workspace.enable_reset_button %}
+        <button id="rb-reset" class="btn" type="button" title="Reset conversation">
+          <span class="iconify" data-icon="mdi:refresh" data-width="16"></span>
+          <span>Reset</span>
+        </button>
+        {% endif %}
+         <script id="bot-switcher-config" type="application/json">
 {
   "available": {{ cfg.available_bots|safe }},
   "current": "{{ cfg.current_bot_type }}"
@@ -531,13 +539,6 @@
           </button>
           <div id="bot-switcher-menu" class="bot-switcher-menu" style="display: none;"></div>
         </div>
-        {% endif %}
-      <div class="actions">
-        {% if workspace.enable_reset_button %}
-        <button id="rb-reset" class="btn" type="button" title="Reset conversation">
-          <span class="iconify" data-icon="mdi:refresh" data-width="16"></span>
-          <span>Reset</span>
-        </button>
         {% endif %}
         <button class="icon" title="Minimize" type="button" onclick="parent.postMessage('redbot:close','*')" aria-label="Minimize">
           <span class="iconify" data-icon="mdi:window-minimize" data-width="20"></span>

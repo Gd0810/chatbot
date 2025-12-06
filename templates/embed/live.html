@@ -982,6 +982,23 @@
           const availableBots = config.available || [];
           const currentBot = config.current || 'AI';
           
+          // 1. Check for saved preference on load
+          const savedMode = localStorage.getItem('redbot_selected_mode');
+          const urlParams = new URLSearchParams(window.location.search);
+          const urlMode = urlParams.get('bot_type');
+
+          // If we have a saved preference different from current, and no explicit URL override
+          if (savedMode && savedMode !== currentBot && !urlMode) {
+            // Validate that the saved mode is actually available
+            const isAvailable = availableBots.includes(savedMode);
+            if (isAvailable) {
+               const url = new URL(window.location.href);
+               url.searchParams.set('bot_type', savedMode);
+               window.location.href = url.toString();
+               return;
+            }
+          }
+          
           const switcherBtn = document.getElementById('bot-switcher-btn');
           const switcherMenu = document.getElementById('bot-switcher-menu');
           
@@ -1024,6 +1041,10 @@
           
           function switchBot(botType) {
             if (botType === currentBot) return;
+            
+            // Save preference
+            localStorage.setItem('redbot_selected_mode', botType);
+            
             const url = new URL(window.location.href);
             url.searchParams.set('bot_type', botType);
             window.location.href = url.toString();

@@ -105,3 +105,9 @@ def password_change_view(request):
     else:
         form = TailwindPasswordChangeForm(user=request.user)
         return render(request, 'accounts/partials/password_change.html', {'form': form})
+
+
+
+
+def index(request):
+    return render(request, 'pages/index.html')       

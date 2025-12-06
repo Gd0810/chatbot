@@ -13,7 +13,7 @@ def _build_prompt(user_question: str, retrieved_data: str) -> str:
         "You are a helpful assistant. Use ONLY the following data to answer the question. "
         "Focus on content that directly relates to the question's keywords or intent. "
         "If no relevant data exists or the question is unrelated, respond exactly with: "
-        "'Sorry, I don’t have relevant information for that.' "
+        "'I apologize, but I don't have specific information about that in my current knowledge base.' "
         "Do not invent information or provide general knowledge outside the data.\n\n"
         f"Data:\n{retrieved_data}\n\n"
         f"Question:\n{user_question}\n\n"
@@ -279,8 +279,9 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         # If the model responded with the 'no relevant information' phrase, try a deterministic
         # fallback: extract contact/service links, emails, phones, and address from retrieved_data
         no_info_variants = [
-            "Sorry, I don’t have relevant information for that.",
-            "Sorry, I don't have relevant information for that."
+            "I apologize, but I don't have specific information about that in my current knowledge base.",
+            "I don't have specific information about that",
+            "Sorry, I don't have relevant information for that.",
         ]
 
         workspace_name = None
@@ -291,44 +292,96 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
             workspace_name = None
 
         if any(v in answer_text for v in no_info_variants):
-            urls = _extract_labeled_urls(retrieved_data)
-            phones = re.findall(r"\+?\d[\d\-\s\(\)]{6,}\d", retrieved_data or "")
-            emails = re.findall(r"[\w\.-]+@[\w\.-]+\.\w+", retrieved_data or "")
-            addr_match = re.search(r"Address[:\-]?\s*(.+)", retrieved_data or "", re.IGNORECASE)
+            # Check if user is specifically asking for contact information
+            contact_keywords = ['contact', 'phone', 'email', 'address', 'reach', 'call', 'location']
+            is_contact_query = any(keyword in user_question.lower() for keyword in contact_keywords)
+            
+            if is_contact_query:
+                # User is asking for contact info - try to extract it
+                urls = _extract_labeled_urls(retrieved_data)
+                phones = re.findall(r"\+?\d[\d\-\s\(\)]{6,}\d", retrieved_data or "")
+                emails = re.findall(r"[\w\.-]+@[\w\.-]+\.\w+", retrieved_data or "")
+                addr_match = re.search(r"Address[:\-]?\s*(.+)", retrieved_data or "", re.IGNORECASE)
 
-            # If we found any contact-like info, build a concise contact answer
-            if urls.get('contact') or phones or emails or addr_match or urls.get('service') or urls.get('others'):
-                parts = []
-                if phones:
-                    # keep unique in original order
-                    uniq_phones = list(dict.fromkeys(phones))
-                    parts.append("Phones: " + ", ".join(uniq_phones))
-                if emails:
-                    uniq_emails = list(dict.fromkeys(emails))
-                    parts.append("Emails: " + ", ".join(uniq_emails))
-                if addr_match:
-                    parts.append("Address: " + addr_match.group(1).strip())
+                # If we found any contact-like info, build a concise contact answer
+                if urls.get('contact') or phones or emails or addr_match or urls.get('service') or urls.get('others'):
+                    parts = []
+                    if phones:
+                        uniq_phones = list(dict.fromkeys(phones))
+                        parts.append("Phones: " + ", ".join(uniq_phones))
+                    if emails:
+                        uniq_emails = list(dict.fromkeys(emails))
+                        parts.append("Emails: " + ", ".join(uniq_emails))
+                    if addr_match:
+                        parts.append("Address: " + addr_match.group(1).strip())
 
-                # Links (prefer labeled contact/service)
-                links_html = []
-                if urls.get('contact'):
-                    links_html.append(f'Contact Page: <a href="{urls["contact"]}" {link_style}>Check this link</a>')
-                if urls.get('service'):
-                    links_html.append(f'Service Page: <a href="{urls["service"]}" {link_style}>Check this link</a>')
-                for o in urls.get('others', []):
-                    links_html.append(f'<a href="{o}" {link_style}>Check this link</a>')
+                    # Links (prefer labeled contact/service)
+                    links_html = []
+                    if urls.get('contact'):
+                        links_html.append(f'Contact Page: <a href="{urls["contact"]}" {link_style}>Check this link</a>')
+                    if urls.get('service'):
+                        links_html.append(f'Service Page: <a href="{urls["service"]}" {link_style}>Check this link</a>')
+                    for o in urls.get('others', []):
+                        links_html.append(f'<a href="{o}" {link_style}>Check this link</a>')
 
-                if links_html:
-                    parts.append('For more details: ' + ' '.join(links_html))
+                    if links_html:
+                        parts.append('For more details: ' + ' '.join(links_html))
 
-                # Prepend a short header that is natural when speaking as the bot
-                header = ""
-                if workspace_name:
-                    header = f"Here are the contact details I found for {workspace_name}:\n"
+                    # Prepend a short header
+                    header = ""
+                    if workspace_name:
+                        header = f"Here are the contact details I found for {workspace_name}:\n"
+                    else:
+                        header = "Here are the contact details I found:\n"
+                    
+                    answer_text = header + "\n".join(parts)
                 else:
-                    header = "Here are the contact details I found:\n"
+                    # No contact info found even though they asked - suggest bot switching
+                    try:
+                        if bot and bot.workspace:
+                            plan = bot.workspace.active_plan
+                            if plan and plan.bundle == 'FULL':
+                                answer_text = (
+                                    "I apologize, but I don't have specific contact information in my current knowledge base. "
+                                    "However, you may get better assistance by switching to our Live Chat or Q&A bot using the menu above. "
+                                    "<span class='trigger-bot-switcher' style='display:none;'>TRIGGER_SWITCHER</span>"
+                                )
+                            else:
+                                answer_text = "I apologize, but I don't have specific information about that in my current knowledge base."
+                        else:
+                            answer_text = "I apologize, but I don't have specific information about that in my current knowledge base."
+                    except Exception:
+                        answer_text = "I apologize, but I don't have specific information about that in my current knowledge base."
+            else:
+                # NOT a contact query - suggest switching bots for FULL plan
+                try:
+                    if bot and bot.workspace:
+                        ws = bot.workspace
+                        plan = ws.active_plan
+                        
+                        # Build base message based on plan
+                        if plan and plan.bundle == 'FULL':
+                            answer_text = (
+                                "I apologize, but I don't have specific information about that in my current knowledge base. "
+                                "However, you may get better assistance by switching to our Live Chat or Q&A bot using the menu above."
+                            )
+                            # Add bot switcher trigger for FULL plan
+                            answer_text += " <span class='trigger-bot-switcher' style='display:none;'>TRIGGER_SWITCHER</span>"
+                        else:
+                            # For all other plans (AI_ONLY, LIVE_QA, etc.)
+                            answer_text = "I apologize, but I don't have specific information about that in my current knowledge base."
+                        
+                        # Add WhatsApp link if enabled (for ALL plans)
+                        if ws.enable_whatsapp_number_in_chat and ws.whatsapp_number:
+                            # Clean the number (remove spaces, dashes)
+                            clean_number = ws.whatsapp_number.replace(' ', '').replace('-', '')
+                            wa_link = f'<a href="https://wa.me/{clean_number}" style="color:#5A4FCF;text-decoration:underline;font-weight:600" target="_blank">{ws.whatsapp_number}</a>'
+                            answer_text += f" For further details, WhatsApp this number: {wa_link}"
+                    else:
+                        answer_text = "I apologize, but I don't have specific information about that in my current knowledge base."
+                except Exception:
+                    answer_text = "I apologize, but I don't have specific information about that in my current knowledge base."
 
-                answer_text = header + "\n".join(parts)
 
         # Normalize phrasing: prefer 'Our company' when the model used 'your company'
         if workspace_name:
@@ -336,18 +389,22 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
             answer_text = re.sub(r"\bthis company\b", "our company", answer_text, flags=re.IGNORECASE)
 
         # 1. Convert plain URLs in answer to clickable links (if not already <a> tags)
-        def make_url_clickable(url_str):
-            # Only convert if it's not already inside an <a> tag
-            if f'href="{url_str}"' in answer_text or f"href='{url_str}'" in answer_text:
-                return f'<a href="{url_str}" {link_style}>{url_str}</a>'
-            return f'<a href="{url_str}" {link_style}>{url_str}</a>'
-
+        # First, remove any line breaks within URLs (AI sometimes splits long URLs)
+        # Match URLs that might be split across lines
+        answer_text = re.sub(r'(https?://[^\s<>"\']+)\s*/\s*([^\s<>"\']+)', r'\1/\2', answer_text)
+        
         # Find all plain URLs (https://...) that are not already in <a> tags
-        plain_urls = re.findall(r'https?://\S+(?=\s|$|<)', answer_text)
+        # Use negative lookbehind to avoid matching URLs inside href="..."
+        # Match full URLs including paths, query params, and fragments
+        plain_urls = re.findall(r'(?<!href=")(?<!href=\')https?://[^\s<>"\']+', answer_text)
         for url in plain_urls:
-            # Only replace if not already a link
-            if f'href="{url}"' not in answer_text:
-                answer_text = answer_text.replace(url, f'<a href="{url}" {link_style}>{url}</a>')
+            # Clean up trailing punctuation that might not be part of the URL
+            # Remove trailing periods, commas, etc. unless they're part of a file extension
+            cleaned_url = re.sub(r'[.,;:!?]+$', '', url)
+            # Only replace if not already inside an anchor tag
+            # Check if URL appears in a context like href="URL" or href='URL'
+            if f'href="{cleaned_url}"' not in answer_text and f"href='{cleaned_url}'" not in answer_text:
+                answer_text = answer_text.replace(url, f'<a href="{cleaned_url}" {link_style}>{cleaned_url}</a>')
 
         # 2. Remove duplicate "For more details:" sections (keep only first)
         # Split by "For more details:" and rejoin with only one

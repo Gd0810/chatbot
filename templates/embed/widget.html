@@ -258,6 +258,23 @@
     .bot-switcher-item .iconify {
       flex-shrink: 0;
     }
+    /* Bot Switcher Attention Animation */
+    @keyframes pulse-attention {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+      }
+      50% {
+        transform: scale(1.15);
+        box-shadow: 0 0 0 15px rgba(220, 38, 38, 0);
+      }
+    }
+    
+    .bot-switcher-attention {
+      animation: pulse-attention 1.2s ease-in-out 4;
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(0, 0, 0, 0.2)) !important;
+      border: 2px solid rgba(220, 38, 38, 0.8) !important;
+    }
 
     /* Messages Area */
     #messages {
@@ -1016,34 +1033,33 @@
         })();
 
         // Bot Switcher Logic
-        // Bot Switcher Logic
-      (function initBotSwitcher() {
-        const switcherConfig = document.getElementById('bot-switcher-config');
-        if (!switcherConfig) return;
-        
-        const config = JSON.parse(switcherConfig.textContent);
-        const availableBots = config.available || [];
-        const currentBot = config.current || 'AI';
-        
-        const switcherBtn = document.getElementById('bot-switcher-btn');
-        const switcherMenu = document.getElementById('bot-switcher-menu');
-        
-        // Hide the switcher if only 1 bot available
-        if (availableBots.length <= 1) {
-          if (switcherBtn && switcherBtn.parentElement) {
-            switcherBtn.parentElement.style.display = 'none';
+        (function initBotSwitcher() {
+          const switcherConfig = document.getElementById('bot-switcher-config');
+          if (!switcherConfig) return;
+          
+          const config = JSON.parse(switcherConfig.textContent);
+          const availableBots = config.available || [];
+          const currentBot = config.current || 'AI';
+          
+          const switcherBtn = document.getElementById('bot-switcher-btn');
+          const switcherMenu = document.getElementById('bot-switcher-menu');
+          
+          // Hide the switcher if only 1 bot available
+          if (availableBots.length <= 1) {
+            if (switcherBtn && switcherBtn.parentElement) {
+              switcherBtn.parentElement.style.display = 'none';
+            }
+            return;
           }
-          return;
-        }
-        
-        if (!switcherBtn || !switcherMenu) return;
-        
-        const botInfo = {
-          'AI': { icon: 'fluent:bot-sparkle-28-regular', label: 'AI Bot' },
-          'LIVE': { icon: 'mdi:chat', label: 'Live Chat' },
-          'QA': { icon: 'mdi:help-circle', label: 'Q&A Bot' }
-        };
-
+          
+          if (!switcherBtn || !switcherMenu) return;
+          
+          const botInfo = {
+            'AI': { icon: 'fluent:bot-sparkle-28-regular', label: 'AI Bot' },
+            'LIVE': { icon: 'mdi:chat', label: 'Live Chat' },
+            'QA': { icon: 'mdi:help-circle', label: 'Q&A Bot' }
+          };
+          
           availableBots.forEach(botType => {
             const info = botInfo[botType] || { icon: 'mdi:robot', label: botType };
             const item = document.createElement('button');
@@ -1071,6 +1087,48 @@
             url.searchParams.set('bot_type', botType);
             window.location.href = url.toString();
           }
+          
+          // NEW: Watch for trigger in bot messages
+          let isLoadingHistory = true; // Flag to prevent animation on initial load
+          
+          // Set flag to false after initial messages are loaded
+          setTimeout(() => {
+            isLoadingHistory = false;
+          }, 2000); // Wait 2 seconds after page load
+          
+          // Function to temporarily disable animation (called when loading previous chat)
+          window.disableBotSwitcherAnimation = function() {
+            isLoadingHistory = true;
+            setTimeout(() => {
+              isLoadingHistory = false;
+            }, 1000); // Re-enable after 1 second
+          };
+          
+          function checkForSwitcherTrigger() {
+            // Don't trigger animation if loading history
+            if (isLoadingHistory) return;
+            
+            const triggers = messagesDiv.querySelectorAll('.trigger-bot-switcher');
+            if (triggers.length > 0 && switcherBtn) {
+              // Add attention animation
+              switcherBtn.classList.add('bot-switcher-attention');
+              
+              // Remove animation after it completes (4.8s = 4 cycles * 1.2s)
+              setTimeout(() => {
+                switcherBtn.classList.remove('bot-switcher-attention');
+              }, 4800);
+              
+              // Remove trigger elements so they don't trigger again
+              triggers.forEach(t => t.remove());
+            }
+          }
+          
+          // Watch for new messages
+          const observer = new MutationObserver(() => {
+            checkForSwitcherTrigger();
+          });
+          
+          observer.observe(messagesDiv, { childList: true, subtree: true });
         })();
 
         function adjustBrightness(hex, percent) {
@@ -1315,6 +1373,11 @@
         }
 
         function showPreviousHistory() {
+            // Disable bot switcher animation while loading history
+            if (typeof window.disableBotSwitcherAnimation === 'function') {
+                window.disableBotSwitcherAnimation();
+            }
+            
             const oldMsgContainer = document.createElement('div');
             oldMsgContainer.className = 'old-messages';
             

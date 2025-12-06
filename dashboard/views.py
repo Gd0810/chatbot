@@ -722,6 +722,10 @@ def bot_style_save(request, bot_id):
     bot.ui_primary_color = (request.POST.get('ui_primary_color') or bot.ui_primary_color).strip()
     # Save reset button setting to workspace
     ws.enable_reset_button = True if request.POST.get('enable_reset_button') == '1' else False
+    # Save WhatsApp settings to workspace
+    ws.enable_whatsapp_number_in_chat = True if request.POST.get('enable_whatsapp_number_in_chat') == 'on' else False
+    whatsapp_num = (request.POST.get('whatsapp_number') or '').strip()
+    ws.whatsapp_number = whatsapp_num if whatsapp_num else None
     ws.save()
     bot.ui_bg_color = (request.POST.get('ui_bg_color') or getattr(bot, 'ui_bg_color', '#1E1E2E')).strip()
     bot.ui_font_family = (request.POST.get('ui_font_family') or bot.ui_font_family).strip()

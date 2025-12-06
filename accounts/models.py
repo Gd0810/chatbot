@@ -30,6 +30,17 @@ class Workspace(models.Model):
         blank=True,
         help_text="Default bot to show for multi-bot plans (FULL/LIVE_QA)"
     )
+    # WhatsApp contact feature
+    whatsapp_number = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        help_text="WhatsApp number for customer support (include country code, e.g., +919876543210)"
+    )
+    enable_whatsapp_number_in_chat = models.BooleanField(
+        default=False,
+        help_text="Show WhatsApp contact link in AI 'no relevant info' responses"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

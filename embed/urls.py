@@ -20,6 +20,7 @@ urlpatterns = [
     path('testing/', TemplateView.as_view(template_name='testing/ok.html'), name='test_page'),
     path('livetest/', TemplateView.as_view(template_name='testing/livetest.html'), name='livetest_page'),
     path('qa-test/', TemplateView.as_view(template_name='testing/qa.html'), name='qa_test_page'),
+    path('liveqa/', TemplateView.as_view(template_name='testing/liveqa.html'), name='liveqa_test_page'),
     
     # QA Widget
     path('qa/<str:public_key>/', views.qa_widget_iframe, name='qa_widget'),

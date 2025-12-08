@@ -143,6 +143,7 @@ def widget_iframe(request, public_key):
         cfg = {
             'jwt': token or '',
             'botId': bot.id,
+            'workspaceId': ws.id,
             'botName': bot.name,
             'publicKey': public_key,
             'origin': origin,
@@ -306,6 +307,7 @@ def live_widget_iframe(request, public_key):
         cfg = {
             'jwt': token or '',
             'botId': bot.id,
+            'workspaceId': ws.id,
             'botName': bot.name,
             'publicKey': public_key,
             'origin': origin,
@@ -675,6 +677,7 @@ def qa_widget_iframe(request, public_key):
         cfg = {
             'jwt': token or '',
             'botId': bot.id,
+            'workspaceId': ws.id,
             'botName': bot.name,
             'publicKey': public_key,
             'origin': origin,

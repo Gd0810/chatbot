@@ -910,7 +910,7 @@
         const enquiryMessage = document.getElementById('enquiry-message');
         
         // Enquiry state key for localStorage
-        const enquirySubmittedKey = 'redbot_enquiry_submitted_' + String(cfg.botId || '');
+        const enquirySubmittedKey = 'redbot_enquiry_ws_' + String(cfg.workspaceId || cfg.botId || '');
         
         // Check if enquiry was already submitted in this session
         function isEnquirySubmitted() {

@@ -1,40 +1,50 @@
-<form hx-post="{% url 'dashboard:qa_update' qa.id %}" hx-target="#qa-list-container" hx-swap="innerHTML">
+<!-- templates/dashboard/partials/qa_edit.html -->
+{% include 'toast.html' %}
+<div class="bg-white shadow rounded p-4">
+  <h2 class="text-lg font-semibold mb-4">Edit Q&A Pair</h2>
+
+  <form method="post"
+        hx-post="{% url 'dashboard:qa_update' qa.id %}"
+        hx-target="#main" class="space-y-4"
+        data-processing-message="Processing Q&A update request...">
     {% csrf_token %}
-    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Edit Q&A Pair</h3>
-    
-    <div class="grid grid-cols-1 gap-4">
-        <div>
-            <label class="block text-sm font-medium text-gray-700">Bot</label>
-            <p class="mt-1 text-sm text-gray-500">{{ qa.bot.name }}</p>
-        </div>
-        
-        <div>
-            <label for="edit_parent_id" class="block text-sm font-medium text-gray-700">Parent Question</label>
-            <select name="parent_id" id="edit_parent_id" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                <option value="">-- None (Root) --</option>
-                {% for p in potential_parents %}
-                <option value="{{ p.id }}" {% if qa.parent_id == p.id %}selected{% endif %}>{{ p.question }}</option>
-                {% endfor %}
-            </select>
-        </div>
 
-        <div>
-            <label for="edit_question" class="block text-sm font-medium text-gray-700">Question</label>
-            <input type="text" name="question" id="edit_question" value="{{ qa.question }}" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-
-        <div>
-            <label for="edit_answer" class="block text-sm font-medium text-gray-700">Answer</label>
-            <textarea name="answer" id="edit_answer" rows="5" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ qa.answer }}</textarea>
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Bot</label>
+        <p class="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">{{ qa.bot.name }}</p>
+      </div>
+      
+      <div>
+        <label for="parent_id" class="block text-sm font-medium text-gray-700 mb-1">Parent Question</label>
+        <select name="parent_id" id="parent_id" class="border rounded px-3 py-2 w-full focus:ring-indigo-500 focus:border-indigo-500">
+          <option value="">-- None (Root) --</option>
+          {% for p in potential_parents %}
+          <option value="{{ p.id }}" {% if qa.parent_id == p.id %}selected{% endif %}>{{ p.question }}</option>
+          {% endfor %}
+        </select>
+      </div>
     </div>
 
-    <div class="mt-5 flex justify-end space-x-3">
-        <button type="button" onclick="this.closest('[id^=qa-edit-inline-]').classList.add('hidden'); this.closest('[id^=qa-edit-inline-]').previousElementSibling.querySelector('button').style.display='inline-block';" class="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-            Cancel
-        </button>
-        <button type="submit" class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-            Save Changes
-        </button>
+    <div>
+      <label for="question" class="block text-sm font-medium text-gray-700 mb-1">Question *</label>
+      <input type="text" name="question" id="question" value="{{ qa.question }}" required 
+             class="border rounded px-3 py-2 w-full focus:ring-indigo-500 focus:border-indigo-500"
+             placeholder="Enter the question">
     </div>
-</form>
+
+    <div>
+      <label for="answer" class="block text-sm font-medium text-gray-700 mb-1">Answer</label>
+      <textarea name="answer" id="answer" rows="6" 
+                class="border rounded px-3 py-2 w-full focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Enter the answer (optional if this question has child questions)">{{ qa.answer }}</textarea>
+      <p class="mt-1 text-xs text-gray-500">Leave empty if this question has child questions</p>
+    </div>
+
+    <div class="flex gap-2 mt-4">
+      <button class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" type="submit">Save</button>
+      <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" type="button">Back</button>
+    </div>
+  </form>
+</div>

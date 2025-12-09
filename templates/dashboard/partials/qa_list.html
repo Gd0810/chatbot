@@ -69,17 +69,9 @@
                         </div>
                     </div>
                     <div class="flex space-x-2">
-                        <button hx-get="{% url 'dashboard:qa_edit_form' pair.id %}" 
-                                hx-target="#qa-edit-inline-{{ pair.id }}" 
-                                hx-swap="innerHTML"
-                                onclick="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
-                                class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Edit</button>
-                        <button hx-delete="{% url 'dashboard:qa_delete' pair.id %}}" hx-confirm="Are you sure?" hx-target="#qa-list-container" class="text-red-600 hover:text-red-900 text-sm font-medium">Delete</button>
+                        <a href="{% url 'dashboard:qa_edit_form' pair.id %}" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Edit</a>
+                        <button hx-delete="{% url 'dashboard:qa_delete' pair.id %}" hx-confirm="Are you sure?" hx-target="#qa-list-container" class="text-red-600 hover:text-red-900 text-sm font-medium">Delete</button>
                     </div>
-                </div>
-                <!-- Inline Edit Form Container -->
-                <div id="qa-edit-inline-{{ pair.id }}" class="mt-4 bg-gray-50 p-4 rounded-md border border-gray-200 hidden">
-                    <!-- Edit form will be loaded here via HTMX -->
                 </div>
             </li>
             {% empty %}

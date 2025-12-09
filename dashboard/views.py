@@ -959,7 +959,7 @@ def qa_edit_form(request, qa_id):
     # Ideally should exclude subtree.
     potential_parents = QAPair.objects.filter(bot=qa.bot).exclude(id=qa.id)
     
-    return render(request, 'dashboard/partials/qa_edit.html', {
+    return render(request, 'dashboard/qa_edit.html', {
         'qa': qa,
         'potential_parents': potential_parents
     })

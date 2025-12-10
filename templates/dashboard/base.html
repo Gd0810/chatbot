@@ -30,27 +30,40 @@
         <a class="block px-3 py-2 rounded hover:bg-gray-100"
           hx-get="{% url 'dashboard:partial_bot_style' %}" hx-target="#main" hx-swap="innerHTML">Bot Styling</a>
 
-        {% if request.user.workspace.active_plan.includes_live or request.user.workspace.active_plan.includes_ai or request.user.workspace.active_plan.includes_qa %}
+        {% if request.user.workspace.active_plan %}
+          {% if request.user.workspace.active_plan.includes_live %}
         <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Conversation</div>
-        {% if request.user.workspace.active_plan.includes_live %}
         <a class="block px-3 py-2 rounded hover:bg-gray-100"
            hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">Live Chat</a>
-        {% endif %}
-        {% endif %}
+          {% endif %}
 
-        {% if request.user.workspace.active_plan.includes_ai or request.user.workspace.active_plan.includes_qa %}
+          {% if request.user.workspace.active_plan.includes_ai or request.user.workspace.active_plan.includes_qa %}
         <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Your Data</div>
-        {% if request.user.workspace.active_plan.includes_ai %}
+            {% if request.user.workspace.active_plan.includes_ai %}
         <a class="block px-3 py-2 rounded hover:bg-gray-100"
            hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">AI Knowledge</a>
-        {% endif %}
-        {% if request.user.workspace.active_plan.includes_qa %}
+            {% endif %}
+            {% if request.user.workspace.active_plan.includes_qa %}
         <a class="block px-3 py-2 rounded hover:bg-gray-100"
            hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">Q&A Knowledge</a>
-        {% endif %}
-        {% endif %}
+            {% endif %}
         <a class="block px-3 py-2 rounded hover:bg-gray-100"
            hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">Enquiries</a>
+          {% endif %}
+        {% else %}
+          {# No active plan - show all links #}
+        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Conversation</div>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">Live Chat</a>
+        
+        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Your Data</div>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">AI Knowledge</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">Q&A Knowledge</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">Enquiries</a>
+        {% endif %}
       </nav>
       <div class="p-4 mt-6">
         <a class="text-sm text-blue-600" href="{% url 'accounts:logout' %}">Logout</a>

@@ -36,7 +36,9 @@
 
         <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Your Data</div>
         <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">Knowledge</a>
+           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">AI Knowledge</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">Q&A Knowledge</a>
         <a class="block px-3 py-2 rounded hover:bg-gray-100"
            hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">Enquiries</a>
       </nav>

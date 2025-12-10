@@ -76,22 +76,6 @@
       </div>
     {% endif %}
 
-    {# Show Q&A Manager when plan includes Q&A (QA_ONLY, LIVE_QA, FULL) #}
-    {% if plan.includes_qa %}
-      <div class="mt-8 border-t pt-6" id="qa-list-container" hx-get="{% url 'dashboard:partial_qa' %}" hx-trigger="load">
-        <div class="animate-pulse flex space-x-4">
-            <div class="flex-1 space-y-4 py-1">
-                <div class="h-4 bg-gray-200 rounded w-3/4"></div>
-                <div class="space-y-2">
-                    <div class="h-4 bg-gray-200 rounded"></div>
-                    <div class="h-4 bg-gray-200 rounded w-5/6"></div>
-                </div>
-            </div>
-        </div>
-        <p class="text-sm text-gray-500 mt-2">Loading Q&A Manager...</p>
-      </div>
-    {% endif %}
-
     {# If neither AI nor Q&A included #}
     {% if not plan.includes_ai and not plan.includes_qa %}
       <div class="text-gray-600">Your plan does not include AI or Q&A features.</div>

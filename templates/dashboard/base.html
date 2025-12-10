@@ -37,7 +37,7 @@
            hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">Live Chat</a>
           {% endif %}
 
-          {% if plan.includes_ai or plan.includes_qa %}
+          {% if plan.includes_ai or plan.includes_qa or plan.includes_live %}
         <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Your Data</div>
             {% if plan.includes_ai %}
         <a class="block px-3 py-2 rounded hover:bg-gray-100"

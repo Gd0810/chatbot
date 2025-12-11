@@ -15,6 +15,8 @@ class Workspace(models.Model):
     bot_footer = models.BooleanField(default=False)
     # Toggle whether chatbot shows enquiry form (name/phone/email) to visitors
     enable_enquiry_form = models.BooleanField(default=False, help_text="Show name/phone/email form to chat visitors")
+    # Toggle website data fetcher feature in dashboard
+    enable_website_datafetcher = models.BooleanField(default=False, help_text="Enable website data fetcher in dashboard")
     # Toggle whether the bot widget shows the Reset button
     enable_reset_button = models.BooleanField(default=True, help_text="Show the Reset button in the chat widget")
     # Default bot mode for multi-bot plans (FULL, LIVE_QA)

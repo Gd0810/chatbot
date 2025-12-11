@@ -54,4 +54,8 @@ urlpatterns = [
     path('qa/<int:qa_id>/edit/', views.qa_edit_form, name='qa_edit_form'),
     path('qa/<int:qa_id>/update/', views.qa_update, name='qa_update'),
     path('qa/<int:qa_id>/delete/', views.qa_delete, name='qa_delete'),
+    
+    # Website Datafetcher
+    path('website-datafetcher/', views.partial_website_datafetcher, name='partial_website_datafetcher'),
+    path('website-datafetcher/crawl/', views.website_datafetcher_crawl, name='website_datafetcher_crawl'),
 ]

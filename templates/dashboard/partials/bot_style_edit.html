@@ -303,6 +303,19 @@
       <div class="text-xs text-gray-500 mt-2">If disabled, users will not see the Reset button in the chat widget. This can also be controlled by the workspace admin.</div>
     </div>
 
+    <!-- Website Datafetcher Control -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="iconify text-[#4C3BCF]" data-icon="mdi:database-search" data-width="22"></span>
+        <h3 class="text-lg font-semibold text-[#0B0C0C]">Website Data Fetcher</h3>
+      </div>
+      <label class="flex items-center gap-3">
+        <input type="checkbox" name="enable_website_datafetcher" id="enable-datafetcher" value="1" {% if bot.workspace.enable_website_datafetcher %}checked{% endif %} class="w-5 h-5 rounded border-2 border-[#4C3BCF] focus:ring-2 focus:ring-[#00C896]">
+        <span class="text-sm text-[#4C4F56]">Enable Website Data Fetcher in Dashboard</span>
+      </label>
+      <div class="text-xs text-gray-500 mt-2">Allows you to crawl websites and copy content for AI training. Requires "AI Knowledge" plan access.</div>
+    </div>
+
     <!-- WhatsApp Contact Settings -->
     <div class="mb-8">
       <div class="flex items-center gap-2 mb-4">

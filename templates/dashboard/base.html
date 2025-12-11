@@ -42,6 +42,10 @@
             {% if plan.includes_ai %}
         <a class="block px-3 py-2 rounded hover:bg-gray-100"
            hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">AI Knowledge</a>
+            {% if workspace.enable_website_datafetcher %}
+        <a class="block px-3 py-2 pl-6 text-sm text-gray-600 rounded hover:bg-gray-100"
+           hx-get="{% url 'dashboard:partial_website_datafetcher' %}" hx-target="#main" hx-swap="innerHTML">Website Datafetcher</a>
+            {% endif %}
             {% endif %}
             {% if plan.includes_qa %}
         <a class="block px-3 py-2 rounded hover:bg-gray-100"

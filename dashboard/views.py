@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.utils import timezone
 
 from accounts.models import Workspace
@@ -10,6 +10,7 @@ from billing.models import Plan
 from bots.models import Bot
 from knowledge.models import KnowledgeSource
 from chat.models import Conversation, Message
+from .website_crawler import crawl_site
 
 def _get_user_workspace(user):
     return Workspace.objects.filter(owner=user).order_by('-created_at').first()
@@ -1021,3 +1022,33 @@ def qa_delete(request, qa_id):
         messages.error(request, f"Error deleting Q&A: {e}")
         
     return partial_qa(request)
+@login_required
+def partial_website_datafetcher(request):
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    if not ws.enable_website_datafetcher:
+        messages.error(request, 'Website data fetcher is not enabled.')
+        return redirect('dashboard:index')
+    return render(request, 'dashboard/partials/website_datafetcher.html', {'workspace': ws})
+
+@login_required
+def website_datafetcher_crawl(request):
+    ws, bounce = _require_operational(request)
+    if bounce: return JsonResponse({'error': 'Unauthorized'}, status=403)
+    if not ws.enable_website_datafetcher:
+        return JsonResponse({'error': 'Feature not enabled'}, status=403)
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=400)
+    try:
+        url = request.POST.get('url', '').strip()
+        max_pages = int(request.POST.get('max_pages', 30))
+        if not url:
+            return JsonResponse({'error': 'URL is required'}, status=400)
+        if not url.startswith(('http://', 'https://')):
+            return JsonResponse({'error': 'URL must start with http:// or https://'}, status=400)
+        max_pages = min(max(1, max_pages), 100)
+        from .website_crawler import crawl_site
+        results = crawl_site(url, max_pages=max_pages)
+        return JsonResponse({'success': True, 'pages': results, 'total': len(results)})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

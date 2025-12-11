@@ -1,0 +1,58 @@
+# Add these imports at the top of views.py
+from django.http import JsonResponse
+import json
+from .website_crawler import crawl_site
+
+# Add these two views at the end of the file
+
+@login_required
+def partial_website_datafetcher(request):
+    """Show website data fetcher form"""
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    # Check if feature is enabled for this workspace
+    if not ws.enable_website_datafetcher:
+        messages.error(request, "Website data fetcher is not enabled for your workspace.")
+        return redirect('dashboard:index')
+    
+    return render(request, 'dashboard/partials/website_datafetcher.html', {
+        'workspace': ws
+    })
+
+@login_required
+def website_datafetcher_crawl(request):
+    """Crawl website and return JSON results"""
+    ws, bounce = _require_operational(request)
+    if bounce: return JsonResponse({'error': 'Unauthorized'}, status=403)
+    
+    if not ws.enable_website_datafetcher:
+        return JsonResponse({'error': 'Feature not enabled'}, status=403)
+    
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=400)
+    
+    try:
+        url = request.POST.get('url', '').strip()
+        max_pages = int(request.POST.get('max_pages', 30))
+        
+        if not url:
+            return JsonResponse({'error': 'URL is required'}, status=400)
+        
+        if not url.startswith(('http://', 'https://')):
+            return JsonResponse({'error': 'URL must start with http:// or https://'}, status=400)
+        
+        # Limit max pages
+        max_pages = min(max(1, max_pages), 100)
+        
+        # Crawl the site
+        results = crawl_site(url, max_pages=max_pages)
+        
+        return JsonResponse({
+            'success': True,
+            'pages': results,
+            'total': len(results)
+        })
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

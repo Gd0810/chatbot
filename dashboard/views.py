@@ -1049,6 +1049,11 @@ def website_datafetcher_crawl(request):
         max_pages = min(max(1, max_pages), 100)
         from .website_crawler import crawl_site
         results = crawl_site(url, max_pages=max_pages)
-        return JsonResponse({'success': True, 'pages': results, 'total': len(results)})
+        
+        return render(request, 'dashboard/partials/website_crawl_results.html', {
+            'success': True,
+            'pages': results, 
+            'total': len(results)
+        })
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)

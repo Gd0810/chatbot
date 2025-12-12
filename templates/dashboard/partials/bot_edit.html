@@ -85,10 +85,9 @@
           RedbotLoad('{{ bot.public_key }}');
           RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));
         &lt;/script&gt;</code></pre>
-      <button type="button" 
-              class="mt-2 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs flex items-center gap-1 transition-colors" 
-              onclick="copyEmbedScript(this)">
-        <iconify-icon icon="mdi:content-copy"></iconify-icon> Copy into clipboard
+      <button class="px-3 py-1 bg-gray-200 text-gray-700 mt-2 rounded hover:bg-gray-300 text-sm"
+                            onclick="copyEmbedScript(this)">
+                        <iconify-icon icon="mdi:content-copy" class="mr-1"></iconify-icon> Copy
       </button>
       <script>
         function copyEmbedScript(btn) {

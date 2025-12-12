@@ -57,81 +57,109 @@ def extract_links(html: str, base_url: str):
     return links
 
 def _clean_tag(tag: Tag):
-    """Remove scripts/styles/noscript from a subtree."""
-    for bad in tag.find_all(["script", "style", "noscript", "iframe"]):
+    """Remove boilerplate and junk tags from the tree."""
+    # Tags to remove completely (including content)
+    junk_tags = [
+        "script", "style", "noscript", "iframe", "svg", "canvas",
+        "button", "input", "select", "textarea", 
+        "nav", "footer", "header", "aside", "form",
+        "menu", "dialog", "map"
+    ]
+    for bad in tag.find_all(junk_tags):
         bad.decompose()
+    
+    # Remove elements by class/id heuristics (simple spam filter)
+    junk_classes = re.compile(r"(sidebar|menu|footer|header|nav|popup|cookie|ad-|advert)", re.I)
+    for bad in tag.find_all(attrs={"class": junk_classes}):
+        bad.decompose()
+    for bad in tag.find_all(attrs={"id": junk_classes}):
+        bad.decompose()
+
     return tag
 
 def _elem_to_text(elem: Tag) -> str:
-    """Convert tag to readable text - lists as bullets, paragraphs as single lines."""
+    """Extract clean text from a block element, handling lists nicely."""
     name = elem.name.lower()
     if name in ("ul", "ol"):
         items = []
         for li in elem.find_all("li"):
             t = li.get_text(separator=" ", strip=True)
+            t = re.sub(r'\s+', ' ', t).strip()
             if t:
-                items.append("- " + re.sub(r"\s+", " ", t))
-        return "\n".join(items).strip()
-    else:
-        text = elem.get_text(separator=" ", strip=True)
-        text = re.sub(r"\s+", " ", text).strip()
-        return text
+                items.append("- " + t)
+        return "\n".join(items)
+    
+    # For content that might contain line breaks (pre), preserve them?
+    # For now, just space separator is consistent with previous logic.
+    text = elem.get_text(separator=" ", strip=True)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 
 def extract_body_sections(html: str):
     """
-    Extract sections from HTML body based on headings.
-    Returns: [{"heading": "Intro" or heading_text, "content": "..."}, ...]
+    Extract sections from HTML body based on headings using linearization.
+    Returns: [{"heading": ..., "content": ...}, ...]
     """
     soup = BeautifulSoup(html, "html.parser")
     body = soup.body or soup
     _clean_tag(body)
-
+    
     sections = []
     current_heading = "Intro"
-    current_lines = []
-
-    for child in body.children:
-        if not isinstance(child, Tag):
-            txt = (child.string or "").strip()
-            if txt:
-                current_lines.append(re.sub(r"\s+", " ", txt))
+    current_content = []
+    
+    # Strategy: Linearize the document by finding all meaningful block elements
+    # We Iterate over all descendants and pick top-most valid blocks.
+    
+    interesting_tags = ['h1', 'h2', 'h3', 'h4', 'p', 'ul', 'ol', 'pre', 'blockquote', 'table']
+    
+    # We iterate distinct top-level blocks.
+    
+    for child in body.find_all(['h1', 'h2', 'h3', 'h4', 'p', 'ul', 'ol', 'pre', 'table', 'blockquote']):
+        # If this element is inside another element in our list, likely valid nesting (li in ul) 
+        # or invalid (p in table).
+        # We want to avoid double text.
+        
+        # Check if any parent is in the list of interest (excluding self)
+        # But careful with <ul> and <li>.
+        # We included <ul> in search, so we handle <ul> as a block.
+        # We should NOT include <li> in search if we handle <ul>.
+        # If we process <ul>, we get text of all LIs.
+        
+        # Check parents
+        has_parent_block = False
+        for parent in child.parents:
+            if parent.name in ['ul', 'ol', 'table', 'blockquote', 'pre']: # Containers we handle as a whole
+                has_parent_block = True
+                break
+        
+        if has_parent_block:
             continue
-
+            
+        # Process this block
         tag_name = child.name.lower()
-
-        # Headings as section delimiters
-        if re.match(r"h[1-4]$", tag_name):
-            if current_lines:
-                content = "\n\n".join([l for l in current_lines if l])
-                sections.append({"heading": current_heading, "content": content})
-            current_heading = child.get_text(separator=" ", strip=True)
-            current_lines = []
+        text = _elem_to_text(child)
+        if not text: 
             continue
-
-        # Collect content from paragraphs, lists, divs
-        if tag_name in ("p", "div", "section", "article", "ul", "ol", "address"):
-            txt = _elem_to_text(child)
-            if txt:
-                current_lines.append(txt)
-            continue
-
-        # Skip nav, footer, header to avoid boilerplate
-        if tag_name in ("nav", "footer", "header", "form", "script", "style"):
-            continue
-
-        # Fallback
-        txt = child.get_text(separator=" ", strip=True)
-        if txt:
-            current_lines.append(re.sub(r"\s+", " ", txt))
-
+            
+        if tag_name in ('h1', 'h2', 'h3', 'h4'):
+            # Flush current content
+            if current_content:
+                sections.append({"heading": current_heading, "content": "\n\n".join(current_content)})
+                current_content = []
+            current_heading = text
+        else:
+            current_content.append(text)
+            
     # Flush remaining
-    if current_lines:
-        content = "\n\n".join([l for l in current_lines if l])
-        sections.append({"heading": current_heading, "content": content})
-    
+    if current_content:
+        sections.append({"heading": current_heading, "content": "\n\n".join(current_content)})
+            
     if not sections:
-        sections = [{"heading": "Intro", "content": ""}]
-    
+        # Fallback if no specific blocks found (maybe just text in divs)
+        text = body.get_text(separator="\n", strip=True)
+        sections = [{"heading": "Content", "content": text}]
+        
     return sections
 
 def crawl_site(start_url: str, max_pages: int = 50):

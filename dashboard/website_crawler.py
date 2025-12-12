@@ -111,72 +111,7 @@ def _elem_to_text(elem: Tag) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-def extract_body_sections(html: str):
-    """
-    Extract sections from HTML body based on headings using linearization.
-    Returns: [{"heading": ..., "content": ...}, ...]
-    """
-    soup = BeautifulSoup(html, "html.parser")
-    body = soup.body or soup
-    _clean_tag(body)
-    
-    sections = []
-    current_heading = "Intro"
-    current_content = []
-    
-    # Strategy: Linearize the document by finding all meaningful block elements
-    # We Iterate over all descendants and pick top-most valid blocks.
-    
-    interesting_tags = ['h1', 'h2', 'h3', 'h4', 'p', 'ul', 'ol', 'pre', 'blockquote', 'table']
-    
-    # We iterate distinct top-level blocks.
-    
-    for child in body.find_all(['h1', 'h2', 'h3', 'h4', 'p', 'ul', 'ol', 'pre', 'table', 'blockquote']):
-        # If this element is inside another element in our list, likely valid nesting (li in ul) 
-        # or invalid (p in table).
-        # We want to avoid double text.
-        
-        # Check if any parent is in the list of interest (excluding self)
-        # But careful with <ul> and <li>.
-        # We included <ul> in search, so we handle <ul> as a block.
-        # We should NOT include <li> in search if we handle <ul>.
-        # If we process <ul>, we get text of all LIs.
-        
-        # Check parents
-        has_parent_block = False
-        for parent in child.parents:
-            if parent.name in ['ul', 'ol', 'table', 'blockquote', 'pre']: # Containers we handle as a whole
-                has_parent_block = True
-                break
-        
-        if has_parent_block:
-            continue
-            
-        # Process this block
-        tag_name = child.name.lower()
-        text = _elem_to_text(child)
-        if not text: 
-            continue
-            
-        if tag_name in ('h1', 'h2', 'h3', 'h4'):
-            # Flush current content
-            if current_content:
-                sections.append({"heading": current_heading, "content": "\n\n".join(current_content)})
-                current_content = []
-            current_heading = text
-        else:
-            current_content.append(text)
-            
-    # Flush remaining
-    if current_content:
-        sections.append({"heading": current_heading, "content": "\n\n".join(current_content)})
-            
-    if not sections:
-        # Fallback if no specific blocks found (maybe just text in divs)
-        text = body.get_text(separator="\n", strip=True)
-        sections = [{"heading": "Content", "content": text}]
-        
-    return sections
+
 
 def crawl_site(start_url: str, max_pages: int = 50):
     """
@@ -214,34 +149,90 @@ def crawl_site(start_url: str, max_pages: int = 50):
         if not html:
             continue
 
-        sections = extract_body_sections(html)
-        
-        # Get title from first H1/H2 in body
-        title = ""
-        soup = BeautifulSoup(html, "html.parser")
-        if soup.body:
-            h = soup.body.find(re.compile(r"^h[1-2]$", re.I))
-            if h:
-                title = h.get_text(strip=True)
-        if not title:
-            title = urlparse(url).netloc
+        try:
+            # Parse once
+            soup = BeautifulSoup(html, "html.parser")
+            
+            # Extract links first (from raw soup)
+            links = set()
+            for a in soup.find_all("a", href=True):
+                href = a.get("href").split("#")[0].strip()
+                if not href: continue
+                if href.startswith(("mailto:", "tel:", "javascript:")): continue
+                links.add(urljoin(base_root, href))
 
-        results.append({
-            "url": url,
-            "title": title,
-            "path": urlparse(url).path or "/",
-            "sections": sections
-        })
+            # Extract content
+            body = soup.body or soup
+            _clean_tag(body)
+            
+            sections = []
+            current_heading = "Intro"
+            current_content = []
+            
+            interesting_tags = ['h1', 'h2', 'h3', 'h4', 'p', 'ul', 'ol', 'pre', 'table', 'blockquote']
+            
+            for child in body.find_all(interesting_tags):
+                # Check parents for nesting
+                has_parent_block = False
+                for parent in child.parents:
+                    if parent.name in ['ul', 'ol', 'table', 'blockquote', 'pre']:
+                        has_parent_block = True
+                        break
+                
+                if has_parent_block:
+                    continue
+                    
+                tag_name = child.name.lower()
+                text = _elem_to_text(child)
+                if not text: 
+                    continue
+                    
+                if tag_name in ('h1', 'h2', 'h3', 'h4'):
+                    if current_content:
+                        sections.append({"heading": current_heading, "content": "\n\n".join(current_content)})
+                        current_content = []
+                    current_heading = text
+                else:
+                    current_content.append(text)
+                    
+            if current_content:
+                sections.append({"heading": current_heading, "content": "\n\n".join(current_content)})
+                
+            if not sections:
+                text = body.get_text(separator="\n", strip=True)
+                sections = [{"heading": "Content", "content": text}]
 
-        # Discover links
-        links = extract_links(html, base_root)
-        for link in links:
-            if not is_same_domain(base_netloc, link):
-                continue
-            parsed_l = urlparse(link)
-            norm = parsed_l._replace(fragment="").geturl()
-            if norm not in seen and norm not in to_visit:
-                to_visit.append(norm)
+            # Title
+            title = ""
+            # Re-find title from body (we might have cleaned H1s? No, we kept them)
+            # Actually, title tag is in head
+            if soup.title:
+                title = soup.title.get_text(strip=True)
+            if not title and soup.body:
+                 h = soup.body.find(re.compile(r"^h[1-2]$", re.I))
+                 if h: title = h.get_text(strip=True)
+            if not title:
+                title = urlparse(url).netloc
+
+            results.append({
+                "url": url,
+                "title": title,
+                "path": urlparse(url).path or "/",
+                "sections": sections
+            })
+
+            # Queue links
+            for link in links:
+                if not is_same_domain(base_netloc, link):
+                    continue
+                parsed_l = urlparse(link)
+                norm = parsed_l._replace(fragment="").geturl()
+                if norm not in seen and norm not in to_visit:
+                    to_visit.append(norm)
+
+        except Exception as e:
+            print(f"Error crawling {url}: {e}")
+            continue
 
         time.sleep(0.2)  # Be polite
 

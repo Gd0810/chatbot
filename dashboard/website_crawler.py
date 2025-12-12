@@ -33,13 +33,29 @@ def allowed_by_robots(base_url: str):
     except Exception:
         return None
 
+def _normalize_domain(netloc: str) -> str:
+    """Normalize domain by stripping 'www.' and port."""
+    if not netloc:
+        return ""
+    # Strip port if present
+    netloc = netloc.split(':')[0]
+    # Strip www prefix
+    if netloc.lower().startswith('www.'):
+        netloc = netloc[4:]
+    return netloc.lower()
+
 def is_same_domain(base_netloc: str, link: str) -> bool:
-    """Check if link is from same domain."""
+    """Check if link is from same domain (ignoring www)."""
     try:
         p = urlparse(link)
         if not p.netloc:
+            # Relative link
             return True
-        return p.netloc == base_netloc
+            
+        base_norm = _normalize_domain(base_netloc)
+        link_norm = _normalize_domain(p.netloc)
+        
+        return base_norm == link_norm
     except Exception:
         return False
 

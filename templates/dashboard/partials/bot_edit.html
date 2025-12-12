@@ -85,15 +85,30 @@
           RedbotLoad('{{ bot.public_key }}');
           RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));
         &lt;/script&gt;</code></pre>
-      <button type="button" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs" onclick="copyEmbedScript()">Copy to clipboard</button>
+      <button type="button" 
+              class="mt-2 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs flex items-center gap-1 transition-colors" 
+              onclick="copyEmbedScript(this)">
+        <iconify-icon icon="mdi:content-copy"></iconify-icon> Copy into clipboard
+      </button>
       <script>
-        function copyEmbedScript() {
+        function copyEmbedScript(btn) {
           const block = document.getElementById('embed-script-block');
           if (!block) return;
           const code = block.innerText || block.textContent;
+          
           navigator.clipboard.writeText(code).then(function() {
-            alert('Embed script copied to clipboard!');
-          }, function() {
+            const originalHTML = btn.innerHTML;
+            const originalClasses = Array.from(btn.classList);
+            
+            btn.innerHTML = '<iconify-icon icon="mdi:check"></iconify-icon> Copied!';
+            btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+            btn.classList.add('bg-green-600', 'hover:bg-green-700');
+            
+            setTimeout(() => {
+              btn.innerHTML = originalHTML;
+              btn.className = originalClasses.join(' ');
+            }, 2000);
+          }).catch(err => {
             alert('Failed to copy. Please copy manually.');
           });
         }

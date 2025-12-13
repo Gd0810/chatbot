@@ -18,10 +18,16 @@
       <div>
         <label class="block text-sm text-gray-600">Qdrant URL</label>
         <input name="qdrant_url" value="{{ chunk.qdrant_url|default_if_none:'' }}" class="border rounded px-2 py-1 w-full"/>
+        {% if workspace.qdrant_url %}
+          <p class="text-xs text-gray-400 mt-1">Workspace Default: {{ workspace.qdrant_url }}</p>
+        {% endif %}
       </div>
       <div>
         <label class="block text-sm text-gray-600">Qdrant API Key</label>
         <input name="qdrant_api_key" value="{{ chunk.qdrant_api_key|default_if_none:'' }}" class="border rounded px-2 py-1 w-full"/>
+        {% if workspace.qdrant_api_key %}
+           <p class="text-xs text-gray-400 mt-1">Workspace Default: Configured</p>
+        {% endif %}
       </div>
     </div>
 

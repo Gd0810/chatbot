@@ -9,6 +9,7 @@ urlpatterns = [
 
     # Partials (HTMX)
     path('partial/account/', views.partial_account, name='partial_account'),
+    path('workspace/update/', views.workspace_update, name='workspace_update'),
     path('partial/plan/', views.partial_plan, name='partial_plan'),
     path('partial/bots/', views.partial_bots, name='partial_bots'),
     

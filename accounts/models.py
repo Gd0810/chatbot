@@ -43,6 +43,10 @@ class Workspace(models.Model):
         default=False,
         help_text="Show WhatsApp contact link in AI 'no relevant info' responses"
     )
+    # Qdrant Default Configuration
+    qdrant_url = models.URLField(blank=True, null=True, help_text="Default Qdrant URL for new chunks")
+    qdrant_api_key = models.CharField(max_length=255, blank=True, null=True, help_text="Default Qdrant API Key for new chunks")
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

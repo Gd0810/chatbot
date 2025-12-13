@@ -37,6 +37,50 @@ def index(request):
 # Partials
 
 @login_required
+def workspace_update(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("POST required")
+    
+    ws, bounce = _require_operational(request)
+    if bounce: return bounce
+    
+    # Simple permission check (owner only)
+    if ws.owner != request.user:
+        messages.error(request, "Permission denied.")
+        return redirect('dashboard:index')
+
+    # Update fields
+    ws.qdrant_url = request.POST.get('qdrant_url', '').strip()
+    ws.qdrant_api_key = request.POST.get('qdrant_api_key', '').strip()
+    ws.save()
+
+    ws.save()
+
+    # Sync to all existing chunks
+    from knowledge.models import Chunk
+    chunks = Chunk.objects.filter(knowledge_source__bot__workspace=ws)
+    
+    updated_count = 0
+    if ws.qdrant_url and ws.qdrant_api_key:
+        for chunk in chunks:
+            chunk.qdrant_url = ws.qdrant_url
+            chunk.qdrant_api_key = ws.qdrant_api_key
+            try:
+                # save() triggers push_to_qdrant() if embedding exists
+                chunk.save()
+                updated_count += 1
+            except Exception as e:
+                print(f"Failed to sync chunk {chunk.id}: {e}")
+
+    if updated_count > 0:
+        messages.success(request, f"Configuration updated and {updated_count} chunks synced to Qdrant.")
+    else:
+        messages.success(request, "Workspace configuration updated.")
+    
+    # Return updated account partial
+    return partial_account(request)
+
+@login_required
 def partial_account(request):
     ws, bounce = _require_operational(request)
     if bounce: return bounce

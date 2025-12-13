@@ -54,14 +54,27 @@ class KnowledgeSource(models.Model):
         words = text.split()
         chunks = [" ".join(words[i:i + chunk_size]) for i in range(0, len(words), chunk_size)]
 
+        # Determine Qdrant config (Workspace > Settings)
+        ws_url = None
+        ws_key = None
+        try:
+            if self.bot and self.bot.workspace:
+                ws_url = self.bot.workspace.qdrant_url
+                ws_key = self.bot.workspace.qdrant_api_key
+        except Exception:
+            pass
+
+        final_url = ws_url or getattr(settings, "QDRANT_URL", None)
+        final_key = ws_key or getattr(settings, "QDRANT_API_KEY", None)
+
         for chunk_text in chunks:
             embedding = embedding_model.encode(chunk_text).tolist()
             Chunk.objects.create(
                 knowledge_source=self,
                 text=chunk_text,
                 embedding=embedding,
-                qdrant_url=getattr(settings, "QDRANT_URL", None),
-                qdrant_api_key=getattr(settings, "QDRANT_API_KEY", None),
+                qdrant_url=final_url,
+                qdrant_api_key=final_key,
             )
 
     def delete(self, *args, **kwargs):

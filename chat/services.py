@@ -375,7 +375,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
                         if ws.enable_whatsapp_number_in_chat and ws.whatsapp_number:
                             # Clean the number (remove spaces, dashes)
                             clean_number = ws.whatsapp_number.replace(' ', '').replace('-', '')
-                            wa_link = f'<a href="https://wa.me/{clean_number}" style="color:#5A4FCF;text-decoration:underline;font-weight:600" target="_blank"><iconify-icon icon="logos:whatsapp-icon" style="vertical-align: middle; margin-right: 2px; font-size: 1.9em;"></iconify-icon>{ws.whatsapp_number}</a>'
+                            wa_link = f'<a href="https://wa.me/{clean_number}" style="color:#5A4FCF;text-decoration:underline;font-weight:600" target="_blank"><iconify-icon icon="logos:whatsapp-icon" style="vertical-align: middle; margin-right: 2px; font-size: 1.6em;"></iconify-icon>{ws.whatsapp_number}</a>'
                             answer_text += f" For further details, WhatsApp this number: {wa_link}"
                     else:
                         answer_text = "I apologize, but I don't have specific information about that in my current knowledge base."

@@ -21,6 +21,7 @@
     </a>
   </div>
 
+  {% if workspace.active_plan.includes_ai %}
   <div class="mt-6 border-t pt-4">
     <h3 class="text-md font-semibold mb-3">Knowledge Configuration (Defaults)</h3>
     <form hx-post="{% url 'dashboard:workspace_update' %}" hx-target="#account-partial-container">
@@ -46,4 +47,5 @@
         </button>
     </form>
   </div>
+  {% endif %}
 </div>

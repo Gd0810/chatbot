@@ -255,19 +255,99 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         except Exception:
             body = "<unavailable>"
         print(f"HTTPError calling provider {provider}: status={status} body={body}")
-        return f"⚠️ AI service error (HTTP {status})."
+        
+        # Build user-friendly error message based on plan
+        error_msg = f"⚠️ AI service error (HTTP {status})."
+        try:
+            if bot and bot.workspace:
+                ws = bot.workspace
+                plan = ws.active_plan
+                
+                # Add plan-specific suggestions
+                if plan and plan.bundle == 'FULL':
+                    error_msg += " However, you may get better assistance by switching to our Live Chat or Q&A bot using the menu above."
+                
+                # Add WhatsApp link if enabled (for ALL plans)
+                if ws.enable_whatsapp_number_in_chat and ws.whatsapp_number:
+                    clean_number = ws.whatsapp_number.replace(' ', '').replace('-', '')
+                    wa_link = f'<a href="https://wa.me/{clean_number}" style="color:#5A4FCF;text-decoration:underline;font-weight:600" target="_blank"><iconify-icon icon="logos:whatsapp-icon" style="vertical-align: middle; margin-right: 2px; font-size: 1.6em;"></iconify-icon>{ws.whatsapp_number}</a>'
+                    error_msg += f" For further details, WhatsApp this number: {wa_link}"
+        except Exception:
+            pass
+        
+        return error_msg
 
     except requests.RequestException as e:
         print(f"RequestException calling provider {provider}: {e}")
-        return f"⚠️ AI service connection error: {str(e)}"
+        
+        # Build user-friendly error message based on plan
+        error_msg = f"⚠️ AI service connection error."
+        try:
+            if bot and bot.workspace:
+                ws = bot.workspace
+                plan = ws.active_plan
+                
+                # Add plan-specific suggestions
+                if plan and plan.bundle == 'FULL':
+                    error_msg += " However, you may get better assistance by switching to our Live Chat or Q&A bot using the menu above."
+                
+                # Add WhatsApp link if enabled (for ALL plans)
+                if ws.enable_whatsapp_number_in_chat and ws.whatsapp_number:
+                    clean_number = ws.whatsapp_number.replace(' ', '').replace('-', '')
+                    wa_link = f'<a href="https://wa.me/{clean_number}" style="color:#5A4FCF;text-decoration:underline;font-weight:600" target="_blank"><iconify-icon icon="logos:whatsapp-icon" style="vertical-align: middle; margin-right: 2px; font-size: 1.6em;"></iconify-icon>{ws.whatsapp_number}</a>'
+                    error_msg += f" For further details, WhatsApp this number: {wa_link}"
+        except Exception:
+            pass
+        
+        return error_msg
 
     except ValueError as e:
         print(f"ValueError parsing response from {provider}: {e}")
-        return "⚠️ Received invalid response from AI service."
+        
+        # Build user-friendly error message based on plan
+        error_msg = "⚠️ Received invalid response from AI service."
+        try:
+            if bot and bot.workspace:
+                ws = bot.workspace
+                plan = ws.active_plan
+                
+                # Add plan-specific suggestions
+                if plan and plan.bundle == 'FULL':
+                    error_msg += " However, you may get better assistance by switching to our Live Chat or Q&A bot using the menu above."
+                
+                # Add WhatsApp link if enabled (for ALL plans)
+                if ws.enable_whatsapp_number_in_chat and ws.whatsapp_number:
+                    clean_number = ws.whatsapp_number.replace(' ', '').replace('-', '')
+                    wa_link = f'<a href="https://wa.me/{clean_number}" style="color:#5A4FCF;text-decoration:underline;font-weight:600" target="_blank"><iconify-icon icon="logos:whatsapp-icon" style="vertical-align: middle; margin-right: 2px; font-size: 1.6em;"></iconify-icon>{ws.whatsapp_number}</a>'
+                    error_msg += f" For further details, WhatsApp this number: {wa_link}"
+        except Exception:
+            pass
+        
+        return error_msg
 
     except Exception as e:
         print(f"Unexpected error in get_ai_response: {e}")
-        return f"⚠️ Unexpected error: {str(e)}"
+        
+        # Build user-friendly error message based on plan
+        error_msg = "⚠️ Unexpected error occurred."
+        try:
+            if bot and bot.workspace:
+                ws = bot.workspace
+                plan = ws.active_plan
+                
+                # Add plan-specific suggestions
+                if plan and plan.bundle == 'FULL':
+                    error_msg += " However, you may get better assistance by switching to our Live Chat or Q&A bot using the menu above."
+                
+                # Add WhatsApp link if enabled (for ALL plans)
+                if ws.enable_whatsapp_number_in_chat and ws.whatsapp_number:
+                    clean_number = ws.whatsapp_number.replace(' ', '').replace('-', '')
+                    wa_link = f'<a href="https://wa.me/{clean_number}" style="color:#5A4FCF;text-decoration:underline;font-weight:600" target="_blank"><iconify-icon icon="logos:whatsapp-icon" style="vertical-align: middle; margin-right: 2px; font-size: 1.6em;"></iconify-icon>{ws.whatsapp_number}</a>'
+                    error_msg += f" For further details, WhatsApp this number: {wa_link}"
+        except Exception:
+            pass
+        
+        return error_msg
 
     # Post-process: convert plain URLs to clickable links and avoid duplicates
     try:

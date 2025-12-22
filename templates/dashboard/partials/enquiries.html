@@ -86,82 +86,116 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Pagination Controls -->
+  {% if page_obj.has_other_pages %}
+  <div class="mt-6 flex items-center justify-between">
+    <div class="text-sm text-gray-600">
+      Showing <strong>{{ page_obj.start_index }}</strong> to <strong>{{ page_obj.end_index }}</strong> of <strong>{{ enquiry_count }}</strong> enquiries
+    </div>
+    <div class="flex gap-2">
+      <!-- Previous Page -->
+      {% if page_obj.has_previous %}
+        <a href="javascript:void(0)" onclick="loadEnquiriesPage(1)" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">First</a>
+        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.previous_page_number }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">← Previous</a>
+      {% else %}
+        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">First</button>
+        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">← Previous</button>
+      {% endif %}
+
+      <!-- Page Numbers -->
+      <div class="flex items-center gap-1">
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <span class="px-3 py-2 border rounded bg-blue-500 text-white font-semibold text-sm">{{ num }}</span>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ num }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <!-- Next Page -->
+      {% if page_obj.has_next %}
+        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.next_page_number }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">Next →</a>
+        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.paginator.num_pages }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">Last</a>
+      {% else %}
+        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">Next →</button>
+        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">Last</button>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
   {% else %}
     <div class="text-center p-6 text-gray-500">No enquiries yet.</div>
   {% endif %}
 
 </div>
 
-<!-- ================= CHART SCRIPT ================= -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
-
 <script>
-console.log("🔥 Enquiry chart script injected");
+    (function() {
+        // Enquiries Chart Initialization
+        function initEnquiryChart() {
+            const ctx = document.getElementById('enquiryChart');
+            if (!ctx) return;
 
-(function initEnquiryChart() {
+            // Destroy existing chart if any
+            if (window.myEnquiryChart) {
+                window.myEnquiryChart.destroy();
+                window.myEnquiryChart = null;
+            }
 
-  console.log("🚀 initEnquiryChart running");
+            try {
+                // Get data from data attributes safely
+                const labelsRaw = ctx.dataset.labels;
+                const dataRaw = ctx.dataset.data;
 
-  const canvas = document.getElementById("enquiryChart");
+                if (!labelsRaw || !dataRaw) return;
 
-  if (!canvas) {
-    console.error("❌ enquiryChart canvas NOT FOUND");
-    return;
-  }
+                const labels = JSON.parse(labelsRaw);
+                const data = JSON.parse(dataRaw);
 
-  if (typeof Chart === "undefined") {
-    console.error("❌ Chart.js NOT loaded");
-    return;
-  }
-
-  console.log("✅ Chart.js detected");
-
-  const labelsRaw = canvas.dataset.labels;
-  const dataRaw   = canvas.dataset.data;
-
-  console.log("📦 Raw labels:", labelsRaw);
-  console.log("📦 Raw data:", dataRaw);
-
-  const labels = JSON.parse(labelsRaw || "[]");
-  const data   = JSON.parse(dataRaw || "[]");
-
-  if (!labels.length || !data.length) {
-    console.warn("⚠ No data for chart");
-    return;
-  }
-
-  console.log("📊 Labels:", labels);
-  console.log("📈 Data:", data);
-
-  new Chart(canvas.getContext("2d"), {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: [{
-        label: "Enquiries",
-        data: data,
-        borderColor: "#2563eb",
-        backgroundColor: "rgba(37,99,235,0.3)",
-        borderWidth: 2,
-        tension: 0.4,
-        fill: true,
-        pointRadius: 4,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { precision: 0 }
+                if (labels && data && labels.length > 0) {
+                     window.myEnquiryChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Enquiries',
+                                data: data,
+                                borderColor: '#4F46E5', // Indigo 600
+                                backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                                tension: 0.3,
+                                fill: true,
+                                pointRadius: 3,
+                                pointHoverRadius: 5
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { mode: 'index', intersect: false }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: { stepSize: 1 },
+                                    grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                                },
+                                x: { grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Error initializing chart:", e);
+            }
         }
-      }
-    }
-  });
 
-  console.log("🎉 Chart rendered SUCCESSFULLY");
-
-})();
+        // Run immediately
+        initEnquiryChart();
+    })();
 </script>
 

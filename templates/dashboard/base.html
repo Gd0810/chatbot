@@ -48,6 +48,8 @@
     .sidebar {
       background-color: var(--bg-secondary);
       border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
     }
     
     .nav-link {
@@ -63,21 +65,104 @@
       color: var(--text-secondary);
     }
     
-    /* Android-style toggle switch */
-    .theme-toggle-container {
+    /* Account dropdown at bottom */
+    .account-section {
+      margin-top: auto;
+      border-top: 1px solid var(--border-color);
+      padding: 12px;
+    }
+    
+    .account-trigger {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .account-trigger:hover {
+      background-color: var(--hover-bg);
+    }
+    
+    .account-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--toggle-active);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .account-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .account-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .account-email {
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .dropdown-arrow {
+      color: var(--text-secondary);
+      transition: transform 0.3s;
+    }
+    
+    .dropdown-arrow.open {
+      transform: rotate(180deg);
+    }
+    
+    .account-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      margin-top: 8px;
+    }
+    
+    .account-dropdown.open {
+      max-height: 200px;
+    }
+    
+    .dropdown-item {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 12px 16px;
+      border-radius: 8px;
       cursor: pointer;
-      border-radius: 12px;
       transition: background-color 0.2s;
+      margin-bottom: 4px;
     }
     
-    .theme-toggle-container:hover {
+    .dropdown-item:hover {
       background-color: var(--hover-bg);
     }
     
+    .dropdown-item-text {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    /* Android-style toggle switch */
     .toggle-switch {
       position: relative;
       width: 52px;
@@ -86,6 +171,7 @@
       border-radius: 16px;
       transition: background-color 0.3s;
       cursor: pointer;
+      flex-shrink: 0;
     }
     
     .toggle-switch.active {
@@ -119,12 +205,6 @@
     .toggle-switch.active .toggle-icon {
       color: var(--toggle-active);
     }
-    
-    .toggle-label {
-      font-size: 14px;
-      font-weight: 500;
-      flex: 1;
-    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -132,20 +212,7 @@
     <aside class="sidebar w-64 min-h-screen">
       <div class="p-4 font-semibold text-lg">Dashboard</div>
       
-      <!-- Theme Toggle -->
-      <div class="px-2 mb-4">
-        <div class="theme-toggle-container" onclick="toggleTheme()">
-          <iconify-icon icon="material-symbols:dark-mode-outline" width="20" height="20" style="color: var(--text-primary)"></iconify-icon>
-          <span class="toggle-label">Dark theme</span>
-          <div class="toggle-switch" id="themeToggle">
-            <div class="toggle-thumb">
-              <iconify-icon class="toggle-icon" icon="material-symbols:check" width="16" height="16"></iconify-icon>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <nav class="px-2">
+      <nav class="px-2 flex-1">
         <div class="section-label text-xs px-2 mt-4 mb-2">Profile</div>
         <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_account' %}" hx-target="#main" hx-swap="innerHTML">
@@ -236,11 +303,36 @@
         </a>
         {% endif %}
       </nav>
-      <div class="p-4 mt-6">
-        <a class="text-sm flex items-center gap-2" style="color: var(--toggle-active)" href="{% url 'accounts:logout' %}">
-          <iconify-icon icon="material-symbols:logout" width="18" height="18"></iconify-icon>
-          <span>Logout</span>
-        </a>
+      
+      <!-- Account Section at Bottom -->
+      <div class="account-section">
+        <div class="account-trigger" onclick="toggleAccountDropdown()">
+          <div class="account-avatar">
+            <span>{{ user.first_name.0|default:user.username.0|upper }}</span>
+          </div>
+          <div class="account-info">
+            <div class="account-name">{{ user.get_full_name|default:user.username }}</div>
+            <div class="account-email">{{ user.email }}</div>
+          </div>
+          <iconify-icon class="dropdown-arrow" id="dropdownArrow" icon="material-symbols:keyboard-arrow-down" width="24" height="24"></iconify-icon>
+        </div>
+        
+        <div class="account-dropdown" id="accountDropdown">
+          <div class="dropdown-item" onclick="toggleTheme()">
+            <iconify-icon icon="material-symbols:dark-mode-outline" width="20" height="20" style="color: var(--text-primary)"></iconify-icon>
+            <span class="dropdown-item-text">Dark theme</span>
+            <div class="toggle-switch" id="themeToggle">
+              <div class="toggle-thumb">
+                <iconify-icon class="toggle-icon" icon="material-symbols:check" width="16" height="16"></iconify-icon>
+              </div>
+            </div>
+          </div>
+          
+          <a class="dropdown-item" href="{% url 'accounts:logout' %}" style="text-decoration: none; color: inherit;">
+            <iconify-icon icon="material-symbols:logout" width="20" height="20" style="color: var(--toggle-active)"></iconify-icon>
+            <span class="dropdown-item-text" style="color: var(--toggle-active)">Logout</span>
+          </a>
+        </div>
       </div>
     </aside>
     <main class="flex-1 p-6">
@@ -250,6 +342,15 @@
   </div>
 
   <script>
+    // Account dropdown toggle
+    function toggleAccountDropdown() {
+      const dropdown = document.getElementById('accountDropdown');
+      const arrow = document.getElementById('dropdownArrow');
+      
+      dropdown.classList.toggle('open');
+      arrow.classList.toggle('open');
+    }
+    
     // Theme management
     function toggleTheme() {
       const html = document.documentElement;

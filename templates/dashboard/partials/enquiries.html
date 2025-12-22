@@ -1,37 +1,75 @@
 {% include 'toast.html' %}
+
 <div class="bg-white shadow rounded p-4">
+
+  <!-- Header -->
   <div class="flex items-center justify-between mb-4">
     <div>
       <h2 class="text-lg font-semibold">Enquiries</h2>
-      <div class="text-sm text-gray-600 mt-1">Total submissions: {{ enquiry_count }}</div>
+      <div class="text-sm text-gray-600 mt-1">
+        Total submissions: {{ enquiry_count }}
+      </div>
     </div>
-    <div>
-      <label class="flex items-center gap-2 text-sm cursor-pointer">
-        <input 
-          type="checkbox" 
-          id="enable-enquiry-form" 
-          {% if workspace.enable_enquiry_form %}checked{% endif %}
-          onchange="updateEnquiryFormSetting(this)"
-          class="w-4 h-4"
-        />
-        <span>{{ workspace.enable_enquiry_form|yesno:'Enabled,Disabled' }}</span>
-      </label>
+
+    <label class="flex items-center gap-2 text-sm cursor-pointer">
+      <input
+        type="checkbox"
+        {% if workspace.enable_enquiry_form %}checked{% endif %}
+        onchange="updateEnquiryFormSetting(this)"
+        class="w-4 h-4"
+      />
+      <span>{{ workspace.enable_enquiry_form|yesno:"Enabled,Disabled" }}</span>
+    </label>
+  </div>
+
+  <!-- Status -->
+  <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-800">
+    <strong>Form Status:</strong>
+    {% if workspace.enable_enquiry_form %}
+      Enquiry form is <strong>enabled</strong> — visitors will see the form before chat.
+    {% else %}
+      Enquiry form is <strong>disabled</strong> — visitors can chat directly.
+    {% endif %}
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-gray-50 p-4 rounded border">
+      <div class="text-xs uppercase text-gray-500 font-semibold">Today</div>
+      <div class="text-2xl font-bold mt-1">{{ count_today }}</div>
+    </div>
+    <div class="bg-gray-50 p-4 rounded border">
+      <div class="text-xs uppercase text-gray-500 font-semibold">This Month</div>
+      <div class="text-2xl font-bold mt-1">{{ count_month }}</div>
+    </div>
+    <div class="bg-gray-50 p-4 rounded border">
+      <div class="text-xs uppercase text-gray-500 font-semibold">This Year</div>
+      <div class="text-2xl font-bold mt-1">{{ count_year }}</div>
     </div>
   </div>
 
-  <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-800">
-    <strong>Form Status:</strong> {% if workspace.enable_enquiry_form %}Enquiry form is <strong>enabled</strong> — visitors will see name/phone/email form before chatting.{% else %}Enquiry form is <strong>disabled</strong> — visitors can chat directly without submitting form.{% endif %}
+  <!-- ================= GRAPH ================= -->
+  <div class="mb-6 border rounded p-4">
+    <div class="relative h-64">
+      <canvas
+        id="enquiryChart"
+        class="w-full h-full"
+        data-labels='{{ graph_labels|safe }}'
+        data-data='{{ graph_data|safe }}'>
+      </canvas>
+    </div>
   </div>
 
   {% if enquiries %}
+  <!-- Table -->
   <div class="overflow-x-auto">
     <table class="w-full text-sm border-collapse">
       <thead>
-        <tr class="border-b bg-gray-50">
-          <th class="text-left p-2">Name</th>
-          <th class="text-left p-2">Phone</th>
-          <th class="text-left p-2">Email</th>
-          <th class="text-left p-2">Submitted At</th>
+        <tr class="bg-gray-50 border-b">
+          <th class="p-2 text-left">Name</th>
+          <th class="p-2 text-left">Phone</th>
+          <th class="p-2 text-left">Email</th>
+          <th class="p-2 text-left">Submitted At</th>
         </tr>
       </thead>
       <tbody>
@@ -40,93 +78,90 @@
           <td class="p-2">{{ enquiry.name|default:"—" }}</td>
           <td class="p-2">{{ enquiry.phone|default:"—" }}</td>
           <td class="p-2">{{ enquiry.email|default:"—" }}</td>
-          <td class="p-2 text-xs text-gray-600">{{ enquiry.created_at|date:"Y-m-d H:i" }}</td>
+          <td class="p-2 text-xs text-gray-600">
+            {{ enquiry.created_at|date:"Y-m-d H:i" }}
+          </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
-
-  <!-- Pagination Controls -->
-  {% if page_obj.has_other_pages %}
-  <div class="mt-6 flex items-center justify-between">
-    <div class="text-sm text-gray-600">
-      Showing <strong>{{ page_obj.start_index }}</strong> to <strong>{{ page_obj.end_index }}</strong> of <strong>{{ enquiry_count }}</strong> enquiries
-    </div>
-    <div class="flex gap-2">
-      <!-- Previous Page -->
-      {% if page_obj.has_previous %}
-        <a href="javascript:void(0)" onclick="loadEnquiriesPage(1)" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">First</a>
-        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.previous_page_number }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">← Previous</a>
-      {% else %}
-        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">First</button>
-        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">← Previous</button>
-      {% endif %}
-
-      <!-- Page Numbers -->
-      <div class="flex items-center gap-1">
-        {% for num in page_obj.paginator.page_range %}
-          {% if page_obj.number == num %}
-            <span class="px-3 py-2 border rounded bg-blue-500 text-white font-semibold text-sm">{{ num }}</span>
-          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ num }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">{{ num }}</a>
-          {% endif %}
-        {% endfor %}
-      </div>
-
-      <!-- Next Page -->
-      {% if page_obj.has_next %}
-        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.next_page_number }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">Next →</a>
-        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.paginator.num_pages }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">Last</a>
-      {% else %}
-        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">Next →</button>
-        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">Last</button>
-      {% endif %}
-    </div>
-  </div>
-  {% endif %}
   {% else %}
-  <div class="text-center p-6 text-gray-500">
-    <p>No enquiries yet.</p>
-    <p class="text-xs mt-2">When visitors submit the form (if enabled), their information will appear here.</p>
-  </div>
+    <div class="text-center p-6 text-gray-500">No enquiries yet.</div>
   {% endif %}
+
 </div>
 
-<script>
-function updateEnquiryFormSetting(checkbox) {
-  const enabled = checkbox.checked;
-  const formData = new FormData();
-  formData.append('enable_enquiry_form', enabled ? '1' : '0');
-  
-  fetch('{% url "dashboard:partial_enquiries" %}', {
-    method: 'POST',
-    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-    body: formData
-  })
-  .then(response => response.text())
-  .then(html => {
-    document.getElementById('main').innerHTML = html;
-  })
-  .catch(err => console.error('Error:', err));
-}
+<!-- ================= CHART SCRIPT ================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
 
-function loadEnquiriesPage(pageNum) {
-  const url = `{% url "dashboard:partial_enquiries" %}?page=${pageNum}`;
-  
-  fetch(url, {
-    method: 'GET',
-    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-  })
-  .then(response => response.text())
-  .then(html => {
-    document.getElementById('main').innerHTML = html;
-    // Scroll to top of main content
-    const mainElement = document.getElementById('main');
-    if (mainElement) {
-      mainElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+<script>
+console.log("🔥 Enquiry chart script injected");
+
+(function initEnquiryChart() {
+
+  console.log("🚀 initEnquiryChart running");
+
+  const canvas = document.getElementById("enquiryChart");
+
+  if (!canvas) {
+    console.error("❌ enquiryChart canvas NOT FOUND");
+    return;
+  }
+
+  if (typeof Chart === "undefined") {
+    console.error("❌ Chart.js NOT loaded");
+    return;
+  }
+
+  console.log("✅ Chart.js detected");
+
+  const labelsRaw = canvas.dataset.labels;
+  const dataRaw   = canvas.dataset.data;
+
+  console.log("📦 Raw labels:", labelsRaw);
+  console.log("📦 Raw data:", dataRaw);
+
+  const labels = JSON.parse(labelsRaw || "[]");
+  const data   = JSON.parse(dataRaw || "[]");
+
+  if (!labels.length || !data.length) {
+    console.warn("⚠ No data for chart");
+    return;
+  }
+
+  console.log("📊 Labels:", labels);
+  console.log("📈 Data:", data);
+
+  new Chart(canvas.getContext("2d"), {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Enquiries",
+        data: data,
+        borderColor: "#2563eb",
+        backgroundColor: "rgba(37,99,235,0.3)",
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
+        }
+      }
     }
-  })
-  .catch(err => console.error('Error loading page:', err));
-}
+  });
+
+  console.log("🎉 Chart rendered SUCCESSFULLY");
+
+})();
 </script>
+

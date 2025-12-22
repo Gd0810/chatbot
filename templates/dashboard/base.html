@@ -12,6 +12,9 @@
   
   <!-- Emoji Picker Library -->
   <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="min-h-screen bg-gray-50">
   <div class="flex">
@@ -90,6 +93,21 @@
       const csrf = getCookie('csrftoken');
       if (csrf) e.detail.headers['X-CSRFToken'] = csrf;
     });
+
+    // Enquiries Global Functions
+    window.updateEnquiryFormSetting = function(checkbox) {
+        const enabled = checkbox.checked;
+        const vals = { 'enable_enquiry_form': enabled ? '1' : '0' };
+        htmx.ajax('POST', '{% url "dashboard:partial_enquiries" %}', {
+             target: '#main',
+             values: vals,
+             headers: { 'X-CSRFToken': getCookie('csrftoken') }
+        });
+    };
+
+    window.loadEnquiriesPage = function(pageNum) {
+       htmx.ajax('GET', `{% url "dashboard:partial_enquiries" %}?page=${pageNum}`, '#main');
+    };
   </script>
 </body>
 </html>

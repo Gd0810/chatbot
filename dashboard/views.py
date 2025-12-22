@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.utils import timezone
+from django.db.models import Count
+from django.db.models.functions import TruncDate
+from datetime import timedelta
 
 from accounts.models import Workspace
 from billing.models import Plan
@@ -604,46 +607,99 @@ def bot_style_save(request, bot_id):
     return render(request, 'dashboard/partials/bot_style_list.html', {'workspace': ws, 'bots': bots})
 
 
+
+from django.utils import timezone
+from django.db.models import Count
+from django.db.models.functions import TruncDate
+from datetime import timedelta
+import json
+
 @login_required
 def partial_enquiries(request):
-    """Display all enquiry form submissions for the workspace with pagination."""
     from bots.models import BotEnquiry
     from django.core.paginator import Paginator
-    
+    from django.utils import timezone
+    from django.db.models import Count
+    from django.db.models.functions import TruncDate
+    from datetime import timedelta
+    import json
+
     ws, bounce = _require_operational(request)
-    if bounce: return bounce
-    
-    # Handle POST to toggle enquiry form
-    if request.method == 'POST':
-        enable_form = request.POST.get('enable_enquiry_form') == '1'
-        ws.enable_enquiry_form = enable_form
-        try:
-            ws.save()
-            messages.success(request, f"Enquiry form {('enabled' if enable_form else 'disabled')}.")
-        except Exception as e:
-            messages.error(request, f"Failed to update setting: {e}")
-    
-    # Get all enquiries for this workspace
-    all_enquiries = BotEnquiry.objects.filter(workspace=ws).order_by('-created_at')
-    
-    # Pagination - 10 items per page
-    paginator = Paginator(all_enquiries, 10)
-    page_num = request.GET.get('page', 1)
-    
-    try:
-        page_num = int(page_num)
-    except (ValueError, TypeError):
-        page_num = 1
-    
-    page_obj = paginator.get_page(page_num)
-    enquiries = page_obj.object_list
-    
-    return render(request, 'dashboard/partials/enquiries.html', {
-        'workspace': ws,
-        'enquiries': enquiries,
-        'page_obj': page_obj,
-        'enquiry_count': all_enquiries.count()
+    if bounce:
+        return bounce
+
+    # -------------------------
+    # BASE QUERY (WORKING)
+    # -------------------------
+    all_enquiries = BotEnquiry.objects.filter(workspace=ws)
+
+    # -------------------------
+    # STATS
+    # -------------------------
+    now = timezone.now()
+
+    count_today = all_enquiries.filter(
+        created_at__date=now.date()
+    ).count()
+
+    count_month = all_enquiries.filter(
+        created_at__year=now.year,
+        created_at__month=now.month
+    ).count()
+
+    count_year = all_enquiries.filter(
+        created_at__year=now.year
+    ).count()
+
+    # -------------------------
+    # GRAPH DATA (LAST 30 DAYS)
+    # -------------------------
+    start_date = now.date() - timedelta(days=29)
+
+    qs = (
+        all_enquiries
+        .filter(created_at__date__gte=start_date)
+        .annotate(day=TruncDate("created_at"))
+        .values("day")
+        .annotate(count=Count("id"))
+        .order_by("day")
+    )
+
+    day_map = {row["day"]: row["count"] for row in qs}
+
+    graph_labels = []
+    graph_data = []
+
+    for i in range(30):
+        day = start_date + timedelta(days=i)
+        graph_labels.append(day.strftime("%Y-%m-%d"))
+        graph_data.append(day_map.get(day, 0))
+
+    print("DEBUG graph_labels:", graph_labels)
+    print("DEBUG graph_data:", graph_data)
+
+    # -------------------------
+    # PAGINATION
+    # -------------------------
+    paginator = Paginator(all_enquiries.order_by("-created_at"), 10)
+    page_obj = paginator.get_page(request.GET.get("page", 1))
+
+    return render(request, "dashboard/partials/enquiries.html", {
+        "workspace": ws,
+        "enquiries": page_obj.object_list,
+        "page_obj": page_obj,
+        "enquiry_count": all_enquiries.count(),
+
+        # 🔥 THIS IS WHAT WAS MISSING
+        "count_today": count_today,
+        "count_month": count_month,
+        "count_year": count_year,
+        "graph_labels": json.dumps(graph_labels),
+        "graph_data": json.dumps(graph_data),
     })
+
+
+
 
 @login_required
 def live_chat_list(request):
@@ -803,46 +859,46 @@ def bot_style_save(request, bot_id):
     return render(request, 'dashboard/partials/bot_style_list.html', {'workspace': ws, 'bots': bots})
 
 
-@login_required
-def partial_enquiries(request):
-    """Display all enquiry form submissions for the workspace with pagination."""
-    from bots.models import BotEnquiry
-    from django.core.paginator import Paginator
+# @login_required
+# def partial_enquiries(request):
+#     """Display all enquiry form submissions for the workspace with pagination."""
+#     from bots.models import BotEnquiry
+#     from django.core.paginator import Paginator
     
-    ws, bounce = _require_operational(request)
-    if bounce: return bounce
+#     ws, bounce = _require_operational(request)
+#     if bounce: return bounce
     
-    # Handle POST to toggle enquiry form
-    if request.method == 'POST':
-        enable_form = request.POST.get('enable_enquiry_form') == '1'
-        ws.enable_enquiry_form = enable_form
-        try:
-            ws.save()
-            messages.success(request, f"Enquiry form {('enabled' if enable_form else 'disabled')}.")
-        except Exception as e:
-            messages.error(request, f"Failed to update setting: {e}")
+#     # Handle POST to toggle enquiry form
+#     if request.method == 'POST':
+#         enable_form = request.POST.get('enable_enquiry_form') == '1'
+#         ws.enable_enquiry_form = enable_form
+#         try:
+#             ws.save()
+#             messages.success(request, f"Enquiry form {('enabled' if enable_form else 'disabled')}.")
+#         except Exception as e:
+#             messages.error(request, f"Failed to update setting: {e}")
     
-    # Get all enquiries for this workspace
-    all_enquiries = BotEnquiry.objects.filter(workspace=ws).order_by('-created_at')
+#     # Get all enquiries for this workspace
+#     all_enquiries = BotEnquiry.objects.filter(workspace=ws).order_by('-created_at')
     
-    # Pagination - 10 items per page
-    paginator = Paginator(all_enquiries, 10)
-    page_num = request.GET.get('page', 1)
+#     # Pagination - 10 items per page
+#     paginator = Paginator(all_enquiries, 10)
+#     page_num = request.GET.get('page', 1)
     
-    try:
-        page_num = int(page_num)
-    except (ValueError, TypeError):
-        page_num = 1
+#     try:
+#         page_num = int(page_num)
+#     except (ValueError, TypeError):
+#         page_num = 1
     
-    page_obj = paginator.get_page(page_num)
-    enquiries = page_obj.object_list
+#     page_obj = paginator.get_page(page_num)
+#     enquiries = page_obj.object_list
     
-    return render(request, 'dashboard/partials/enquiries.html', {
-        'workspace': ws,
-        'enquiries': enquiries,
-        'page_obj': page_obj,
-        'enquiry_count': all_enquiries.count()
-    })
+#     return render(request, 'dashboard/partials/enquiries.html', {
+#         'workspace': ws,
+#         'enquiries': enquiries,
+#         'page_obj': page_obj,
+#         'enquiry_count': all_enquiries.count()
+#     })
 
 @login_required
 def live_chat_list(request):

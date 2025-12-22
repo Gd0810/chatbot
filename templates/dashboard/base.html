@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Redbot Dashboard</title>
- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   
   <!-- Iconify for icons -->
@@ -15,65 +15,232 @@
   
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <style>
+    /* Theme variables */
+    :root {
+      --bg-primary: #f5f5f5;
+      --bg-secondary: #ffffff;
+      --text-primary: #1f1f1f;
+      --text-secondary: #5f6368;
+      --border-color: #e0e0e0;
+      --hover-bg: #f5f5f5;
+      --toggle-bg: #e8eaed;
+      --toggle-active: #1a73e8;
+    }
+    
+    [data-theme="dark"] {
+      --bg-primary: #1f1f1f;
+      --bg-secondary: #2d2d2d;
+      --text-primary: #e8eaed;
+      --text-secondary: #9aa0a6;
+      --border-color: #3c4043;
+      --hover-bg: #3c4043;
+      --toggle-bg: #3c4043;
+      --toggle-active: #8ab4f8;
+    }
+    
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    .sidebar {
+      background-color: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+    }
+    
+    .nav-link {
+      color: var(--text-primary);
+      transition: background-color 0.2s;
+    }
+    
+    .nav-link:hover {
+      background-color: var(--hover-bg);
+    }
+    
+    .section-label {
+      color: var(--text-secondary);
+    }
+    
+    /* Android-style toggle switch */
+    .theme-toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: background-color 0.2s;
+    }
+    
+    .theme-toggle-container:hover {
+      background-color: var(--hover-bg);
+    }
+    
+    .toggle-switch {
+      position: relative;
+      width: 52px;
+      height: 32px;
+      background-color: var(--toggle-bg);
+      border-radius: 16px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+    
+    .toggle-switch.active {
+      background-color: var(--toggle-active);
+    }
+    
+    .toggle-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      transition: transform 0.3s, background-color 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .toggle-switch.active .toggle-thumb {
+      transform: translateX(20px);
+    }
+    
+    .toggle-icon {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    .toggle-switch.active .toggle-icon {
+      color: var(--toggle-active);
+    }
+    
+    .toggle-label {
+      font-size: 14px;
+      font-weight: 500;
+      flex: 1;
+    }
+  </style>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen">
   <div class="flex">
-    <aside class="w-64 bg-white shadow min-h-screen">
+    <aside class="sidebar w-64 min-h-screen">
       <div class="p-4 font-semibold text-lg">Dashboard</div>
+      
+      <!-- Theme Toggle -->
+      <div class="px-2 mb-4">
+        <div class="theme-toggle-container" onclick="toggleTheme()">
+          <iconify-icon icon="material-symbols:dark-mode-outline" width="20" height="20" style="color: var(--text-primary)"></iconify-icon>
+          <span class="toggle-label">Dark theme</span>
+          <div class="toggle-switch" id="themeToggle">
+            <div class="toggle-thumb">
+              <iconify-icon class="toggle-icon" icon="material-symbols:check" width="16" height="16"></iconify-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <nav class="px-2">
-        <div class="text-xs text-gray-500 px-2 mt-4 mb-2">Profile</div>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_account' %}" hx-target="#main" hx-swap="innerHTML">Account</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_plan' %}" hx-target="#main" hx-swap="innerHTML">Your Plan</a>
+        <div class="section-label text-xs px-2 mt-4 mb-2">Profile</div>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_account' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:account-circle-outline" width="20" height="20"></iconify-icon>
+          <span>Account</span>
+        </a>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_plan' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:credit-card-outline" width="20" height="20"></iconify-icon>
+          <span>Your Plan</span>
+        </a>
 
-        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Bot</div>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-          hx-get="{% url 'dashboard:partial_bots' %}" hx-target="#main" hx-swap="innerHTML">Manage Bots</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-          hx-get="{% url 'dashboard:partial_bot_style' %}" hx-target="#main" hx-swap="innerHTML">Bot Styling</a>
+        <div class="section-label text-xs px-2 mt-6 mb-2">Bot</div>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+          hx-get="{% url 'dashboard:partial_bots' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:smart-toy-outline" width="20" height="20"></iconify-icon>
+          <span>Manage Bots</span>
+        </a>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+          hx-get="{% url 'dashboard:partial_bot_style' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:palette-outline" width="20" height="20"></iconify-icon>
+          <span>Bot Styling</span>
+        </a>
 
         {% if plan %}
           {% if plan.includes_live %}
-        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Conversation</div>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">Live Chat</a>
+        <div class="section-label text-xs px-2 mt-6 mb-2">Conversation</div>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:chat-outline" width="20" height="20"></iconify-icon>
+          <span>Live Chat</span>
+        </a>
           {% endif %}
 
           {% if plan.includes_ai or plan.includes_qa or plan.includes_live %}
-        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Your Data</div>
+        <div class="section-label text-xs px-2 mt-6 mb-2">Your Data</div>
             {% if plan.includes_ai %}
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">AI Knowledge</a>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:psychology-outline" width="20" height="20"></iconify-icon>
+          <span>AI Knowledge</span>
+        </a>
             {% if workspace.enable_website_datafetcher %}
-        <a class="block px-3 py-2 pl-6 text-sm text-gray-600 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_website_datafetcher' %}" hx-target="#main" hx-swap="innerHTML">Website Datafetcher</a>
+        <a class="nav-link block px-3 py-2 pl-6 text-sm rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_website_datafetcher' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:language" width="18" height="18"></iconify-icon>
+          <span>Website Datafetcher</span>
+        </a>
             {% endif %}
             {% endif %}
             {% if plan.includes_qa %}
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">Q&A Knowledge</a>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:quiz-outline" width="20" height="20"></iconify-icon>
+          <span>Q&A Knowledge</span>
+        </a>
             {% endif %}
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">Enquiries</a>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:mail-outline" width="20" height="20"></iconify-icon>
+          <span>Enquiries</span>
+        </a>
           {% endif %}
         {% else %}
           {# No active plan - show all links #}
-        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Conversation</div>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">Live Chat</a>
+        <div class="section-label text-xs px-2 mt-6 mb-2">Conversation</div>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:chat-outline" width="20" height="20"></iconify-icon>
+          <span>Live Chat</span>
+        </a>
         
-        <div class="text-xs text-gray-500 px-2 mt-6 mb-2">Your Data</div>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">AI Knowledge</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">Q&A Knowledge</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100"
-           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">Enquiries</a>
+        <div class="section-label text-xs px-2 mt-6 mb-2">Your Data</div>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:psychology-outline" width="20" height="20"></iconify-icon>
+          <span>AI Knowledge</span>
+        </a>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:quiz-outline" width="20" height="20"></iconify-icon>
+          <span>Q&A Knowledge</span>
+        </a>
+        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">
+          <iconify-icon icon="material-symbols:mail-outline" width="20" height="20"></iconify-icon>
+          <span>Enquiries</span>
+        </a>
         {% endif %}
       </nav>
       <div class="p-4 mt-6">
-        <a class="text-sm text-blue-600" href="{% url 'accounts:logout' %}">Logout</a>
+        <a class="text-sm flex items-center gap-2" style="color: var(--toggle-active)" href="{% url 'accounts:logout' %}">
+          <iconify-icon icon="material-symbols:logout" width="18" height="18"></iconify-icon>
+          <span>Logout</span>
+        </a>
       </div>
     </aside>
     <main class="flex-1 p-6">
@@ -83,6 +250,34 @@
   </div>
 
   <script>
+    // Theme management
+    function toggleTheme() {
+      const html = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const currentTheme = html.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        html.removeAttribute('data-theme');
+        toggle.classList.remove('active');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        toggle.classList.add('active');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    
+    // Load saved theme on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      const toggle = document.getElementById('themeToggle');
+      
+      if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        toggle.classList.add('active');
+      }
+    });
+
     // CSRF for HTMX
     function getCookie(name) {
       const value = `; ${document.cookie}`;

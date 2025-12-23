@@ -149,27 +149,30 @@
                   name="ui_font_family" 
                   class="w-full px-4 py-3 border-2 border-[#4C3BCF] bg-[#FFFFFF] text-[#0B0C0C] rounded-lg focus:ring-2 focus:ring-[#00C896] focus:border-[#00C896]"
                   onchange="updatePreview()">
+            <!-- Preload all fonts for the dropdown preview -->
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@400&family=Outfit:wght@400&family=Roboto:wght@400&family=Open+Sans:wght@400&family=Lato:wght@400&family=Nunito:wght@400&family=Montserrat:wght@400&family=Raleway:wght@400&family=Source+Sans+Pro:wght@400&family=Merriweather:wght@400&family=Playfair+Display:wght@400&family=Ubuntu:wght@400&family=Rubik:wght@400&family=Work+Sans:wght@400&family=Fira+Sans:wght@400&family=Karla:wght@400&family=DM+Sans:wght@400&family=Inconsolata:wght@400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
             <!-- Popular Google fonts (value is CSS font-family string) -->
-            <option value="Inter, system-ui, sans-serif" {% if bot.ui_font_family == "Inter, system-ui, sans-serif" %}selected{% endif %}>Inter (Modern & Clean)</option>
-            <option value="Poppins, sans-serif" {% if bot.ui_font_family == "Poppins, sans-serif" %}selected{% endif %}>Poppins (Bold & Modern)</option>
-            <option value="Outfit, sans-serif" {% if bot.ui_font_family == "Outfit, sans-serif" %}selected{% endif %}>Outfit (Contemporary)</option>
-            <option value="Roboto, sans-serif" {% if bot.ui_font_family == "Roboto, sans-serif" %}selected{% endif %}>Roboto (Classic)</option>
-            <option value="Open Sans, sans-serif" {% if bot.ui_font_family == "Open Sans, sans-serif" %}selected{% endif %}>Open Sans (Friendly)</option>
-            <option value="Lato, sans-serif" {% if bot.ui_font_family == "Lato, sans-serif" %}selected{% endif %}>Lato (Professional)</option>
-            <option value="Nunito, sans-serif" {% if bot.ui_font_family == "Nunito, sans-serif" %}selected{% endif %}>Nunito (Rounded & Soft)</option>
-            <option value="Montserrat, sans-serif" {% if bot.ui_font_family == "Montserrat, sans-serif" %}selected{% endif %}>Montserrat (Geometric)</option>
-            <option value="Raleway, sans-serif" {% if bot.ui_font_family == "Raleway, sans-serif" %}selected{% endif %}>Raleway (Elegant)</option>
-            <option value="Source Sans Pro, sans-serif" {% if bot.ui_font_family == "Source Sans Pro, sans-serif" %}selected{% endif %}>Source Sans Pro (Readable)</option>
-            <option value="Merriweather, serif" {% if bot.ui_font_family == "Merriweather, serif" %}selected{% endif %}>Merriweather (Serif)</option>
-            <option value="Playfair Display, serif" {% if bot.ui_font_family == "Playfair Display, serif" %}selected{% endif %}>Playfair Display (Editorial)</option>
-            <option value="Ubuntu, sans-serif" {% if bot.ui_font_family == "Ubuntu, sans-serif" %}selected{% endif %}>Ubuntu (Friendly)</option>
-            <option value="Rubik, sans-serif" {% if bot.ui_font_family == "Rubik, sans-serif" %}selected{% endif %}>Rubik (Rounded)</option>
-            <option value="Work Sans, sans-serif" {% if bot.ui_font_family == "Work Sans, sans-serif" %}selected{% endif %}>Work Sans (Neutral)</option>
-            <option value="Fira Sans, sans-serif" {% if bot.ui_font_family == "Fira Sans, sans-serif" %}selected{% endif %}>Fira Sans (Tech)</option>
-            <option value="Karla, sans-serif" {% if bot.ui_font_family == "Karla, sans-serif" %}selected{% endif %}>Karla (Humanist)</option>
-            <option value="DM Sans, sans-serif" {% if bot.ui_font_family == "DM Sans, sans-serif" %}selected{% endif %}>DM Sans (Clean)</option>
-            <option value="Inconsolata, monospace" {% if bot.ui_font_family == "Inconsolata, monospace" %}selected{% endif %}>Inconsolata (Monospace)</option>
-            <option value="JetBrains Mono, monospace" {% if bot.ui_font_family == "JetBrains Mono, monospace" %}selected{% endif %}>JetBrains Mono (Developer)</option>
+            <option value="Inter, system-ui, sans-serif" style="font-family: 'Inter', sans-serif;" {% if bot.ui_font_family == "Inter, system-ui, sans-serif" %}selected{% endif %}>Inter (Modern & Clean)</option>
+            <option value="Poppins, sans-serif" style="font-family: 'Poppins', sans-serif;" {% if bot.ui_font_family == "Poppins, sans-serif" %}selected{% endif %}>Poppins (Bold & Modern)</option>
+            <option value="Outfit, sans-serif" style="font-family: 'Outfit', sans-serif;" {% if bot.ui_font_family == "Outfit, sans-serif" %}selected{% endif %}>Outfit (Contemporary)</option>
+            <option value="Roboto, sans-serif" style="font-family: 'Roboto', sans-serif;" {% if bot.ui_font_family == "Roboto, sans-serif" %}selected{% endif %}>Roboto (Classic)</option>
+            <option value="Open Sans, sans-serif" style="font-family: 'Open Sans', sans-serif;" {% if bot.ui_font_family == "Open Sans, sans-serif" %}selected{% endif %}>Open Sans (Friendly)</option>
+            <option value="Lato, sans-serif" style="font-family: 'Lato', sans-serif;" {% if bot.ui_font_family == "Lato, sans-serif" %}selected{% endif %}>Lato (Professional)</option>
+            <option value="Nunito, sans-serif" style="font-family: 'Nunito', sans-serif;" {% if bot.ui_font_family == "Nunito, sans-serif" %}selected{% endif %}>Nunito (Rounded & Soft)</option>
+            <option value="Montserrat, sans-serif" style="font-family: 'Montserrat', sans-serif;" {% if bot.ui_font_family == "Montserrat, sans-serif" %}selected{% endif %}>Montserrat (Geometric)</option>
+            <option value="Raleway, sans-serif" style="font-family: 'Raleway', sans-serif;" {% if bot.ui_font_family == "Raleway, sans-serif" %}selected{% endif %}>Raleway (Elegant)</option>
+            <option value="Source Sans Pro, sans-serif" style="font-family: 'Source Sans Pro', sans-serif;" {% if bot.ui_font_family == "Source Sans Pro, sans-serif" %}selected{% endif %}>Source Sans Pro (Readable)</option>
+            <option value="Merriweather, serif" style="font-family: 'Merriweather', serif;" {% if bot.ui_font_family == "Merriweather, serif" %}selected{% endif %}>Merriweather (Serif)</option>
+            <option value="Playfair Display, serif" style="font-family: 'Playfair Display', serif;" {% if bot.ui_font_family == "Playfair Display, serif" %}selected{% endif %}>Playfair Display (Editorial)</option>
+            <option value="Ubuntu, sans-serif" style="font-family: 'Ubuntu', sans-serif;" {% if bot.ui_font_family == "Ubuntu, sans-serif" %}selected{% endif %}>Ubuntu (Friendly)</option>
+            <option value="Rubik, sans-serif" style="font-family: 'Rubik', sans-serif;" {% if bot.ui_font_family == "Rubik, sans-serif" %}selected{% endif %}>Rubik (Rounded)</option>
+            <option value="Work Sans, sans-serif" style="font-family: 'Work Sans', sans-serif;" {% if bot.ui_font_family == "Work Sans, sans-serif" %}selected{% endif %}>Work Sans (Neutral)</option>
+            <option value="Fira Sans, sans-serif" style="font-family: 'Fira Sans', sans-serif;" {% if bot.ui_font_family == "Fira Sans, sans-serif" %}selected{% endif %}>Fira Sans (Tech)</option>
+            <option value="Karla, sans-serif" style="font-family: 'Karla', sans-serif;" {% if bot.ui_font_family == "Karla, sans-serif" %}selected{% endif %}>Karla (Humanist)</option>
+            <option value="DM Sans, sans-serif" style="font-family: 'DM Sans', sans-serif;" {% if bot.ui_font_family == "DM Sans, sans-serif" %}selected{% endif %}>DM Sans (Clean)</option>
+            <option value="Inconsolata, monospace" style="font-family: 'Inconsolata', monospace;" {% if bot.ui_font_family == "Inconsolata, monospace" %}selected{% endif %}>Inconsolata (Monospace)</option>
+            <option value="JetBrains Mono, monospace" style="font-family: 'JetBrains Mono', monospace;" {% if bot.ui_font_family == "JetBrains Mono, monospace" %}selected{% endif %}>JetBrains Mono (Developer)</option>
           </select>
           <div class="text-xs text-[#4C4F56]">Choose a font that matches your brand</div>
         </div>

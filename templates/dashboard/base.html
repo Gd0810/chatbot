@@ -6,6 +6,11 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   
+  <!-- Google Font - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <!-- Iconify for icons -->
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
@@ -24,7 +29,9 @@
       --text-primary: #1f1f1f;
       --text-secondary: #5f6368;
       --border-color: #e0e0e0;
-      --hover-bg: #f5f5f5;
+      --hover-bg: #f1f3f4;
+      --active-bg: #e8f0fe;
+      --active-color: #1a73e8;
       --toggle-bg: #e8eaed;
       --toggle-active: #1a73e8;
     }
@@ -36,8 +43,14 @@
       --text-secondary: #9aa0a6;
       --border-color: #3c4043;
       --hover-bg: #3c4043;
+      --active-bg: #3c4043;
+      --active-color: #8ab4f8;
       --toggle-bg: #3c4043;
       --toggle-active: #8ab4f8;
+    }
+    
+    * {
+      font-family: 'Outfit', sans-serif;
     }
     
     body {
@@ -54,15 +67,88 @@
     
     .nav-link {
       color: var(--text-primary);
-      transition: background-color 0.2s;
+      transition: all 0.2s;
+      position: relative;
     }
     
     .nav-link:hover {
       background-color: var(--hover-bg);
     }
     
+    .nav-link.active {
+      background-color: var(--active-bg);
+      color: var(--active-color);
+    }
+    
+    .nav-link.active iconify-icon {
+      color: var(--active-color);
+    }
+    
     .section-label {
       color: var(--text-secondary);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    
+    /* Dropdown parent */
+    .nav-parent {
+      color: var(--text-primary);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    
+    .nav-parent:hover {
+      background-color: var(--hover-bg);
+    }
+    
+    .nav-parent.active {
+      background-color: var(--active-bg);
+      color: var(--active-color);
+    }
+    
+    .nav-parent.active iconify-icon {
+      color: var(--active-color);
+    }
+    
+    .nav-parent-arrow {
+      transition: transform 0.3s;
+      color: var(--text-secondary);
+    }
+    
+    .nav-parent.open .nav-parent-arrow {
+      transform: rotate(180deg);
+    }
+    
+    .nav-children {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .nav-children.open {
+      max-height: 200px;
+    }
+    
+    .nav-child {
+      padding-left: 52px;
+      font-size: 14px;
+      color: var(--text-primary);
+      transition: all 0.2s;
+    }
+    
+    .nav-child:hover {
+      background-color: var(--hover-bg);
+    }
+    
+    .nav-child.active {
+      background-color: var(--active-bg);
+      color: var(--active-color);
+    }
+    
+    .nav-child.active iconify-icon {
+      color: var(--active-color);
     }
     
     /* Account dropdown at bottom */
@@ -210,94 +296,127 @@
 <body class="min-h-screen">
   <div class="flex">
     <aside class="sidebar w-64 min-h-screen">
-     
+      <div class="p-4 font-semibold text-lg">Dashboard</div>
       
       <nav class="px-2 flex-1">
-        <div class="section-label text-xs px-2 mt-4 mb-2">Profile</div>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_account' %}" hx-target="#main" hx-swap="innerHTML">
+        <div class="section-label px-2 mt-4 mb-2">Profile</div>
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_account' %}" hx-target="#main" hx-swap="innerHTML"
+           onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:account-circle-outline" width="20" height="20"></iconify-icon>
           <span>Account</span>
         </a>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_plan' %}" hx-target="#main" hx-swap="innerHTML">
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_plan' %}" hx-target="#main" hx-swap="innerHTML"
+           onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:credit-card-outline" width="20" height="20"></iconify-icon>
           <span>Your Plan</span>
         </a>
 
-        <div class="section-label text-xs px-2 mt-6 mb-2">Bot</div>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-          hx-get="{% url 'dashboard:partial_bots' %}" hx-target="#main" hx-swap="innerHTML">
+        <div class="section-label px-2 mt-6 mb-2">Bot</div>
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+          hx-get="{% url 'dashboard:partial_bots' %}" hx-target="#main" hx-swap="innerHTML"
+          onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:smart-toy-outline" width="20" height="20"></iconify-icon>
           <span>Manage Bots</span>
         </a>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-          hx-get="{% url 'dashboard:partial_bot_style' %}" hx-target="#main" hx-swap="innerHTML">
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+          hx-get="{% url 'dashboard:partial_bot_style' %}" hx-target="#main" hx-swap="innerHTML"
+          onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:palette-outline" width="20" height="20"></iconify-icon>
           <span>Bot Styling</span>
         </a>
 
         {% if plan %}
           {% if plan.includes_live %}
-        <div class="section-label text-xs px-2 mt-6 mb-2">Conversation</div>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">
+        <div class="section-label px-2 mt-6 mb-2">Conversation</div>
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML"
+           onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:chat-outline" width="20" height="20"></iconify-icon>
           <span>Live Chat</span>
         </a>
           {% endif %}
 
           {% if plan.includes_ai or plan.includes_qa or plan.includes_live %}
-        <div class="section-label text-xs px-2 mt-6 mb-2">Your Data</div>
+        <div class="section-label px-2 mt-6 mb-2">Your Data</div>
             {% if plan.includes_ai %}
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">
+        <div class="nav-parent block px-3 py-2 rounded flex items-center gap-2" id="aiKnowledgeParent" onclick="toggleNavDropdown('aiKnowledgeParent')">
           <iconify-icon icon="material-symbols:psychology-outline" width="20" height="20"></iconify-icon>
-          <span>AI Knowledge</span>
-        </a>
+          <span style="flex: 1;">AI Knowledge</span>
+          <iconify-icon class="nav-parent-arrow" icon="material-symbols:keyboard-arrow-down" width="20" height="20"></iconify-icon>
+        </div>
+        <div class="nav-children" id="aiKnowledgeChildren">
+          <a class="nav-child block px-3 py-2 rounded flex items-center gap-2"
+             hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML"
+             onclick="setActiveLink(this, 'aiKnowledgeParent')">
+            <iconify-icon icon="material-symbols:folder-outline" width="18" height="18"></iconify-icon>
+            <span>Knowledge Base</span>
+          </a>
             {% if workspace.enable_website_datafetcher %}
-        <a class="nav-link block px-3 py-2 pl-6 text-sm rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_website_datafetcher' %}" hx-target="#main" hx-swap="innerHTML">
-          <iconify-icon icon="material-symbols:language" width="18" height="18"></iconify-icon>
-          <span>Website Datafetcher</span>
-        </a>
+          <a class="nav-child block px-3 py-2 rounded flex items-center gap-2"
+             hx-get="{% url 'dashboard:partial_website_datafetcher' %}" hx-target="#main" hx-swap="innerHTML"
+             onclick="setActiveLink(this, 'aiKnowledgeParent')">
+            <iconify-icon icon="material-symbols:language" width="18" height="18"></iconify-icon>
+            <span>Website Datafetcher</span>
+          </a>
             {% endif %}
+        </div>
             {% endif %}
             {% if plan.includes_qa %}
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML"
+           onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:quiz-outline" width="20" height="20"></iconify-icon>
           <span>Q&A Knowledge</span>
         </a>
             {% endif %}
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML"
+           onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:mail-outline" width="20" height="20"></iconify-icon>
           <span>Enquiries</span>
         </a>
           {% endif %}
         {% else %}
           {# No active plan - show all links #}
-        <div class="section-label text-xs px-2 mt-6 mb-2">Conversation</div>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML">
+        <div class="section-label px-2 mt-6 mb-2">Conversation</div>
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML"
+           onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:chat-outline" width="20" height="20"></iconify-icon>
           <span>Live Chat</span>
         </a>
         
-        <div class="section-label text-xs px-2 mt-6 mb-2">Your Data</div>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML">
+        <div class="section-label px-2 mt-6 mb-2">Your Data</div>
+        <div class="nav-parent block px-3 py-2 rounded flex items-center gap-2" id="aiKnowledgeParent" onclick="toggleNavDropdown('aiKnowledgeParent')">
           <iconify-icon icon="material-symbols:psychology-outline" width="20" height="20"></iconify-icon>
-          <span>AI Knowledge</span>
-        </a>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML">
+          <span style="flex: 1;">AI Knowledge</span>
+          <iconify-icon class="nav-parent-arrow" icon="material-symbols:keyboard-arrow-down" width="20" height="20"></iconify-icon>
+        </div>
+        <div class="nav-children" id="aiKnowledgeChildren">
+          <a class="nav-child block px-3 py-2 rounded flex items-center gap-2"
+             hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML"
+             onclick="setActiveLink(this, 'aiKnowledgeParent')">
+            <iconify-icon icon="material-symbols:folder-outline" width="18" height="18"></iconify-icon>
+            <span>Knowledge Base</span>
+          </a>
+          <a class="nav-child block px-3 py-2 rounded flex items-center gap-2"
+             hx-get="{% url 'dashboard:partial_website_datafetcher' %}" hx-target="#main" hx-swap="innerHTML"
+             onclick="setActiveLink(this, 'aiKnowledgeParent')">
+            <iconify-icon icon="material-symbols:language" width="18" height="18"></iconify-icon>
+            <span>Website Datafetcher</span>
+          </a>
+        </div>
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML"
+           onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:quiz-outline" width="20" height="20"></iconify-icon>
           <span>Q&A Knowledge</span>
         </a>
-        <a class="nav-link block px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-2"
-           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML">
+        <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
+           hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML"
+           onclick="setActiveLink(this)">
           <iconify-icon icon="material-symbols:mail-outline" width="20" height="20"></iconify-icon>
           <span>Enquiries</span>
         </a>
@@ -342,6 +461,35 @@
   </div>
 
   <script>
+    // Navigation dropdown toggle
+    function toggleNavDropdown(parentId) {
+      const parent = document.getElementById(parentId);
+      const children = document.getElementById(parentId.replace('Parent', 'Children'));
+      
+      parent.classList.toggle('open');
+      children.classList.toggle('open');
+    }
+    
+    // Active link management
+    function setActiveLink(element, parentId) {
+      // Remove active from all links
+      document.querySelectorAll('.nav-link, .nav-child, .nav-parent').forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      // Add active to clicked element
+      element.classList.add('active');
+      
+      // If it's a child, also activate parent and open dropdown
+      if (parentId) {
+        const parent = document.getElementById(parentId);
+        const children = document.getElementById(parentId.replace('Parent', 'Children'));
+        
+        parent.classList.add('open', 'active');
+        children.classList.add('open');
+      }
+    }
+    
     // Account dropdown toggle
     function toggleAccountDropdown() {
       const dropdown = document.getElementById('accountDropdown');

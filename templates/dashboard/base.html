@@ -438,11 +438,11 @@
         
         <div class="account-dropdown" id="accountDropdown">
           <div class="dropdown-item" onclick="toggleTheme()">
-            <iconify-icon icon="material-symbols:dark-mode-outline" width="20" height="20" style="color: var(--text-primary)"></iconify-icon>
-            <span class="dropdown-item-text">Dark theme</span>
+            <iconify-icon id="themeMenuIcon" icon="material-symbols:light-mode-outline" width="20" height="20" style="color: var(--text-primary)"></iconify-icon>
+            <span class="dropdown-item-text" id="themeMenuText">Light theme</span>
             <div class="toggle-switch" id="themeToggle">
               <div class="toggle-thumb">
-                <iconify-icon class="toggle-icon" icon="material-symbols:check" width="16" height="16"></iconify-icon>
+                <iconify-icon class="toggle-icon" id="themeToggleIcon" icon="material-symbols:wb-sunny-rounded" width="16" height="16"></iconify-icon>
               </div>
             </div>
           </div>
@@ -500,30 +500,50 @@
     }
     
     // Theme management
+    function updateThemeUI(theme) {
+       const menuIcon = document.getElementById('themeMenuIcon');
+       const menuText = document.getElementById('themeMenuText');
+       const toggleBtn = document.getElementById('themeToggle');
+       const toggleIcon = document.getElementById('themeToggleIcon');
+       
+       if (theme === 'dark') {
+          // Set to Dark Mode UI
+          menuIcon.setAttribute('icon', 'material-symbols:dark-mode-outline');
+          menuText.textContent = 'Dark theme';
+          toggleBtn.classList.add('active');
+          toggleIcon.setAttribute('icon', 'material-symbols:dark-mode');
+       } else {
+          // Set to Light Mode UI
+          menuIcon.setAttribute('icon', 'material-symbols:light-mode-outline');
+          menuText.textContent = 'Light theme';
+          toggleBtn.classList.remove('active');
+          toggleIcon.setAttribute('icon', 'material-symbols:wb-sunny-rounded');
+       }
+    }
+
     function toggleTheme() {
       const html = document.documentElement;
-      const toggle = document.getElementById('themeToggle');
       const currentTheme = html.getAttribute('data-theme');
       
       if (currentTheme === 'dark') {
         html.removeAttribute('data-theme');
-        toggle.classList.remove('active');
         localStorage.setItem('theme', 'light');
+        updateThemeUI('light');
       } else {
         html.setAttribute('data-theme', 'dark');
-        toggle.classList.add('active');
         localStorage.setItem('theme', 'dark');
+        updateThemeUI('dark');
       }
     }
     
     // Load saved theme on page load
     document.addEventListener('DOMContentLoaded', function() {
       const savedTheme = localStorage.getItem('theme');
-      const toggle = document.getElementById('themeToggle');
-      
       if (savedTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
-        toggle.classList.add('active');
+        updateThemeUI('dark');
+      } else {
+        updateThemeUI('light');
       }
     });
 

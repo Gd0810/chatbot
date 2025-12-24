@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redbot Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
@@ -58,11 +59,54 @@
       color: var(--text-primary);
     }
     
+    /* Mobile menu button */
+    .mobile-menu-button {
+      display: none;
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1001;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    
+    .mobile-menu-button:hover {
+      background-color: var(--hover-bg);
+    }
+    
+    .mobile-menu-button:active {
+      transform: scale(0.95);
+    }
+    
+    /* Overlay for mobile */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .sidebar-overlay.active {
+      opacity: 1;
+    }
+    
     .sidebar {
       background-color: var(--bg-secondary);
       border-right: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
+      transition: transform 0.3s ease-in-out;
     }
     
     .nav-link {
@@ -291,24 +335,89 @@
     .toggle-switch.active .toggle-icon {
       color: var(--toggle-active);
     }
+    
+    /* Responsive styles */
+    @media (max-width: 1024px) {
+      .mobile-menu-button {
+        display: block;
+      }
+      
+      .sidebar-overlay {
+        display: block;
+      }
+      
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1000;
+        transform: translateX(-100%);
+        width: 280px;
+        max-width: 85vw;
+        overflow-y: auto;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      main {
+        padding-top: 70px !important;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .sidebar {
+        width: 100%;
+        max-width: 100vw;
+      }
+      
+      main {
+        padding: 70px 16px 16px 16px !important;
+      }
+      
+      .account-info {
+        display: none;
+      }
+      
+      .account-trigger {
+        justify-content: center;
+      }
+    }
+    
+    /* Desktop styles */
+    @media (min-width: 1025px) {
+      .sidebar {
+        position: relative;
+        width: 256px;
+        min-height: 100vh;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen">
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-button" onclick="toggleMobileSidebar()" aria-label="Toggle menu">
+    <iconify-icon icon="material-symbols:menu" width="24" height="24" style="color: var(--text-primary)"></iconify-icon>
+  </button>
+  
+  <!-- Sidebar Overlay for Mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+  
   <div class="flex">
-    <aside class="sidebar w-64 min-h-screen">
-      
-      
+    <aside class="sidebar" id="sidebar">
       <nav class="px-2 flex-1">
         <div class="section-label px-2 mt-4 mb-2">Profile</div>
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_account' %}" hx-target="#main" hx-swap="innerHTML"
-           onclick="setActiveLink(this)">
+           onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:account-circle-outline" width="20" height="20"></iconify-icon>
           <span>Account</span>
         </a>
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_plan' %}" hx-target="#main" hx-swap="innerHTML"
-           onclick="setActiveLink(this)">
+           onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:credit-card-outline" width="20" height="20"></iconify-icon>
           <span>Your Plan</span>
         </a>
@@ -316,13 +425,13 @@
         <div class="section-label px-2 mt-6 mb-2">Bot</div>
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
           hx-get="{% url 'dashboard:partial_bots' %}" hx-target="#main" hx-swap="innerHTML"
-          onclick="setActiveLink(this)">
+          onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:smart-toy-outline" width="20" height="20"></iconify-icon>
           <span>Manage Bots</span>
         </a>
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
           hx-get="{% url 'dashboard:partial_bot_style' %}" hx-target="#main" hx-swap="innerHTML"
-          onclick="setActiveLink(this)">
+          onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:palette-outline" width="20" height="20"></iconify-icon>
           <span>Bot Styling</span>
         </a>
@@ -332,7 +441,7 @@
         <div class="section-label px-2 mt-6 mb-2">Conversation</div>
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML"
-           onclick="setActiveLink(this)">
+           onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:chat-outline" width="20" height="20"></iconify-icon>
           <span>Live Chat</span>
         </a>
@@ -349,14 +458,14 @@
         <div class="nav-children" id="aiKnowledgeChildren">
           <a class="nav-child block px-3 py-2 rounded flex items-center gap-2"
              hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML"
-             onclick="setActiveLink(this, 'aiKnowledgeParent')">
+             onclick="setActiveLink(this, 'aiKnowledgeParent'); closeMobileSidebar()">
             <iconify-icon icon="material-symbols:folder-outline" width="18" height="18"></iconify-icon>
             <span>Knowledge Base</span>
           </a>
             {% if workspace.enable_website_datafetcher %}
           <a class="nav-child block px-3 py-2 rounded flex items-center gap-2"
              hx-get="{% url 'dashboard:partial_website_datafetcher' %}" hx-target="#main" hx-swap="innerHTML"
-             onclick="setActiveLink(this, 'aiKnowledgeParent')">
+             onclick="setActiveLink(this, 'aiKnowledgeParent'); closeMobileSidebar()">
             <iconify-icon icon="material-symbols:language" width="18" height="18"></iconify-icon>
             <span>Website Datafetcher</span>
           </a>
@@ -366,14 +475,14 @@
             {% if plan.includes_qa %}
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML"
-           onclick="setActiveLink(this)">
+           onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:quiz-outline" width="20" height="20"></iconify-icon>
           <span>Q&A Knowledge</span>
         </a>
             {% endif %}
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML"
-           onclick="setActiveLink(this)">
+           onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:mail-outline" width="20" height="20"></iconify-icon>
           <span>Enquiries</span>
         </a>
@@ -383,7 +492,7 @@
         <div class="section-label px-2 mt-6 mb-2">Conversation</div>
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_live' %}" hx-target="#main" hx-swap="innerHTML"
-           onclick="setActiveLink(this)">
+           onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:chat-outline" width="20" height="20"></iconify-icon>
           <span>Live Chat</span>
         </a>
@@ -397,26 +506,26 @@
         <div class="nav-children" id="aiKnowledgeChildren">
           <a class="nav-child block px-3 py-2 rounded flex items-center gap-2"
              hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main" hx-swap="innerHTML"
-             onclick="setActiveLink(this, 'aiKnowledgeParent')">
+             onclick="setActiveLink(this, 'aiKnowledgeParent'); closeMobileSidebar()">
             <iconify-icon icon="material-symbols:folder-outline" width="18" height="18"></iconify-icon>
             <span>Knowledge Base</span>
           </a>
           <a class="nav-child block px-3 py-2 rounded flex items-center gap-2"
              hx-get="{% url 'dashboard:partial_website_datafetcher' %}" hx-target="#main" hx-swap="innerHTML"
-             onclick="setActiveLink(this, 'aiKnowledgeParent')">
+             onclick="setActiveLink(this, 'aiKnowledgeParent'); closeMobileSidebar()">
             <iconify-icon icon="material-symbols:language" width="18" height="18"></iconify-icon>
             <span>Website Datafetcher</span>
           </a>
         </div>
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_qa' %}" hx-target="#main" hx-swap="innerHTML"
-           onclick="setActiveLink(this)">
+           onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:quiz-outline" width="20" height="20"></iconify-icon>
           <span>Q&A Knowledge</span>
         </a>
         <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
            hx-get="{% url 'dashboard:partial_enquiries' %}" hx-target="#main" hx-swap="innerHTML"
-           onclick="setActiveLink(this)">
+           onclick="setActiveLink(this); closeMobileSidebar()">
           <iconify-icon icon="material-symbols:mail-outline" width="20" height="20"></iconify-icon>
           <span>Enquiries</span>
         </a>
@@ -461,6 +570,31 @@
   </div>
 
   <script>
+    // Mobile sidebar functions
+    function toggleMobileSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      // Prevent body scroll when sidebar is open
+      if (sidebar.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+    
+    function closeMobileSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
     // Navigation dropdown toggle
     function toggleNavDropdown(parentId) {
       const parent = document.getElementById(parentId);
@@ -507,13 +641,11 @@
        const toggleIcon = document.getElementById('themeToggleIcon');
        
        if (theme === 'dark') {
-          // Set to Dark Mode UI
           menuIcon.setAttribute('icon', 'material-symbols:dark-mode-outline');
           menuText.textContent = 'Dark theme';
           toggleBtn.classList.add('active');
           toggleIcon.setAttribute('icon', 'material-symbols:dark-mode');
        } else {
-          // Set to Light Mode UI
           menuIcon.setAttribute('icon', 'material-symbols:light-mode-outline');
           menuText.textContent = 'Light theme';
           toggleBtn.classList.remove('active');
@@ -572,6 +704,13 @@
     window.loadEnquiriesPage = function(pageNum) {
        htmx.ajax('GET', `{% url "dashboard:partial_enquiries" %}?page=${pageNum}`, '#main');
     };
+    
+    // Close sidebar on window resize to desktop size
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 1024) {
+        closeMobileSidebar();
+      }
+    });
   </script>
 </body>
 </html>

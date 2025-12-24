@@ -33,9 +33,6 @@
     background-color: var(--account-bg);
     color: var(--account-text-primary);
     font-family: 'Outfit', sans-serif;
-    max-height: calc(100vh - 48px);
-    overflow-y: auto;
-    padding: 24px;
   }
   
   .account-card {
@@ -228,23 +225,7 @@
     box-shadow: 0 4px 12px rgba(138, 180, 248, 0.3);
   }
   
-  /* Custom scrollbar */
-  .account-container::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .account-container::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .account-container::-webkit-scrollbar-thumb {
-    background: var(--account-border);
-    border-radius: 4px;
-  }
-  
-  .account-container::-webkit-scrollbar-thumb:hover {
-    background: var(--account-text-secondary);
-  }
+  /* Custom scrollbar - now applies to main container */
 </style>
 
 <div class="account-container" id="account-partial-container">

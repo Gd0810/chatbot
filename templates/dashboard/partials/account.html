@@ -4,12 +4,20 @@
   <h2 class="text-lg font-semibold mb-4">Account</h2>
   <div class="grid grid-cols-2 gap-4">
     <div>
+      <div class="text-gray-500 text-sm">Workspace Name</div>
+      <div class="font-medium text-gray-900">{{ workspace.name }}</div>
+    </div>
+    <div>
+      <div class="text-gray-500 text-sm">Workspace Owner</div>
+      <div class="font-medium text-gray-900">{{ workspace.owner.get_full_name|default:workspace.owner.username }}</div>
+    </div>
+    <div>
       <div class="text-gray-500 text-sm">Username</div>
-      <div>{{ user.username }}</div>
+      <div class="font-medium text-gray-900">{{ user.username }}</div>
     </div>
     <div>
       <div class="text-gray-500 text-sm">Email</div>
-      <div>{{ user.email }}</div>
+      <div class="font-medium text-gray-900">{{ user.email }}</div>
     </div>
   </div>
   <div class="mt-4">

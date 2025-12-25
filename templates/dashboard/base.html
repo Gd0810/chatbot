@@ -343,7 +343,13 @@
       }
       
       .sidebar-overlay {
+        display: none;
+        pointer-events: none;
+      }
+      
+      .sidebar-overlay.active {
         display: block;
+        pointer-events: auto;
       }
       
       .sidebar {
@@ -363,7 +369,16 @@
       }
       
       main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100vh;
+        overflow-y: auto;
         padding-top: 70px !important;
+        z-index: 1;
       }
     }
     
@@ -374,7 +389,16 @@
       }
       
       main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100vh;
+        overflow-y: auto;
         padding: 70px 16px 16px 16px !important;
+        z-index: 1;
       }
       
       .account-info {
@@ -407,7 +431,7 @@
     }
   </style>
 </head>
-<body class="h-screen overflow-hidden flex flex-col md:flex-row">
+<body class="h-screen overflow-hidden md:flex">
   <!-- Mobile Menu Button -->
   <button class="mobile-menu-button md:hidden" onclick="toggleMobileSidebar()" aria-label="Toggle menu">
     <iconify-icon icon="material-symbols:menu" width="24" height="24" style="color: var(--text-primary)"></iconify-icon>

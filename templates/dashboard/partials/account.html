@@ -253,6 +253,32 @@
     </div>
     
     <div class="info-grid">
+      
+      
+      <div class="info-item">
+        <div class="info-item-icon-wrapper">
+          <iconify-icon icon="material-symbols:badge-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <div class="info-label">Username</div>
+        </div>
+        <div class="info-value">{{ user.username }}</div>
+      </div>
+      
+      <div class="info-item">
+        <div class="info-item-icon-wrapper">
+          <iconify-icon icon="material-symbols:mail-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <div class="info-label">Email</div>
+        </div>
+        <div class="info-value">{{ user.email }}</div>
+      </div>
+
+       <div class="info-item">
+        <div class="info-item-icon-wrapper">
+          <iconify-icon icon="mdi:whatsapp" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <div class="info-label">WhatsApp Number</div>
+        </div>
+        <div class="info-value">{{ workspace.whatsapp_number|default:"Not set" }}</div>
+      </div>
+
       <div class="info-item">
         <div class="info-item-icon-wrapper">
          <iconify-icon icon="bi:shop" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
@@ -272,19 +298,13 @@
       
       <div class="info-item">
         <div class="info-item-icon-wrapper">
-          <iconify-icon icon="material-symbols:badge-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
-          <div class="info-label">Username</div>
+          <iconify-icon icon="material-symbols:calendar-today-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <div class="info-label">Workspace Created</div>
         </div>
-        <div class="info-value">{{ user.username }}</div>
+        <div class="info-value">{{ workspace.created_at|date:"M d, Y" }}</div>
       </div>
       
-      <div class="info-item">
-        <div class="info-item-icon-wrapper">
-          <iconify-icon icon="material-symbols:mail-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
-          <div class="info-label">Email</div>
-        </div>
-        <div class="info-value">{{ user.email }}</div>
-      </div>
+     
     </div>
     
     <div style="margin-top: 24px;">

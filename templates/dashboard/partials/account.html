@@ -80,20 +80,22 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background-color: #ffffff;
-    border: 2px solid var(--account-button-bg);
+    background: linear-gradient(135deg, var(--account-button-bg) 0%, var(--account-button-hover) 100%);
+    border: none;
     border-radius: 12px;
     padding: 20px;
     transition: all 0.2s;
+    color: white;
   }
   
   [data-theme="dark"] .info-item {
-    background-color: #2d2d2d;
+    background: #8AB4F8;
+    color: white;
   }
   
   .info-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+    box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
   }
   
   .info-item-icon-wrapper {
@@ -103,18 +105,23 @@
     margin-bottom: 4px;
   }
   
+  /* Update icon colors inside info-item */
+  .info-item iconify-icon {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  
   .info-label {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-    color: var(--account-button-bg);
+    color: rgba(255, 255, 255, 0.9);
   }
   
   .info-value {
     font-size: 16px;
-    font-weight: 500;
-    color: var(--account-text-primary);
+    font-weight: 600;
+    color: white;
     padding: 8px 0;
   }
   
@@ -257,7 +264,7 @@
       
       <div class="info-item">
         <div class="info-item-icon-wrapper">
-          <iconify-icon icon="material-symbols:badge-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <iconify-icon icon="material-symbols:badge-outline" width="16" height="16"></iconify-icon>
           <div class="info-label">Username</div>
         </div>
         <div class="info-value">{{ user.username }}</div>
@@ -265,7 +272,7 @@
       
       <div class="info-item">
         <div class="info-item-icon-wrapper">
-          <iconify-icon icon="material-symbols:mail-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <iconify-icon icon="material-symbols:mail-outline" width="16" height="16"></iconify-icon>
           <div class="info-label">Email</div>
         </div>
         <div class="info-value">{{ user.email }}</div>
@@ -273,7 +280,7 @@
 
        <div class="info-item">
         <div class="info-item-icon-wrapper">
-          <iconify-icon icon="mdi:whatsapp" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <iconify-icon icon="mdi:whatsapp" width="16" height="16"></iconify-icon>
           <div class="info-label">WhatsApp Number</div>
         </div>
         <div class="info-value">{{ workspace.whatsapp_number|default:"Not set" }}</div>
@@ -281,7 +288,7 @@
 
       <div class="info-item">
         <div class="info-item-icon-wrapper">
-         <iconify-icon icon="bi:shop" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+         <iconify-icon icon="bi:shop" width="16" height="16"></iconify-icon>
           
           <div class="info-label">Workspace Name</div>
         </div>
@@ -290,7 +297,7 @@
       
       <div class="info-item">
         <div class="info-item-icon-wrapper">
-          <iconify-icon icon="material-symbols:person-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <iconify-icon icon="material-symbols:person-outline" width="16" height="16"></iconify-icon>
           <div class="info-label">Workspace Owner</div>
         </div>
         <div class="info-value">{{ workspace.owner.get_full_name|default:workspace.owner.username }}</div>
@@ -298,7 +305,7 @@
       
       <div class="info-item">
         <div class="info-item-icon-wrapper">
-          <iconify-icon icon="material-symbols:calendar-today-outline" width="16" height="16" style="color: var(--account-text-secondary)"></iconify-icon>
+          <iconify-icon icon="material-symbols:calendar-today-outline" width="16" height="16"></iconify-icon>
           <div class="info-label">Workspace Created</div>
         </div>
         <div class="info-value">{{ workspace.created_at|date:"M d, Y" }}</div>

@@ -101,29 +101,6 @@
       transform: scale(0.95);
     }
     
-    /* Close button inside sidebar */
-    .sidebar-close-btn {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      z-index: 10;
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 12px;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: all 0.2s;
-    }
-    
-    .sidebar-close-btn:hover {
-      background-color: var(--hover-bg);
-    }
-    
-    .sidebar-close-btn:active {
-      transform: scale(0.95);
-    }
-    
     /* Overlay for mobile */
     .sidebar-overlay {
       display: none;
@@ -387,6 +364,10 @@
         display: block;
       }
       
+      .sidebar-nav {
+        padding-top: 70px;
+      }
+      
       .sidebar-overlay {
         display: none;
         pointer-events: none;
@@ -490,12 +471,7 @@
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
   
   <aside class="sidebar h-full overflow-y-auto flex-shrink-0 no-scrollbar" id="sidebar">
-    <!-- Close button inside sidebar (mobile only) -->
-    <div class="sidebar-close-btn md:hidden" onclick="closeMobileSidebar()">
-      <iconify-icon icon="material-symbols:close" width="24" height="24" style="color: var(--text-primary)"></iconify-icon>
-    </div>
-    
-    <nav class="px-2 flex-1 pb-4">
+    <nav class="px-2 flex-1 pb-4 sidebar-nav">
       <div class="section-label px-2 mt-4 mb-2">Profile</div>
       <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
          hx-get="{% url 'dashboard:partial_account' %}" hx-target="#main" hx-swap="innerHTML"

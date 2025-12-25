@@ -176,6 +176,31 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   }
   
+  .timer-progress {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    height: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .timer-progress-fill {
+    height: 100%;
+    background-color: #ffffff;
+    width: 0%;
+    border-radius: 20px;
+    transition: width 1s linear;
+  }
+  
+  .timer-progress-text {
+    margin-top: 8px;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+  
   .timer-value {
     font-size: 28px;
     font-weight: 700;
@@ -324,6 +349,14 @@
               <span class="timer-label">Seconds</span>
             </div>
           </div>
+          
+          <!-- Progress Bar -->
+          <div>
+            <div class="timer-progress">
+              <div class="timer-progress-fill" id="timerProgressFill"></div>
+            </div>
+            <div class="timer-progress-text" id="timerProgressText">0% completed</div>
+          </div>
         </div>
       {% elif plan.term == 'LIFETIME' %}
         <div class="plan-card" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white; border: none;">
@@ -388,18 +421,40 @@
   // Initialize charts and timer
   function initializePlanPage() {
     // Live Timer (for LIMITED plans)
-    {% if plan.term == 'LIMITED' and plan.end_at %}
+    {% if plan.term == 'LIMITED' and plan.end_at and plan.start_at %}
       const endDate = new Date('{{ plan.end_at|date:"c" }}');
+      const startDate = new Date('{{ plan.start_at|date:"c" }}');
       
       function updateTimer() {
         const now = new Date();
         const diff = endDate - now;
+        const totalDuration = endDate - startDate;
+        
+        // Progress Bar Calculation
+        const elapsed = now - startDate;
+        let percentage = 0;
+        
+        if (totalDuration > 0) {
+          percentage = (elapsed / totalDuration) * 100;
+          percentage = Math.min(Math.max(percentage, 0), 100); // Clamp between 0 and 100
+        }
+        
+        // Update Progress Bar
+        const progressFill = document.getElementById('timerProgressFill');
+        const progressText = document.getElementById('timerProgressText');
+        
+        if (progressFill && progressText) {
+          progressFill.style.width = percentage.toFixed(2) + '%';
+          progressText.textContent = percentage.toFixed(1) + '% completed';
+        }
         
         if (diff <= 0) {
           document.getElementById('days').textContent = '0';
           document.getElementById('hours').textContent = '00';
           document.getElementById('minutes').textContent = '00';
           document.getElementById('seconds').textContent = '00';
+          if (progressFill) progressFill.style.width = '100%';
+          if (progressText) progressText.textContent = '100% completed';
           if (timerInterval) clearInterval(timerInterval);
           return;
         }

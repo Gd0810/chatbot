@@ -1,30 +1,563 @@
 {% include 'toast.html' %}
-<div class="bg-white shadow rounded p-4">
-  <h2 class="text-lg font-semibold mb-4">Your Plan</h2>
+
+<style>
+  /* Theme variables for plan page */
+  :root {
+    --plan-bg: #f8f9fa;
+    --plan-card-bg: #ffffff;
+    --plan-text-primary: #1f1f1f;
+    --plan-text-secondary: #5f6368;
+    --plan-border: #e0e0e0;
+    --plan-accent: #1a73e8;
+    --plan-accent-hover: #1557b0;
+    --plan-success: #16a34a;
+    --plan-warning: #f59e0b;
+    --plan-danger: #dc2626;
+  }
+  
+  [data-theme="dark"] {
+    --plan-bg: #1f1f1f;
+    --plan-card-bg: #2d2d2d;
+    --plan-text-primary: #e8eaed;
+    --plan-text-secondary: #9aa0a6;
+    --plan-border: #3c4043;
+    --plan-accent: #8ab4f8;
+    --plan-accent-hover: #aecbfa;
+    --plan-success: #86efac;
+    --plan-warning: #fbbf24;
+    --plan-danger: #f87171;
+  }
+  
+  .plan-container {
+    background-color: var(--plan-bg);
+    color: var(--plan-text-primary);
+    font-family: 'Outfit', sans-serif;
+    padding: 20px;
+  }
+  
+  .plan-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .plan-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--plan-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .plan-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--plan-text-primary);
+  }
+  
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .plan-card {
+    background-color: var(--plan-card-bg);
+    border: 2px solid var(--plan-accent);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.2s;
+  }
+  
+  .plan-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--plan-border);
+  }
+  
+  .card-icon {
+    color: var(--plan-accent);
+  }
+  
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--plan-text-primary);
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .info-label {
+    font-size: 13px;
+    color: var(--plan-text-secondary);
+    font-weight: 500;
+  }
+  
+  .info-value {
+    font-size: 14px;
+    color: var(--plan-text-primary);
+    font-weight: 600;
+  }
+  
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .status-active {
+    background-color: rgba(22, 163, 74, 0.1);
+    color: var(--plan-success);
+  }
+  
+  .status-expired {
+    background-color: rgba(220, 38, 38, 0.1);
+    color: var(--plan-danger);
+  }
+  
+  .status-lifetime {
+    background-color: rgba(26, 115, 232, 0.1);
+    color: var(--plan-accent);
+  }
+  
+  .timer-card {
+    background: linear-gradient(135deg, var(--plan-accent) 0%, var(--plan-accent-hover) 100%);
+    color: white;
+    border: none;
+  }
+  
+  .timer-card:hover {
+    box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
+  }
+  
+  .timer-display {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  .timer-unit {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 12px 8px;
+  }
+  
+  .timer-value {
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+  }
+  
+  .timer-label {
+    font-size: 11px;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .chart-card {
+    background-color: var(--plan-card-bg);
+    border: 1px solid var(--plan-border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  
+  .chart-container {
+    position: relative;
+    height: 300px;
+    margin-top: 16px;
+  }
+  
+  .no-plan {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: var(--plan-card-bg);
+    border: 2px dashed var(--plan-border);
+    border-radius: 12px;
+  }
+  
+  .no-plan-icon {
+    color: var(--plan-text-secondary);
+    margin-bottom: 16px;
+  }
+  
+  .no-plan-text {
+    font-size: 18px;
+    color: var(--plan-text-secondary);
+  }
+  
+  @media (max-width: 768px) {
+    .plan-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .timer-display {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .chart-container {
+      height: 250px;
+    }
+  }
+</style>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<div class="plan-container">
+  <div class="plan-header">
+    <div class="plan-header-icon">
+      <iconify-icon icon="material-symbols:credit-card" width="28" height="28"></iconify-icon>
+    </div>
+    <h2 class="plan-title">Your Plan</h2>
+  </div>
+
   {% if plan %}
-    <div class="mb-2">Bundle: <span class="font-medium">{{ plan.get_bundle_display }}</span></div>
-    <div class="mb-2">Term: <span class="font-medium">{{ plan.get_term_display }}</span></div>
-    <div class="mb-2">Active: <span class="font-medium">{{ plan.is_current_active|yesno:"Yes,No" }}</span></div>
-    <div class="mb-2">Start: <span class="font-medium">{{ plan.start_at }}</span></div>
-    {% if plan.term == 'LIMITED' %}
-      <div class="mb-2">End: <span class="font-medium">{{ plan.end_at }}</span></div>
-      {% if remaining %}
-        <div class="mb-2">Remaining:
-          <span class="font-medium">
-            {% with s=remaining.total_seconds %}
-              {% if s > 0 %}
-                {{ remaining.days }} day(s), {{ remaining.seconds|divisibleby:3600 }} hour(s)
-              {% endif %}
-            {% endwith %}
-          </span>
+    <!-- Plan Info Grid -->
+    <div class="plan-grid">
+      <!-- Plan Details Card -->
+      <div class="plan-card">
+        <div class="card-header">
+          <iconify-icon class="card-icon" icon="material-symbols:info-outline" width="20" height="20"></iconify-icon>
+          <h3 class="card-title">Plan Details</h3>
         </div>
-      {% else %}
-        <div class="text-red-600">Expired</div>
+        <div class="card-content">
+          <div class="info-row">
+            <span class="info-label">Bundle</span>
+            <span class="info-value">{{ plan.get_bundle_display }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Term</span>
+            <span class="info-value">{{ plan.get_term_display }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Status</span>
+            {% if plan.is_current_active %}
+              <span class="status-badge status-active">
+                <iconify-icon icon="material-symbols:check-circle" width="14" height="14"></iconify-icon>
+                Active
+              </span>
+            {% else %}
+              <span class="status-badge status-expired">
+                <iconify-icon icon="material-symbols:cancel" width="14" height="14"></iconify-icon>
+                Expired
+              </span>
+            {% endif %}
+          </div>
+          <div class="info-row">
+            <span class="info-label">Start Date</span>
+            <span class="info-value">{{ plan.start_at|date:"M d, Y" }}</span>
+          </div>
+          {% if plan.term == 'LIMITED' %}
+            <div class="info-row">
+              <span class="info-label">End Date</span>
+              <span class="info-value">{{ plan.end_at|date:"M d, Y" }}</span>
+            </div>
+          {% else %}
+            <div class="info-row">
+              <span class="info-label">Type</span>
+              <span class="status-badge status-lifetime">
+                <iconify-icon icon="material-symbols:all-inclusive" width="14" height="14"></iconify-icon>
+                Lifetime
+              </span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Live Timer Card (only for LIMITED plans) -->
+      {% if plan.term == 'LIMITED' and remaining %}
+        <div class="plan-card timer-card">
+          <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.2);">
+            <iconify-icon icon="material-symbols:timer-outline" width="20" height="20"></iconify-icon>
+            <h3 class="card-title">Time Remaining</h3>
+          </div>
+          <div class="timer-display" id="timerDisplay">
+            <div class="timer-unit">
+              <span class="timer-value" id="days">{{ remaining.days }}</span>
+              <span class="timer-label">Days</span>
+            </div>
+            <div class="timer-unit">
+              <span class="timer-value" id="hours">0</span>
+              <span class="timer-label">Hours</span>
+            </div>
+            <div class="timer-unit">
+              <span class="timer-value" id="minutes">0</span>
+              <span class="timer-label">Minutes</span>
+            </div>
+            <div class="timer-unit">
+              <span class="timer-value" id="seconds">0</span>
+              <span class="timer-label">Seconds</span>
+            </div>
+          </div>
+        </div>
+      {% elif plan.term == 'LIFETIME' %}
+        <div class="plan-card" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: white; border: none;">
+          <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.2);">
+            <iconify-icon icon="material-symbols:all-inclusive" width="20" height="20"></iconify-icon>
+            <h3 class="card-title">Lifetime Access</h3>
+          </div>
+          <div style="text-align: center; padding: 40px 20px;">
+            <iconify-icon icon="material-symbols:verified" width="64" height="64" style="opacity: 0.9;"></iconify-icon>
+            <p style="margin-top: 16px; font-size: 16px; opacity: 0.95;">Unlimited access forever</p>
+          </div>
+        </div>
       {% endif %}
-    {% else %}
-      <div class="text-green-700">Lifetime purchase</div>
-    {% endif %}
+    </div>
+
+    <!-- Charts Section -->
+    <div class="plan-grid">
+      <!-- Usage Chart -->
+      <div class="chart-card">
+        <div class="card-header">
+          <iconify-icon class="card-icon" icon="material-symbols:pie-chart" width="20" height="20"></iconify-icon>
+          <h3 class="card-title">Plan Features</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="featuresChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Timeline Chart -->
+      <div class="chart-card">
+        <div class="card-header">
+          <iconify-icon class="card-icon" icon="material-symbols:bar-chart" width="20" height="20"></iconify-icon>
+          <h3 class="card-title">Plan Timeline</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="timelineChart"></canvas>
+        </div>
+      </div>
+    </div>
+
   {% else %}
-    <div>No active plan.</div>
+    <!-- No Plan State -->
+    <div class="no-plan">
+      <iconify-icon class="no-plan-icon" icon="material-symbols:credit-card-off" width="80" height="80"></iconify-icon>
+      <p class="no-plan-text">No active plan found</p>
+    </div>
   {% endif %}
 </div>
+
+{% if plan %}
+<script>
+  // Destroy existing chart instances to prevent duplicates
+  let featuresChartInstance = null;
+  let timelineChartInstance = null;
+  let timerInterval = null;
+  
+  // Clear any existing timer
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+  
+  // Initialize charts and timer
+  function initializePlanPage() {
+    // Live Timer (for LIMITED plans)
+    {% if plan.term == 'LIMITED' and plan.end_at %}
+      const endDate = new Date('{{ plan.end_at|date:"c" }}');
+      
+      function updateTimer() {
+        const now = new Date();
+        const diff = endDate - now;
+        
+        if (diff <= 0) {
+          document.getElementById('days').textContent = '0';
+          document.getElementById('hours').textContent = '00';
+          document.getElementById('minutes').textContent = '00';
+          document.getElementById('seconds').textContent = '00';
+          if (timerInterval) clearInterval(timerInterval);
+          return;
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      }
+      
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    {% endif %}
+    
+    // Get theme-aware colors
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const accentColor = isDark ? '#8ab4f8' : '#1a73e8';
+    const textColor = isDark ? '#e8eaed' : '#1f1f1f';
+    const gridColor = isDark ? '#3c4043' : '#e0e0e0';
+    
+    // Destroy existing charts if they exist
+    if (featuresChartInstance) {
+      featuresChartInstance.destroy();
+      featuresChartInstance = null;
+    }
+    if (timelineChartInstance) {
+      timelineChartInstance.destroy();
+      timelineChartInstance = null;
+    }
+    
+    // Features Donut Chart
+    const featuresCanvas = document.getElementById('featuresChart');
+    if (featuresCanvas) {
+      const featuresCtx = featuresCanvas.getContext('2d');
+      featuresChartInstance = new Chart(featuresCtx, {
+        type: 'doughnut',
+        data: {
+          labels: [
+            {% if plan.includes_ai %}'AI Knowledge',{% endif %}
+            {% if plan.includes_qa %}'Q&A System',{% endif %}
+            {% if plan.includes_live %}'Live Chat',{% endif %}
+            'Bot Styling'
+          ],
+          datasets: [{
+            data: [
+              {% if plan.includes_ai %}30,{% endif %}
+              {% if plan.includes_qa %}25,{% endif %}
+              {% if plan.includes_live %}25,{% endif %}
+              20
+            ],
+            backgroundColor: [
+              {% if plan.includes_ai %}'#8ab4f8',{% endif %}
+              {% if plan.includes_qa %}'#86efac',{% endif %}
+              {% if plan.includes_live %}'#fbbf24',{% endif %}
+              '#f87171'
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: textColor,
+                padding: 15,
+                font: { size: 12, family: 'Outfit' }
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // Timeline Bar Chart
+    const timelineCanvas = document.getElementById('timelineChart');
+    if (timelineCanvas) {
+      const timelineCtx = timelineCanvas.getContext('2d');
+      const startDate = new Date('{{ plan.start_at|date:"c" }}');
+      {% if plan.term == 'LIMITED' %}
+        const endDate = new Date('{{ plan.end_at|date:"c" }}');
+        const totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+        const elapsed = Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24));
+        const remaining = Math.max(0, totalDays - elapsed);
+      {% else %}
+        const totalDays = 365;
+        const elapsed = Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24));
+        const remaining = 365;
+      {% endif %}
+      
+      timelineChartInstance = new Chart(timelineCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Elapsed', 'Remaining'],
+          datasets: [{
+            label: 'Days',
+            data: [elapsed, remaining],
+            backgroundColor: [accentColor, isDark ? '#3c4043' : '#e0e0e0'],
+            borderRadius: 8,
+            barThickness: 60
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: isDark ? '#2d2d2d' : '#ffffff',
+              titleColor: textColor,
+              bodyColor: textColor,
+              borderColor: gridColor,
+              borderWidth: 1
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { color: textColor },
+              grid: { color: gridColor }
+            },
+            x: {
+              ticks: { color: textColor },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+  }
+  
+  // Initialize on load
+  initializePlanPage();
+  
+  // Re-initialize when content is swapped by HTMX
+  document.body.addEventListener('htmx:afterSwap', function(event) {
+    if (event.detail.target.id === 'main') {
+      // Small delay to ensure DOM is ready
+      setTimeout(initializePlanPage, 100);
+    }
+  });
+  
+  // Cleanup on before swap
+  document.body.addEventListener('htmx:beforeSwap', function(event) {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    if (featuresChartInstance) {
+      featuresChartInstance.destroy();
+      featuresChartInstance = null;
+    }
+    if (timelineChartInstance) {
+      timelineChartInstance.destroy();
+      timelineChartInstance = null;
+    }
+  });
+</script>
+{% endif %}

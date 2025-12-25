@@ -592,6 +592,53 @@
         }
       });
     }
+    // Theme Observer
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          updateChartTheme();
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+    
+    // Function to update chart colors dynamically
+    function updateChartTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const accentColor = isDark ? '#8ab4f8' : '#1a73e8';
+      const textColor = isDark ? '#e8eaed' : '#1f1f1f';
+      const gridColor = isDark ? '#3c4043' : '#e0e0e0';
+      const tooltipBg = isDark ? '#2d2d2d' : '#ffffff';
+      
+      // Update Features Chart
+      if (featuresChartInstance) {
+        featuresChartInstance.options.plugins.legend.labels.color = textColor;
+        featuresChartInstance.data.datasets[0].backgroundColor[0] = isDark && {{ plan.includes_ai|yesno:"true,false" }} ? '#8ab4f8' : ({{ plan.includes_ai|yesno:"true,false" }} ? '#8ab4f8' : '#8ab4f8'); // Re-evaluate colors if needed, simplied here just for text/grid updates
+        // For donut chart we mainly need to update legend text
+        featuresChartInstance.update();
+      }
+      
+      // Update Timeline Chart
+      if (timelineChartInstance) {
+        timelineChartInstance.data.datasets[0].backgroundColor[0] = accentColor;
+        timelineChartInstance.data.datasets[0].backgroundColor[1] = isDark ? '#3c4043' : '#e0e0e0';
+        
+        timelineChartInstance.options.plugins.tooltip.backgroundColor = tooltipBg;
+        timelineChartInstance.options.plugins.tooltip.titleColor = textColor;
+        timelineChartInstance.options.plugins.tooltip.bodyColor = textColor;
+        timelineChartInstance.options.plugins.tooltip.borderColor = gridColor;
+        
+        timelineChartInstance.options.scales.y.ticks.color = textColor;
+        timelineChartInstance.options.scales.y.grid.color = gridColor;
+        timelineChartInstance.options.scales.x.ticks.color = textColor;
+        
+        timelineChartInstance.update();
+      }
+    }
   }
   
   // Initialize on load

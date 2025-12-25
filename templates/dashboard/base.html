@@ -463,7 +463,7 @@
     <button class="mobile-menu-button" id="mobileMenuBtn" onclick="toggleMobileSidebar()" aria-label="Toggle menu">
       <iconify-icon id="menuIcon" icon="material-symbols:menu" width="24" height="24" style="color: var(--text-primary)"></iconify-icon>
     </button>
-    <div class="mobile-navbar-title">Redbot Dashboard</div>
+    <div class="mobile-navbar-title">{{ workspace.name|default:"Redbot Dashboard" }}</div>
     <div style="width: 40px;"></div> <!-- Spacer for centering -->
   </nav>
   

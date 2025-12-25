@@ -59,13 +59,54 @@
       color: var(--text-primary);
     }
     
+    /* Mobile top navbar */
+    .mobile-navbar {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1002;
+      padding: 0 16px;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .mobile-navbar-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
     /* Mobile menu button */
     .mobile-menu-button {
       display: none;
-      position: fixed;
+      background-color: transparent;
+      border: none;
+      border-radius: 8px;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .mobile-menu-button:hover {
+      background-color: var(--hover-bg);
+    }
+    
+    .mobile-menu-button:active {
+      transform: scale(0.95);
+    }
+    
+    /* Close button inside sidebar */
+    .sidebar-close-btn {
+      position: absolute;
       top: 16px;
-      left: 16px;
-      z-index: 1001;
+      right: 16px;
+      z-index: 10;
       background-color: var(--bg-secondary);
       border: 1px solid var(--border-color);
       border-radius: 12px;
@@ -75,11 +116,11 @@
       transition: all 0.2s;
     }
     
-    .mobile-menu-button:hover {
+    .sidebar-close-btn:hover {
       background-color: var(--hover-bg);
     }
     
-    .mobile-menu-button:active {
+    .sidebar-close-btn:active {
       transform: scale(0.95);
     }
     
@@ -338,6 +379,10 @@
     
     /* Responsive styles */
     @media (max-width: 1024px) {
+      .mobile-navbar {
+        display: flex;
+      }
+      
       .mobile-menu-button {
         display: block;
       }
@@ -370,14 +415,14 @@
       
       main {
         position: fixed;
-        top: 0;
+        top: 60px;
         left: 0;
         right: 0;
         bottom: 0;
         width: 100%;
-        height: 100vh;
+        height: calc(100vh - 60px);
         overflow-y: auto;
-        padding-top: 70px !important;
+        padding: 16px;
         z-index: 1;
       }
     }
@@ -390,14 +435,14 @@
       
       main {
         position: fixed;
-        top: 0;
+        top: 60px;
         left: 0;
         right: 0;
         bottom: 0;
         width: 100%;
-        height: 100vh;
+        height: calc(100vh - 60px);
         overflow-y: auto;
-        padding: 70px 16px 16px 16px !important;
+        padding: 16px;
         z-index: 1;
       }
       
@@ -432,15 +477,24 @@
   </style>
 </head>
 <body class="h-screen overflow-hidden md:flex">
-  <!-- Mobile Menu Button -->
-  <button class="mobile-menu-button md:hidden" onclick="toggleMobileSidebar()" aria-label="Toggle menu">
-    <iconify-icon icon="material-symbols:menu" width="24" height="24" style="color: var(--text-primary)"></iconify-icon>
-  </button>
+  <!-- Mobile Top Navbar (only on mobile/tablet) -->
+  <nav class="mobile-navbar">
+    <button class="mobile-menu-button" id="mobileMenuBtn" onclick="toggleMobileSidebar()" aria-label="Toggle menu">
+      <iconify-icon id="menuIcon" icon="material-symbols:menu" width="24" height="24" style="color: var(--text-primary)"></iconify-icon>
+    </button>
+    <div class="mobile-navbar-title">Redbot Dashboard</div>
+    <div style="width: 40px;"></div> <!-- Spacer for centering -->
+  </nav>
   
   <!-- Sidebar Overlay for Mobile -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
   
   <aside class="sidebar h-full overflow-y-auto flex-shrink-0 no-scrollbar" id="sidebar">
+    <!-- Close button inside sidebar (mobile only) -->
+    <div class="sidebar-close-btn md:hidden" onclick="closeMobileSidebar()">
+      <iconify-icon icon="material-symbols:close" width="24" height="24" style="color: var(--text-primary)"></iconify-icon>
+    </div>
+    
     <nav class="px-2 flex-1 pb-4">
       <div class="section-label px-2 mt-4 mb-2">Profile</div>
       <a class="nav-link block px-3 py-2 rounded flex items-center gap-2"
@@ -608,14 +662,18 @@
     function toggleMobileSidebar() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebarOverlay');
+      const menuBtn = document.getElementById('mobileMenuBtn');
+      const menuIcon = document.getElementById('menuIcon');
       
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
       
-      // Prevent body scroll when sidebar is open
+      // Toggle icon between menu and close
       if (sidebar.classList.contains('active')) {
+        menuIcon.setAttribute('icon', 'material-symbols:close');
         document.body.style.overflow = 'hidden';
       } else {
+        menuIcon.setAttribute('icon', 'material-symbols:menu');
         document.body.style.overflow = '';
       }
     }
@@ -623,9 +681,11 @@
     function closeMobileSidebar() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebarOverlay');
+      const menuIcon = document.getElementById('menuIcon');
       
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
+      menuIcon.setAttribute('icon', 'material-symbols:menu');
       document.body.style.overflow = '';
     }
     

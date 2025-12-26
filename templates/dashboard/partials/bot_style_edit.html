@@ -306,18 +306,6 @@
       <div class="text-xs text-gray-500 mt-2">If disabled, users will not see the Reset button in the chat widget. This can also be controlled by the workspace admin.</div>
     </div>
 
-    <!-- Website Datafetcher Control -->
-    <div class="mb-8">
-      <div class="flex items-center gap-2 mb-2">
-        <span class="iconify text-[#4C3BCF]" data-icon="mdi:database-search" data-width="22"></span>
-        <h3 class="text-lg font-semibold text-[#0B0C0C]">Website Data Fetcher</h3>
-      </div>
-      <label class="flex items-center gap-3">
-        <input type="checkbox" name="enable_website_datafetcher" id="enable-datafetcher" value="1" {% if bot.workspace.enable_website_datafetcher %}checked{% endif %} class="w-5 h-5 rounded border-2 border-[#4C3BCF] focus:ring-2 focus:ring-[#00C896]">
-        <span class="text-sm text-[#4C4F56]">Enable Website Data Fetcher in Dashboard</span>
-      </label>
-      <div class="text-xs text-gray-500 mt-2">Allows you to crawl websites and copy content for AI training. Requires "AI Knowledge" plan access.</div>
-    </div>
 
     <!-- WhatsApp Contact Settings -->
     <div class="mb-8">
@@ -327,6 +315,7 @@
       </div>
       
       <div class="space-y-4">
+        {% if plan.bundle != 'QA_ONLY' %}
         <!-- Enable WhatsApp Toggle -->
         <div class="bg-[#FFFFFF] rounded-lg p-4 border-2 border-[#4C3BCF]">
           <div class="flex items-start gap-3">
@@ -334,8 +323,7 @@
                    type="checkbox" 
                    name="enable_whatsapp_number_in_chat" 
                    {% if bot.workspace.enable_whatsapp_number_in_chat %}checked{% endif %}
-                   class="mt-1 w-5 h-5 text-[#4C3BCF] bg-[#FFFFFF] border-[#9B7FD7] rounded focus:ring-2 focus:ring-[#00C896] cursor-pointer"
-                   onchange="toggleWhatsAppNumber(this.checked)" />
+                   class="mt-1 w-5 h-5 text-[#4C3BCF] bg-[#FFFFFF] border-[#9B7FD7] rounded focus:ring-2 focus:ring-[#00C896] cursor-pointer" />
             <div class="flex-1">
               <label for="enable_whatsapp" class="text-sm font-medium text-[#0B0C0C] cursor-pointer flex items-center gap-2">
                 <span class="iconify" data-icon="mdi:link-variant" data-width="18"></span>
@@ -345,9 +333,10 @@
             </div>
           </div>
         </div>
+        {% endif %}
         
         <!-- WhatsApp Number Input -->
-        <div id="whatsapp-number-field" style="{% if not bot.workspace.enable_whatsapp_number_in_chat %}display: none;{% endif %}">
+        <div id="whatsapp-number-field">
           <label class="block text-sm font-medium text-[#4C4F56] mb-2">WhatsApp Number</label>
           <input type="text" 
                  name="whatsapp_number"

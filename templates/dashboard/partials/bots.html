@@ -246,6 +246,80 @@
     background: linear-gradient(135deg, #8ab4f8 0%, #aecbfa 100%);
     color: #1f1f1f;
   }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .bot-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    
+    .bot-actions {
+      width: 100%;
+      justify-content: space-between;
+    }
+    
+    .toggle-container {
+      flex: 1;
+    }
+    
+    .btn-edit {
+      flex: 1;
+      justify-content: center;
+    }
+    
+    .bots-header {
+      flex-wrap: wrap;
+    }
+    
+    .bots-title {
+      font-size: 20px;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .bot-card {
+      padding: 16px;
+    }
+    
+    .bot-name {
+      font-size: 16px;
+    }
+    
+    .bot-detail {
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .bot-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .toggle-container,
+    .btn-edit {
+      width: 100%;
+    }
+    
+    .toggle-container {
+      justify-content: space-between;
+    }
+    
+    .bots-header-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .bots-title {
+      font-size: 18px;
+    }
+    
+    .plan-badge {
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+  }
 </style>
 
 <div class="bots-container">

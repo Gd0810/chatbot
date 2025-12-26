@@ -1,34 +1,316 @@
 {% include 'toast.html' %}
-<div class="bg-white shadow rounded p-4">
-  <h2 class="text-lg font-semibold mb-4">Bots</h2>
-  <div class="mb-2 text-sm text-gray-600">
-    Current plan: {% if plan %}{{ plan.get_bundle_display }}{% else %}—{% endif %}
+
+<style>
+  /* Theme variables for bots page */
+  :root {
+    --bots-bg: #f8f9fa;
+    --bots-card-bg: #ffffff;
+    --bots-text-primary: #1f1f1f;
+    --bots-text-secondary: #5f6368;
+    --bots-border: #e0e0e0;
+    --bots-accent: #1a73e8;
+    --bots-accent-hover: #1557b0;
+    --bots-success: #34a853;
+    --bots-success-hover: #2d8e47;
+    --bots-disabled: #9aa0a6;
+    --bots-shadow: rgba(0, 0, 0, 0.1);
+    --bots-shadow-hover: rgba(0, 0, 0, 0.15);
+  }
+  
+  [data-theme="dark"] {
+    --bots-bg: #1f1f1f;
+    --bots-card-bg: #2d2d2d;
+    --bots-text-primary: #e8eaed;
+    --bots-text-secondary: #9aa0a6;
+    --bots-border: #3c4043;
+    --bots-accent: #8ab4f8;
+    --bots-accent-hover: #aecbfa;
+    --bots-success: #81c995;
+    --bots-success-hover: #a8dab5;
+    --bots-disabled: #5f6368;
+    --bots-shadow: rgba(0, 0, 0, 0.3);
+    --bots-shadow-hover: rgba(0, 0, 0, 0.4);
+  }
+  
+  .bots-container {
+    background-color: var(--bots-bg);
+    color: var(--bots-text-primary);
+    font-family: 'Outfit', sans-serif;
+  }
+  
+  .bots-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--bots-border);
+  }
+  
+  .bots-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--bots-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .bots-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--bots-text-primary);
+  }
+  
+  .plan-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: var(--bots-card-bg);
+    border: 1px solid var(--bots-border);
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--bots-text-secondary);
+    margin-bottom: 20px;
+  }
+  
+  .bot-card {
+    background-color: var(--bots-card-bg);
+    border: 1px solid var(--bots-border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px var(--bots-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .bot-card:hover {
+    box-shadow: 0 4px 12px var(--bots-shadow-hover);
+    transform: translateY(-2px);
+  }
+  
+  .bot-info {
+    flex: 1;
+  }
+  
+  .bot-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--bots-text-primary);
+    margin-bottom: 4px;
+  }
+  
+  .bot-detail {
+    font-size: 13px;
+    color: var(--bots-text-secondary);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .bot-detail iconify-icon {
+    color: var(--bots-accent);
+  }
+  
+  .bot-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  /* Material Design Toggle Switch */
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 32px;
+    background-color: var(--bots-disabled);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+    padding: 0;
+  }
+  
+  .toggle-switch.enabled {
+    background-color: var(--bots-success);
+  }
+  
+  [data-theme="dark"] .toggle-switch.enabled {
+    background-color: var(--bots-success);
+  }
+  
+  .toggle-thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .toggle-switch.enabled .toggle-thumb {
+    transform: translateX(20px);
+  }
+  
+  .toggle-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--bots-text-primary);
+  }
+  
+  .toggle-label.enabled {
+    color: var(--bots-success);
+  }
+  
+  /* Action Buttons */
+  .btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background-color: var(--bots-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px var(--bots-shadow);
+  }
+  
+  .btn-edit:hover {
+    background-color: var(--bots-accent-hover);
+    box-shadow: 0 4px 8px var(--bots-shadow-hover);
+    transform: translateY(-1px);
+  }
+  
+  .btn-edit:active {
+    transform: translateY(0);
+  }
+  
+  [data-theme="dark"] .btn-edit {
+    color: #1f1f1f;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--bots-text-secondary);
+  }
+  
+  .empty-state iconify-icon {
+    font-size: 64px;
+    color: var(--bots-disabled);
+    margin-bottom: 16px;
+  }
+  
+  .empty-state-text {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .ai-config-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: linear-gradient(135deg, var(--bots-accent) 0%, var(--bots-accent-hover) 100%);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    margin-top: 8px;
+  }
+  
+  [data-theme="dark"] .ai-config-badge {
+    background: linear-gradient(135deg, #8ab4f8 0%, #aecbfa 100%);
+    color: #1f1f1f;
+  }
+</style>
+
+<div class="bots-container">
+  <!-- Header -->
+  <div class="bots-header">
+    <div class="bots-header-icon">
+      <iconify-icon icon="material-symbols:smart-toy-outline" width="28" height="28"></iconify-icon>
+    </div>
+    <h2 class="bots-title">Manage Bots</h2>
   </div>
-  <div class="space-y-2">
+  
+  <!-- Plan Badge -->
+  <div class="plan-badge">
+    <iconify-icon icon="material-symbols:workspace-premium-outline" width="16" height="16"></iconify-icon>
+    <span>Current Plan: {% if plan %}{{ plan.get_bundle_display }}{% else %}No Active Plan{% endif %}</span>
+  </div>
+  
+  <!-- Bot List -->
+  <div class="bots-list">
     {% for b in bots %}
-      <div class="border rounded p-3 flex items-center justify-between">
-        <div>
-          <div class="font-medium">{{ b.name }}</div>
-          <div class="text-xs text-gray-500">Public Key: {{ b.public_key }}</div>
+      <div class="bot-card">
+        <div class="bot-info">
+          <div class="bot-name">{{ b.name }}</div>
+          <div class="bot-detail">
+            <iconify-icon icon="material-symbols:key-outline" width="14" height="14"></iconify-icon>
+            <span>{{ b.public_key }}</span>
+          </div>
           {% if plan and plan.includes_ai and b.ai_provider and b.ai_model %}
-            <div class="text-xs text-gray-500 mt-1">AI: {{ b.ai_provider }} / {{ b.ai_model }}</div>
+            <div class="ai-config-badge">
+              <iconify-icon icon="material-symbols:psychology-outline" width="12" height="12"></iconify-icon>
+              <span>{{ b.ai_provider }} / {{ b.ai_model }}</span>
+            </div>
           {% endif %}
         </div>
-        <div class="flex items-center gap-2">
+        
+        <div class="bot-actions">
+          <!-- Toggle Switch -->
+          <div class="toggle-container">
+            <button 
+              class="toggle-switch {% if b.is_enabled %}enabled{% endif %}"
+              hx-post="{% url 'dashboard:toggle_bot' b.id %}"
+              hx-target="#main"
+              aria-label="Toggle bot status">
+              <div class="toggle-thumb"></div>
+            </button>
+            <span class="toggle-label {% if b.is_enabled %}enabled{% endif %}">
+              {{ b.is_enabled|yesno:'Enabled,Disabled' }}
+            </span>
+          </div>
+          
+          <!-- Edit Button -->
           <button
-            class="px-3 py-1 rounded text-white {{ b.is_enabled|yesno:'bg-green-600,bg-gray-500' }}"
-            hx-post="{% url 'dashboard:toggle_bot' b.id %}"
-            hx-target="#main"
-          >{{ b.is_enabled|yesno:'Enabled,Disabled' }}</button>
-          <button
-            class="px-3 py-1 rounded border"
+            class="btn-edit"
             hx-get="{% url 'dashboard:bot_edit' b.id %}"
-            hx-target="#main"
-          >Edit</button>
+            hx-target="#main">
+            <iconify-icon icon="material-symbols:edit-outline" width="18" height="18"></iconify-icon>
+            <span>Edit</span>
+          </button>
         </div>
       </div>
     {% empty %}
-      <div class="text-gray-500">No bots yet.</div>
+      <div class="empty-state">
+        <iconify-icon icon="material-symbols:smart-toy-outline"></iconify-icon>
+        <div class="empty-state-text">No bots configured yet</div>
+      </div>
     {% endfor %}
   </div>
 </div>

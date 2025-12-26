@@ -1,118 +1,477 @@
-<!-- templates/dashboard/partials/bot_edit.html (updated to use dropdown for providers) -->
+<!-- templates/dashboard/partials/bot_edit.html -->
 {% include 'toast.html' %}
-<div class="bg-white shadow rounded p-4">
-  <h2 class="text-lg font-semibold mb-4">Edit Bot</h2>
-  <form method="post"
-        hx-post="{% url 'dashboard:bot_edit' bot.id %}"
-        hx-target="#main"
-        class="space-y-3">
-    {% csrf_token %}
 
+<style>
+  /* Theme variables for bot edit page */
+  :root {
+    --edit-bg: #f8f9fa;
+    --edit-card-bg: #ffffff;
+    --edit-text-primary: #1f1f1f;
+    --edit-text-secondary: #5f6368;
+    --edit-border: #e0e0e0;
+    --edit-input-bg: #ffffff;
+    --edit-input-border: #dadce0;
+    --edit-accent: #1a73e8;
+    --edit-accent-hover: #1557b0;
+    --edit-success: #34a853;
+    --edit-shadow: rgba(0, 0, 0, 0.1);
+    --edit-shadow-hover: rgba(0, 0, 0, 0.15);
+  }
+  
+  [data-theme="dark"] {
+    --edit-bg: #1f1f1f;
+    --edit-card-bg: #2d2d2d;
+    --edit-text-primary: #e8eaed;
+    --edit-text-secondary: #9aa0a6;
+    --edit-border: #3c4043;
+    --edit-input-bg: #3c4043;
+    --edit-input-border: #5f6368;
+    --edit-accent: #8ab4f8;
+    --edit-accent-hover: #aecbfa;
+    --edit-success: #81c995;
+    --edit-shadow: rgba(0, 0, 0, 0.3);
+    --edit-shadow-hover: rgba(0, 0, 0, 0.4);
+  }
+  
+  .edit-container {
+    background-color: var(--edit-bg);
+    color: var(--edit-text-primary);
+    font-family: 'Outfit', sans-serif;
+  }
+  
+  .edit-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--edit-border);
+  }
+  
+  .edit-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--edit-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .edit-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--edit-text-primary);
+  }
+  
+  .edit-card {
+    background-color: var(--edit-card-bg);
+    border: 1px solid var(--edit-border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px var(--edit-shadow);
+  }
+  
+  .form-section {
+    margin-bottom: 20px;
+  }
+  
+  .form-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .form-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--edit-text-primary);
+    margin-bottom: 8px;
+  }
+  
+  .form-label iconify-icon {
+    color: var(--edit-accent);
+  }
+  
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: var(--edit-input-bg);
+    border: 1px solid var(--edit-input-border);
+    border-radius: 8px;
+    color: var(--edit-text-primary);
+    font-size: 14px;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.2s;
+  }
+  
+  .form-input:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: var(--edit-accent);
+    box-shadow: 0 0 0 3px rgba(138, 180, 248, 0.1);
+  }
+  
+  .form-input::placeholder {
+    color: var(--edit-text-secondary);
+  }
+  
+  .form-hint {
+    font-size: 12px;
+    color: var(--edit-text-secondary);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .ai-notice {
+    padding: 12px 16px;
+    background-color: var(--edit-input-bg);
+    border: 1px solid var(--edit-border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--edit-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  
+  .btn-primary {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 24px;
+    background-color: var(--edit-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px var(--edit-shadow);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--edit-accent-hover);
+    box-shadow: 0 4px 8px var(--edit-shadow-hover);
+    transform: translateY(-1px);
+  }
+  
+  [data-theme="dark"] .btn-primary {
+    color: #1f1f1f;
+  }
+  
+  .btn-secondary {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 24px;
+    background-color: var(--edit-card-bg);
+    color: var(--edit-text-primary);
+    border: 1px solid var(--edit-border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--edit-input-bg);
+    transform: translateY(-1px);
+  }
+  
+  .embed-section {
+    background-color: var(--edit-card-bg);
+    border: 1px solid var(--edit-border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px var(--edit-shadow);
+  }
+  
+  .embed-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--edit-text-primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .embed-code {
+    background-color: var(--edit-input-bg);
+    border: 1px solid var(--edit-border);
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    margin: 12px 0;
+    color: var(--edit-text-primary);
+  }
+  
+  .btn-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background-color: var(--edit-input-bg);
+    color: var(--edit-text-primary);
+    border: 1px solid var(--edit-border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-copy:hover {
+    background-color: var(--edit-accent);
+    color: white;
+    border-color: var(--edit-accent);
+  }
+  
+  [data-theme="dark"] .btn-copy:hover {
+    color: #1f1f1f;
+  }
+  
+  .btn-copy.copied {
+    background-color: var(--edit-success);
+    color: white;
+    border-color: var(--edit-success);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
     
-  {% if available_bot_modes|length > 1 %}
-    <div>
-      <label class="block text-sm text-gray-600">Default Bot Mode</label>
-      <select name="default_bot_mode" class="border rounded px-2 py-1 w-full">
-        <option value="">-- Auto ({{ plan.get_bundle_display }} default) --</option>
-        {% for mode in available_bot_modes %}
-          <option value="{{ mode }}" {% if bot.workspace.default_bot_mode == mode %}selected{% endif %}>
-            {% if mode == 'AI' %}AI Bot
-            {% elif mode == 'LIVE' %}Live Chat
-            {% elif mode == 'QA' %}Q&A Bot
-            {% endif %}
-          </option>
-        {% endfor %}
-      </select>
-      <p class="text-xs text-gray-500 mt-1">Choose which bot to display by default. Users can switch between available bots.</p>
-    </div>
-    {% endif %}
-    <div>
-      <label class="block text-sm text-gray-600">Name</label>
-      <input name="name" value="{{ bot.name }}" class="border rounded px-2 py-1 w-full"/>
-    </div>
+    .edit-title {
+      font-size: 20px;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .edit-card,
+    .embed-section {
+      padding: 16px;
+    }
+    
+    .edit-header-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .edit-title {
+      font-size: 18px;
+    }
+    
+    .embed-title {
+      font-size: 16px;
+    }
+    
+    .embed-code {
+      font-size: 11px;
+      padding: 12px;
+    }
+  }
+</style>
 
-    {% if plan and plan.includes_ai %}
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div>
-          <label class="block text-sm text-gray-600">AI Provider</label>
-          <select name="ai_provider" class="border rounded px-2 py-1 w-full">
-            {% for value,label in ai_providers %}
-              <option value="{{ value }}" {% if bot.ai_provider == value %}selected{% endif %}>
-                {{ label }}
+<div class="edit-container">
+  <!-- Header -->
+  <div class="edit-header">
+    <div class="edit-header-icon">
+      <iconify-icon icon="material-symbols:edit-outline" width="28" height="28"></iconify-icon>
+    </div>
+    <h2 class="edit-title">Edit Bot</h2>
+  </div>
+  
+  <!-- Edit Form Card -->
+  <div class="edit-card">
+    <form method="post"
+          hx-post="{% url 'dashboard:bot_edit' bot.id %}"
+          hx-target="#main">
+      {% csrf_token %}
+      
+      <!-- Default Bot Mode (if multiple modes available) -->
+      {% if available_bot_modes|length > 1 %}
+        <div class="form-section">
+          <label class="form-label">
+            <iconify-icon icon="material-symbols:swap-horiz" width="16" height="16"></iconify-icon>
+            Default Bot Mode
+          </label>
+          <select name="default_bot_mode" class="form-select">
+            <option value="">-- Auto ({{ plan.get_bundle_display }} default) --</option>
+            {% for mode in available_bot_modes %}
+              <option value="{{ mode }}" {% if bot.workspace.default_bot_mode == mode %}selected{% endif %}>
+                {% if mode == 'AI' %}AI Bot
+                {% elif mode == 'LIVE' %}Live Chat
+                {% elif mode == 'QA' %}Q&A Bot
+                {% endif %}
               </option>
             {% endfor %}
           </select>
+          <div class="form-hint">
+            <iconify-icon icon="material-symbols:info-outline" width="14" height="14"></iconify-icon>
+            Choose which bot to display by default. Users can switch between available bots.
+          </div>
         </div>
-        <div>
-          <label class="block text-sm text-gray-600">AI Model</label>
-          <input name="ai_model"
-                 value="{{ bot.ai_model|default_if_none:'' }}"
-                 class="border rounded px-2 py-1 w-full"
-                 placeholder="e.g., openai/gpt-4o-mini"/>
+      {% endif %}
+      
+      <!-- Bot Name -->
+      <div class="form-section">
+        <label class="form-label">
+          <iconify-icon icon="material-symbols:badge-outline" width="16" height="16"></iconify-icon>
+          Bot Name
+        </label>
+        <input name="name" value="{{ bot.name }}" class="form-input" placeholder="Enter bot name"/>
+      </div>
+      
+      <!-- AI Configuration (if plan includes AI) -->
+      {% if plan and plan.includes_ai %}
+        <div class="form-section">
+          <div class="form-grid">
+            <div>
+              <label class="form-label">
+                <iconify-icon icon="material-symbols:psychology-outline" width="16" height="16"></iconify-icon>
+                AI Provider
+              </label>
+              <select name="ai_provider" class="form-select">
+                {% for value,label in ai_providers %}
+                  <option value="{{ value }}" {% if bot.ai_provider == value %}selected{% endif %}>
+                    {{ label }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div>
+              <label class="form-label">
+                <iconify-icon icon="material-symbols:model-training-outline" width="16" height="16"></iconify-icon>
+                AI Model
+              </label>
+              <input name="ai_model"
+                     value="{{ bot.ai_model|default_if_none:'' }}"
+                     class="form-input"
+                     placeholder="e.g., openai/gpt-4o-mini"/>
+            </div>
+          </div>
         </div>
+        
+        <div class="form-section">
+          <label class="form-label">
+            <iconify-icon icon="material-symbols:key-outline" width="16" height="16"></iconify-icon>
+            API Key
+          </label>
+          <input name="ai_api_key"
+                 type="password"
+                 value=""
+                 class="form-input"
+                 placeholder="•••••• (leave blank to keep existing)"/>
+          <div class="form-hint">
+            <iconify-icon icon="material-symbols:shield-lock-outline" width="14" height="14"></iconify-icon>
+            Supports Google, OpenAI, OpenRouter, Anthropic, Cohere, Hugging Face, Replicate, etc.
+          </div>
+        </div>
+      {% else %}
+        <div class="ai-notice">
+          <iconify-icon icon="material-symbols:info-outline" width="20" height="20"></iconify-icon>
+          <span>AI fields are hidden (your plan does not include AI capabilities)</span>
+        </div>
+      {% endif %}
+      
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn-primary" type="submit">
+          <iconify-icon icon="material-symbols:save-outline" width="18" height="18"></iconify-icon>
+          Save Changes
+        </button>
+        <button class="btn-secondary"
+                hx-get="{% url 'dashboard:partial_bots' %}"
+                hx-target="#main"
+                type="button">
+          <iconify-icon icon="material-symbols:arrow-back" width="18" height="18"></iconify-icon>
+          Back to Bots
+        </button>
       </div>
-
-      <div>
-        <label class="block text-sm text-gray-600">API Key</label>
-        <input name="ai_api_key"
-               type="password"
-               value=""
-               class="border rounded px-2 py-1 w-full"
-               placeholder="•••••• (leave blank to keep)"/>
-      </div>
-      <p class="text-xs text-gray-500">
-        Supports Google, OpenAI, OpenRouter, Anthropic, Cohere, Hugging Face, Replicate, etc.
-      </p>
-    {% else %}
-      <div class="text-sm text-gray-600">
-        AI fields hidden (your plan does not include AI).
-      </div>
-    {% endif %}
-
-    <div class="flex gap-2">
-      <button class="px-4 py-2 bg-blue-600 text-white rounded" type="submit">Save</button>
-      <button class="px-4 py-2 border rounded"
-              hx-get="{% url 'dashboard:partial_bots' %}"
-              hx-target="#main"
-              type="button">Back</button>
-    </div>
-  </form>
-  <div class="mt-8 p-4 bg-gray-50 rounded border border-gray-200">
-    <h3 class="text-md font-semibold mb-2">Embed This Bot</h3>
-    <p class="text-sm text-gray-600 mb-2">Copy and paste this code into your website to embed the chatbot:</p>
-      <pre id="embed-script-block" class="bg-white border rounded p-3 text-xs overflow-x-auto select-all"><code>&lt;script src="http://{{ request.get_host }}/static/embed/bot.js"&gt;&lt;/script&gt;
-        &lt;script&gt;
-          RedbotLoad('{{ bot.public_key }}');
-          RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));
-        &lt;/script&gt;</code></pre>
-      <button class="px-3 py-1 bg-gray-200 text-gray-700 mt-2 rounded hover:bg-gray-300 text-sm"
-                            onclick="copyEmbedScript(this)">
-                        <iconify-icon icon="mdi:content-copy" class="mr-1"></iconify-icon> Copy
-      </button>
-      <script>
-        function copyEmbedScript(btn) {
-          const block = document.getElementById('embed-script-block');
-          if (!block) return;
-          const code = block.innerText || block.textContent;
-          
-          navigator.clipboard.writeText(code).then(function() {
-            const originalHTML = btn.innerHTML;
-            const originalClasses = Array.from(btn.classList);
-            
-            btn.innerHTML = '<iconify-icon icon="mdi:check"></iconify-icon> Copied!';
-            btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-            btn.classList.add('bg-green-600', 'hover:bg-green-700');
-            
-            setTimeout(() => {
-              btn.innerHTML = originalHTML;
-              btn.className = originalClasses.join(' ');
-            }, 2000);
-          }).catch(err => {
-            alert('Failed to copy. Please copy manually.');
-          });
-        }
-      </script>
-    <p class="text-xs text-gray-500 mt-2">In production, this will use your actual domain automatically.</p>
+    </form>
   </div>
-  </form>
+  
+  <!-- Embed Code Section -->
+  <div class="embed-section">
+    <h3 class="embed-title">
+      <iconify-icon icon="material-symbols:code" width="24" height="24"></iconify-icon>
+      Embed This Bot
+    </h3>
+    <p class="form-hint" style="margin-bottom: 12px;">
+      Copy and paste this code into your website to embed the chatbot:
+    </p>
+    <pre id="embed-script-block" class="embed-code"><code>&lt;script src="http://{{ request.get_host }}/static/embed/bot.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  RedbotLoad('{{ bot.public_key }}');
+  RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));
+&lt;/script&gt;</code></pre>
+    <button class="btn-copy" onclick="copyEmbedScript(this)">
+      <iconify-icon icon="material-symbols:content-copy-outline" width="18" height="18"></iconify-icon>
+      Copy Code
+    </button>
+    <p class="form-hint" style="margin-top: 12px;">
+      <iconify-icon icon="material-symbols:info-outline" width="14" height="14"></iconify-icon>
+      In production, this will use your actual domain automatically.
+    </p>
+  </div>
 </div>
+
+<script>
+  function copyEmbedScript(btn) {
+    const block = document.getElementById('embed-script-block');
+    if (!block) return;
+    const code = block.innerText || block.textContent;
+    
+    navigator.clipboard.writeText(code).then(function() {
+      const originalHTML = btn.innerHTML;
+      
+      btn.innerHTML = '<iconify-icon icon="material-symbols:check" width="18" height="18"></iconify-icon> Copied!';
+      btn.classList.add('copied');
+      
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(err => {
+      alert('Failed to copy. Please copy manually.');
+    });
+  }
+</script>

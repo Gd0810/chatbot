@@ -3,118 +3,445 @@
 <!-- Load Iconify -->
 <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
-<div class="bg-[#F4F6F8] shadow-lg rounded-xl p-6">
-  <div class="flex items-center justify-between mb-6">
-    <div>
-      <h2 class="text-2xl font-bold text-[#0B0C0C]">Bot Styling & Themes</h2>
-      <p class="text-sm text-[#4C4F56] mt-1">Customize the appearance and behavior of your chatbot widgets</p>
+<style>
+  /* Theme variables for bot style list page */
+  :root {
+    --style-bg: #f8f9fa;
+    --style-card-bg: #ffffff;
+    --style-text-primary: #1f1f1f;
+    --style-text-secondary: #5f6368;
+    --style-border: #e0e0e0;
+    --style-accent: #1a73e8;
+    --style-accent-hover: #1557b0;
+    --style-success: #34a853;
+    --style-info-bg: #f1f3f4;
+    --style-shadow: rgba(0, 0, 0, 0.1);
+    --style-shadow-hover: rgba(0, 0, 0, 0.15);
+  }
+  
+  [data-theme="dark"] {
+    --style-bg: #1f1f1f;
+    --style-card-bg: #2d2d2d;
+    --style-text-primary: #e8eaed;
+    --style-text-secondary: #9aa0a6;
+    --style-border: #3c4043;
+    --style-accent: #8ab4f8;
+    --style-accent-hover: #aecbfa;
+    --style-success: #81c995;
+    --style-info-bg: #3c4043;
+    --style-shadow: rgba(0, 0, 0, 0.3);
+    --style-shadow-hover: rgba(0, 0, 0, 0.4);
+  }
+  
+  .style-container {
+    background-color: var(--style-bg);
+    color: var(--style-text-primary);
+    font-family: 'Outfit', sans-serif;
+  }
+  
+  .style-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--style-border);
+  }
+  
+  .style-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--style-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .style-header-content {
+    flex: 1;
+  }
+  
+  .style-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--style-text-primary);
+  }
+  
+  .style-subtitle {
+    font-size: 14px;
+    color: var(--style-text-secondary);
+    margin-top: 4px;
+  }
+  
+  .bot-style-card {
+    background-color: var(--style-card-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px var(--style-shadow);
+  }
+  
+  .bot-style-card:hover {
+    box-shadow: 0 4px 12px var(--style-shadow-hover);
+    transform: translateY(-2px);
+  }
+  
+  .bot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 16px;
+  }
+  
+  .bot-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+  
+  .bot-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 2px 8px var(--style-shadow);
+  }
+  
+  .bot-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--style-text-primary);
+  }
+  
+  .bot-id {
+    font-size: 12px;
+    color: var(--style-text-secondary);
+    margin-top: 2px;
+  }
+  
+  .btn-customize {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background-color: var(--style-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px var(--style-shadow);
+    white-space: nowrap;
+  }
+  
+  .btn-customize:hover {
+    background-color: var(--style-accent-hover);
+    box-shadow: 0 4px 8px var(--style-shadow-hover);
+    transform: translateY(-1px);
+  }
+  
+  [data-theme="dark"] .btn-customize {
+    color: #1f1f1f;
+  }
+  
+  .style-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .style-info-card {
+    background-color: var(--style-info-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.2s;
+  }
+  
+  .style-info-card:hover {
+    background-color: var(--style-card-bg);
+    box-shadow: 0 2px 6px var(--style-shadow);
+  }
+  
+  .style-info-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--style-text-secondary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .style-info-label iconify-icon {
+    color: var(--style-accent);
+  }
+  
+  .style-info-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--style-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .color-preview {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 2px solid var(--style-border);
+    box-shadow: 0 1px 3px var(--style-shadow);
+  }
+  
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .status-enabled {
+    background-color: rgba(52, 168, 83, 0.1);
+    color: var(--style-success);
+  }
+  
+  .status-disabled {
+    background-color: var(--style-info-bg);
+    color: var(--style-text-secondary);
+  }
+  
+  .welcome-message-card {
+    background-color: var(--style-info-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  .welcome-message-text {
+    font-size: 14px;
+    color: var(--style-text-primary);
+    font-style: italic;
+    line-height: 1.5;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: var(--style-card-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 12px;
+  }
+  
+  .empty-state iconify-icon {
+    font-size: 64px;
+    color: var(--style-text-secondary);
+    margin-bottom: 16px;
+  }
+  
+  .empty-state-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--style-text-primary);
+    margin-bottom: 8px;
+  }
+  
+  .empty-state-text {
+    font-size: 14px;
+    color: var(--style-text-secondary);
+    margin-bottom: 24px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1024px) {
+    .style-grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .bot-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .btn-customize {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .style-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .style-title {
+      font-size: 20px;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .bot-style-card {
+      padding: 16px;
+    }
+    
+    .style-header-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .style-title {
+      font-size: 18px;
+    }
+    
+    .style-subtitle {
+      font-size: 13px;
+    }
+    
+    .bot-avatar {
+      width: 48px;
+      height: 48px;
+    }
+    
+    .bot-name {
+      font-size: 16px;
+    }
+    
+    .style-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .empty-state {
+      padding: 60px 20px;
+    }
+  }
+</style>
+
+<div class="style-container">
+  <!-- Header -->
+  <div class="style-header">
+    <div class="style-header-icon">
+      <iconify-icon icon="material-symbols:palette-outline" width="28" height="28"></iconify-icon>
+    </div>
+    <div class="style-header-content">
+      <h2 class="style-title">Bot Styling & Themes</h2>
+      <p class="style-subtitle">Customize the appearance and behavior of your chatbot widgets</p>
     </div>
   </div>
-
-  <div class="space-y-4">
+  
+  <!-- Bot Style Cards -->
+  <div class="style-list">
     {% for b in bots %}
-      <div class="border-2 border-[#4C3BCF] bg-[#FFFFFF] rounded-xl p-5 hover:border-[#00C896] hover:shadow-lg transition-all duration-200">
-        <div class="flex items-start justify-between">
-          <div class="flex-1">
-            <!-- Bot Name & Preview -->
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white shadow-lg"
-                   style="background: linear-gradient(135deg, {{ b.ui_primary_color|default:'#4C3BCF' }} 0%, {{ b.ui_primary_color|default:'#4C3BCF' }} 100%);">
-                <span class="iconify" data-icon="mdi:robot" data-width="28"></span>
-              </div>
-              <div>
-                <div class="text-lg font-semibold text-[#0B0C0C]">{{ b.name }}</div>
-                <div class="text-xs text-[#4C4F56]">ID: {{ b.id }}</div>
-              </div>
+      <div class="bot-style-card">
+        <!-- Bot Header -->
+        <div class="bot-header">
+          <div class="bot-identity">
+            <div class="bot-avatar" style="background: linear-gradient(135deg, {{ b.ui_primary_color|default:'#1a73e8' }} 0%, {{ b.ui_primary_color|default:'#1a73e8' }} 100%);">
+              <iconify-icon icon="material-symbols:smart-toy-outline" width="32" height="32"></iconify-icon>
             </div>
-
-            <!-- Theme Details Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-              <!-- Primary Color -->
-              <div class="bg-[#F4F6F8] rounded-lg p-3 border border-[#4C3BCF]">
-                <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
-                  <span class="iconify" data-icon="mdi:palette" data-width="14"></span>
-                  Primary Color
-                </div>
-                <div class="flex items-center gap-2">
-                  <div class="w-8 h-8 rounded-lg shadow-md border-2 border-[#9B7FD7]"
-                       style="background: {{ b.ui_primary_color|default:'#4C3BCF' }};"></div>
-                  <span class="text-sm font-mono text-[#0B0C0C]">{{ b.ui_primary_color|default:'#4C3BCF' }}</span>
-                </div>
-              </div>
-
-              <!-- Font Family -->
-              <div class="bg-[#F4F6F8] rounded-lg p-3 border border-[#4C3BCF]">
-                <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
-                  <span class="iconify" data-icon="mdi:format-font" data-width="14"></span>
-                  Font Family
-                </div>
-                <div class="text-sm text-[#0B0C0C] truncate" title="{{ b.ui_font_family|default:'Inter' }}">
-                  {{ b.ui_font_family|default:'Inter'|truncatechars:20 }}
-                </div>
-              </div>
-
-              <!-- Font Size -->
-              <div class="bg-[#F4F6F8] rounded-lg p-3 border border-[#4C3BCF]">
-                <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
-                  <span class="iconify" data-icon="mdi:format-size" data-width="14"></span>
-                  Font Size
-                </div>
-                <div class="text-sm font-semibold text-[#0B0C0C]">{{ b.ui_font_size|default:14 }}px</div>
-              </div>
-
-              <!-- Sound -->
-              <div class="bg-[#F4F6F8] rounded-lg p-3 border border-[#4C3BCF]">
-                <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
-                  <span class="iconify" data-icon="mdi:volume-high" data-width="14"></span>
-                  Notification Sound
-                </div>
-                <div class="flex items-center gap-2">
-                  {% if b.ui_sound_enabled %}
-                    <span class="iconify text-[#00C896]" data-icon="mdi:bell-ring" data-width="16"></span>
-                    <span class="text-[#00C896] text-sm">Enabled</span>
-                  {% else %}
-                    <span class="iconify text-gray-500" data-icon="mdi:bell-off" data-width="16"></span>
-                    <span class="text-gray-500 text-sm">Disabled</span>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-
-            <!-- Welcome Message -->
-            <div class="bg-[#F4F6F8] rounded-lg p-4 border border-[#4C3BCF]">
-              <div class="text-xs font-medium text-[#4C4F56] mb-2 flex items-center gap-1">
-                <span class="iconify" data-icon="mdi:message-text" data-width="14"></span>
-                Welcome Message
-              </div>
-              <div class="text-sm text-[#0B0C0C] italic">
-                "{{ b.ui_welcome_message|default:'Hi! How can I help you?'|truncatechars:100 }}"
-              </div>
+            <div>
+              <div class="bot-name">{{ b.name }}</div>
+              <div class="bot-id">ID: {{ b.id }}</div>
             </div>
           </div>
-
-          <!-- Actions -->
-          <div class="flex flex-col gap-2 ml-4">
-            <button class="px-4 py-2 bg-[#4C3BCF] hover:bg-[#00C896] text-white rounded-lg font-medium shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2"
-                    hx-get="{% url 'dashboard:bot_style_edit' b.id %}"
-                    hx-target="#main">
-              <span class="iconify" data-icon="mdi:palette-outline" data-width="18"></span>
-              Customize
-            </button>
+          <button class="btn-customize"
+                  hx-get="{% url 'dashboard:bot_style_edit' b.id %}"
+                  hx-target="#main">
+            <iconify-icon icon="material-symbols:edit-outline" width="18" height="18"></iconify-icon>
+            Customize
+          </button>
+        </div>
+        
+        <!-- Style Info Grid -->
+        <div class="style-grid">
+          <!-- Primary Color -->
+          <div class="style-info-card">
+            <div class="style-info-label">
+              <iconify-icon icon="material-symbols:palette-outline" width="24" height="24"></iconify-icon>
+              Primary Color
+            </div>
+            <div class="style-info-value">
+              <div class="color-preview" style="background: {{ b.ui_primary_color|default:'#1a73e8' }};"></div>
+              <span style="font-family: 'Courier New', monospace; font-size: 12px;">{{ b.ui_primary_color|default:'#1a73e8' }}</span>
+            </div>
+          </div>
+          
+          <!-- Font Family -->
+          <div class="style-info-card">
+            <div class="style-info-label">
+              <iconify-icon icon="flowbite:font-family-outline" width="24" height="24"></iconify-icon>
+              Font Family
+            </div>
+            <div class="style-info-value" title="{{ b.ui_font_family|default:'Inter' }}">
+              {{ b.ui_font_family|default:'Inter'|truncatechars:20 }}
+            </div>
+          </div>
+          
+          <!-- Font Size -->
+          <div class="style-info-card">
+            <div class="style-info-label">
+              <iconify-icon icon="material-symbols:format-size" width="14" height="14"></iconify-icon>
+              Font Size
+            </div>
+            <div class="style-info-value">
+              {{ b.ui_font_size|default:14 }}px
+            </div>
+          </div>
+          
+          <!-- Sound -->
+          <div class="style-info-card">
+            <div class="style-info-label">
+              <iconify-icon icon="material-symbols:volume-up-outline" width="14" height="14"></iconify-icon>
+              Notification Sound
+            </div>
+            <div class="style-info-value">
+              {% if b.ui_sound_enabled %}
+                <span class="status-badge status-enabled">
+                  <iconify-icon icon="material-symbols:check-circle-outline" width="14" height="14"></iconify-icon>
+                  Enabled
+                </span>
+              {% else %}
+                <span class="status-badge status-disabled">
+                  <iconify-icon icon="material-symbols:cancel-outline" width="14" height="14"></iconify-icon>
+                  Disabled
+                </span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Welcome Message -->
+        <div class="welcome-message-card">
+          <div class="style-info-label">
+            <iconify-icon icon="material-symbols:chat-outline" width="14" height="14"></iconify-icon>
+            Welcome Message
+          </div>
+          <div class="welcome-message-text">
+            "{{ b.ui_welcome_message|default:'Hi! How can I help you?'|truncatechars:120 }}"
           </div>
         </div>
       </div>
     {% empty %}
-      <div class="text-center py-16 bg-[#FFFFFF] rounded-xl border-2 border-[#4C3BCF]">
-        <div class="mb-4">
-          <span class="iconify text-[#9B7FD7]" data-icon="mdi:robot-outline" data-width="64"></span>
-        </div>
-        <div class="text-xl font-semibold text-[#0B0C0C] mb-2">No Bots Found</div>
-        <div class="text-[#4C4F56] mb-6">Create your first bot to start customizing its appearance</div>
-        <button class="px-6 py-3 bg-[#4C3BCF] hover:bg-[#00C896] text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 inline-flex items-center gap-2">
-          <span class="iconify" data-icon="mdi:plus-circle" data-width="20"></span>
-          Create New Bot
-        </button>
+      <div class="empty-state">
+        <iconify-icon icon="material-symbols:palette-outline"></iconify-icon>
+        <div class="empty-state-title">No Bots Found</div>
+        <div class="empty-state-text">Create your first bot to start customizing its appearance</div>
       </div>
     {% endfor %}
   </div>

@@ -762,7 +762,6 @@
               <iconify-icon icon="material-symbols:restart-alt" width="18"></iconify-icon>
               Show Reset Button
             </div>
-            <div class="toggle-description">If disabled, users will not see the Reset button in the chat widget. This can also be controlled by the workspace admin.</div>
           </label>
           <input type="checkbox" 
                  id="enable-reset-btn" 
@@ -773,6 +772,12 @@
                  onchange="toggleSwitch(this)" />
           <div class="toggle-switch {% if bot.workspace.enable_reset_button %}active{% endif %}" onclick="document.getElementById('enable-reset-btn').click()">
             <div class="toggle-thumb"></div>
+          </div>
+        </div>
+        <div class="info-box">
+          <iconify-icon icon="material-symbols:info-outline" width="16" style="color: var(--style-accent)"></iconify-icon>
+          <div style="font-size: 12px; color: var(--style-text-secondary);">
+            If disabled, users will not see the Reset button in the chat widget. This can also be controlled by the workspace admin.
           </div>
         </div>
       </div>

@@ -1,12 +1,23 @@
 <!-- dashboard/partials/live_messages.html -->
 {% for msg in messages %}
-<div class="flex flex-col {% if msg.sender == 'BOT' %}items-end{% else %}items-start{% endif %}">
-  <div class="max-w-[80%] rounded-lg px-4 py-2 
-              {% if msg.sender == 'BOT' %}bg-blue-600 text-white rounded-br-none{% else %}bg-white border border-gray-200 text-gray-800 rounded-bl-none shadow-sm{% endif %}">
-    <div class="text-sm">{{ msg.text }}</div>
+<div class="flex flex-col mb-4 {% if msg.sender == 'BOT' %}items-end{% else %}items-start{% endif %}"
+     style="max-width: 100%;">
+  <div style="max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.5; box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
+              {% if msg.sender == 'BOT' %}
+                background-color: var(--style-accent); color: white; border-bottom-right-radius: 0;
+              {% else %}
+                background-color: var(--style-card-bg); border: 1px solid var(--style-border); color: var(--style-text-primary); border-bottom-left-radius: 0;
+              {% endif %}">
+    <div>{{ msg.text }}</div>
+    
+    <div style="font-size: 10px; margin-top: 4px; 
+                color: {% if msg.sender == 'BOT' %}rgba(255, 255, 255, 0.8){% else %}var(--style-text-secondary){% endif %};
+                text-align: right;">
+       {{ msg.timestamp|date:"H:i" }}
+    </div>
   </div>
-  <div class="text-[10px] text-gray-400 mt-1 px-1">
-    {% if msg.sender == 'BOT' %}You{% else %}Visitor{% endif %} • {{ msg.timestamp|date:"H:i" }}
+  <div style="font-size: 10px; color: var(--style-text-secondary); margin-top: 2px; padding: 0 4px;">
+    {% if msg.sender == 'BOT' %}You{% else %}Visitor{% endif %}
   </div>
 </div>
 {% endfor %}

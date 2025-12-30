@@ -1,61 +1,79 @@
 <!-- dashboard/partials/live_detail.html -->
 {% include 'toast.html' %}
-<div class="flex-1 flex flex-col h-full">
+<div class="flex-1 flex flex-col h-full bg-transparent">
   <!-- Header -->
-  <div class="p-4 bg-white border-b border-gray-200 flex justify-between items-center shadow-sm">
-    <div>
-      <div class="font-semibold text-gray-800">Session: {{ conversation.session_id }}</div>
-      <div class="text-xs text-gray-500">Bot: {{ conversation.bot.name }}</div>
-      <div class="text-xs" id="connection-status">
-        <span class="inline-block w-2 h-2 rounded-full bg-gray-400 mr-1"></span>
-        <span>Connecting...</span>
+  <div class="p-4 border-b flex justify-between items-center shadow-sm z-10" 
+       style="background-color: var(--style-card-bg); border-color: var(--style-border);">
+    <div class="flex items-center gap-3">
+      <!-- Mobile Back Button -->
+      <button class="md:hidden flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              style="color: var(--style-text-secondary);"
+              onclick="document.getElementById('chat-area').classList.remove('active')">
+        <iconify-icon icon="material-symbols:arrow-back" width="20"></iconify-icon>
+      </button>
+
+      <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+           style="background-color: var(--style-accent);">
+           <iconify-icon icon="material-symbols:person" width="24"></iconify-icon>
       </div>
-      <div class="text-xs text-blue-500 italic mt-1 h-4" id="admin-typing-indicator" style="display:none;">Visitor is typing...</div>
+      <div>
+        <div class="font-semibold flex items-center gap-2" style="color: var(--style-text-primary);">
+            {{ conversation.session_id }}
+            <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-normal">Session</span>
+        </div>
+        <div class="text-xs mt-0.5" style="color: var(--style-text-secondary);">Bot: {{ conversation.bot.name }}</div>
+        
+        <div class="text-xs flex items-center gap-1 mt-1" id="connection-status">
+          <span class="inline-block w-2 h-2 rounded-full bg-gray-400"></span>
+          <span>Connecting...</span>
+        </div>
+        <div class="text-xs italic mt-1 h-4 flex items-center gap-1" id="admin-typing-indicator" style="display:none; color: var(--style-accent);">
+            <iconify-icon icon="line-md:loading-twotone-loop" width="12"></iconify-icon>
+            Visitor is typing...
+        </div>
+      </div>
     </div>
     <div class="flex gap-2">
-        <!-- Optional actions like End Chat -->
+      <!-- Optional actions -->
     </div>
   </div>
 
   <!-- Messages -->
-  <div class="flex-1 overflow-y-auto p-4 space-y-4" id="admin-messages">
+  <div class="flex-1 overflow-y-auto p-4 space-y-4" id="admin-messages" style="background-color: var(--style-bg);">
        {% include 'dashboard/partials/live_messages.html' %}
   </div>
 
   <!-- Input -->
-  <div class="p-4 bg-white border-t border-gray-200">
+  <div class="p-4 border-t" style="background-color: var(--style-card-bg); border-color: var(--style-border);">
     <form id="admin-reply-form">
-      <div class="flex gap-2 relative items-center">
+      <div class="flex gap-2 relative items-end">
         <!-- Emoji Picker Container -->
-        <div id="admin-emoji-picker" style="display:none; position: absolute; bottom: 100%; left: 0; margin-bottom: 10px; z-index: 50;"></div>
+        <div id="admin-emoji-picker" 
+             style="display:none; position: absolute; bottom: 100%; left: 0; margin-bottom: 10px; z-index: 50; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 8px;"></div>
         
         <!-- Emoji Button -->
        <button type="button" id="admin-emoji-btn"
-style="
-    background: #f1f5f9;
-    border: none;
-    padding: 5px;
-    border-radius: 7px;
-    cursor: pointer;
-    color: #6b7280;
-    transition: all 0.3s ease;
-"
-onmouseover="this.style.background='#f1f5f9'; this.style.color='#2563eb';"
-
->
-    <iconify-icon icon="line-md:emoji-smile-filled" width="24" height="24"></iconify-icon>
-</button>
-
+               style="background: transparent; border: 1px solid var(--style-border); padding: 10px; border-radius: 8px; cursor: pointer; color: var(--style-text-secondary); transition: all 0.2s; flex-shrink: 0;"
+               onmouseover="this.style.color = getComputedStyle(document.documentElement).getPropertyValue('--style-accent')"
+               onmouseout="this.style.color = getComputedStyle(document.documentElement).getPropertyValue('--style-text-secondary')">
+            <iconify-icon icon="material-symbols:sentiment-satisfied-outline" width="24" height="24"></iconify-icon>
+        </button>
 
         <input type="text" name="text" id="admin-message-input"
-               class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               class="flex-1 px-4 py-3 focus:outline-none min-w-0"
+               style="background-color: var(--style-bg); border: 1px solid var(--style-border); border-radius: 8px; color: var(--style-text-primary);"
                placeholder="Type a reply..." required autocomplete="off">
+        
         <button type="submit" id="admin-send-btn"
-                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-          Send
+                class="px-4 py-3 md:px-5 rounded-lg transition-colors font-medium flex items-center gap-2 flex-shrink-0"
+                style="background-color: var(--style-accent); color: white;">
+          <span class="hidden md:inline">Send</span>
+          <iconify-icon icon="material-symbols:send" width="18"></iconify-icon>
         </button>
       </div>
     </form>
+    <!-- Extra bottom padding for mobile browsers -->
+    <div class="h-2 md:h-0"></div>
   </div>
 </div>
 
@@ -203,10 +221,26 @@ onmouseover="this.style.background='#f1f5f9'; this.style.color='#2563eb';"
     const messageDiv = document.createElement('div');
     messageDiv.className = sender === 'USER' ? 'flex justify-start' : 'flex justify-end';
     
+    // Create main bubble
     const bubble = document.createElement('div');
-    bubble.className = sender === 'USER' 
-      ? 'bg-gray-100 text-gray-800 px-4 py-2 rounded-lg max-w-md'
-      : 'bg-blue-600 text-white px-4 py-2 rounded-lg max-w-md';
+    bubble.style.maxWidth = '75%';
+    bubble.style.padding = '12px 16px';
+    bubble.style.borderRadius = '12px';
+    bubble.style.fontSize = '14px';
+    bubble.style.lineHeight = '1.5';
+    bubble.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
+    
+    // Apply role-specific styles
+    if (sender === 'USER') {
+      bubble.style.backgroundColor = 'var(--style-card-bg)';
+      bubble.style.border = '1px solid var(--style-border)';
+      bubble.style.color = 'var(--style-text-primary)';
+      bubble.style.borderBottomLeftRadius = '0';
+    } else {
+      bubble.style.backgroundColor = 'var(--style-accent)';
+      bubble.style.color = 'white';
+      bubble.style.borderBottomRightRadius = '0';
+    }
     
     const textDiv = document.createElement('div');
     textDiv.textContent = text;
@@ -214,8 +248,16 @@ onmouseover="this.style.background='#f1f5f9'; this.style.color='#2563eb';"
     
     if (timestamp) {
       const timeDiv = document.createElement('div');
-      timeDiv.className = 'text-xs mt-1 opacity-75';
-      timeDiv.textContent = new Date(timestamp).toLocaleTimeString();
+      timeDiv.style.fontSize = '10px';
+      timeDiv.style.marginTop = '4px';
+      timeDiv.textContent = new Date(timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      
+      if (sender === 'USER') {
+        timeDiv.style.color = 'var(--style-text-secondary)';
+      } else {
+        timeDiv.style.color = 'rgba(255, 255, 255, 0.8)';
+      }
+      
       bubble.appendChild(timeDiv);
     }
     

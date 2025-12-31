@@ -1,29 +1,40 @@
-<div class="border-t pt-6" id="crawl-results-area">
-  <div class="flex justify-between items-center mb-4">
-    <h3 class="text-lg font-semibold">Results ({{ total }} pages found)</h3>
+<!-- templates/dashboard/partials/website_crawl_results.html -->
+<div class="border-t pt-6" id="crawl-results-area" style="border-color: var(--style-border);">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+    <div class="flex items-center gap-2">
+        <h3 class="text-lg font-semibold" style="color: var(--style-text-primary);">Results Found</h3>
+        <span class="text-xs font-medium px-2 py-0.5 rounded-full" style="background-color: var(--style-info-bg); color: var(--style-text-secondary);">
+            {{ total }} pages
+        </span>
+    </div>
+    
     <button onclick="copyAllContent(this)"
-            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center gap-2">
-      <iconify-icon icon="mdi:content-copy"></iconify-icon>
-      Copy Complete Website Data
+            class="style-btn-primary w-full md:w-auto text-sm px-4 py-2">
+      <iconify-icon icon="material-symbols:content-copy-outline" width="18"></iconify-icon>
+      Copy Complete Data
     </button>
   </div>
   
   {% if pages %}
       <!-- Visible Content Area -->
-      <div id="page-content" class="space-y-8 max-h-[600px] overflow-y-auto pr-2 border rounded p-4 bg-gray-50">
+      <div id="page-content" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 rounded-xl p-4 style-input" 
+           style="background-color: var(--style-bg); border: 1px solid var(--style-border);">
         {% for page in pages %}
-            <div class="page-section border-b pb-6 last:border-0 last:pb-0">
-                <div class="mb-4">
-                    <h4 class="font-bold text-xl text-gray-800">{{ page.title }}</h4>
-                    <p class="text-sm text-gray-500">Source: <a href="{{ page.url }}" target="_blank" class="hover:underline">{{ page.url }}</a></p>
+            <div class="page-section pb-6 mb-6 last:mb-0 last:pb-0" style="border-bottom: 1px dashed var(--style-border);">
+                <div class="mb-3">
+                    <h4 class="font-bold text-lg" style="color: var(--style-text-primary);">{{ page.title }}</h4>
+                    <a href="{{ page.url }}" target="_blank" class="text-xs hover:underline flex items-center gap-1 mt-1" style="color: var(--style-accent);">
+                        <iconify-icon icon="material-symbols:link" width="12"></iconify-icon>
+                        {{ page.url }}
+                    </a>
                 </div>
 
                 {% for section in page.sections %}
-                <div class="mb-4">
+                <div class="mb-4 pl-3" style="border-left: 2px solid var(--style-border);">
                     {% if section.heading and section.heading != "Intro" and section.heading != "Content" %}
-                    <h5 class="font-semibold text-lg text-gray-700 mb-2">{{ section.heading }}</h5>
+                    <h5 class="font-semibold text-sm mb-1" style="color: var(--style-text-secondary);">{{ section.heading }}</h5>
                     {% endif %}
-                    <div class="prose prose-sm max-w-none text-gray-600 space-y-2 whitespace-pre-wrap font-sans">
+                    <div class="prose prose-sm max-w-none space-y-2 whitespace-pre-wrap font-sans text-sm" style="color: var(--style-text-primary);">
                         {{ section.content|default:"" }}
                     </div>
                 </div>
@@ -46,7 +57,12 @@ URL: {{ page.url }}
 </textarea>
 
   {% else %}
-      <p class="text-gray-500 italic">No content found. Please check the URL and try again.</p>
+      <div class="text-center py-8 rounded-xl" style="background-color: var(--style-info-bg);">
+          <div class="opacity-50 mb-2" style="color: var(--style-text-secondary);">
+              <iconify-icon icon="material-symbols:search-off" width="32"></iconify-icon>
+          </div>
+          <p class="text-sm italic" style="color: var(--style-text-secondary);">No content found. Please check the URL and try again.</p>
+      </div>
   {% endif %}
 </div>
 
@@ -55,16 +71,18 @@ function copyAllContent(btn) {
     const content = document.getElementById('full-website-content').value;
     
     navigator.clipboard.writeText(content).then(() => {
-        const originalHTML = btn.innerHTML;
-        const originalClasses = Array.from(btn.classList);
+        const icon = btn.querySelector('iconify-icon');
+        const originalIcon = icon.getAttribute('icon');
+        const originalText = btn.lastChild.textContent;
 
-        btn.innerHTML = '<iconify-icon icon="mdi:check"></iconify-icon> Copied All Data!';
-        btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
-        btn.classList.add('bg-green-600', 'hover:bg-green-700');
+        icon.setAttribute('icon', 'material-symbols:check');
+        btn.lastChild.textContent = ' Copied!';
+        btn.style.backgroundColor = 'var(--style-success)';
         
         setTimeout(() => {
-            btn.innerHTML = originalHTML;
-            btn.className = originalClasses.join(' ');
+            icon.setAttribute('icon', originalIcon);
+            btn.lastChild.textContent = originalText;
+            btn.style.backgroundColor = ''; // Revert to class style
         }, 2000);
     }).catch(err => {
         alert('Failed to copy: ' + err);

@@ -84,6 +84,9 @@ def widget_iframe(request, public_key):
         elif not bot.is_enabled:
             block_reason = 'disabled'
             block_msg = "This bot is disabled by the owner."
+        elif not getattr(ws, 'enable_bot_widget', True):
+            block_reason = 'widget_disabled'
+            block_msg = "Bot widget is disabled for this workspace."
         elif not ws.approved:
             block_reason = 'not_approved'
             block_msg = "Workspace is not approved yet."
@@ -259,6 +262,9 @@ def live_widget_iframe(request, public_key):
         elif not bot.is_enabled:
             block_reason = 'disabled'
             block_msg = "This bot is disabled by the owner."
+        elif not getattr(ws, 'enable_bot_widget', True):
+            block_reason = 'widget_disabled'
+            block_msg = "Bot widget is disabled for this workspace."
         elif not ws.approved:
             block_reason = 'not_approved'
             block_msg = "Workspace is not approved yet."
@@ -509,6 +515,7 @@ def bot_config_api(request, public_key):
                 'sound_enabled': bool(bot.ui_sound_enabled),
                 'animation_speed': bot.ui_animation_speed or 'normal',
                 'widget_position': bot.ui_widget_position or 'bottom-right',
+                'bot_widget_enabled': getattr(bot.workspace, 'enable_bot_widget', True),
             }, default=str),
             content_type='application/json'
         )
@@ -647,6 +654,9 @@ def qa_widget_iframe(request, public_key):
         elif not bot.is_enabled:
             block_reason = 'disabled'
             block_msg = "Bot disabled."
+        elif not getattr(ws, 'enable_bot_widget', True):
+            block_reason = 'widget_disabled'
+            block_msg = "Bot widget disabled."
         elif not ws.approved:
             block_reason = 'not_approved'
             block_msg = "Workspace not approved."

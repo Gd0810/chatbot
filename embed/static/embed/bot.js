@@ -399,8 +399,8 @@
 
   function getScriptOrigin() {
     var s = document.currentScript ||
-            document.querySelector('script[src*="/static/embed/bot.js"]') ||
-            document.querySelector('script[src*="bot.js"]');
+      document.querySelector('script[src*="/static/embed/bot.js"]') ||
+      document.querySelector('script[src*="bot.js"]');
     if (!s) return window.location.origin || 'http://127.0.0.1:8000';
     try {
       return new URL(s.getAttribute('src'), window.location.href).origin;
@@ -521,8 +521,8 @@
   function buildWidgetUrl(host, publicKey, parentOrigin, themeHex, fontFamily, fontSize, welcomeMsg, soundEnabled, bgColor, animSpeed, widgetPos) {
     var t = Date.now();
     var url = host.replace(/\/+$/, '') + '/embed/widget/' + encodeURIComponent(publicKey) +
-              '/?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
-    
+      '/?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
+
     if (themeHex && typeof themeHex === 'string' && themeHex.trim() !== '') {
       url += '&theme=' + encodeURIComponent(themeHex.trim());
     }
@@ -547,7 +547,7 @@
     if (widgetPos && typeof widgetPos === 'string') {
       url += '&pos=' + encodeURIComponent(widgetPos);
     }
-    
+
     return url;
   }
 
@@ -556,7 +556,7 @@
     btn.className = 'rb-launcher';
     btn.setAttribute('aria-label', 'Open chat');
     btn.setAttribute('role', 'button');
-    
+
     if (color) {
       // Support both solid colors and gradients
       if (color.includes('linear-gradient') || color.includes('radial-gradient')) {
@@ -565,7 +565,7 @@
         btn.style.background = 'linear-gradient(135deg, ' + color + ' 0%, ' + adjustColorBrightness(color, -20) + ' 100%)';
       }
     }
-    
+
     btn.innerHTML = `
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
@@ -583,12 +583,12 @@
     var r = parseInt(hex.substring(0, 2), 16);
     var g = parseInt(hex.substring(2, 4), 16);
     var b = parseInt(hex.substring(4, 6), 16);
-    
+
     r = Math.max(0, Math.min(255, r + (r * percent / 100)));
     g = Math.max(0, Math.min(255, g + (g * percent / 100)));
     b = Math.max(0, Math.min(255, b + (b * percent / 100)));
-    
-    return '#' + 
+
+    return '#' +
       ('0' + Math.round(r).toString(16)).slice(-2) +
       ('0' + Math.round(g).toString(16)).slice(-2) +
       ('0' + Math.round(b).toString(16)).slice(-2);
@@ -619,10 +619,17 @@
     if (!opts.widgetPosition) {
       try {
         fetch('/embed/config/' + encodeURIComponent(publicKey) + '/')
-          .then(function(r) { return r.ok ? r.json() : null; })
-          .then(function(cfg) {
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (cfg) {
             if (!cfg) return;
-            try { console.log('[Redbot] Fetched config from server:', cfg); } catch (e) {}
+
+            // Check master toggle
+            if (cfg.bot_widget_enabled === false) {
+              try { console.log('[Redbot] Widget disabled by workspace owner.'); } catch (e) { }
+              return; // ABORT: Do not call _doLoad
+            }
+
+            try { console.log('[Redbot] Fetched config from server:', cfg); } catch (e) { }
             opts.primaryColor = opts.primaryColor || cfg.primary_color;
             opts.bgColor = opts.bgColor || cfg.bg_color;
             opts.fontFamily = opts.fontFamily || cfg.font_family;
@@ -633,8 +640,14 @@
             opts.widgetPosition = opts.widgetPosition || cfg.widget_position;
             _doLoad(publicKey, opts);
           })
-          .catch(function(e) {
-            try { console.warn('[Redbot] Config fetch failed:', e); } catch (e2) {}
+          .catch(function (e) {
+            try { console.warn('[Redbot] Config fetch failed:', e); } catch (e2) { }
+            // If API fails, we generally continue with default/attribute options.
+            // BUT if the goal is strictly disappear, we might want to be careful.
+            // However, usually API failure means network issue, not "disabled".
+            // If "Disabled", API likely returns 404 or config with false.
+            // If we want to be strict: if API fails, maybe we should still load? 
+            // The user wants "if i disable... literally disappear". Disabling works via success response with flag false.
             _doLoad(publicKey, opts);
           });
       } catch (e) {
@@ -657,17 +670,17 @@
     var welcomeMsg = (opts.welcomeMessage || '').trim();
     var soundEnabled = opts.soundEnabled;
     var animSpeed = (opts.animationSpeed || '').trim();
-  // Normalize widget position into a small set of supported values
-  var rawPos = (opts.widgetPosition || 'bottom-right').toString().trim().toLowerCase();
-  var widgetPos = 'bottom-right';
-  if (rawPos === 'left' || rawPos === 'bottom-left' || rawPos === 'left-bottom' || rawPos === 'left-bottom') widgetPos = 'bottom-left';
-  else if (rawPos === 'right' || rawPos === 'bottom-right' || rawPos === 'right-bottom') widgetPos = 'bottom-right';
-  else if (rawPos === 'top-left' || rawPos === 'left-top') widgetPos = 'top-left';
-  else if (rawPos === 'top-right' || rawPos === 'right-top') widgetPos = 'top-right';
-  else widgetPos = rawPos || 'bottom-right';
-  // debug: report what we received and the normalized position
-  try { console.log('[Redbot] init: raw widget position ->', rawPos, 'normalized ->', widgetPos); } catch (e) {}
-    
+    // Normalize widget position into a small set of supported values
+    var rawPos = (opts.widgetPosition || 'bottom-right').toString().trim().toLowerCase();
+    var widgetPos = 'bottom-right';
+    if (rawPos === 'left' || rawPos === 'bottom-left' || rawPos === 'left-bottom' || rawPos === 'left-bottom') widgetPos = 'bottom-left';
+    else if (rawPos === 'right' || rawPos === 'bottom-right' || rawPos === 'right-bottom') widgetPos = 'bottom-right';
+    else if (rawPos === 'top-left' || rawPos === 'left-top') widgetPos = 'top-left';
+    else if (rawPos === 'top-right' || rawPos === 'right-top') widgetPos = 'top-right';
+    else widgetPos = rawPos || 'bottom-right';
+    // debug: report what we received and the normalized position
+    try { console.log('[Redbot] init: raw widget position ->', rawPos, 'normalized ->', widgetPos); } catch (e) { }
+
     var widgetUrl = buildWidgetUrl(host, publicKey, parentOrigin, theme, fontFamily, fontSize, welcomeMsg, soundEnabled, bgColor, animSpeed, widgetPos);
 
     // Elements
@@ -675,10 +688,10 @@
     wrapper.className = 'rb-wrapper';
     wrapper.setAttribute('role', 'dialog');
     wrapper.setAttribute('aria-label', 'Chat window');
-    
+
     // Apply widget position styling (supports bottom-left, bottom-right, top-left, top-right)
     function applyPosition(pos) {
-      try { console.log('[Redbot] applyPosition called with pos =', pos); } catch (e) {}
+      try { console.log('[Redbot] applyPosition called with pos =', pos); } catch (e) { }
       // reset a few possible styles
       wrapper.style.left = wrapper.style.right = wrapper.style.top = wrapper.style.bottom = '';
       launcher.style.left = launcher.style.right = launcher.style.top = launcher.style.bottom = '';
@@ -729,9 +742,9 @@
           wrapper.style.bottom = '90px';
           wrapper.style.width = 'calc(100vw - 32px)';
         }
-      } catch (e) {}
-  }
-    
+      } catch (e) { }
+    }
+
     var iframe = document.createElement('iframe');
     iframe.className = 'rb-iframe';
     iframe.src = widgetUrl;
@@ -740,38 +753,38 @@
     document.body.appendChild(wrapper);
 
     var launcher = createLauncher(theme || null);
-    
-  // Apply positions for launcher and wrapper
-  try { if (typeof applyPosition === 'function') { applyPosition(widgetPos); console.log('[Redbot] applied initial widgetPos =', widgetPos); } } catch (e) {}
+
+    // Apply positions for launcher and wrapper
+    try { if (typeof applyPosition === 'function') { applyPosition(widgetPos); console.log('[Redbot] applied initial widgetPos =', widgetPos); } } catch (e) { }
     document.body.appendChild(launcher);
 
     // State persistence
     var stateKey = 'rb_open_' + publicKey;
     function saveOpenState(isOpen) {
-      try { localStorage.setItem(stateKey, isOpen ? '1' : '0'); } catch(e){}
+      try { localStorage.setItem(stateKey, isOpen ? '1' : '0'); } catch (e) { }
     }
     function loadOpenState() {
-      try { return localStorage.getItem(stateKey) === '1'; } catch(e) { return false; }
+      try { return localStorage.getItem(stateKey) === '1'; } catch (e) { return false; }
     }
 
-    function open() { 
-      wrapper.classList.add('open'); 
+    function open() {
+      wrapper.classList.add('open');
       saveOpenState(true);
       launcher.setAttribute('aria-expanded', 'true');
     }
-    
-    function close() { 
-      wrapper.classList.remove('open'); 
+
+    function close() {
+      wrapper.classList.remove('open');
       saveOpenState(false);
       launcher.setAttribute('aria-expanded', 'false');
     }
-    
-    function toggle() { 
-      if (wrapper.classList.contains('open')) { 
-        close(); 
-      } else { 
-        open(); 
-      } 
+
+    function toggle() {
+      if (wrapper.classList.contains('open')) {
+        close();
+      } else {
+        open();
+      }
     }
 
     launcher.addEventListener('click', toggle);
@@ -799,7 +812,7 @@
       open: open,
       close: close,
       toggle: toggle,
-  setTheme: function (hex, fontFam, fontSz, welcome, sound, bg, anim, pos) {
+      setTheme: function (hex, fontFam, fontSz, welcome, sound, bg, anim, pos) {
         // Update launcher color and reload iframe with all theme params
         if (hex && typeof hex === 'string') {
           if (hex.includes('gradient')) {
@@ -808,7 +821,7 @@
             launcher.style.background = 'linear-gradient(135deg, ' + hex + ' 0%, ' + adjustColorBrightness(hex, -20) + ' 100%)';
           }
         }
-        
+
         // Update position if specified (normalize synonyms)
         try {
           var p = (pos || '').toString().trim().toLowerCase();
@@ -816,10 +829,10 @@
           else if (p === 'right' || p === 'bottom-right' || p === 'right-bottom') p = 'bottom-right';
           else if (p === 'top-left' || p === 'left-top') p = 'top-left';
           else if (p === 'top-right' || p === 'right-top') p = 'top-right';
-          try { console.log('[Redbot] setTheme received pos ->', pos, 'normalized ->', p); } catch (e) {}
+          try { console.log('[Redbot] setTheme received pos ->', pos, 'normalized ->', p); } catch (e) { }
           if (typeof applyPosition === 'function') applyPosition(p);
-        } catch (e) {}
-        
+        } catch (e) { }
+
         var newUrl = buildWidgetUrl(host, publicKey, parentOrigin, hex, fontFam, fontSz, welcome, sound, bg, anim, pos);
         iframe.src = newUrl;
       },

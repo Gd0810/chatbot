@@ -314,18 +314,32 @@
                 
                 if (labels && data && labels.length > 0) {
                      window.myEnquiryChart = new Chart(ctx, {
-                        type: 'line',
+                        type: 'bar', 
                         data: {
                             labels: labels,
-                            datasets: [{
+                            datasets: [
+                            {
+                                type: 'line',
+                                label: 'Trend',
+                                data: data,
+                                borderColor: textPrimary,
+                                borderWidth: 1.5,
+                                tension: 0.1, // Slight curve, mostly straight
+                                pointRadius: 0, // Hide points for cleaner look like image
+                                pointHoverRadius: 4,
+                                fill: false,
+                                order: 1 // Render on top
+                            },
+                            {
+                                type: 'bar',
                                 label: 'Enquiries',
                                 data: data,
-                                borderColor: accentColor,
-                                backgroundColor: accentColor, // Fallback, normally needs opacity
-                                tension: 0.3,
-                                fill: false, // Disable fill to avoid opacity issues with raw hex variables
-                                pointRadius: 3,
-                                pointHoverRadius: 5
+                                borderColor: textPrimary, // Border color matches line/text
+                                backgroundColor: accentColor, 
+                                borderWidth: 1,
+                                borderRadius: 0, // Squared tops like image
+                                hoverBackgroundColor: accentColor,
+                                order: 2
                             }]
                         },
                         options: {

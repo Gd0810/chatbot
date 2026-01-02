@@ -378,12 +378,73 @@
                 console.error("Error initializing chart:", e);
             }
         }
+        
+        // Update Chart colors when theme changes
+        function updateChartColors() {
+             if (!window.myEnquiryChart) return;
+             
+             const gridColor = getThemeColor('--style-border');
+             const textColor = getThemeColor('--style-text-secondary');
+             const accentColor = getThemeColor('--style-accent');
+             const cardBg = getThemeColor('--style-card-bg');
+             const textPrimary = getThemeColor('--style-text-primary');
+
+             const chart = window.myEnquiryChart;
+             
+             // Update Datasets
+             if (chart.data.datasets.length >= 2) {
+                 // Line (Dataset 0)
+                 chart.data.datasets[0].borderColor = textPrimary;
+                 // Bar (Dataset 1)
+                 chart.data.datasets[1].borderColor = textPrimary;
+                 chart.data.datasets[1].backgroundColor = accentColor;
+                 chart.data.datasets[1].hoverBackgroundColor = accentColor;
+             }
+             
+             // Update Scales
+             if (chart.options.scales.y) {
+                 chart.options.scales.y.ticks.color = textColor;
+                 chart.options.scales.y.grid.color = gridColor;
+             }
+             if (chart.options.scales.x) {
+                  chart.options.scales.x.ticks.color = textColor;
+             }
+             
+             // Update Tooltip
+             if (chart.options.plugins.tooltip) {
+                 chart.options.plugins.tooltip.backgroundColor = cardBg;
+                 chart.options.plugins.tooltip.titleColor = textPrimary;
+                 chart.options.plugins.tooltip.bodyColor = textColor;
+                 chart.options.plugins.tooltip.borderColor = gridColor;
+             }
+
+             chart.update();
+        }
+
+        // Setup Observer for Theme Changes
+        function setupThemeObserver() {
+             // Clean up existing observer if present to prevent duplicates on partial reload
+             if (window.enquiryThemeObserver) {
+                window.enquiryThemeObserver.disconnect();
+            }
+            
+            window.enquiryThemeObserver = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName === 'data-theme') {
+                        updateChartColors();
+                    }
+                });
+            });
+            
+            window.enquiryThemeObserver.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        }
 
         // Run immediately
         initEnquiryChart();
-        
-        // Optional: Re-init on theme change if you have an event listener for it globally
-        // window.addEventListener('theme-changed', initEnquiryChart);
+        setupThemeObserver();
     })();
 </script>
 

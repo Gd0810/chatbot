@@ -1,55 +1,166 @@
+<!-- templates/dashboard/partials/enquiries.html -->
 {% include 'toast.html' %}
 
-<div class="bg-white shadow rounded p-4">
+<style>
+  :root {
+    --style-bg: #f8f9fa;
+    --style-card-bg: #ffffff;
+    --style-text-primary: #1f1f1f;
+    --style-text-secondary: #5f6368;
+    --style-border: #e0e0e0;
+    --style-accent: #1a73e8;
+    --style-accent-hover: #1557b0;
+    --style-success: #34a853;
+    --style-info-bg: #f1f3f4;
+    --style-shadow: rgba(0, 0, 0, 0.1);
+  }
+  
+  [data-theme="dark"] {
+    --style-bg: #1f1f1f;
+    --style-card-bg: #2d2d2d;
+    --style-text-primary: #e8eaed;
+    --style-text-secondary: #9aa0a6;
+    --style-border: #3c4043;
+    --style-accent: #8ab4f8;
+    --style-accent-hover: #aecbfa;
+    --style-success: #81c995;
+    --style-info-bg: #3c4043;
+    --style-shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  .style-container {
+    background-color: var(--style-card-bg);
+    color: var(--style-text-primary);
+    font-family: 'Outfit', sans-serif;
+    border: 1px solid var(--style-border);
+    border-radius: 12px;
+  }
+
+  .style-stat-card {
+    background-color: var(--style-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  /* Toggle Switch */
+  .toggle-checkbox {
+    appearance: none;
+    width: 44px;
+    height: 24px;
+    background-color: var(--style-border);
+    border-radius: 9999px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .toggle-checkbox::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  
+  .toggle-checkbox:checked {
+    background-color: var(--style-accent);
+  }
+  
+  .toggle-checkbox:checked::after {
+    transform: translateX(20px);
+  }
+  
+  /* Pagination Buttons */
+  .style-page-btn {
+    background-color: var(--style-bg);
+    border: 1px solid var(--style-border);
+    color: var(--style-text-primary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .style-page-btn:hover:not(:disabled) {
+    background-color: var(--style-border);
+  }
+  .style-page-btn.active {
+    background-color: var(--style-accent);
+    color: white;
+    border-color: var(--style-accent);
+  }
+  .style-page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+</style>
+
+<div class="style-container p-4 md:p-6 shadow-sm">
 
   <!-- Header -->
-  <div class="flex items-center justify-between mb-4">
-    <div>
-      <h2 class="text-lg font-semibold">Enquiries</h2>
-      <div class="text-sm text-gray-600 mt-1">
-        Total submissions: {{ enquiry_count }}
-      </div>
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+    <div class="flex items-center gap-3">
+        <div class="p-2 rounded-lg" style="background-color: var(--style-info-bg); color: var(--style-accent);">
+            <iconify-icon icon="material-symbols:contact-mail-outline" width="24"></iconify-icon>
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold">Enquiries</h2>
+          <div class="text-sm opacity-70" style="color: var(--style-text-secondary);">
+            Total submissions: {{ enquiry_count }}
+          </div>
+        </div>
     </div>
 
-    <label class="flex items-center gap-2 text-sm cursor-pointer">
+    <label class="flex items-center gap-3 cursor-pointer select-none">
+      <span class="text-sm font-medium" style="color: var(--style-text-primary);">
+        Enable Form
+      </span>
       <input
         type="checkbox"
         {% if workspace.enable_enquiry_form %}checked{% endif %}
         onchange="updateEnquiryFormSetting(this)"
-        class="w-4 h-4"
+        class="toggle-checkbox"
       />
-      <span>{{ workspace.enable_enquiry_form|yesno:"Enabled,Disabled" }}</span>
     </label>
   </div>
 
-  <!-- Status -->
-  <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-800">
-    <strong>Form Status:</strong>
-    {% if workspace.enable_enquiry_form %}
-      Enquiry form is <strong>enabled</strong> — visitors will see the form before chat.
-    {% else %}
-      Enquiry form is <strong>disabled</strong> — visitors can chat directly.
-    {% endif %}
+  <!-- Status Info -->
+  <div class="mb-6 p-4 rounded-lg flex items-start gap-3" 
+       style="background-color: var(--style-info-bg); border: 1px solid var(--style-border);">
+    <iconify-icon icon="material-symbols:info-outline" width="20" class="mt-0.5" style="color: var(--style-accent);"></iconify-icon>
+    <div class="text-sm leading-relaxed" style="color: var(--style-text-primary);">
+        {% if workspace.enable_enquiry_form %}
+           <strong>Enquiry form is enabled.</strong> Visitors will be prompted to fill out their details before starting a chat.
+        {% else %}
+           <strong>Enquiry form is disabled.</strong> Visitors can chat directly without providing contact details.
+        {% endif %}
+    </div>
   </div>
 
   <!-- Stats -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-    <div class="bg-gray-50 p-4 rounded border">
-      <div class="text-xs uppercase text-gray-500 font-semibold">Today</div>
-      <div class="text-2xl font-bold mt-1">{{ count_today }}</div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <div class="style-stat-card">
+      <div class="text-xs uppercase font-semibold tracking-wider mb-1" style="color: var(--style-text-secondary);">Today</div>
+      <div class="text-2xl font-bold" style="color: var(--style-text-primary);">{{ count_today }}</div>
     </div>
-    <div class="bg-gray-50 p-4 rounded border">
-      <div class="text-xs uppercase text-gray-500 font-semibold">This Month</div>
-      <div class="text-2xl font-bold mt-1">{{ count_month }}</div>
+    <div class="style-stat-card">
+      <div class="text-xs uppercase font-semibold tracking-wider mb-1" style="color: var(--style-text-secondary);">This Month</div>
+      <div class="text-2xl font-bold" style="color: var(--style-text-primary);">{{ count_month }}</div>
     </div>
-    <div class="bg-gray-50 p-4 rounded border">
-      <div class="text-xs uppercase text-gray-500 font-semibold">This Year</div>
-      <div class="text-2xl font-bold mt-1">{{ count_year }}</div>
+    <div class="style-stat-card">
+      <div class="text-xs uppercase font-semibold tracking-wider mb-1" style="color: var(--style-text-secondary);">This Year</div>
+      <div class="text-2xl font-bold" style="color: var(--style-text-primary);">{{ count_year }}</div>
     </div>
   </div>
 
   <!-- ================= GRAPH ================= -->
-  <div class="mb-6 border rounded p-4">
+  <div class="mb-8 p-4 rounded-lg" style="border: 1px solid var(--style-border); background-color: var(--style-bg);">
     <div class="relative h-64">
       <canvas
         id="enquiryChart"
@@ -62,24 +173,24 @@
 
   {% if enquiries %}
   <!-- Table -->
-  <div class="overflow-x-auto">
-    <table class="w-full text-sm border-collapse">
+  <div class="overflow-x-auto rounded-lg" style="border: 1px solid var(--style-border);">
+    <table class="w-full text-sm border-collapse text-left">
       <thead>
-        <tr class="bg-gray-50 border-b">
-          <th class="p-2 text-left">Name</th>
-          <th class="p-2 text-left">Phone</th>
-          <th class="p-2 text-left">Email</th>
-          <th class="p-2 text-left">Submitted At</th>
+        <tr style="background-color: var(--style-bg); border-bottom: 1px solid var(--style-border);">
+          <th class="p-3 font-medium" style="color: var(--style-text-secondary);">Name</th>
+          <th class="p-3 font-medium" style="color: var(--style-text-secondary);">Phone</th>
+          <th class="p-3 font-medium" style="color: var(--style-text-secondary);">Email</th>
+          <th class="p-3 font-medium" style="color: var(--style-text-secondary);">Submitted At</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="divide-y" style="border-color: var(--style-border);">
         {% for enquiry in enquiries %}
-        <tr class="border-b hover:bg-gray-50">
-          <td class="p-2">{{ enquiry.name|default:"—" }}</td>
-          <td class="p-2">{{ enquiry.phone|default:"—" }}</td>
-          <td class="p-2">{{ enquiry.email|default:"—" }}</td>
-          <td class="p-2 text-xs text-gray-600">
-            {{ enquiry.created_at|date:"Y-m-d H:i" }}
+        <tr class="hover:bg-opacity-50 transition-colors" style="color: var(--style-text-primary);">
+          <td class="p-3">{{ enquiry.name|default:"—" }}</td>
+          <td class="p-3 font-mono text-xs opacity-90">{{ enquiry.phone|default:"—" }}</td>
+          <td class="p-3">{{ enquiry.email|default:"—" }}</td>
+          <td class="p-3 text-xs opacity-70">
+            {{ enquiry.created_at|date:"M d, Y H:i" }}
           </td>
         </tr>
         {% endfor %}
@@ -89,51 +200,82 @@
 
   <!-- Pagination Controls -->
   {% if page_obj.has_other_pages %}
-  <div class="mt-6 flex items-center justify-between">
-    <div class="text-sm text-gray-600">
-      Showing <strong>{{ page_obj.start_index }}</strong> to <strong>{{ page_obj.end_index }}</strong> of <strong>{{ enquiry_count }}</strong> enquiries
+  <div class="mt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="text-sm" style="color: var(--style-text-secondary);">
+      Showing <strong>{{ page_obj.start_index }}</strong>-<strong>{{ page_obj.end_index }}</strong> of <strong>{{ enquiry_count }}</strong>
     </div>
     <div class="flex gap-2">
       <!-- Previous Page -->
       {% if page_obj.has_previous %}
-        <a href="javascript:void(0)" onclick="loadEnquiriesPage(1)" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">First</a>
-        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.previous_page_number }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">← Previous</a>
+        <button onclick="loadEnquiriesPage(1)" class="style-page-btn">
+             <iconify-icon icon="material-symbols:first-page" width="16"></iconify-icon>
+        </button>
+        <button onclick="loadEnquiriesPage({{ page_obj.previous_page_number }})" class="style-page-btn">
+             <iconify-icon icon="material-symbols:chevron-left" width="16"></iconify-icon>
+        </button>
       {% else %}
-        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">First</button>
-        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">← Previous</button>
+        <button disabled class="style-page-btn">
+             <iconify-icon icon="material-symbols:first-page" width="16"></iconify-icon>
+        </button>
+        <button disabled class="style-page-btn">
+             <iconify-icon icon="material-symbols:chevron-left" width="16"></iconify-icon>
+        </button>
       {% endif %}
 
       <!-- Page Numbers -->
-      <div class="flex items-center gap-1">
+      <div class="hidden md:flex gap-1">
         {% for num in page_obj.paginator.page_range %}
           {% if page_obj.number == num %}
-            <span class="px-3 py-2 border rounded bg-blue-500 text-white font-semibold text-sm">{{ num }}</span>
+            <span class="style-page-btn active">{{ num }}</span>
           {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ num }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">{{ num }}</a>
+            <button onclick="loadEnquiriesPage({{ num }})" class="style-page-btn">{{ num }}</button>
           {% endif %}
         {% endfor %}
       </div>
+      
+      <!-- Mobile Page Indicator -->
+       <div class="md:hidden flex items-center px-2 text-sm" style="color: var(--style-text-primary);">
+           Page {{ page_obj.number }}
+       </div>
 
       <!-- Next Page -->
       {% if page_obj.has_next %}
-        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.next_page_number }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">Next →</a>
-        <a href="javascript:void(0)" onclick="loadEnquiriesPage({{ page_obj.paginator.num_pages }})" class="px-3 py-2 border rounded bg-white hover:bg-gray-50 text-sm">Last</a>
+        <button onclick="loadEnquiriesPage({{ page_obj.next_page_number }})" class="style-page-btn">
+            <iconify-icon icon="material-symbols:chevron-right" width="16"></iconify-icon>
+        </button>
+        <button onclick="loadEnquiriesPage({{ page_obj.paginator.num_pages }})" class="style-page-btn">
+            <iconify-icon icon="material-symbols:last-page" width="16"></iconify-icon>
+        </button>
       {% else %}
-        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">Next →</button>
-        <button disabled class="px-3 py-2 border rounded bg-gray-100 text-gray-400 text-sm cursor-not-allowed">Last</button>
+        <button disabled class="style-page-btn">
+            <iconify-icon icon="material-symbols:chevron-right" width="16"></iconify-icon>
+        </button>
+        <button disabled class="style-page-btn">
+            <iconify-icon icon="material-symbols:last-page" width="16"></iconify-icon>
+        </button>
       {% endif %}
     </div>
   </div>
   {% endif %}
 
   {% else %}
-    <div class="text-center p-6 text-gray-500">No enquiries yet.</div>
+    <div class="text-center py-12" style="color: var(--style-text-secondary);">
+         <div class="mb-3 opacity-30">
+            <iconify-icon icon="material-symbols:inbox-outline" width="48"></iconify-icon>
+         </div>
+         <p>No enquiries received yet.</p>
+    </div>
   {% endif %}
 
 </div>
 
 <script>
     (function() {
+        // Helper to get CSS variable value
+        function getThemeColor(variable) {
+            return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
+        }
+
         // Enquiries Chart Initialization
         function initEnquiryChart() {
             const ctx = document.getElementById('enquiryChart');
@@ -154,7 +296,22 @@
 
                 const labels = JSON.parse(labelsRaw);
                 const data = JSON.parse(dataRaw);
+                
+                // Fetch dynamic theme colors
+                const gridColor = getThemeColor('--style-border');
+                const textColor = getThemeColor('--style-text-secondary');
+                const accentColor = getThemeColor('--style-accent');
+                const cardBg = getThemeColor('--style-card-bg');
+                const textPrimary = getThemeColor('--style-text-primary');
 
+                // Determine Accent Color with Opacity for Fill
+                // Note: CSS vars are usually hex, we need to convert to rgba for fill opacity if needed, 
+                // but Chart.js handles hex fine for line color. For fill, let's just use the accent color directly or a fixed opacity hack if we can't parse hex easily in vanilla JS without a lib.
+                // Simpler approach: Use the accent color for line, and a standard low opacity version or just the same color with 'fill: false' if complexity is high.
+                // Assuming hex (e.g. #1a73e8), we can try to set backgroundcolor to it with opacity.
+                // For now, let's stick to the accent color for the line. For the fill, we might need a HEX to RGBA converter or just use a derived variable if available.
+                // Let's assume the user is okay with the fill match for now or use a safe fallback.
+                
                 if (labels && data && labels.length > 0) {
                      window.myEnquiryChart = new Chart(ctx, {
                         type: 'line',
@@ -163,10 +320,10 @@
                             datasets: [{
                                 label: 'Enquiries',
                                 data: data,
-                                borderColor: '#4F46E5', // Indigo 600
-                                backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                                borderColor: accentColor,
+                                backgroundColor: accentColor, // Fallback, normally needs opacity
                                 tension: 0.3,
-                                fill: true,
+                                fill: false, // Disable fill to avoid opacity issues with raw hex variables
                                 pointRadius: 3,
                                 pointHoverRadius: 5
                             }]
@@ -176,15 +333,29 @@
                             maintainAspectRatio: false,
                             plugins: {
                                 legend: { display: false },
-                                tooltip: { mode: 'index', intersect: false }
+                                tooltip: { 
+                                    mode: 'index', 
+                                    intersect: false,
+                                    backgroundColor: cardBg,
+                                    titleColor: textPrimary,
+                                    bodyColor: textColor,
+                                    borderColor: gridColor,
+                                    borderWidth: 1
+                                }
                             },
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    ticks: { stepSize: 1 },
-                                    grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                                    ticks: { 
+                                        stepSize: 1,
+                                        color: textColor
+                                    },
+                                    grid: { color: gridColor }
                                 },
-                                x: { grid: { display: false } }
+                                x: { 
+                                    grid: { display: false },
+                                    ticks: { color: textColor }
+                                }
                             }
                         }
                     });
@@ -196,6 +367,9 @@
 
         // Run immediately
         initEnquiryChart();
+        
+        // Optional: Re-init on theme change if you have an event listener for it globally
+        // window.addEventListener('theme-changed', initEnquiryChart);
     })();
 </script>
 

@@ -109,7 +109,7 @@
 
 </style>
 
-<div class="space-y-6 font-sans">
+<div id="qa-list-container" class="space-y-6 font-sans">
     <div class="flex justify-between items-center">
         <h3 class="text-xl font-semibold flex items-center gap-2" style="color: var(--style-text-primary);">
             <div class="p-1.5 rounded-lg" style="background-color: var(--style-info-bg); color: var(--style-accent);">
@@ -134,7 +134,7 @@
         
         <h4 class="text-lg font-medium mb-4" style="color: var(--style-text-primary);">New Question</h4>
         
-        <form hx-post="{% url 'dashboard:qa_add' %}" hx-target="#qa-list-container" hx-swap="innerHTML" class="space-y-4">
+        <form hx-post="{% url 'dashboard:qa_add' %}" hx-target="#qa-list-container" hx-swap="outerHTML" class="space-y-4">
             {% csrf_token %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -229,7 +229,7 @@
                                 class="p-2 rounded hover:bg-opacity-10 hover:bg-black dark:hover:bg-white dark:hover:bg-opacity-10 text-indigo-500 transition-colors">
                              <iconify-icon icon="material-symbols:edit-outline" width="18"></iconify-icon>
                         </button>
-                        <button hx-delete="{% url 'dashboard:qa_delete' pair.id %}" hx-confirm="Are you sure?" hx-target="#qa-list-container" 
+                        <button hx-delete="{% url 'dashboard:qa_delete' pair.id %}" hx-confirm="Are you sure?" hx-target="#qa-list-container" hx-swap="outerHTML"
                                 class="p-2 rounded hover:bg-opacity-10 hover:bg-red-500 text-red-500 transition-colors">
                              <iconify-icon icon="material-symbols:delete-outline" width="18"></iconify-icon>
                         </button>

@@ -628,6 +628,16 @@ def partial_enquiries(request):
     if bounce:
         return bounce
 
+    # Handle POST to toggle enquiry form
+    if request.method == 'POST':
+        enable_form = request.POST.get('enable_enquiry_form') == '1'
+        ws.enable_enquiry_form = enable_form
+        try:
+            ws.save()
+            messages.success(request, f"Enquiry form {('enabled' if enable_form else 'disabled')}.")
+        except Exception as e:
+            messages.error(request, f"Failed to update setting: {e}")
+
     # -------------------------
     # BASE QUERY (WORKING)
     # -------------------------

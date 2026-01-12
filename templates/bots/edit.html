@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Edit Bot{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>Edit {{ bot.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'bots:list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+        
+        <hr>
+        <h5>Embed Code</h5>
+        <textarea class="form-control" rows="3" readonly>
+<script src="https://yourdomain.com/embed/bot.js"></script>
+<script>RedbotLoad("{{ bot.public_key }}");</script>
+        </textarea>
+    </div>
+</div>
+{% endblock %}

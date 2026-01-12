@@ -1,0 +1,176 @@
+<!-- templates/dashboard/partials/website_datafetcher.html -->
+{% include 'toast.html' %}
+
+<style>
+  :root {
+    --style-bg: #f8f9fa;
+    --style-card-bg: #ffffff;
+    --style-text-primary: #1f1f1f;
+    --style-text-secondary: #5f6368;
+    --style-border: #e0e0e0;
+    --style-accent: #1a73e8;
+    --style-accent-hover: #1557b0;
+    --style-success: #34a853;
+    --style-info-bg: #f1f3f4;
+    --style-shadow: rgba(0, 0, 0, 0.1);
+    --style-shadow-hover: rgba(0, 0, 0, 0.15);
+  }
+  
+  [data-theme="dark"] {
+    --style-bg: #1f1f1f;
+    --style-card-bg: #2d2d2d;
+    --style-text-primary: #e8eaed;
+    --style-text-secondary: #9aa0a6;
+    --style-border: #3c4043;
+    --style-accent: #8ab4f8;
+    --style-accent-hover: #aecbfa;
+    --style-success: #81c995;
+    --style-info-bg: #3c4043;
+    --style-shadow: rgba(0, 0, 0, 0.3);
+    --style-shadow-hover: rgba(0, 0, 0, 0.4);
+  }
+
+  .style-container {
+    background-color: var(--style-card-bg);
+    color: var(--style-text-primary);
+    font-family: 'Outfit', sans-serif;
+    border: 1px solid var(--style-border);
+    border-radius: 12px;
+  }
+  
+  .style-input {
+    background-color: var(--style-bg);
+    border: 1px solid var(--style-border);
+    color: var(--style-text-primary);
+    border-radius: 8px;
+    padding: 10px 12px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .style-input:focus {
+    border-color: var(--style-accent);
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+  }
+  
+  .style-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--style-text-secondary);
+  }
+  
+  .style-btn-primary {
+    background-color: var(--style-accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .style-btn-primary:hover {
+    background-color: var(--style-accent-hover);
+  }
+
+  /* Range Slider Styling */
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+  }
+  
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--style-accent);
+    cursor: pointer;
+    margin-top: -6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: var(--style-border);
+    border-radius: 2px;
+  }
+  
+  input[type=range]:focus {
+    outline: none;
+  }
+</style>
+
+<div class="style-container p-4 md:p-6 shadow-sm">
+  <div class="flex items-center gap-3 mb-2">
+    <div class="p-2 rounded-lg" style="background-color: var(--style-info-bg); color: var(--style-accent);">
+      <iconify-icon icon="material-symbols:globe" width="24"></iconify-icon>
+    </div>
+    <div>
+        <h2 class="text-xl font-semibold">Website Data Fetcher</h2>
+        <div class="text-sm" style="color: var(--style-text-secondary);">
+            Extract structured content from websites.
+        </div>
+    </div>
+  </div>
+
+  <div class="mt-6">
+      <form id="crawler-form" class="space-y-6"
+            hx-post="{% url 'dashboard:website_datafetcher_crawl' %}"
+            hx-target="#results-container"
+            data-processing-message="Crawling website... This may take a minute.">
+        {% csrf_token %}
+        
+        <div>
+          <label for="url" class="style-label">Website URL <span class="text-red-500">*</span></label>
+          <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none" style="color: var(--style-text-secondary);">
+                  <iconify-icon icon="material-symbols:link" width="18"></iconify-icon>
+              </div>
+              <input type="url" id="url" name="url" required
+                     placeholder="https://example.com"
+                     class="style-input pl-10">
+          </div>
+        </div>
+    
+        <div>
+          <div class="flex justify-between items-center mb-2">
+              <label for="max_pages" class="style-label mb-0">Max Pages to Crawl</label>
+              <span class="text-sm font-medium px-2 py-0.5 rounded" style="background-color: var(--style-info-bg); color: var(--style-accent);" id="max-pages-display">30</span>
+          </div>
+          <input type="range" id="max_pages" name="max_pages" min="1" max="100" value="30"
+                 class="w-full"
+                 oninput="document.getElementById('max-pages-display').textContent = this.value">
+           <div class="flex justify-between text-[10px] mt-1" style="color: var(--style-text-secondary);">
+               <span>1 page</span>
+               <span>50 pages</span>
+               <span>100 pages</span>
+           </div>
+        </div>
+    
+        <div class="pt-2">
+            <button type="submit" id="crawl-btn" class="style-btn-primary">
+              <iconify-icon icon="material-symbols:bug-report-outline" width="20"></iconify-icon>
+              Start Crawling
+            </button>
+        </div>
+      </form>
+  </div>
+  
+  <!-- Results Container -->
+  <div id="results-container" class="mt-8">
+    <!-- Results will be loaded here -->
+  </div>
+</div>

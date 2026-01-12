@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Add Knowledge{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>Add Knowledge for {{ bot.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Source Type</label>
+                {{ form.source_type }}
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Content</label>
+                {{ form.content }}
+                <small class="form-text text-muted">
+                    {% if form.source_type.value == 'TEXT' %}Enter text directly<br>
+                    {% elif form.source_type.value == 'URL' %}Enter URL to scrape<br>
+                    {% else %}Upload file path{% endif %}
+                </small>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Ingest Knowledge</button>
+            <a href="{% url 'knowledge:list' bot.id %}" class="btn btn-secondary">Back to List</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

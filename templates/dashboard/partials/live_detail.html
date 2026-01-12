@@ -1,0 +1,376 @@
+<!-- dashboard/partials/live_detail.html -->
+{% include 'toast.html' %}
+<div class="flex-1 flex flex-col h-full bg-transparent">
+  <!-- Header -->
+  <div class="p-4 border-b flex justify-between items-center shadow-sm z-10" 
+       style="background-color: var(--style-card-bg); border-color: var(--style-border);">
+    <div class="flex items-center gap-3">
+      <!-- Mobile Back Button -->
+      <button class="md:hidden flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              style="color: var(--style-text-secondary);"
+              onclick="document.getElementById('chat-area').classList.remove('active')">
+        <iconify-icon icon="material-symbols:arrow-back" width="20"></iconify-icon>
+      </button>
+
+      <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+           style="background-color: var(--style-accent);">
+           <iconify-icon icon="material-symbols:person" width="24"></iconify-icon>
+      </div>
+      <div>
+        <div class="font-semibold flex items-center gap-2" style="color: var(--style-text-primary);">
+            {{ conversation.session_id }}
+            <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-normal">Session</span>
+        </div>
+        <div class="text-xs mt-0.5" style="color: var(--style-text-secondary);">Bot: {{ conversation.bot.name }}</div>
+        
+        <div class="text-xs flex items-center gap-1 mt-1" id="connection-status">
+          <span class="inline-block w-2 h-2 rounded-full bg-gray-400"></span>
+          <span>Connecting...</span>
+        </div>
+        <div class="text-xs italic mt-1 h-4 flex items-center gap-1" id="admin-typing-indicator" style="display:none; color: var(--style-accent);">
+            <iconify-icon icon="line-md:loading-twotone-loop" width="12"></iconify-icon>
+            Visitor is typing...
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <!-- Optional actions -->
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="flex-1 overflow-y-auto p-4 space-y-4" id="admin-messages" style="background-color: var(--style-bg);">
+       {% include 'dashboard/partials/live_messages.html' %}
+  </div>
+
+  <!-- Input -->
+  <div class="p-4 border-t" style="background-color: var(--style-card-bg); border-color: var(--style-border);">
+    <form id="admin-reply-form">
+      <div class="flex gap-2 relative items-end">
+        <!-- Emoji Picker Container -->
+        <div id="admin-emoji-picker" 
+             style="display:none; position: absolute; bottom: 100%; left: 0; margin-bottom: 10px; z-index: 50; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 8px;"></div>
+        
+        <!-- Emoji Button -->
+       <button type="button" id="admin-emoji-btn"
+               style="background: transparent; border: 1px solid var(--style-border); padding: 10px; border-radius: 8px; cursor: pointer; color: var(--style-text-secondary); transition: all 0.2s; flex-shrink: 0;"
+               onmouseover="this.style.color = getComputedStyle(document.documentElement).getPropertyValue('--style-accent')"
+               onmouseout="this.style.color = getComputedStyle(document.documentElement).getPropertyValue('--style-text-secondary')">
+            <iconify-icon icon="material-symbols:sentiment-satisfied-outline" width="24" height="24"></iconify-icon>
+        </button>
+
+        <input type="text" name="text" id="admin-message-input"
+               class="flex-1 px-4 py-3 focus:outline-none min-w-0"
+               style="background-color: var(--style-bg); border: 1px solid var(--style-border); border-radius: 8px; color: var(--style-text-primary);"
+               placeholder="Type a reply..." required autocomplete="off">
+        
+        <button type="submit" id="admin-send-btn"
+                class="px-4 py-3 md:px-5 rounded-lg transition-colors font-medium flex items-center gap-2 flex-shrink-0"
+                style="background-color: var(--style-accent); color: white;">
+          <span class="hidden md:inline">Send</span>
+          <iconify-icon icon="material-symbols:send" width="18"></iconify-icon>
+        </button>
+      </div>
+    </form>
+    <!-- Extra bottom padding for mobile browsers -->
+    <div class="h-2 md:h-0"></div>
+  </div>
+</div>
+
+
+<script>
+(function() {
+  'use strict';
+  
+  const conversationId = {{ conversation.id }};
+  const sessionId = '{{ conversation.session_id }}';
+  const publicKey = '{{ conversation.bot.public_key }}';
+  const messagesDiv = document.getElementById('admin-messages');
+  const form = document.getElementById('admin-reply-form');
+  const input = document.getElementById('admin-message-input');
+  const sendBtn = document.getElementById('admin-send-btn');
+  const statusDiv = document.getElementById('connection-status');
+  const typingIndicator = document.getElementById('admin-typing-indicator');
+  
+  let ws = null;
+  let reconnectAttempts = 0;
+  let shouldReconnect = true; // Flag to control reconnection
+  let typingTimeout = null;
+  let showTypingTimeout = null;
+  const MAX_RECONNECT_ATTEMPTS = 5;
+  
+  // Typing indicator sender
+  if (input) {
+      input.addEventListener('input', () => {
+          if (!typingTimeout) {
+              if (ws && ws.readyState === WebSocket.OPEN) {
+                  ws.send(JSON.stringify({
+                      type: 'typing',
+                      sender: 'BOT',
+                      agent_name: '{{ conversation.bot.name }}'
+                  }));
+              }
+              typingTimeout = setTimeout(() => {
+                  typingTimeout = null;
+              }, 2000);
+          }
+      });
+  }
+  
+  function updateStatus(connected) {
+    if (connected) {
+      statusDiv.innerHTML = '<span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span><span class="text-green-600">Connected</span>';
+    } else {
+      statusDiv.innerHTML = '<span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-1"></span><span class="text-red-600">Disconnected</span>';
+    }
+  }
+  
+  function connectWebSocket() {
+    if (ws && (ws.readyState === WebSocket.CONNECTING || ws.readyState === WebSocket.OPEN)) {
+      return;
+    }
+    
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/ws/chat/${publicKey}/${sessionId}/?role=agent`;
+    
+    console.log('[Dashboard] Connecting to:', wsUrl);
+    
+    try {
+      ws = new WebSocket(wsUrl);
+      
+      ws.onopen = function() {
+        console.log('[Dashboard] WebSocket connected');
+        reconnectAttempts = 0;
+        updateStatus(true);
+        if (input) input.disabled = false;
+        if (sendBtn) sendBtn.disabled = false;
+      };
+      
+      ws.onmessage = function(event) {
+        console.log('[Dashboard] Message received:', event.data);
+        
+        try {
+          const data = JSON.parse(event.data);
+          
+          if (data.type === 'chat_message') {
+            // Add message to UI
+            addMessageToUI(data.sender, data.text, data.timestamp);
+            // Hide typing indicator immediately
+            if (typingIndicator) typingIndicator.style.display = 'none';
+          } else if (data.type === 'typing' && data.sender === 'USER') {
+             if (typingIndicator) {
+                 typingIndicator.style.display = 'block';
+                 if (showTypingTimeout) clearTimeout(showTypingTimeout);
+                 showTypingTimeout = setTimeout(() => {
+                     typingIndicator.style.display = 'none';
+                 }, 3000);
+             }
+          }
+        } catch (e) {
+          console.error('[Dashboard] Failed to parse message:', e);
+        }
+      };
+      
+      ws.onerror = function(error) {
+        console.error('[Dashboard] WebSocket error:', error);
+      };
+      
+      ws.onclose = function(event) {
+        console.log('[Dashboard] WebSocket closed:', event.code);
+        ws = null;
+        updateStatus(false);
+        
+        if (input) input.disabled = true;
+        if (sendBtn) sendBtn.disabled = true;
+        
+        // Only attempt reconnection if we should (not manually disconnected)
+        if (shouldReconnect && reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+          const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+          reconnectAttempts++;
+          console.log(`[Dashboard] Reconnecting in ${delay}ms (attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
+          setTimeout(connectWebSocket, delay);
+        }
+      };
+    } catch (e) {
+      console.error('[Dashboard] Failed to create WebSocket:', e);
+    }
+  }
+  
+  // Cleanup function to properly close WebSocket
+  function cleanup() {
+    console.log('[Dashboard] Cleaning up WebSocket for session:', sessionId);
+    shouldReconnect = false; // Prevent reconnection attempts
+    if (ws) {
+      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+        ws.close();
+      }
+      ws = null;
+    }
+  }
+  
+  // Clean up any previous session's WebSocket before registering this one
+  if (typeof window.cleanupDashboardWebSocket === 'function') {
+    console.log('[Dashboard] Cleaning up previous session');
+    window.cleanupDashboardWebSocket();
+  }
+  
+  // Register cleanup function globally for this session
+  window.cleanupDashboardWebSocket = cleanup;
+  
+  function addMessageToUI(sender, text, timestamp) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = sender === 'USER' ? 'flex justify-start' : 'flex justify-end';
+    
+    // Create main bubble
+    const bubble = document.createElement('div');
+    bubble.style.maxWidth = '75%';
+    bubble.style.padding = '12px 16px';
+    bubble.style.borderRadius = '12px';
+    bubble.style.fontSize = '14px';
+    bubble.style.lineHeight = '1.5';
+    bubble.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
+    
+    // Apply role-specific styles
+    if (sender === 'USER') {
+      bubble.style.backgroundColor = 'var(--style-card-bg)';
+      bubble.style.border = '1px solid var(--style-border)';
+      bubble.style.color = 'var(--style-text-primary)';
+      bubble.style.borderBottomLeftRadius = '0';
+    } else {
+      bubble.style.backgroundColor = 'var(--style-accent)';
+      bubble.style.color = 'white';
+      bubble.style.borderBottomRightRadius = '0';
+    }
+    
+    const textDiv = document.createElement('div');
+    textDiv.textContent = text;
+    bubble.appendChild(textDiv);
+    
+    if (timestamp) {
+      const timeDiv = document.createElement('div');
+      timeDiv.style.fontSize = '10px';
+      timeDiv.style.marginTop = '4px';
+      timeDiv.textContent = new Date(timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      
+      if (sender === 'USER') {
+        timeDiv.style.color = 'var(--style-text-secondary)';
+      } else {
+        timeDiv.style.color = 'rgba(255, 255, 255, 0.8)';
+      }
+      
+      bubble.appendChild(timeDiv);
+    }
+    
+    messageDiv.appendChild(bubble);
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+  
+  function sendMessage(text) {
+    if (!text || !text.trim()) return;
+    
+    text = text.trim();
+    
+    if (!ws || ws.readyState !== WebSocket.OPEN) {
+      console.error('[Dashboard] WebSocket not connected');
+      alert('Connection lost. Please refresh the page.');
+      return;
+    }
+    
+    // Send via WebSocket
+    try {
+      ws.send(JSON.stringify({
+        type: 'chat_message',
+        text: text,
+        sender: 'BOT'  // Mark as BOT message from dashboard
+      }));
+      
+      // Clear input
+      if (input) input.value = '';
+    } catch (e) {
+      console.error('[Dashboard] Failed to send message:', e);
+      alert('Failed to send message. Please try again.');
+    }
+  }
+  
+  // Form submit handler
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (input) sendMessage(input.value);
+    });
+  }
+  
+  // Emoji Picker Logic
+  const emojiBtn = document.getElementById('admin-emoji-btn');
+  const emojiPickerContainer = document.getElementById('admin-emoji-picker');
+  let emojiClickHandler = null;
+  let documentClickHandler = null;
+  
+  if (emojiBtn && emojiPickerContainer) {
+    // Clear any existing picker
+    emojiPickerContainer.innerHTML = '';
+    emojiPickerContainer.style.display = 'none';
+    
+    // Wait for EmojiMart to load
+    const initPicker = () => {
+        if (typeof EmojiMart === 'undefined') {
+            setTimeout(initPicker, 100);
+            return;
+        }
+        
+        try {
+            const picker = new EmojiMart.Picker({
+                onEmojiSelect: (emoji) => {
+                    if (input) {
+                        const start = input.selectionStart;
+                        const end = input.selectionEnd;
+                        const text = input.value;
+                        const before = text.substring(0, start);
+                        const after = text.substring(end, text.length);
+                        input.value = before + emoji.native + after;
+                        input.selectionStart = input.selectionEnd = start + emoji.native.length;
+                        input.focus();
+                    }
+                },
+                set: 'native',
+                theme: 'light',
+                previewPosition: 'none',
+                skinTonePosition: 'none'
+            });
+            
+            emojiPickerContainer.appendChild(picker);
+            
+            emojiClickHandler = (e) => {
+                e.stopPropagation();
+                const isVisible = emojiPickerContainer.style.display === 'block';
+                emojiPickerContainer.style.display = isVisible ? 'none' : 'block';
+            };
+            
+            documentClickHandler = (e) => {
+                if (emojiPickerContainer.style.display === 'block' && 
+                    !emojiPickerContainer.contains(e.target) && 
+                    !emojiBtn.contains(e.target)) {
+                    emojiPickerContainer.style.display = 'none';
+                }
+            };
+            
+            emojiBtn.addEventListener('click', emojiClickHandler);
+            document.addEventListener('click', documentClickHandler);
+        } catch (e) {
+            console.error('[Dashboard] Failed to initialize emoji picker:', e);
+        }
+    };
+    
+    initPicker();
+  }
+
+  // Connect on load
+  connectWebSocket();
+  
+  // Auto-scroll to bottom on load
+  if (messagesDiv) {
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+})();
+</script>

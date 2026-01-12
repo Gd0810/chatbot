@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Knowledge Sources{% endblock %}
+{% block content %}
+<h2>Knowledge for {{ bot.name }}</h2>
+<a href="{% url 'knowledge:add' bot.id %}" class="btn btn-primary mb-3">Add New Source</a>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Content</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for source in sources %}
+            <tr>
+                <td>{{ source.source_type }}</td>
+                <td>
+                    {% if source.source_type == 'TEXT' %}
+                        {{ source.content|truncatechars:50 }}
+                    {% else %}
+                        {{ source.content|truncatechars:30 }}
+                    {% endif %}
+                </td>
+                <td>
+                    <span class="badge 
+                        {% if source.status == 'INGESTED' %}bg-success
+                        {% elif source.status == 'PENDING' %}bg-warning
+                        {% else %}bg-danger{% endif %}
+                    ">{{ source.status }}</span>
+                </td>
+                <td>{{ source.created_at|date:"M d, Y" }}</td>
+                <td>
+                    {% if source.status == 'PENDING' or source.status == 'FAILED' %}
+                        <button class="btn btn-sm btn-outline-primary" onclick="reingest({{ source.id }})">Retry</button>
+                    {% endif %}
+                    <a href="{% url 'knowledge:detail' bot.id source.id %}" class="btn btn-sm btn-outline-secondary">View</a>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteSource({{ source.id }})">Delete</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center text-muted">No knowledge sources yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+function reingest(sourceId) {
+    fetch(`/knowledge/reingest/${sourceId}/`, {method: 'POST'})
+        .then(() => location.reload());
+}
+function deleteSource(sourceId) {
+    if(confirm('Delete this source?')) {
+        fetch(`/knowledge/delete/${sourceId}/`, {method: 'POST'})
+            .then(() => location.reload());
+    }
+}
+</script>
+{% endblock %}

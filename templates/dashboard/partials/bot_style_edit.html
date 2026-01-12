@@ -1,0 +1,1095 @@
+<!-- templates/dashboard/partials/bot_style_edit.html -->
+{% include 'toast.html' %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@400&family=Outfit:wght@400&family=Roboto:wght@400&family=Open+Sans:wght@400&family=Lato:wght@400&family=Nunito:wght@400&family=Montserrat:wght@400&family=Raleway:wght@400&family=Source+Sans+Pro:wght@400&family=Merriweather:wght@400&family=Playfair+Display:wght@400&family=Ubuntu:wght@400&family=Rubik:wght@400&family=Work+Sans:wght@400&family=Fira+Sans:wght@400&family=Karla:wght@400&family=DM+Sans:wght@400&family=Inconsolata:wght@400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  /* Theme variables */
+  :root {
+    --style-bg: #f5f5f5;
+    --style-card-bg: #ffffff;
+    --style-text-primary: #1f1f1f;
+    --style-text-secondary: #5f6368;
+    --style-border: #e0e0e0;
+    --style-input-bg: #ffffff;
+    --style-input-border: #dadce0;
+    --style-accent: #1a73e8;
+    --style-accent-hover: #1557b0;
+    --style-preview-text: #1f1f1f;
+  }
+  
+  [data-theme="dark"] {
+    --style-bg: #1f1f1f;
+    --style-card-bg: #2d2d2d;
+    --style-text-primary: #e8eaed;
+    --style-text-secondary: #9aa0a6;
+    --style-border: #3c4043;
+    --style-input-bg: #3c4043;
+    --style-input-border: #5f6368;
+    --style-accent: #8ab4f8;
+    --style-accent-hover: #aecbfa;
+  }
+  
+  .style-container {
+    background-color: var(--style-bg);
+    color: var(--style-text-primary);
+    font-family: 'Outfit', sans-serif;
+    padding: 24px;
+  }
+  
+  .style-header {
+    background: linear-gradient(135deg, var(--style-accent) 0%, var(--style-accent) 100%);
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .style-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+  }
+  
+  .style-header p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 4px 0 0 0;
+  }
+  
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .back-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .grid-full {
+    grid-column: 1 / -1;
+  }
+  
+  .section-card {
+    background-color: var(--style-card-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--style-text-primary);
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--style-text-primary);
+    margin-bottom: 8px;
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: var(--style-input-bg);
+    border: 1px solid var(--style-input-border);
+    border-radius: 8px;
+    color: var(--style-text-primary);
+    font-size: 14px;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.2s;
+  }
+  
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--style-accent);
+    box-shadow: 0 0 0 3px rgba(138, 180, 248, 0.1);
+  }
+  
+  .form-hint {
+    font-size: 12px;
+    color: var(--style-text-secondary);
+    margin-top: 6px;
+  }
+  
+  .color-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .color-picker {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    border: 2px solid var(--style-border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .color-picker:hover {
+    transform: scale(1.05);
+  }
+  
+  .color-presets {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  
+  .color-preset {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--style-border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .color-preset:hover {
+    transform: scale(1.1);
+  }
+  
+  .range-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--style-border);
+    outline: none;
+    -webkit-appearance: none;
+  }
+  
+  .range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--style-accent);
+    cursor: pointer;
+  }
+  
+  .range-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--style-accent);
+    cursor: pointer;
+    border: none;
+  }
+  
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--style-text-secondary);
+    margin-top: 8px;
+  }
+  
+  /* Toggle Switch Styles */
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background-color: var(--style-input-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 8px;
+  }
+  
+  .toggle-label-wrapper {
+    flex: 1;
+    cursor: pointer;
+  }
+  
+  .toggle-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--style-text-primary);
+    margin-bottom: 4px;
+  }
+  
+  .toggle-description {
+    font-size: 12px;
+    color: var(--style-text-secondary);
+  }
+  
+  .toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 32px;
+    background-color: #5f6368;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-switch.active {
+    background-color: var(--style-accent);
+  }
+  
+  .toggle-thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .toggle-switch.active .toggle-thumb {
+    transform: translateX(20px);
+  }
+  
+  .toggle-input {
+    display: none;
+  }
+  
+  /* Preview Styles */
+  .preview-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .preview-header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .preview-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  
+  .preview-bot-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #ffffff !important;
+  }
+  
+  .preview-status {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8) !important;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .preview-body {
+    padding: 20px;
+    min-height: 200px;
+  }
+  
+  .message-bubble {
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    max-width: 80%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+  
+  .bubble-bot {
+    background: linear-gradient(135deg, rgba(26, 115, 232, 0.1), rgba(26, 115, 232, 0.18));
+    border: 1px solid rgba(26, 115, 232, 0.15);
+    border-top-left-radius: 6px;
+  }
+  
+  .bubble-user {
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.06), rgba(17, 24, 39, 0.12));
+    margin-left: auto;
+    border-top-right-radius: 6px;
+  }
+  
+  .bubble-label {
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.7;
+    margin-bottom: 4px;
+    color: #1f1f1f !important;
+  }
+  
+  .bubble-text {
+    color: #1f1f1f !important;
+  }
+  
+  /* Force all elements inside the preview to inherit the font set on the container */
+  #live-preview, #live-preview * {
+    font-family: inherit;
+  }
+  
+  .expandable-section summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+  }
+  
+  .expandable-section summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .expandable-content {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--style-border);
+  }
+  
+  .position-selector {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+  
+  .position-btn {
+    padding: 16px;
+    border: 2px solid var(--style-border);
+    border-radius: 8px;
+    background: var(--style-input-bg);
+    color: var(--style-text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+  
+  .position-btn:hover {
+    border-color: var(--style-accent);
+  }
+  
+  .position-btn.active {
+    background: var(--style-accent);
+    color: white;
+    border-color: var(--style-accent);
+  }
+  
+  .action-buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--style-border);
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .btn-primary {
+    flex: 1;
+    background-color: var(--style-accent);
+    color: white;
+    justify-content: center;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--style-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+  }
+  
+  .btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--style-border);
+    color: var(--style-text-primary);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--style-card-bg);
+    border-color: var(--style-accent);
+  }
+  
+  .info-box {
+    background-color: var(--style-input-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: start;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .style-container {
+      padding: 16px;
+    }
+    
+    .style-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .back-btn {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .section-card {
+      padding: 16px;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+    }
+    
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .color-group {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<div class="style-container">
+  <!-- Header -->
+  <div class="style-header">
+    <div>
+      <h2>Customize: {{ bot.name }}</h2>
+      <p>Design your perfect chatbot experience</p>
+    </div>
+    <button class="back-btn"
+            hx-get="{% url 'dashboard:partial_bot_style' %}"
+            hx-target="#main"
+            type="button">
+      <iconify-icon icon="material-symbols:arrow-back" width="18"></iconify-icon>
+      Back to List
+    </button>
+  </div>
+
+  <!-- Form -->
+  <form method="post"
+        hx-post="{% url 'dashboard:bot_style_save' bot.id %}"
+        hx-target="#main">
+    {% csrf_token %}
+
+    <div class="grid-container">
+      <!-- Live Preview -->
+      <div class="section-card">
+        <h3 class="section-title">
+          <iconify-icon icon="material-symbols:visibility-outline" width="24" style="color: var(--style-accent)"></iconify-icon>
+          Live Preview
+        </h3>
+        
+        <div class="preview-content" id="live-preview" style="font-family: {{ bot.ui_font_family|default:'Inter, system-ui, sans-serif' }};">
+          <div class="preview-header" id="preview-header" style="background: {{ bot.ui_primary_color|default:'#1a73e8' }}">
+            <div class="preview-avatar" id="preview-avatar">
+              <iconify-icon icon="fluent:bot-sparkle-28-filled" width="30" height="30"></iconify-icon>
+            </div>
+            <div>
+              <div class="preview-bot-name" id="preview-bot-name">{{ bot.name }}</div>
+              <div class="preview-status">
+                <iconify-icon icon="material-symbols:circle" width="8"></iconify-icon>
+                Online
+              </div>
+            </div>
+          </div>
+          <div class="preview-body" id="preview-body" style="background: {{ bot.ui_bg_color|default:'#f9fafb' }};">
+            <div class="message-bubble bubble-bot" id="preview-bubble">
+              <div class="bubble-label">Bot</div>
+              <div class="bubble-text" id="preview-message">{{ bot.ui_welcome_message|default:"Hi! I'm {name}. How can I help you?" }}</div>
+            </div>
+            <div class="message-bubble bubble-user">
+              <div class="bubble-label" style="text-align: right;">You</div>
+              <div class="bubble-text" style="text-align: right;">This looks great!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theme & Colors -->
+      <div class="section-card">
+        <h3 class="section-title">
+          <iconify-icon icon="material-symbols:palette-outline" width="24" style="color: var(--style-accent)"></iconify-icon>
+          Theme & Colors
+        </h3>
+        
+        <!-- Primary Color -->
+        <div style="margin-bottom: 20px;">
+          <label class="form-label">Primary Color</label>
+          <div class="color-group">
+            <input type="color" 
+                   id="color-picker"
+                   name="ui_primary_color"
+                   value="{{ bot.ui_primary_color|default:'#1a73e8' }}"
+                   class="color-picker"
+                   oninput="updatePreview()" />
+            <div style="flex: 1;">
+              <input type="text" 
+                     id="color-hex"
+                     name="ui_primary_color_text"
+                     value="{{ bot.ui_primary_color|default:'#1a73e8' }}"
+                     class="form-input"
+                     placeholder="#1a73e8"
+                     style="font-family: monospace;"
+                     oninput="updateColorFromHex()" />
+            </div>
+          </div>
+          <div class="form-hint">Used for header, buttons, and accents</div>
+          
+          <div class="color-presets">
+            <button type="button" class="color-preset" style="background: #1a73e8;" onclick="setColor('#1a73e8')"></button>
+            <button type="button" class="color-preset" style="background: #34a853;" onclick="setColor('#34a853')"></button>
+            <button type="button" class="color-preset" style="background: #8ab4f8;" onclick="setColor('#8ab4f8')"></button>
+            <button type="button" class="color-preset" style="background: #667eea;" onclick="setColor('#667eea')"></button>
+            <button type="button" class="color-preset" style="background: #f43f5e;" onclick="setColor('#f43f5e')"></button>
+            <button type="button" class="color-preset" style="background: #f59e0b;" onclick="setColor('#f59e0b')"></button>
+          </div>
+        </div>
+
+        <!-- Chat Background Color -->
+        <div>
+          <label class="form-label">Chat Background Color</label>
+          <div class="color-group">
+            <input type="color" 
+                   id="bg-color-picker"
+                   name="ui_bg_color"
+                   value="{{ bot.ui_bg_color|default:'#f9fafb' }}"
+                   class="color-picker"
+                   oninput="updatePreview()" />
+            <div style="flex: 1;">
+              <input type="text" 
+                     id="bg-color-hex"
+                     name="ui_bg_color_text"
+                     value="{{ bot.ui_bg_color|default:'#f9fafb' }}"
+                     class="form-input"
+                     placeholder="#f9fafb"
+                     style="font-family: monospace;"
+                     oninput="updateBgColorFromHex()" />
+            </div>
+          </div>
+          <div class="form-hint">Background color for message area</div>
+        </div>
+      </div>
+
+      <!-- Font Family -->
+      <div class="section-card">
+        <h3 class="section-title">
+          <iconify-icon icon="material-symbols:text-fields" width="24" style="color: var(--style-accent)"></iconify-icon>
+          Font Family
+        </h3>
+        
+        <label class="form-label">Font Family</label>
+        <select id="font-select" 
+                name="ui_font_family" 
+                class="form-select"
+                onchange="updatePreview()">
+          
+            <!-- Popular Google fonts (value is CSS font-family string) -->
+            <option value="Inter, system-ui, sans-serif" style="font-family: 'Inter', sans-serif;" {% if bot.ui_font_family == "Inter, system-ui, sans-serif" %}selected{% endif %}>Inter (Modern & Clean)</option>
+            <option value="Poppins, sans-serif" style="font-family: 'Poppins', sans-serif;" {% if bot.ui_font_family == "Poppins, sans-serif" %}selected{% endif %}>Poppins (Bold & Modern)</option>
+            <option value="Outfit, sans-serif" style="font-family: 'Outfit', sans-serif;" {% if bot.ui_font_family == "Outfit, sans-serif" %}selected{% endif %}>Outfit (Contemporary)</option>
+            <option value="Roboto, sans-serif" style="font-family: 'Roboto', sans-serif;" {% if bot.ui_font_family == "Roboto, sans-serif" %}selected{% endif %}>Roboto (Classic)</option>
+            <option value="Open Sans, sans-serif" style="font-family: 'Open Sans', sans-serif;" {% if bot.ui_font_family == "Open Sans, sans-serif" %}selected{% endif %}>Open Sans (Friendly)</option>
+            <option value="Lato, sans-serif" style="font-family: 'Lato', sans-serif;" {% if bot.ui_font_family == "Lato, sans-serif" %}selected{% endif %}>Lato (Professional)</option>
+            <option value="Nunito, sans-serif" style="font-family: 'Nunito', sans-serif;" {% if bot.ui_font_family == "Nunito, sans-serif" %}selected{% endif %}>Nunito (Rounded & Soft)</option>
+            <option value="Montserrat, sans-serif" style="font-family: 'Montserrat', sans-serif;" {% if bot.ui_font_family == "Montserrat, sans-serif" %}selected{% endif %}>Montserrat (Geometric)</option>
+            <option value="Raleway, sans-serif" style="font-family: 'Raleway', sans-serif;" {% if bot.ui_font_family == "Raleway, sans-serif" %}selected{% endif %}>Raleway (Elegant)</option>
+            <option value="Source Sans Pro, sans-serif" style="font-family: 'Source Sans Pro', sans-serif;" {% if bot.ui_font_family == "Source Sans Pro, sans-serif" %}selected{% endif %}>Source Sans Pro (Readable)</option>
+            <option value="Merriweather, serif" style="font-family: 'Merriweather', serif;" {% if bot.ui_font_family == "Merriweather, serif" %}selected{% endif %}>Merriweather (Serif)</option>
+            <option value="Playfair Display, serif" style="font-family: 'Playfair Display', serif;" {% if bot.ui_font_family == "Playfair Display, serif" %}selected{% endif %}>Playfair Display (Editorial)</option>
+            <option value="Ubuntu, sans-serif" style="font-family: 'Ubuntu', sans-serif;" {% if bot.ui_font_family == "Ubuntu, sans-serif" %}selected{% endif %}>Ubuntu (Friendly)</option>
+            <option value="Rubik, sans-serif" style="font-family: 'Rubik', sans-serif;" {% if bot.ui_font_family == "Rubik, sans-serif" %}selected{% endif %}>Rubik (Rounded)</option>
+            <option value="Work Sans, sans-serif" style="font-family: 'Work Sans', sans-serif;" {% if bot.ui_font_family == "Work Sans, sans-serif" %}selected{% endif %}>Work Sans (Neutral)</option>
+            <option value="Fira Sans, sans-serif" style="font-family: 'Fira Sans', sans-serif;" {% if bot.ui_font_family == "Fira Sans, sans-serif" %}selected{% endif %}>Fira Sans (Tech)</option>
+            <option value="Karla, sans-serif" style="font-family: 'Karla', sans-serif;" {% if bot.ui_font_family == "Karla, sans-serif" %}selected{% endif %}>Karla (Humanist)</option>
+            <option value="DM Sans, sans-serif" style="font-family: 'DM Sans', sans-serif;" {% if bot.ui_font_family == "DM Sans, sans-serif" %}selected{% endif %}>DM Sans (Clean)</option>
+            <option value="Inconsolata, monospace" style="font-family: 'Inconsolata', monospace;" {% if bot.ui_font_family == "Inconsolata, monospace" %}selected{% endif %}>Inconsolata (Monospace)</option>
+            <option value="JetBrains Mono, monospace" style="font-family: 'JetBrains Mono', monospace;" {% if bot.ui_font_family == "JetBrains Mono, monospace" %}selected{% endif %}>JetBrains Mono (Developer)</option>
+        </select>
+        <div class="form-hint">Choose a font that matches your brand</div>
+      </div>
+
+      <!-- Font Size -->
+      <div class="section-card">
+        <h3 class="section-title">
+          <iconify-icon icon="material-symbols:format-size" width="24" style="color: var(--style-accent)"></iconify-icon>
+          Font Size: <span id="font-size-display" style="color: var(--style-accent);">{{ bot.ui_font_size|default:14 }}px</span>
+        </h3>
+        
+        <input type="range" 
+               id="font-size-slider"
+               name="ui_font_size"
+               min="10" 
+               max="20" 
+               step="1"
+               value="{{ bot.ui_font_size|default:14 }}"
+               class="range-slider"
+               oninput="updateFontSize(this.value)" />
+        <div class="range-labels">
+          <span>Small (10px)</span>
+          <span>Medium (15px)</span>
+          <span>Large (20px)</span>
+        </div>
+      </div>
+
+      <!-- Welcome Message -->
+      <div class="section-card">
+        <h3 class="section-title">
+          <iconify-icon icon="material-symbols:waving-hand" width="24" style="color: var(--style-accent)"></iconify-icon>
+          Welcome Message
+        </h3>
+        
+        <textarea id="welcome-input"
+                  name="ui_welcome_message" 
+                  rows="4"
+                  class="form-textarea"
+                  placeholder="Hi! I'm {name}. How can I help you?"
+                  oninput="updatePreview()">{{ bot.ui_welcome_message|default:"Hi! I'm {name}. How can I help you?" }}</textarea>
+        <div class="info-box">
+          <iconify-icon icon="material-symbols:lightbulb-outline" width="16" style="color: var(--style-accent)"></iconify-icon>
+          <div style="font-size: 12px; color: var(--style-text-secondary);">
+            Use <code style="background: var(--style-card-bg); padding: 2px 6px; border-radius: 4px;">{name}</code> to insert bot name
+          </div>
+        </div>
+      </div>
+
+      <!-- Enable Notification Sound -->
+      <div class="section-card">
+        <h3 class="section-title">
+          <iconify-icon icon="material-symbols:notifications-active-outline" width="24" style="color: var(--style-accent)"></iconify-icon>
+          Enable Notification Sound
+        </h3>
+        
+        <div class="toggle-container">
+          <label for="ui_sound_enabled" class="toggle-label-wrapper">
+            <div class="toggle-title">
+              <iconify-icon icon="material-symbols:volume-up" width="18"></iconify-icon>
+              Notification Sound
+            </div>
+          </label>
+          <input type="checkbox" 
+                 id="ui_sound_enabled" 
+                 name="ui_sound_enabled" 
+                 {% if bot.ui_sound_enabled %}checked{% endif %}
+                 class="toggle-input"
+                 onchange="toggleSwitch(this)" />
+          <div class="toggle-switch {% if bot.ui_sound_enabled %}active{% endif %}" onclick="document.getElementById('ui_sound_enabled').click()">
+            <div class="toggle-thumb"></div>
+          </div>
+        </div>
+         <div class="info-box">
+          <iconify-icon icon="material-symbols:info-outline" width="16" style="color: var(--style-accent)"></iconify-icon>
+          <div style="font-size: 12px; color: var(--style-text-secondary);">
+           Play a subtle sound when the bot sends a new message
+          </div>
+        </div>
+      </div>
+
+      <!-- Reset Button -->
+      <div class="section-card">
+        <h3 class="section-title">
+          <iconify-icon icon="material-symbols:refresh" width="24" style="color: var(--style-accent)"></iconify-icon>
+          Reset Button
+        </h3>
+        
+        <div class="toggle-container">
+          <label for="enable-reset-btn" class="toggle-label-wrapper">
+            <div class="toggle-title">
+              <iconify-icon icon="material-symbols:restart-alt" width="18"></iconify-icon>
+              Show Reset Button
+            </div>
+          </label>
+          <input type="checkbox" 
+                 id="enable-reset-btn" 
+                 name="enable_reset_button" 
+                 value="1"
+                 {% if bot.workspace.enable_reset_button %}checked{% endif %}
+                 class="toggle-input"
+                 onchange="toggleSwitch(this)" />
+          <div class="toggle-switch {% if bot.workspace.enable_reset_button %}active{% endif %}" onclick="document.getElementById('enable-reset-btn').click()">
+            <div class="toggle-thumb"></div>
+          </div>
+        </div>
+        <div class="info-box">
+          <iconify-icon icon="material-symbols:info-outline" width="16" style="color: var(--style-accent)"></iconify-icon>
+          <div style="font-size: 12px; color: var(--style-text-secondary);">
+            If disabled, users will not see the Reset button in the chat widget. This can also be controlled by the workspace admin.
+          </div>
+        </div>
+      </div>
+
+      <!-- WhatsApp Number -->
+      <div class="section-card">
+        <h3 class="section-title">
+          <iconify-icon icon="simple-icons:whatsapp" width="24" style="color: var(--style-accent)"></iconify-icon>
+          WhatsApp Number
+        </h3>
+        
+        {% if plan.bundle != 'QA_ONLY' %}
+        <div class="toggle-container" style="margin-bottom: 16px;">
+          <label for="enable_whatsapp" class="toggle-label-wrapper">
+            <div class="toggle-title">
+              <iconify-icon icon="material-symbols:link" width="18"></iconify-icon>
+              Show WhatsApp Contact
+            </div>
+            <div class="toggle-description">Display WhatsApp link when AI has no answer</div>
+          </label>
+          <input type="checkbox" 
+                 id="enable_whatsapp" 
+                 name="enable_whatsapp_number_in_chat" 
+                 {% if bot.workspace.enable_whatsapp_number_in_chat %}checked{% endif %}
+                 class="toggle-input"
+                 onchange="toggleSwitch(this)" />
+          <div class="toggle-switch {% if bot.workspace.enable_whatsapp_number_in_chat %}active{% endif %}" onclick="document.getElementById('enable_whatsapp').click()">
+            <div class="toggle-thumb"></div>
+          </div>
+        </div>
+        {% endif %}
+        
+        <label class="form-label">WhatsApp Number</label>
+        <input type="text" 
+               name="whatsapp_number"
+               value="{{ bot.workspace.whatsapp_number|default:'' }}"
+               class="form-input"
+               placeholder="+919876543210" />
+        <div class="info-box">
+          <iconify-icon icon="material-symbols:info-outline" width="16" style="color: var(--style-accent)"></iconify-icon>
+          <div style="font-size: 12px; color: var(--style-text-secondary);">
+            Include country code (e.g., <code style="background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">+91</code>)
+          </div>
+        </div>
+      </div>
+      
+      <!-- Advanced Settings -->
+      <div class="section-card grid-full">
+        <h3 class="section-title">
+          <iconify-icon icon="material-symbols:settings" width="24" style="color: var(--style-accent)"></iconify-icon>
+          Advanced Settings
+        </h3>
+        
+        <details class="expandable-section">
+          <summary>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <iconify-icon icon="material-symbols:tune" width="18"></iconify-icon>
+              <span>Configure behavior and positioning</span>
+            </div>
+            <iconify-icon icon="material-symbols:expand-more" width="18"></iconify-icon>
+          </summary>
+          
+          <div class="expandable-content">
+            <div class="grid-container">
+              <!-- Animation Speed -->
+              <div>
+                <label class="form-label">Animation Speed</label>
+                <select name="ui_animation_speed" class="form-select">
+                  <option value="normal" {% if bot.ui_animation_speed == "normal" or not bot.ui_animation_speed %}selected{% endif %}>Normal (Recommended)</option>
+                  <option value="fast" {% if bot.ui_animation_speed == "fast" %}selected{% endif %}>Fast</option>
+                  <option value="slow" {% if bot.ui_animation_speed == "slow" %}selected{% endif %}>Slow</option>
+                  <option value="none" {% if bot.ui_animation_speed == "none" %}selected{% endif %}>None (Accessibility)</option>
+                </select>
+              </div>
+              
+              <!-- Widget Position -->
+              <div>
+                <label class="form-label">Widget Position</label>
+                <div class="position-selector">
+                  <button type="button" 
+                          class="position-btn {% if bot.ui_widget_position == 'bottom-right' or not bot.ui_widget_position %}active{% endif %}"
+                          onclick="setWidgetPosition('bottom-right', this)">
+                      <iconify-icon icon="icon-park-twotone:right-bar" width="20" height="20"></iconify-icon>
+                    Bottom Right
+                  </button>
+                  <button type="button" 
+                          class="position-btn {% if bot.ui_widget_position == 'bottom-left' %}active{% endif %}"
+                          onclick="setWidgetPosition('bottom-left', this)">
+                    <iconify-icon icon="icon-park-twotone:left-bar" width="20" height="20"></iconify-icon>
+                    Bottom Left
+                  </button>
+                </div>
+                <input type="hidden" name="ui_widget_position" id="widget-position-input" value="{{ bot.ui_widget_position|default:'bottom-right' }}">
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button type="submit" class="btn btn-primary">
+          <iconify-icon icon="material-symbols:save-outline" width="20"></iconify-icon>
+          Save Changes
+        </button>
+        
+        <button type="button"
+                class="btn btn-secondary"
+                hx-get="{% url 'dashboard:partial_bot_style' %}"
+                hx-target="#main">
+          Cancel
+        </button>
+        
+        <button type="button"
+                onclick="resetToDefaults()"
+                class="btn btn-secondary">
+          <iconify-icon icon="material-symbols:refresh" width="20"></iconify-icon>
+          Reset
+        </button>
+      </div>
+    </div>
+  </form>
+
+<!-- Help Section -->
+<div style="background-color: var(--style-card-bg); padding: 24px; border-top: 1px solid var(--style-border); border-radius: 12px; margin-top: 16px;">
+  <div style="display: flex; align-items: start; gap: 16px;">
+    <iconify-icon icon="material-symbols:tips-and-updates-outline" width="32" style="color: var(--style-accent); flex-shrink: 0;"></iconify-icon>
+    <div style="flex: 1;">
+      <h4 style="font-size: 18px; font-weight: 600; color: var(--style-text-primary); margin: 0 0 12px 0;">Styling Tips</h4>
+      <ul style="font-size: 14px; color: var(--style-text-secondary); line-height: 1.8; list-style: none; padding: 0; margin: 0;">
+        <li style="display: flex; align-items: start; gap: 8px; margin-bottom: 8px;">
+          <iconify-icon icon="material-symbols:star" width="16" style="color: var(--style-accent); margin-top: 2px; flex-shrink: 0;"></iconify-icon>
+          <span>Choose colors that match your brand identity for consistency</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 8px; margin-bottom: 8px;">
+          <iconify-icon icon="material-symbols:star" width="16" style="color: var(--style-accent); margin-top: 2px; flex-shrink: 0;"></iconify-icon>
+          <span>Test font sizes on mobile devices for readability</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 8px; margin-bottom: 8px;">
+          <iconify-icon icon="material-symbols:star" width="16" style="color: var(--style-accent); margin-top: 2px; flex-shrink: 0;"></iconify-icon>
+          <span>Personalized welcome messages improve user engagement</span>
+        </li>
+        <li style="display: flex; align-items: start; gap: 8px;">
+          <iconify-icon icon="material-symbols:star" width="16" style="color: var(--style-accent); margin-top: 2px; flex-shrink: 0;"></iconify-icon>
+          <span>Changes apply immediately to all active widget instances</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  function toggleSwitch(input) {
+    const switchEl = input.nextElementSibling;
+    if (input.checked) {
+      switchEl.classList.add('active');
+    } else {
+      switchEl.classList.remove('active');
+    }
+  }
+
+  // Live preview updates
+  function updatePreview() {
+    const color = document.getElementById('color-picker').value;
+    const bgColor = document.getElementById('bg-color-picker').value;
+    const font = document.getElementById('font-select').value;
+    const fontSize = document.getElementById('font-size-slider').value;
+    const welcome = document.getElementById('welcome-input').value;
+    
+    // Update hex input fields to match color pickers
+    document.getElementById('color-hex').value = color;
+    document.getElementById('bg-color-hex').value = bgColor;
+    
+    // Update header
+    const header = document.getElementById('preview-header');
+    header.style.background = `linear-gradient(135deg, ${color} 0%, ${color} 100%)`;
+    
+    // Update background color
+    document.getElementById('preview-body').style.background = bgColor;
+    
+    // Update font (and dynamically load Google font family for preview)
+    const previewContainer = document.getElementById('live-preview');
+    try {
+      const familyName = (font || '').split(',')[0].replace(/['"]/g, '').trim();
+      if (familyName) {
+        const safeId = 'gf-' + familyName.replace(/\s+/g, '-').toLowerCase();
+        if (!document.getElementById(safeId)) {
+          const link = document.createElement('link');
+          link.id = safeId;
+          link.rel = 'stylesheet';
+          link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(familyName)}:wght@300;400;500;600;700&display=swap`;
+          document.head.appendChild(link);
+          // attempt to wait for font to be available
+          if (document.fonts && document.fonts.load) {
+            document.fonts.load(`1em ${familyName}`).then(function(){
+              previewContainer.style.fontFamily = font;
+            }).catch(function(){
+              previewContainer.style.fontFamily = font;
+            });
+          } else {
+            previewContainer.style.fontFamily = font;
+          }
+        } else {
+          previewContainer.style.fontFamily = font;
+        }
+      } else {
+        previewContainer.style.fontFamily = font;
+      }
+    } catch (e) {
+      previewContainer.style.fontFamily = font;
+    }
+    document.getElementById('preview-body').style.fontSize = fontSize + 'px';
+    
+    // Update welcome message
+    const botName = '{{ bot.name }}';
+    const processedMessage = welcome.replace(/{name}/g, botName);
+    document.getElementById('preview-message').textContent = processedMessage;
+    
+    // Update bubble colors
+    const bubbleBot = document.querySelector('.bubble-bot');
+    const rgba1 = hexToRgba(color, 0.1);
+    const rgba2 = hexToRgba(color, 0.18);
+    const rgba3 = hexToRgba(color, 0.15);
+    bubbleBot.style.background = `linear-gradient(135deg, ${rgba1}, ${rgba2})`;
+    bubbleBot.style.borderColor = rgba3;
+  }
+
+  function updateColorFromHex() {
+    const hexInput = document.getElementById('color-hex');
+    const colorPicker = document.getElementById('color-picker');
+    let hex = hexInput.value.trim();
+    
+    if (!hex.startsWith('#')) hex = '#' + hex;
+    
+    if (/^#[0-9A-F]{6}$/i.test(hex)) {
+      colorPicker.value = hex;
+      updatePreview();
+    }
+  }
+
+  function updateBgColorFromHex() {
+    const hexInput = document.getElementById('bg-color-hex');
+    const colorPicker = document.getElementById('bg-color-picker');
+    let hex = hexInput.value.trim();
+    
+    if (!hex.startsWith('#')) hex = '#' + hex;
+    
+    if (/^#[0-9A-F]{6}$/i.test(hex)) {
+      colorPicker.value = hex;
+      updatePreview();
+    }
+  }
+
+  function updateFontSize(value) {
+    document.getElementById('font-size-display').textContent = value + 'px';
+    updatePreview();
+  }
+
+  function setColor(hex) {
+    document.getElementById('color-picker').value = hex;
+    document.getElementById('color-hex').value = hex;
+    updatePreview();
+  }
+
+  function setWidgetPosition(position, button) {
+    document.getElementById('widget-position-input').value = position;
+    
+    // Update button styles
+    const buttons = button.parentElement.querySelectorAll('.position-btn');
+    buttons.forEach(btn => {
+      btn.classList.remove('active');
+    });
+    
+    button.classList.add('active');
+  }
+
+  function hexToRgba(hex, alpha) {
+    hex = hex.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  function resetToDefaults() {
+    if (confirm('Reset all styling to default values? This cannot be undone.')) {
+      document.getElementById('color-picker').value = '#4C3BCF';
+      document.getElementById('color-hex').value = '#4C3BCF';
+      document.getElementById('bg-color-picker').value = '#f9fafb';
+      document.getElementById('bg-color-hex').value = '#f9fafb';
+      document.getElementById('font-select').value = 'Inter, system-ui, sans-serif';
+      document.getElementById('font-size-slider').value = '14';
+      document.getElementById('welcome-input').value = "Hi! I'm {name}. How can I help you?";
+      document.getElementById('ui_sound_enabled').checked = false;
+      updatePreview();
+      updateFontSize(14);
+    }
+  }
+  
+  function toggleWhatsAppNumber(enabled) {
+    const field = document.getElementById('whatsapp-number-field');
+    if (field) {
+      field.style.display = enabled ? 'block' : 'none';
+    }
+  }
+
+  // Initialize preview on load
+  updatePreview();
+</script>

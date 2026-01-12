@@ -1,0 +1,253 @@
+<!-- templates/dashboard/partials/qa_list.html -->
+{% include 'toast.html' %}
+
+<style>
+  :root {
+    --style-bg: #f8f9fa;
+    --style-card-bg: #ffffff;
+    --style-text-primary: #1f1f1f;
+    --style-text-secondary: #5f6368;
+    --style-border: #e0e0e0;
+    --style-accent: #1a73e8;
+    --style-accent-hover: #1557b0;
+    --style-success: #34a853;
+    --style-info-bg: #f1f3f4;
+    --style-shadow: rgba(0, 0, 0, 0.1);
+    
+    /* Nesting Backgrounds Light Mode */
+    --qa-bg-0: #ffffff;
+    --qa-bg-1: #f3f4f6;
+    --qa-bg-2: #e5e7eb;
+  }
+  
+  [data-theme="dark"] {
+    --style-bg: #1f1f1f;
+    --style-card-bg: #2d2d2d;
+    --style-text-primary: #e8eaed;
+    --style-text-secondary: #9aa0a6;
+    --style-border: #3c4043;
+    --style-accent: #8ab4f8;
+    --style-accent-hover: #aecbfa;
+    --style-success: #81c995;
+    --style-info-bg: #3c4043;
+    --style-shadow: rgba(0, 0, 0, 0.3);
+
+    /* Nesting Backgrounds Dark Mode (Parent Dark -> Child Lighter) */
+    --qa-bg-0: #202124; /* Darkest */
+    --qa-bg-1: #2d2d2d; /* Lighter */
+    --qa-bg-2: #3c4043; /* Lightest */
+  }
+
+  .style-container {
+    background-color: var(--style-card-bg);
+    color: var(--style-text-primary);
+    font-family: 'Outfit', sans-serif;
+    border: 1px solid var(--style-border);
+    border-radius: 12px;
+  }
+
+  .style-btn-primary {
+    background-color: var(--style-accent);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+  
+  .style-btn-primary:hover {
+    background-color: var(--style-accent-hover);
+  }
+
+  .style-input {
+    background-color: var(--style-bg);
+    border: 1px solid var(--style-border);
+    color: var(--style-text-primary);
+    border-radius: 8px;
+    padding: 10px 12px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .style-input:focus {
+    border-color: var(--style-accent);
+  }
+
+  .style-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--style-text-secondary);
+  }
+  
+  /* QA Item Styles */
+  .qa-item {
+    border-bottom: 1px solid var(--style-border);
+    transition: background-color 0.2s;
+  }
+  .qa-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* Hierarchy specific backgrounds */
+  .qa-level-0 { background-color: var(--qa-bg-0); }
+  .qa-level-1 { background-color: var(--qa-bg-1);  }
+  .qa-level-2 { background-color: var(--qa-bg-2);  }
+
+  /* Indentation visual */
+  .qa-indent-0 { margin-left: 0; border-left: 4px solid var(--style-accent); }
+  .qa-indent-1 { margin-left: 16px; border-left: 4px solid var(--style-text-secondary); border-top-left-radius: 8px; border-bottom-left-radius: 8px;}
+  .qa-indent-2 { margin-left: 32px; border-left: 4px solid var(--style-border); border-top-left-radius: 8px; border-bottom-left-radius: 8px;}
+
+</style>
+
+<div id="qa-list-container" class="space-y-6 font-sans">
+    <div class="flex justify-between items-center">
+        <h3 class="text-xl font-semibold flex items-center gap-2" style="color: var(--style-text-primary);">
+            <div class="p-1.5 rounded-lg" style="background-color: var(--style-info-bg); color: var(--style-accent);">
+                 <iconify-icon icon="material-symbols:quiz-outline" width="20"></iconify-icon>
+            </div>
+            Q&A Pairs
+        </h3>
+        <button onclick="document.getElementById('add-qa-form').classList.toggle('hidden')" 
+                class="style-btn-primary">
+            <iconify-icon icon="material-symbols:add" width="18"></iconify-icon>
+            <span class="hidden sm:inline">Add Q&A Pair</span>
+            <span class="sm:hidden">Add</span>
+        </button>
+    </div>
+
+    <!-- Add Form -->
+    <div id="add-qa-form" class="hidden style-container p-6 shadow-md mb-6 relative">
+        <div class="absolute top-4 right-4 cursor-pointer opacity-50 hover:opacity-100" 
+             onclick="document.getElementById('add-qa-form').classList.add('hidden')" style="color: var(--style-text-primary);">
+            <iconify-icon icon="material-symbols:close" width="20"></iconify-icon>
+        </div>
+        
+        <h4 class="text-lg font-medium mb-4" style="color: var(--style-text-primary);">New Question</h4>
+        
+        <form hx-post="{% url 'dashboard:qa_add' %}" hx-target="#qa-list-container" hx-swap="outerHTML" class="space-y-4">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="bot_id" class="style-label">Bot</label>
+                    <div class="relative">
+                        <select name="bot_id" id="bot_id" required class="style-input appearance-none">
+                            {% for bot in bots %}
+                            <option value="{{ bot.id }}">{{ bot.name }}</option>
+                            {% endfor %}
+                        </select>
+                         <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none" style="color: var(--style-text-secondary);">
+                            <iconify-icon icon="material-symbols:keyboard-arrow-down" width="20"></iconify-icon>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="parent_id" class="style-label">Parent Question (Optional)</label>
+                    <div class="relative">
+                        <select name="parent_id" id="parent_id" class="style-input appearance-none">
+                            <option value="">-- None (Root) --</option>
+                            {% for pair in qa_pairs %}
+                            <option value="{{ pair.id }}">{{ pair.question }} ({{ pair.bot.name }})</option>
+                            {% endfor %}
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none" style="color: var(--style-text-secondary);">
+                            <iconify-icon icon="material-symbols:keyboard-arrow-down" width="20"></iconify-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <label for="question" class="style-label">Question</label>
+                <input type="text" name="question" id="question" required class="style-input" placeholder="What is the pricing model?">
+            </div>
+            
+            <div>
+                <label for="answer" class="style-label">Answer <span class="text-xs opacity-70">(Optional if it has children)</span></label>
+                <textarea name="answer" id="answer" rows="3" class="style-input" placeholder="The pricing model is..."></textarea>
+            </div>
+            
+            <div class="flex justify-end pt-2">
+                <button type="submit" class="style-btn-primary">
+                    <iconify-icon icon="material-symbols:save-outline" width="18"></iconify-icon>
+                    Save Q&A
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- List -->
+    <div class="style-container overflow-hidden shadow-sm">
+        <div class="divide-y" style="border-color: var(--style-border);">
+            {% for pair in qa_pairs %}
+            {# Determine Nesting Level Logic #}
+            {% if not pair.parent %}
+                <!-- Level 0: Root -->
+                <div class="qa-item qa-level-0 qa-indent-0 p-4 relative group">
+            {% elif not pair.parent.parent %}
+                 <!-- Level 1: Child -->
+                <div class="qa-item qa-level-1 qa-indent-1 p-4 relative group">
+            {% else %}
+                 <!-- Level 2: Grandchild (and deeper) -->
+                <div class="qa-item qa-level-2 qa-indent-2 p-4 relative group">
+            {% endif %}
+            
+                <div class="flex flex-col md:flex-row justify-between gap-4">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center flex-wrap gap-2 mb-1">
+                            <h4 class="text-sm font-medium truncate pr-2" style="color: var(--style-text-primary);">{{ pair.question }}</h4>
+                            
+                            <span class="px-2 py-0.5 rounded text-[10px] font-semibold tracking-wide border uppercase" 
+                                  style="background-color: var(--style-bg); color: var(--style-text-secondary); border-color: var(--style-border);">
+                                {{ pair.bot.name }}
+                            </span>
+
+                            {% if pair.parent %}
+                            <span class="flex items-center gap-1 text-[10px] opacity-70" style="color: var(--style-text-secondary);">
+                                <iconify-icon icon="material-symbols:turn-right" width="12"></iconify-icon>
+                                Child of: {{ pair.parent.question|truncatechars:20 }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="text-sm leading-relaxed" style="color: var(--style-text-secondary);">
+                            {{ pair.answer|truncatechars:150|default:"<span class='italic opacity-50'>(No answer - Container)</span>" }}
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-2 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+                        <button hx-get="{% url 'dashboard:qa_edit_form' pair.id %}" hx-target="#main" 
+                                class="p-2 rounded hover:bg-opacity-10 hover:bg-black dark:hover:bg-white dark:hover:bg-opacity-10 text-indigo-500 transition-colors">
+                             <iconify-icon icon="material-symbols:edit-outline" width="18"></iconify-icon>
+                        </button>
+                        <button hx-delete="{% url 'dashboard:qa_delete' pair.id %}" hx-confirm="Are you sure?" hx-target="#qa-list-container" hx-swap="outerHTML"
+                                class="p-2 rounded hover:bg-opacity-10 hover:bg-red-500 text-red-500 transition-colors">
+                             <iconify-icon icon="material-symbols:delete-outline" width="18"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="p-12 text-center" style="color: var(--style-text-secondary);">
+                 <div class="mb-3 opacity-30">
+                    <iconify-icon icon="material-symbols:chat-bubble-outline" width="48"></iconify-icon>
+                 </div>
+                 <p>No Q&A pairs found.</p>
+                 <button onclick="document.getElementById('add-qa-form').classList.remove('hidden')" class="text-sm underline mt-2 hover:text-indigo-500">
+                     Add your first Q&A pair
+                 </button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+

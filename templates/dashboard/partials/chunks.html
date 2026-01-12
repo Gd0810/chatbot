@@ -1,0 +1,183 @@
+<!-- templates/dashboard/partials/chunks.html -->
+{% include 'toast.html' %}
+
+<style>
+  :root {
+    --style-bg: #f8f9fa;
+    --style-card-bg: #ffffff;
+    --style-text-primary: #1f1f1f;
+    --style-text-secondary: #5f6368;
+    --style-border: #e0e0e0;
+    --style-accent: #1a73e8;
+    --style-accent-hover: #1557b0;
+    --style-success: #34a853;
+    --style-info-bg: #f1f3f4;
+    --style-shadow: rgba(0, 0, 0, 0.1);
+    --style-shadow-hover: rgba(0, 0, 0, 0.15);
+  }
+  
+  [data-theme="dark"] {
+    --style-bg: #1f1f1f;
+    --style-card-bg: #2d2d2d;
+    --style-text-primary: #e8eaed;
+    --style-text-secondary: #9aa0a6;
+    --style-border: #3c4043;
+    --style-accent: #8ab4f8;
+    --style-accent-hover: #aecbfa;
+    --style-success: #81c995;
+    --style-info-bg: #3c4043;
+    --style-shadow: rgba(0, 0, 0, 0.3);
+    --style-shadow-hover: rgba(0, 0, 0, 0.4);
+  }
+
+  .style-container {
+    background-color: var(--style-card-bg);
+    color: var(--style-text-primary);
+    font-family: 'Outfit', sans-serif;
+    border: 1px solid var(--style-border);
+    border-radius: 12px;
+  }
+  
+  .style-btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--style-border);
+    color: var(--style-text-secondary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .style-btn-secondary:hover {
+    background-color: var(--style-accent);
+    color: white;
+    border-color: var(--style-accent);
+  }
+
+  .style-btn-danger {
+    color: #ef4444; 
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+  
+  .style-btn-danger:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+    color: #000000;
+  }
+
+  [data-theme="dark"] .style-btn-danger:hover {
+    color: #ef4444;
+  }
+  
+  .style-code-block {
+    background-color: var(--style-bg);
+    border: 1px solid var(--style-border);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: monospace;
+    font-size: 13px;
+    color: var(--style-text-secondary);
+    overflow-x: auto;
+    max-height: 200px;
+    white-space: pre-wrap;
+  }
+</style>
+
+<div class="style-container p-4 md:p-6 shadow-sm">
+  <div class="flex items-center gap-3 mb-2">
+    <div class="p-2 rounded-lg" style="background-color: var(--style-info-bg); color: var(--style-accent);">
+      <iconify-icon icon="material-symbols:segment" width="24"></iconify-icon>
+    </div>
+    <div>
+        <h2 class="text-xl font-semibold">Knowledge Chunks</h2>
+        <div class="text-sm" style="color: var(--style-text-secondary);">
+            {{ ks.title|default:"(Untitled Source)" }}
+        </div>
+    </div>
+  </div>
+  
+  <div class="flex flex-wrap gap-4 text-xs mb-6 px-1" style="color: var(--style-text-secondary);">
+    <div class="flex items-center gap-1">
+        <iconify-icon icon="material-symbols:smart-toy-outline" width="14"></iconify-icon>
+        {{ ks.bot.name }}
+    </div>
+    <span class="opacity-30">|</span>
+    <div class="flex items-center gap-1">
+        <iconify-icon icon="material-symbols:code" width="14"></iconify-icon>
+        {{ ks.get_source_type_display }}
+    </div>
+    <span class="opacity-30">|</span>
+    <div class="flex items-center gap-1">
+        <iconify-icon icon="material-symbols:calendar-today-outline" width="14"></iconify-icon>
+        {{ ks.created_at|date:"M d, Y" }}
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    {% for ch in chunks %}
+      <div class="style-container p-4" style="border: 1px solid var(--style-border);">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mb-3">
+            <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-xs font-mono" style="background-color: var(--style-info-bg); color: var(--style-text-secondary);">Chunk #{{ ch.id }}</span>
+                {% if ch.vector_id %}
+                    <span class="text-xs flex items-center gap-1" style="color: var(--style-success);">
+                        <iconify-icon icon="material-symbols:check-circle-outline" width="12"></iconify-icon>
+                        Vectorized
+                    </span>
+                {% else %}
+                     <span class="text-xs flex items-center gap-1" style="color: var(--style-text-secondary);">
+                        <iconify-icon icon="material-symbols:pending-outline" width="12"></iconify-icon>
+                        Pending Vector
+                    </span>
+                {% endif %}
+            </div>
+            <div class="text-xs font-mono opacity-50" style="color: var(--style-text-secondary);">
+                {{ ch.collection_name|default:"No Collection" }}
+            </div>
+        </div>
+        
+        <pre class="style-code-block mb-3">{{ ch.text }}</pre>
+        
+        <div class="flex gap-2 justify-end">
+          <button class="style-btn-secondary"
+                  hx-get="{% url 'dashboard:chunk_edit_form' ks.id ch.id %}"
+                  hx-target="#main">
+                  <iconify-icon icon="material-symbols:edit-outline" width="16"></iconify-icon>      
+                  Edit
+          </button>
+          
+          <form method="post"
+                hx-post="{% url 'dashboard:chunk_delete' ks.id ch.id %}"
+                hx-target="#main"
+                hx-confirm="Delete this chunk? Its vector will be removed from Qdrant."
+                onsubmit="return confirm('Delete this chunk? Its vector will be removed from Qdrant.');">
+            {% csrf_token %}
+            <button class="style-btn-secondary style-btn-danger">
+                <iconify-icon icon="material-symbols:delete-outline" width="16"></iconify-icon>
+                Delete
+            </button>
+          </form>
+        </div>
+      </div>
+    {% empty %}
+      <div class="text-center py-12 border-2 border-dashed rounded-xl" style="border-color: var(--style-border);">
+          <div class="mb-3 opacity-50" style="color: var(--style-text-secondary);">
+              <iconify-icon icon="material-symbols:layers-clear-outline" width="48"></iconify-icon>
+          </div>
+          <div style="color: var(--style-text-secondary);">No chunks found for this source.</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="mt-6 pt-4 border-t" style="border-color: var(--style-border);">
+    <button class="style-btn-secondary"
+            hx-get="{% url 'dashboard:partial_knowledge' %}" hx-target="#main">
+            <iconify-icon icon="material-symbols:arrow-back" width="16"></iconify-icon>
+            Back to Sources
+    </button>
+  </div>
+</div>

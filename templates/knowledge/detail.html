@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Source Detail{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Source Details</h2>
+        <p><strong>Type:</strong> {{ source.source_type }}</p>
+        <p><strong>Status:</strong> <span class="badge bg-{% if source.status == 'INGESTED' %}success{% else %}warning{% endif %}">{{ source.status }}</span></p>
+        <p><strong>Content:</strong> {{ source.content }}</p>
+        
+        {% if chunks %}
+        <h4>Chunks ({{ chunks.count }})</h4>
+        <div class="accordion" id="chunksAccordion">
+            {% for chunk in chunks %}
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#chunk{{ chunk.id }}">
+                        Chunk {{ forloop.counter }} ({{ chunk.text|wordcount }} words)
+                    </button>
+                </h2>
+                <div id="chunk{{ chunk.id }}" class="accordion-collapse collapse">
+                    <div class="accordion-body">{{ chunk.text }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <a href="{% url 'knowledge:list' bot.id %}" class="btn btn-secondary mt-3">Back</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Create Bot{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>Create New AI Bot</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Bot Name</label>
+                {{ form.name }}
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">AI Provider</label>
+                {{ form.ai_provider }}
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">AI Model</label>
+                {{ form.ai_model }}
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">OpenAI API Key</label>
+                {{ form.ai_api_key }}
+                <small class="form-text text-muted">Encrypted and stored securely</small>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Allowed Domains (comma-separated)</label>
+                {{ form.allowed_domains }}
+                <small class="form-text text-muted">e.g., example.com, yoursite.com</small>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Create Bot</button>
+            <a href="{% url 'bots:list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

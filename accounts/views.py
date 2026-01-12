@@ -110,4 +110,7 @@ def password_change_view(request):
 
 
 def index(request):
-    return render(request, 'pages/index.html')       
+    return render(request, 'pages/index.html')  
+
+def service(request):
+    return render(request, 'pages/service.html')         

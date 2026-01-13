@@ -1,16 +1,317 @@
 {% load static %}
-<header>
-    <nav aria-label="Main Navigation">
-        <div class="container">
-            <a href="{% url 'index' %}" class="logo">
-                <img src="{% static 'images/logo.png' %}" alt="My Django Website Logo">
-            </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            <ul>
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'service' %}">Services</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-</header>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: transparent;
+            padding: 1rem 0;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 60, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(67, 26, 0, 0.1);
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            height: 100px;
+            width: 120px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .logo .logo-default {
+            display: block;
+        }
+
+        .logo .logo-hover {
+            display: none;
+        }
+
+        .logo:hover .logo-default {
+            display: none;
+        }
+
+        .logo:hover .logo-hover {
+            display: block;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(67, 26, 0);
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            display: block;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgb(255, 60, 0), rgb(217, 38, 0));
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: rgb(255, 60, 0);
+        }
+
+        nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        nav ul li a:active {
+            color: rgb(175, 20, 0);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: rgb(67, 26, 0);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .menu-toggle:hover span {
+            background: rgb(255, 60, 0);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Medium screens (md) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            nav ul li a {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .logo img {
+                height: 80px;
+                width: 80px;
+            }
+        }
+
+        /* Small screens (sm) */
+        @media (max-width: 640px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease, padding 0.4s ease;
+                box-shadow: 0 4px 6px rgba(67, 26, 0, 0.1);
+            }
+
+            nav ul.active {
+                max-height: 400px;
+                padding: 1rem 0;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 60, 0, 0.1);
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            nav ul li a {
+                padding: 1rem;
+                width: 100%;
+            }
+
+            nav ul li a::after {
+                display: none;
+            }
+
+            .logo img {
+                height: 80px;
+                width: 80px;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Large screens (lg) - enhanced spacing */
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 3rem;
+            }
+
+            nav ul {
+                gap: 3rem;
+            }
+
+            nav ul li a {
+                font-size: 1.05rem;
+            }
+
+            .logo img {
+                height: 100px;
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav aria-label="Main Navigation">
+            <div class="container">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'ui/img/redbackai0.png' %}" alt="My Django Website Logo" class="logo-default">
+                    <img src="{% static 'ui/img/redbackai1.png' %}" alt="My Django Website Logo" class="logo-hover">
+                </a>
+
+                <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul id="navMenu">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'service' %}">Services</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.querySelector('.menu-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const menu = document.getElementById('navMenu');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (!nav.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                toggle.classList.remove('active');
+            }
+        });
+
+        // Close menu when window is resized to larger screen
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 640) {
+                document.getElementById('navMenu').classList.remove('active');
+                document.querySelector('.menu-toggle').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

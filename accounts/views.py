@@ -112,30 +112,24 @@ def password_change_view(request):
 
 
 def index(request):
-    meta = Meta(
-        title="Home | My Django Website",
-        description="Best Django website for services",
-        keywords=["django", "python", "web development"],
-        url=request.build_absolute_uri(),
-    )
-    return render(request, "pages/index.html", {'meta': meta})
+    return render(request, "pages/index.html", {
+        "meta_title": "Home | My Django Website",
+        "meta_description": "Best Django website for services",
+        "meta_keywords": "django, python, web development",
+    })
 
 
 def services(request):
-    meta = Meta(
-        title="Services | My Django Website",
-        description="Our professional Django services",
-        keywords=["django services", "backend", "frontend"],
-        url=request.build_absolute_uri(),
-    )
-    return render(request, "pages/services.html", {'meta': meta})
+    return render(request, "pages/service.html", {
+        "meta_title": "Services | My Django Website",
+        "meta_description": "Our professional Django services",
+        "meta_keywords": "django services, backend, frontend",
+    })
 
 
 def contact(request):
-    meta = Meta(
-        title="Contact Us | My Django Website",
-        description="Contact our Django team",
-        keywords=["contact", "django company"],
-        url=request.build_absolute_uri(),
-    )
-    return render(request, "pages/contact.html", {'meta': meta})    
+    return render(request, "pages/contact.html", {
+        "meta_title": "Contact Us | My Django Website",
+        "meta_description": "Contact our Django team",
+        "meta_keywords": "contact, django company",
+    })   

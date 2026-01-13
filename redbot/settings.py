@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'chat',
     'embed',
     'adminpanel',
+    'meta',
 ]
 
 ASGI_APPLICATION = 'redbot.asgi.application'
@@ -83,6 +84,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+META_SITE_NAME = "Redbackai"
+META_SITE_DESCRIPTION = "Redbackai is a chatbot platform that allows you to create and manage chatbots for your website."
+META_SITE_DOMAIN = "redbackai.com"
+META_SITE_PROTOCOL = "https"
+
+META_USE_OG_PROPERTIES = True
+META_USE_TWITTER_PROPERTIES = True
+META_USE_SCHEMAORG_PROPERTIES = True
+
 
 ROOT_URLCONF = 'redbot.urls'
 

@@ -17,9 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts import views  
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import GenericSitemap
+
+
+
 
 
 urlpatterns = [
+    path("sitemap.xml", sitemap),
     path('', views.index, name='index'),
     path('service/', views.service, name='service'),
     path('admin/', admin.site.urls),

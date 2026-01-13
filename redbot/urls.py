@@ -28,6 +28,7 @@ urlpatterns = [
     path("sitemap.xml", sitemap),
     path('', views.index, name='index'),
     path('service/', views.service, name='service'),
+    path('contact/', views.contact, name='contact'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('billing/', include('billing.urls')),

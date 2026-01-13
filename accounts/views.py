@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.shortcuts import render
+from meta.views import Meta
 from django.urls import reverse
 
 from .models import Workspace
@@ -110,7 +112,30 @@ def password_change_view(request):
 
 
 def index(request):
-    return render(request, 'pages/index.html')  
+    meta = Meta(
+        title="Home | My Django Website",
+        description="Best Django website for services",
+        keywords=["django", "python", "web development"],
+        url=request.build_absolute_uri(),
+    )
+    return render(request, "pages/index.html", {'meta': meta})
 
-def service(request):
-    return render(request, 'pages/service.html')         
+
+def services(request):
+    meta = Meta(
+        title="Services | My Django Website",
+        description="Our professional Django services",
+        keywords=["django services", "backend", "frontend"],
+        url=request.build_absolute_uri(),
+    )
+    return render(request, "pages/services.html", {'meta': meta})
+
+
+def contact(request):
+    meta = Meta(
+        title="Contact Us | My Django Website",
+        description="Contact our Django team",
+        keywords=["contact", "django company"],
+        url=request.build_absolute_uri(),
+    )
+    return render(request, "pages/contact.html", {'meta': meta})    

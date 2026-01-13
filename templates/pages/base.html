@@ -1,15 +1,29 @@
+{% load static %}
 {% load meta %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% render_meta %}
+
+    <!-- Basic SEO -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 
-    {% block content %}
-    {% endblock %}
+    {% include "includes/header.html" %}
+
+    <main role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "includes/footer.html" %}
 
 </body>
 </html>

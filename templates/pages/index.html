@@ -141,13 +141,6 @@
         <div class="absolute top-1/4 right-0 w-96 h-96 bg-gradient-radial from-primary/30 to-transparent rounded-full blur-3xl"></div>
         <div class="absolute bottom-1/4 left-0 w-96 h-96 bg-gradient-radial from-primary-darker/30 to-transparent rounded-full blur-3xl"></div>
     </div>
-    
-    <!-- Animated Geometric Shapes -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-20 right-20 w-32 h-32 border-2 border-primary/20 rotate-12 animate-pulse"></div>
-        <div class="absolute bottom-32 left-32 w-24 h-24 border-2 border-primary-dark/20 -rotate-12 animate-pulse" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 right-1/3 w-16 h-16 bg-primary/10 rounded-lg rotate-45 animate-bounce" style="animation-duration: 3s;"></div>
-    </div>
 
     <div class="container mx-auto max-w-7xl relative z-10">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -156,7 +149,7 @@
             <div class="order-2 lg:order-1 flex justify-center">
                 <div class="relative w-full max-w-lg">
                     <div class="absolute inset-0 bg-primary/10 rounded-3xl rotate-6"></div>
-                    <img src="{% static 'ui/img/home2.png' %}" alt="About Us" class="relative w-full h-auto rounded-3xl shadow-2xl">
+                    <img src="{% static 'ui/img/home4.png' %}" alt="About Us" class="relative w-full h-auto rounded-3xl ">
                 </div>
             </div>
 
@@ -215,25 +208,19 @@
 
 <!-- Our Services Section - Content Left, Image Right -->
 <section class="relative py-20 px-6 sm:px-8 lg:px-16 my-20 overflow-hidden bg-white">
-    <!-- Diagonal Stripe Pattern Background -->
-    <div class="absolute inset-0 opacity-20">
-        <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(var(--primary-rgb, 59, 130, 246), 0.1) 35px, rgba(var(--primary-rgb, 59, 130, 246), 0.1) 70px);"></div>
-    </div>
-    
-    <!-- Wave Pattern Overlay -->
-    <div class="absolute inset-0 opacity-10">
-        <svg class="absolute bottom-0 left-0 w-full h-64" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0 C300,80 600,80 900,0 L900,120 L0,120 Z" fill="currentColor" class="text-primary"></path>
-        </svg>
-        <svg class="absolute top-0 right-0 w-full h-64 transform rotate-180" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0 C300,80 600,80 900,0 L900,120 L0,120 Z" fill="currentColor" class="text-primary-dark"></path>
-        </svg>
-    </div>
-    
-    <!-- Floating Grid Pattern -->
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-48 h-48 border border-primary/10 rounded-lg transform -rotate-12"></div>
-        <div class="absolute bottom-1/3 right-1/4 w-40 h-40 border border-primary-darker/10 rounded-lg transform rotate-12"></div>
+    <!-- Wave Pattern Background (matching Main Landing Section) -->
+    <div class="wave-pattern">
+        <!-- Top Left Wave -->
+        <div class="wave bg-primary-dark w-96 h-96 -top-20 -left-20 lg:w-[500px] lg:h-[500px] lg:-top-32 lg:-left-32"></div>
+        
+        <!-- Top Right Wave -->
+        <div class="wave bg-primary w-80 h-80 top-10 right-0 lg:w-[400px] lg:h-[400px] lg:top-20"></div>
+        
+        <!-- Bottom Left Wave -->
+        <div class="wave bg-primary-darker w-72 h-72 bottom-20 left-10 lg:w-[350px] lg:h-[350px]"></div>
+        
+        <!-- Bottom Right Wave -->
+        <div class="wave bg-primary-dark w-64 h-64 -bottom-10 -right-10 lg:w-[300px] lg:h-[300px]"></div>
     </div>
 
     <div class="container mx-auto max-w-7xl relative z-10">
@@ -292,7 +279,7 @@
             <div class="flex justify-center">
                 <div class="relative w-full max-w-lg">
                     <div class="absolute inset-0 bg-primary-dark/10 rounded-3xl -rotate-6"></div>
-                    <img src="{% static 'ui/img/home2.png' %}" alt="Our Services" class="relative w-full h-auto rounded-3xl shadow-2xl">
+                    <img src="{% static 'ui/img/home2.png' %}" alt="Our Services" class="relative w-full h-auto rounded-3xl ">
                 </div>
             </div>
 

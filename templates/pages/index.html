@@ -1,226 +1,255 @@
-
 {% extends "pages/base.html" %}
 {% load static %}
 {% block content %}
-<style type="text/tailwindcss">
-    @layer utilities {
-        .text-primary {
-            color: rgb(255, 60, 0);
-        }
-        .text-primary-dark {
-            color: rgb(217, 38, 0);
-        }
-        .text-primary-darker {
-            color: rgb(175, 20, 0);
-        }
-        .text-primary-darkest {
-            color: rgb(67, 26, 0);
-        }
-        .bg-primary {
-            background-color: rgb(255, 60, 0);
-        }
-        .bg-primary-dark {
-            background-color: rgb(217, 38, 0);
-        }
-        .bg-primary-darker {
-            background-color: rgb(175, 20, 0);
-        }
-        .bg-primary-darkest {
-            background-color: rgb(67, 26, 0);
-        }
-        .wave-pattern {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-        .wave {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.1;
-        }
-        .decorative-pattern {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        .leaf-shape {
-            position: absolute;
-            opacity: 0.15;
-        }
+<style>
+    .gradient-bg {
+        background-color: #ffffff;
+    }
+    
+    .hero-gradient {
+        background-color: #ffffff;
+    }
+    
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-8px);
+    }
+    
+    .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.3;
+        pointer-events: none;
+    }
+    
+    .wave-bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+    }
+    
+    .wave {
+        position: absolute;
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        opacity: 0.15;
+        animation: wave-float 20s ease-in-out infinite;
+    }
+    
+    @keyframes wave-float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(5%, -5%) rotate(5deg); }
+        50% { transform: translate(-5%, 5%) rotate(-5deg); }
+        75% { transform: translate(5%, 5%) rotate(3deg); }
     }
 </style>
 
-<!-- Decorative Wave Patterns -->
-<div class="wave-pattern">
-    <!-- Top Left Wave -->
-    <div class="wave bg-primary-dark w-96 h-96 -top-20 -left-20 lg:w-[500px] lg:h-[500px] lg:-top-32 lg:-left-32"></div>
-    
-    <!-- Top Right Wave -->
-    <div class="wave bg-primary w-80 h-80 top-10 right-0 lg:w-[400px] lg:h-[400px] lg:top-20"></div>
-    
-    <!-- Bottom Left Wave -->
-    <div class="wave bg-primary-darker w-72 h-72 bottom-20 left-10 lg:w-[350px] lg:h-[350px]"></div>
-    
-    <!-- Bottom Right Wave -->
-    <div class="wave bg-primary-dark w-64 h-64 -bottom-10 -right-10 lg:w-[300px] lg:h-[300px]"></div>
-    
-    <!-- Additional decorative dots -->
-    <div class="absolute top-32 right-20 hidden lg:block">
-        <div class="grid grid-cols-3 gap-3">
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-        </div>
+<!-- Hero Section with Wave Background -->
+<section class="hero-gradient relative overflow-hidden">
+    <!-- Wave Background -->
+    <div class="wave-bg">
+        <div class="wave" style="background: rgb(255, 60, 0); width: 800px; height: 800px; top: -400px; left: -200px;"></div>
+        <div class="wave" style="background: rgb(255, 60, 0); width: 600px; height: 600px; top: 10%; right: -100px; animation-delay: -5s;"></div>
+        <div class="wave" style="background: rgb(255, 60, 0); width: 700px; height: 700px; bottom: -300px; left: 20%; animation-delay: -10s;"></div>
+        <div class="wave" style="background: rgb(255, 60, 0); width: 500px; height: 500px; bottom: 10%; right: 10%; animation-delay: -15s;"></div>
     </div>
-</div>
-
-<!-- Main Landing Section -->
-<section class="relative z-10 min-h-screen flex items-center py-20 px-6 sm:px-8 lg:px-16">
-    <div class="container mx-auto max-w-7xl">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <!-- Floating Shapes -->
+  
+    
+    <div class="container mx-auto max-w-7xl px-6 sm:px-8 lg:px-16 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
             
-            <!-- Left Side Content -->
-            <div class="space-y-8">
+            <!-- Left Content -->
+            <div class="space-y-10">
                 <div class="space-y-6">
-                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-                        <span class="text-primary-darkest">VIRTUAL</span><br>
-                        <span class="text-primary">ASSISTANT</span>
+                    <div class="inline-block px-4 py-2 bg-white/50 backdrop-blur-sm rounded-full">
+                        <span class="text-sm font-semibold " style="color: rgb(217, 38, 0); padding: 10px;">AI-Powered Solution</span>
+                    </div>
+                    <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black leading-tight">
+                        <span style="color: rgb(67, 26, 0);">VIRTUAL</span><br>
+                        <span style="color: rgb(255, 60, 0);">ASSISTANT</span>
                     </h1>
-                    <p class="text-lg sm:text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-xl">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+                    <p class="text-xl text-gray-700 leading-relaxed max-w-xl">
+                        Transform your workflow with intelligent automation that understands your needs and adapts to your business.
                     </p>
                 </div>
 
-                <div class="space-y-5 pt-4">
-                    <div class="flex items-center gap-4">
-                        <svg class="w-7 h-7 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <p class="text-primary-darkest text-lg font-medium">Intelligent automation</p>
+                <div class="grid grid-cols-1 gap-4" style="margin-top: 30px;">
+                    <div class="flex items-start gap-4 p-5 bg-white/60 backdrop-blur-sm rounded-2xl">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(255, 60, 0, 0.1);">
+                            <svg class="w-6 h-6" style="color: rgb(255, 60, 0);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1" style="color: rgb(67, 26, 0);">Intelligent Automation</h3>
+                            <p class="text-sm text-gray-600">Smart workflows that learn and improve over time</p>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <svg class="w-7 h-7 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <p class="text-primary-darkest text-lg font-medium">Natural conversation</p>
+                    
+                    <div class="flex items-start gap-4 p-5 bg-white/60 backdrop-blur-sm rounded-2xl">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(217, 38, 0, 0.1);">
+                            <svg class="w-6 h-6" style="color: rgb(217, 38, 0);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1" style="color: rgb(67, 26, 0);">Natural Conversation</h3>
+                            <p class="text-sm text-gray-600">Human-like interactions that feel seamless and intuitive</p>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <svg class="w-7 h-7 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <p class="text-primary-darkest text-lg font-medium">Seamless integration</p>
+                    
+                    <div class="flex items-start gap-4 p-5 bg-white/60 backdrop-blur-sm rounded-2xl">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(175, 20, 0, 0.1);">
+                            <svg class="w-6 h-6" style="color: rgb(175, 20, 0);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1" style="color: rgb(67, 26, 0);">Seamless Integration</h3>
+                            <p class="text-sm text-gray-600">Connects effortlessly with your existing tools and platforms</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Side Image -->
+            <!-- Right Image -->
             <div class="flex justify-center lg:justify-end">
-                <div class="w-full max-w-2xl">
-                    <img src="{% static 'ui/img/home2.png' %}" alt="Virtual Assistant Illustration" class="w-full h-auto object-contain">
+                <div class="relative w-full max-w-2xl">
+                    <img src="{% static 'ui/img/home2.png' %}" alt="Virtual Assistant" class="relative w-full h-auto drop-shadow-2xl">
                 </div>
             </div>
 
         </div>
     </div>
 </section>
-<!-- About Us Section - Image Left, Content Right -->
-<section class="relative py-20 px-6 sm:px-8 lg:px-16 my-20 overflow-hidden bg-white">
-    <!-- Decorative Wave Patterns -->
-    <div class="wave-pattern" style="z-index: 0;">
-        <!-- Top Left Wave -->
-        <div class="wave bg-primary-dark w-96 h-96 -top-20 -left-20 lg:w-[500px] lg:h-[500px] lg:-top-32 lg:-left-32"></div>
-        
-        <!-- Top Right Wave -->
-        <div class="wave bg-primary w-80 h-80 top-10 right-0 lg:w-[400px] lg:h-[400px] lg:top-20"></div>
-        
-        <!-- Bottom Left Wave -->
-        <div class="wave bg-primary-darker w-72 h-72 bottom-20 left-10 lg:w-[350px] lg:h-[350px]"></div>
-        
-        <!-- Bottom Right Wave -->
-        <div class="wave bg-primary-dark w-64 h-64 -bottom-10 -right-10 lg:w-[300px] lg:h-[300px]"></div>
-        
-        <!-- Additional decorative dots -->
-        <div class="absolute top-32 right-20 hidden lg:block">
-            <div class="grid grid-cols-3 gap-3">
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            </div>
-        </div>
-    </div>
 
-    <div class="container mx-auto max-w-7xl relative z-10">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+<!-- About Us Section with Card Grid Layout -->
+<section class="gradient-bg relative overflow-hidden" style="padding: 80px 0; margin: 20px 0;">
+    <!-- Wave Background -->
+    <div class="wave-bg">
+        <div class="wave" style="background: rgb(255, 60, 0); width: 700px; height: 700px; top: -200px; right: -150px;"></div>
+        <div class="wave" style="background: rgb(255, 60, 0); width: 600px; height: 600px; bottom: -200px; left: -100px; animation-delay: -7s;"></div>
+        <div class="wave" style="background: rgb(255, 60, 0); width: 500px; height: 500px; top: 30%; left: 10%; animation-delay: -12s;"></div>
+    </div>
+    <div class="container mx-auto max-w-7xl px-6 sm:px-8 lg:px-16 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
             
-            <!-- Left Side - Image -->
-            <div class="order-2 lg:order-1 flex justify-center">
-                <div class="relative w-full max-w-lg">
-                    <div class="absolute inset-0 bg-primary/10 rounded-3xl rotate-6"></div>
-                    <img src="{% static 'ui/img/home4.png' %}" alt="About Us" class="relative w-full h-auto rounded-3xl ">
+            <!-- Left Image with Modern Frame -->
+            <div class="order-2 lg:order-1">
+                <div class="relative">
+                    <!-- Decorative Border -->
+                    <div class="absolute -inset-4 rounded-3xl" style="background-color: rgb(255, 60, 0); opacity: 0.1;"></div>
+                    <div class="absolute -inset-2 bg-white rounded-3xl"></div>
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="{% static 'ui/img/home4.png' %}" alt="About Us" class="w-full h-auto">
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -right-6 p-6 bg-white rounded-2xl shadow-xl">
+                        <div class="text-center">
+                            <div class="text-4xl font-black counter" data-target="17" style="color: rgb(255, 60, 0); padding: 10px;">0+</div>
+                            <div class="text-sm font-semibold text-gray-600" style="color: rgb(255, 60, 0); padding: 10px;">Years Experience</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Right Side - Content -->
-            <div class="order-1 lg:order-2 space-y-8">
-                <div class="space-y-4">
-                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary">About Us</h2>
-                    <p class="text-lg text-gray-600 leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+            <!-- Right Content -->
+            <div class="order-1 lg:order-2 space-y-10">
+                <div class="space-y-6">
+                    <div class="inline-block px-4 py-2 rounded-full" style="background-color: rgba(255, 60, 0, 0.1);">
+                        <span class="text-sm font-bold" style="color: rgb(217, 38, 0); padding: 10px;">WHO WE ARE</span>
+                    </div>
+                    <h2 class="text-5xl sm:text-6xl font-black leading-tight" style="color: rgb(255, 60, 0);">About Us</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        We're pioneering the future of digital assistance with cutting-edge AI technology. Our mission is to empower businesses with intelligent solutions that drive productivity and innovation.
                     </p>
                 </div>
 
-                <!-- Feature Cards -->
-                <div class="grid sm:grid-cols-3 gap-6 pt-4">
+                
+                <!-- Feature Cards in 3 Columns -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6" style="margin-top: 20px;">
+
                     <!-- Card 1 -->
-                    <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
+                    <div class="card-hover p-6 bg-white rounded-2xl shadow-lg" style="padding: 10px;">
+                        
+                        <!-- Top Section -->
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 flex-shrink-0 rounded-2xl flex items-center justify-center bg-gray-50">
+                                <iconify-icon icon="mdi:account-group"
+                                    style="color: rgb(255, 60, 0); font-size: 28px;">
+                                </iconify-icon>
+                            </div>
+                            <h4 class="font-bold text-base" style="color: rgb(67, 26, 0);">
+                                Expert Team
+                            </h4>
                         </div>
+
+                        <!-- Bottom Section -->
                         <p class="text-sm text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.
+                            Skilled professionals dedicated to your success
                         </p>
+
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-dark/10 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-primary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
+                    <div class="card-hover p-6 bg-white rounded-2xl shadow-lg" style="padding: 10px;">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 flex-shrink-0 rounded-2xl flex items-center justify-center bg-gray-50">
+                                <iconify-icon icon="mdi:shield-check"
+                                    style="color: rgb(217, 38, 0); font-size: 28px;">
+                                </iconify-icon>
+                            </div>
+                            <h4 class="font-bold text-base" style="color: rgb(67, 26, 0);">
+                                Secure Platform
+                            </h4>
                         </div>
                         <p class="text-sm text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.
+                            Enterprise-grade security for your data
                         </p>
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-darker/10 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-primary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                    <div class="card-hover p-6 bg-white rounded-2xl shadow-lg" style="padding: 10px;">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 flex-shrink-0 rounded-2xl flex items-center justify-center bg-gray-50">
+                                <iconify-icon icon="mdi:lightning-bolt"
+                                    style="color: rgb(175, 20, 0); font-size: 28px;">
+                                </iconify-icon>
+                            </div>
+                            <h4 class="font-bold text-base" style="color: rgb(67, 26, 0);">
+                                Fast & Reliable
+                            </h4>
                         </div>
                         <p class="text-sm text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.
+                            Lightning-speed performance guaranteed
                         </p>
+                    </div>
+
+                </div>
+
+
+                <!-- Stats Row -->
+                <div class="grid grid-cols-3 gap-6 pt-4" style="margin-top: 20px;" id="stats-section">
+                    <div class="text-center">
+                        <div class="text-4xl font-black mb-2 counter" data-target="200" data-suffix="+" style="color: rgb(255, 60, 0);">0+</div>
+                        <div class="text-sm text-gray-600 font-medium">Happy Clients</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-black mb-2 counter" data-target="5000" data-suffix="K+" style="color: rgb(217, 38, 0);">0K+</div>
+                        <div class="text-sm text-gray-600 font-medium">Tasks Completed</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-black mb-2 counter" data-target="99.9" data-suffix="%" data-decimal="true" style="color: rgb(175, 20, 0);">0%</div>
+                        <div class="text-sm text-gray-600 font-medium">Uptime Rate</div>
                     </div>
                 </div>
             </div>
@@ -229,100 +258,156 @@
     </div>
 </section>
 
-<!-- Our Services Section - Content Left, Image Right -->
-<section class="relative py-20 px-6 sm:px-8 lg:px-16 my-20 overflow-hidden bg-white">
-    <!-- Decorative Wave Patterns -->
-    <div class="wave-pattern" style="z-index: 0;">
-        <!-- Top Left Wave -->
-        <div class="wave bg-primary-dark w-96 h-96 -top-20 -left-20 lg:w-[500px] lg:h-[500px] lg:-top-32 lg:-left-32"></div>
-        
-        <!-- Top Right Wave -->
-        <div class="wave bg-primary w-80 h-80 top-10 right-0 lg:w-[400px] lg:h-[400px] lg:top-20"></div>
-        
-        <!-- Bottom Left Wave -->
-        <div class="wave bg-primary-darker w-72 h-72 bottom-20 left-10 lg:w-[350px] lg:h-[350px]"></div>
-        
-        <!-- Bottom Right Wave -->
-        <div class="wave bg-primary-dark w-64 h-64 -bottom-10 -right-10 lg:w-[300px] lg:h-[300px]"></div>
-        
-        <!-- Additional decorative dots -->
-        <div class="absolute top-32 right-20 hidden lg:block">
-            <div class="grid grid-cols-3 gap-3">
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-                <div class="w-3 h-3 rounded-full bg-primary opacity-30"></div>
-            </div>
-        </div>
+<!-- Product Section with Wave Background -->
+<section class="section-spacing relative overflow-hidden bg-white" style="padding: 80px 0; margin: 20px 0;">
+    <!-- Wave Background -->
+    <div class="wave-bg">
+        <div class="wave" style="background: rgb(255, 60, 0); width: 650px; height: 650px; top: -250px; left: -150px;"></div>
+        <div class="wave" style="background: rgb(255, 60, 0); width: 550px; height: 550px; bottom: -150px; right: -100px; animation-delay: -8s;"></div>
+        <div class="wave" style="background: rgb(255, 60, 0); width: 450px; height: 450px; top: 40%; right: 20%; animation-delay: -14s;"></div>
     </div>
-
-    <div class="container mx-auto max-w-7xl relative z-10">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    
+    <div class="container mx-auto max-w-7xl px-6 sm:px-8 lg:px-16 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
             
-            <!-- Left Side - Content -->
-            <div class="space-y-8">
-                <div class="space-y-4">
-                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary">About Product</h2>
-                    <p class="text-lg text-gray-600 leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+            <!-- Left Content -->
+            <div class="space-y-10">
+                <div class="space-y-6">
+                    <div class="inline-block px-4 py-2 rounded-full" style="background-color: rgba(255, 60, 0, 0.1);">
+                        <span class="text-sm font-bold" style="color: rgb(217, 38, 0);">OUR PRODUCT</span>
+                    </div>
+                    <h2 class="text-5xl sm:text-6xl font-black leading-tight" style="color: rgb(255, 60, 0);">About Product</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Experience the next generation of virtual assistance. Our product combines advanced AI capabilities with intuitive design to deliver exceptional results for your business.
                     </p>
                 </div>
 
-                <!-- Feature Cards -->
-                <div class="grid sm:grid-cols-3 gap-6 pt-4">
-                    <!-- Card 1 -->
-                    <div class="text-center p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
+                <!-- Large Feature Cards -->
+                <div class="space-y-6">
+                    <div class="card-hover p-8 bg-white rounded-3xl shadow-lg border-l-4" style="border-color: rgb(255, 60, 0);">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center bg-primary text-white">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2" style="color: rgb(67, 26, 0);">Lightning Fast Performance</h3>
+                                <p class="text-gray-600">Process thousands of requests simultaneously with minimal latency and maximum efficiency.</p>
+                            </div>
                         </div>
-                        <p class="text-sm text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.
-                        </p>
                     </div>
 
-                    <!-- Card 2 -->
-                    <div class="text-center p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-dark/10 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-primary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                            </svg>
+                    <div class="card-hover p-8 bg-white rounded-3xl shadow-lg border-l-4" style="border-color: rgb(217, 38, 0);">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center bg-primary-dark text-white">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2" style="color: rgb(67, 26, 0);">Flexible Customization</h3>
+                                <p class="text-gray-600">Tailor every aspect to match your workflow and business requirements perfectly.</p>
+                            </div>
                         </div>
-                        <p class="text-sm text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.
-                        </p>
                     </div>
 
-                    <!-- Card 3 -->
-                    <div class="text-center p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-darker/10 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-primary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                            </svg>
+                    <div class="card-hover p-8 bg-white rounded-3xl shadow-lg border-l-4" style="border-color: rgb(175, 20, 0);">
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center bg-primary-darker text-white">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2" style="color: rgb(67, 26, 0);">Enterprise-Grade Security</h3>
+                                <p class="text-gray-600">Bank-level encryption and compliance with international security standards.</p>
+                            </div>
                         </div>
-                        <p class="text-sm text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.
-                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Side - Image -->
-            <div class="flex justify-center">
-                <div class="relative w-full max-w-lg">
-                    <div class="absolute inset-0 bg-primary-dark/10 rounded-3xl -rotate-6"></div>
-                    <img src="{% static 'ui/img/home6.png' %}" alt="Our Services" class="relative w-full h-auto rounded-3xl ">
+            <!-- Right Image with Modern Styling -->
+            <div class="flex justify-center lg:justify-end">
+                <div class="relative">
+                    <!-- Main Image Container -->
+                    <div class="relative p-8">
+                        <img src="{% static 'ui/img/home6.png' %}" alt="Product" class="w-full h-auto">
+                    </div>
+                   
                 </div>
             </div>
 
         </div>
     </div>
 </section>
+
+<script>
+// Animated Counter Function
+function animateCounter(element) {
+    const target = parseFloat(element.getAttribute('data-target'));
+    const suffix = element.getAttribute('data-suffix') || '+';
+    const isDecimal = element.getAttribute('data-decimal') === 'true';
+    const duration = 2000; // 2 seconds
+    const increment = target / (duration / 16); // 60fps
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        
+        if (isDecimal) {
+            element.textContent = current.toFixed(1) + suffix;
+        } else if (suffix === 'K+') {
+            // For 50K+, display as 50K+
+            const displayValue = Math.floor(current / 1000);
+            element.textContent = displayValue + suffix;
+        } else {
+            element.textContent = Math.floor(current) + suffix;
+        }
+    }, 16);
+}
+
+// Intersection Observer to trigger animation when section is visible
+const observerOptions = {
+    threshold: 0.3, // Trigger when 30% of element is visible
+    rootMargin: '0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Find all counters within the visible section
+            const counters = entry.target.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                if (!counter.classList.contains('animated')) {
+                    counter.classList.add('animated');
+                    animateCounter(counter);
+                }
+            });
+            // Optionally unobserve after animation
+            // observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe the stats section
+document.addEventListener('DOMContentLoaded', () => {
+    const statsSection = document.getElementById('stats-section');
+    if (statsSection) {
+        observer.observe(statsSection.parentElement); // Observe the parent section
+    }
+    
+    // Also observe individual counter elements (like Years Experience badge)
+    const allCounters = document.querySelectorAll('.counter');
+    allCounters.forEach(counter => {
+        observer.observe(counter.closest('section') || counter.parentElement);
+    });
+});
+</script>
 
 {% endblock %}

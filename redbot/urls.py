@@ -29,6 +29,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('service/', views.services, name='service'),
     path('contact/', views.contact, name='contact'),
+    path('about/', views.about, name='about'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('billing/', include('billing.urls')),

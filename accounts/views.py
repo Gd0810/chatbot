@@ -132,4 +132,11 @@ def contact(request):
         "meta_title": "Contact Us | My Django Website",
         "meta_description": "Contact our Django team",
         "meta_keywords": "contact, django company",
-    })   
+    })  
+
+def about(request):
+    return render(request, "pages/about.html", {
+        "meta_title": "About Us | My Django Website",
+        "meta_description": "About our Django team",
+        "meta_keywords": "about, django company",
+    })      

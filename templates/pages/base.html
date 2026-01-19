@@ -40,7 +40,22 @@
   <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
 {% comment %} Tailwind CDN {% endcomment %}
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: 'rgb(255, 60, 0)',
+              'primary-dark': 'rgb(217, 38, 0)',
+              'primary-darker': 'rgb(175, 20, 0)',
+              'primary-darkest': 'rgb(67, 26, 0)',
+            }
+          }
+        }
+      }
+    </script>
     
 </head>
 <style>

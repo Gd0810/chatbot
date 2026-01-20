@@ -1,40 +1,10 @@
 {% extends "pages/base.html" %}
 {% load static %}
 {% block content %}
-<script src="https://cdn.tailwindcss.com"></script>
- <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: 'rgb(255, 60, 0)',
-              'primary-dark': 'rgb(217, 38, 0)',
-              'primary-darker': 'rgb(175, 20, 0)',
-              'primary-darkest': 'rgb(67, 26, 0)',
-            }
-          }
-        }
-      }
-    </script>
+
 
 <h1>About Us</h1>
 <p>We provide Django services</p>
-<div class="pt-8">
-    <a href="{% url 'about' %}"
-       class="
-           inline-flex items-center gap-3
-           px-8 py-4
-           bg-primary text-white font-semibold
-           rounded-full
-           shadow-lg
-           transition-transform transition-colors duration-300 ease-out
-           hover:bg-primary-dark hover:shadow-xl hover:scale-105
-           active:scale-95
-           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-       ">
-        <span>About Us</span>
-        <iconify-icon icon="mdi:arrow-right" class="text-2xl"></iconify-icon>
-    </a>
-</div>
+
 
 {% endblock %}

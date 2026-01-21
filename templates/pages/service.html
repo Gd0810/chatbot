@@ -440,31 +440,32 @@
         }
         
         /* Scale ring 1 positions for tablet - radius: 162px */
-        /* Center is child 3, ring-one starts at child 4 */
-        .features-diagram-container > div:nth-child(4) { transform: translate(-50%, calc(-162px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(5) { transform: translate(calc(115px - 50%), calc(-115px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(6) { transform: translate(calc(162px - 50%), -50%) !important; }
-        .features-diagram-container > div:nth-child(7) { transform: translate(calc(115px - 50%), calc(115px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(8) { transform: translate(-50%, calc(162px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(9) { transform: translate(calc(-115px - 50%), calc(115px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(10) { transform: translate(calc(-162px - 50%), -50%) !important; }
-        .features-diagram-container > div:nth-child(11) { transform: translate(calc(-115px - 50%), calc(-115px - 50%)) !important; }
+        /* Ring 1 circles are inside ring-one-container */
+        .ring-one-container > div:nth-child(1) { transform: translate(-50%, calc(-162px - 50%)) !important; }
+        .ring-one-container > div:nth-child(2) { transform: translate(calc(115px - 50%), calc(-115px - 50%)) !important; }
+        .ring-one-container > div:nth-child(3) { transform: translate(calc(162px - 50%), -50%) !important; }
+        .ring-one-container > div:nth-child(4) { transform: translate(calc(115px - 50%), calc(115px - 50%)) !important; }
+        .ring-one-container > div:nth-child(5) { transform: translate(-50%, calc(162px - 50%)) !important; }
+        .ring-one-container > div:nth-child(6) { transform: translate(calc(-115px - 50%), calc(115px - 50%)) !important; }
+        .ring-one-container > div:nth-child(7) { transform: translate(calc(-162px - 50%), -50%) !important; }
+        .ring-one-container > div:nth-child(8) { transform: translate(calc(-115px - 50%), calc(-115px - 50%)) !important; }
         
         /* Scale ring 2 positions for tablet - radius: 270px */
-        /* Ring-two starts at child 12 */
-        .features-diagram-container > div:nth-child(12) { transform: translate(-50%, calc(-270px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(13) { transform: translate(calc(135px - 50%), calc(-234px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(14) { transform: translate(calc(234px - 50%), calc(-135px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(15) { transform: translate(calc(270px - 50%), -50%) !important; }
-        .features-diagram-container > div:nth-child(16) { transform: translate(calc(234px - 50%), calc(135px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(17) { transform: translate(calc(135px - 50%), calc(234px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(18) { transform: translate(-50%, calc(270px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(19) { transform: translate(calc(-135px - 50%), calc(234px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(20) { transform: translate(calc(-234px - 50%), calc(135px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(21) { transform: translate(calc(-270px - 50%), -50%) !important; }
-        .features-diagram-container > div:nth-child(22) { transform: translate(calc(-234px - 50%), calc(-135px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(23) { transform: translate(calc(-135px - 50%), calc(-234px - 50%)) !important; }
+        /* Ring 2 circles are inside ring-two-container */
+        .ring-two-container > div:nth-child(1) { transform: translate(-50%, calc(-270px - 50%)) !important; }
+        .ring-two-container > div:nth-child(2) { transform: translate(calc(135px - 50%), calc(-234px - 50%)) !important; }
+        .ring-two-container > div:nth-child(3) { transform: translate(calc(234px - 50%), calc(-135px - 50%)) !important; }
+        .ring-two-container > div:nth-child(4) { transform: translate(calc(270px - 50%), -50%) !important; }
+        .ring-two-container > div:nth-child(5) { transform: translate(calc(234px - 50%), calc(135px - 50%)) !important; }
+        .ring-two-container > div:nth-child(6) { transform: translate(calc(135px - 50%), calc(234px - 50%)) !important; }
+        .ring-two-container > div:nth-child(7) { transform: translate(-50%, calc(270px - 50%)) !important; }
+        .ring-two-container > div:nth-child(8) { transform: translate(calc(-135px - 50%), calc(234px - 50%)) !important; }
+        .ring-two-container > div:nth-child(9) { transform: translate(calc(-234px - 50%), calc(135px - 50%)) !important; }
+        .ring-two-container > div:nth-child(10) { transform: translate(calc(-270px - 50%), -50%) !important; }
+        .ring-two-container > div:nth-child(11) { transform: translate(calc(-234px - 50%), calc(-135px - 50%)) !important; }
+        .ring-two-container > div:nth-child(12) { transform: translate(calc(-135px - 50%), calc(-234px - 50%)) !important; }
     }
+
     
     @media (max-width: 768px) {
         .features-diagram-container {
@@ -525,29 +526,30 @@
         }
         
         /* Scale ring 1 positions for mobile - radius: 120px */
-        .features-diagram-container > div:nth-child(4) { transform: translate(-50%, calc(-120px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(5) { transform: translate(calc(85px - 50%), calc(-85px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(6) { transform: translate(calc(120px - 50%), -50%) !important; }
-        .features-diagram-container > div:nth-child(7) { transform: translate(calc(85px - 50%), calc(85px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(8) { transform: translate(-50%, calc(120px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(9) { transform: translate(calc(-85px - 50%), calc(85px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(10) { transform: translate(calc(-120px - 50%), -50%) !important; }
-        .features-diagram-container > div:nth-child(11) { transform: translate(calc(-85px - 50%), calc(-85px - 50%)) !important; }
+        .ring-one-container > div:nth-child(1) { transform: translate(-50%, calc(-120px - 50%)) !important; }
+        .ring-one-container > div:nth-child(2) { transform: translate(calc(85px - 50%), calc(-85px - 50%)) !important; }
+        .ring-one-container > div:nth-child(3) { transform: translate(calc(120px - 50%), -50%) !important; }
+        .ring-one-container > div:nth-child(4) { transform: translate(calc(85px - 50%), calc(85px - 50%)) !important; }
+        .ring-one-container > div:nth-child(5) { transform: translate(-50%, calc(120px - 50%)) !important; }
+        .ring-one-container > div:nth-child(6) { transform: translate(calc(-85px - 50%), calc(85px - 50%)) !important; }
+        .ring-one-container > div:nth-child(7) { transform: translate(calc(-120px - 50%), -50%) !important; }
+        .ring-one-container > div:nth-child(8) { transform: translate(calc(-85px - 50%), calc(-85px - 50%)) !important; }
         
         /* Scale ring 2 positions for mobile - radius: 200px */
-        .features-diagram-container > div:nth-child(12) { transform: translate(-50%, calc(-200px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(13) { transform: translate(calc(100px - 50%), calc(-173px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(14) { transform: translate(calc(173px - 50%), calc(-100px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(15) { transform: translate(calc(200px - 50%), -50%) !important; }
-        .features-diagram-container > div:nth-child(16) { transform: translate(calc(173px - 50%), calc(100px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(17) { transform: translate(calc(100px - 50%), calc(173px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(18) { transform: translate(-50%, calc(200px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(19) { transform: translate(calc(-100px - 50%), calc(173px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(20) { transform: translate(calc(-173px - 50%), calc(100px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(21) { transform: translate(calc(-200px - 50%), -50%) !important; }
-        .features-diagram-container > div:nth-child(22) { transform: translate(calc(-173px - 50%), calc(-100px - 50%)) !important; }
-        .features-diagram-container > div:nth-child(23) { transform: translate(calc(-100px - 50%), calc(-173px - 50%)) !important; }
+        .ring-two-container > div:nth-child(1) { transform: translate(-50%, calc(-200px - 50%)) !important; }
+        .ring-two-container > div:nth-child(2) { transform: translate(calc(100px - 50%), calc(-173px - 50%)) !important; }
+        .ring-two-container > div:nth-child(3) { transform: translate(calc(173px - 50%), calc(-100px - 50%)) !important; }
+        .ring-two-container > div:nth-child(4) { transform: translate(calc(200px - 50%), -50%) !important; }
+        .ring-two-container > div:nth-child(5) { transform: translate(calc(173px - 50%), calc(100px - 50%)) !important; }
+        .ring-two-container > div:nth-child(6) { transform: translate(calc(100px - 50%), calc(173px - 50%)) !important; }
+        .ring-two-container > div:nth-child(7) { transform: translate(-50%, calc(200px - 50%)) !important; }
+        .ring-two-container > div:nth-child(8) { transform: translate(calc(-100px - 50%), calc(173px - 50%)) !important; }
+        .ring-two-container > div:nth-child(9) { transform: translate(calc(-173px - 50%), calc(100px - 50%)) !important; }
+        .ring-two-container > div:nth-child(10) { transform: translate(calc(-200px - 50%), -50%) !important; }
+        .ring-two-container > div:nth-child(11) { transform: translate(calc(-173px - 50%), calc(-100px - 50%)) !important; }
+        .ring-two-container > div:nth-child(12) { transform: translate(calc(-100px - 50%), calc(-173px - 50%)) !important; }
     }
+
 
 
 

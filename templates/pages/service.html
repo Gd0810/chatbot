@@ -303,6 +303,31 @@
         line-height: 1.1;
     }
     
+    /* Ring containers for group rotation */
+    .ring-one-container,
+    .ring-two-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+    
+    .ring-one-container {
+        animation: orbit-left 60s linear infinite;
+    }
+    
+    .ring-two-container {
+        animation: orbit-right 80s linear infinite;
+    }
+    
+    /* Re-enable pointer events for circles */
+    .ring-one-container .feature-circle,
+    .ring-two-container .feature-circle {
+        pointer-events: all;
+    }
+    
     /* Connecting lines */
     .connection-ring {
         position: absolute;
@@ -313,11 +338,58 @@
     .ring-one-connection {
         width: 450px;
         height: 450px;
+        animation: rotate-left 60s linear infinite;
     }
     
     .ring-two-connection {
         width: 750px;
         height: 750px;
+        animation: rotate-right 80s linear infinite;
+    }
+    
+    /* Rotation animations */
+    @keyframes orbit-left {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(-360deg);
+        }
+    }
+    
+    @keyframes orbit-right {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes counter-orbit-left {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes counter-orbit-right {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(-360deg);
+        }
+    }
+    
+    /* Pause animation on hover */
+    .features-diagram-container:hover .ring-one-container,
+    .features-diagram-container:hover .ring-two-container,
+    .features-diagram-container:hover .ring-one-connection,
+    .features-diagram-container:hover .ring-two-connection {
+        animation-play-state: paused;
     }
     
     /* Responsive adjustments for features */
@@ -649,172 +721,178 @@
                 <div class="feature-title">AI Chatbot</div>
             </div>
             
-            <!-- Ring 1: 8 Circles (45° intervals) - Radius: 225px from center -->
-            <!-- Using transform with calculated positions -->
-            
-            <!-- Circle 1 - 0° (top) -->
-            <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(-50%, calc(-225px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:message-text" style="color: white; font-size: 24px;"></iconify-icon>
+            <!-- Ring 1 Container - Rotates counter-clockwise -->
+            <div class="ring-one-container">
+                <!-- Ring 1: 8 Circles (45° intervals) - Radius: 225px from center -->
+                
+                <!-- Circle 1 - 0° (top) -->
+                <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(-50%, calc(-225px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:message-text" style="color: white; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Natural<br>Language</div>
                 </div>
-                <div class="feature-title">Natural<br>Language</div>
+                
+                <!-- Circle 2 - 45° (top-right) -->
+                <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(159px - 50%), calc(-159px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:clock-outline" style="color: white; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">24/7<br>Support</div>
+                </div>
+                
+                <!-- Circle 3 - 90° (right) -->
+                <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(225px - 50%), -50%);">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:translate" style="color: white; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Multi<br>Language</div>
+                </div>
+                
+                <!-- Circle 4 - 135° (bottom-right) -->
+                <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(159px - 50%), calc(159px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:brain" style="color: white; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Smart<br>Learning</div>
+                </div>
+                
+                <!-- Circle 5 - 180° (bottom) -->
+                <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(-50%, calc(225px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:lightning-bolt" style="color: white; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Fast<br>Response</div>
+                </div>
+                
+                <!-- Circle 6 - 225° (bottom-left) -->
+                <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(-159px - 50%), calc(159px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:shield-check" style="color: white; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Secure</div>
+                </div>
+                
+                <!-- Circle 7 - 270° (left) -->
+                <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(-225px - 50%), -50%);">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:chart-line" style="color: white; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Analytics</div>
+                </div>
+                
+                <!-- Circle 8 - 315° (top-left) -->
+                <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(-159px - 50%), calc(-159px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:connection" style="color: white; font-size: 24px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Integration</div>
+                </div>
             </div>
             
-            <!-- Circle 2 - 45° (top-right) -->
-            <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(159px - 50%), calc(-159px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:clock-outline" style="color: white; font-size: 24px;"></iconify-icon>
+            <!-- Ring 2 Container - Rotates clockwise -->
+            <div class="ring-two-container">
+                <!-- Ring 2: 12 Circles (30° intervals) - Radius: 375px from center -->
+                
+                <!-- Circle 1 - 0° (top) -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(-50%, calc(-375px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:microphone" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Voice</div>
                 </div>
-                <div class="feature-title">24/7<br>Support</div>
-            </div>
-            
-            <!-- Circle 3 - 90° (right) -->
-            <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(225px - 50%), -50%);">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:translate" style="color: white; font-size: 24px;"></iconify-icon>
+                
+                <!-- Circle 2 - 30° -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(187px - 50%), calc(-325px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:emoticon-happy" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Sentiment</div>
                 </div>
-                <div class="feature-title">Multi<br>Language</div>
-            </div>
-            
-            <!-- Circle 4 - 135° (bottom-right) -->
-            <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(159px - 50%), calc(159px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:brain" style="color: white; font-size: 24px;"></iconify-icon>
+                
+                <!-- Circle 3 - 60° -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(325px - 50%), calc(-187px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:routes" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Routing</div>
                 </div>
-                <div class="feature-title">Smart<br>Learning</div>
-            </div>
-            
-            <!-- Circle 5 - 180° (bottom) -->
-            <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(-50%, calc(225px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:lightning-bolt" style="color: white; font-size: 24px;"></iconify-icon>
+                
+                <!-- Circle 4 - 90° (right) -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(375px - 50%), -50%);">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:book-open" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Knowledge</div>
                 </div>
-                <div class="feature-title">Fast<br>Response</div>
-            </div>
-            
-            <!-- Circle 6 - 225° (bottom-left) -->
-            <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(-159px - 50%), calc(159px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:shield-check" style="color: white; font-size: 24px;"></iconify-icon>
+                
+                <!-- Circle 5 - 120° -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(325px - 50%), calc(187px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:workflow" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Workflow</div>
                 </div>
-                <div class="feature-title">Secure</div>
-            </div>
-            
-            <!-- Circle 7 - 270° (left) -->
-            <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(-225px - 50%), -50%);">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:chart-line" style="color: white; font-size: 24px;"></iconify-icon>
+                
+                <!-- Circle 6 - 150° -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(187px - 50%), calc(325px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:api" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">API</div>
                 </div>
-                <div class="feature-title">Analytics</div>
-            </div>
-            
-            <!-- Circle 8 - 315° (top-left) -->
-            <div class="feature-circle ring-one-circle" style="left: 50%; top: 50%; transform: translate(calc(-159px - 50%), calc(-159px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:connection" style="color: white; font-size: 24px;"></iconify-icon>
+                
+                <!-- Circle 7 - 180° (bottom) -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(-50%, calc(375px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:sync" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Real-time</div>
                 </div>
-                <div class="feature-title">Integration</div>
-            </div>
-            
-            <!-- Ring 2: 12 Circles (30° intervals) - Radius: 375px from center -->
-            
-            <!-- Circle 1 - 0° (top) -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(-50%, calc(-375px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:microphone" style="color: white; font-size: 20px;"></iconify-icon>
+                
+                <!-- Circle 8 - 210° -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-187px - 50%), calc(325px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:cellphone" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Mobile</div>
                 </div>
-                <div class="feature-title">Voice</div>
-            </div>
-            
-            <!-- Circle 2 - 30° -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(187px - 50%), calc(-325px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:emoticon-happy" style="color: white; font-size: 20px;"></iconify-icon>
+                
+                <!-- Circle 9 - 240° -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-325px - 50%), calc(187px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:cloud" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Cloud</div>
                 </div>
-                <div class="feature-title">Sentiment</div>
-            </div>
-            
-            <!-- Circle 3 - 60° -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(325px - 50%), calc(-187px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:routes" style="color: white; font-size: 20px;"></iconify-icon>
+                
+                <!-- Circle 10 - 270° (left) -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-375px - 50%), -50%);">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:arrow-expand" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Scalable</div>
                 </div>
-                <div class="feature-title">Routing</div>
-            </div>
-            
-            <!-- Circle 4 - 90° (right) -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(375px - 50%), -50%);">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:book-open" style="color: white; font-size: 20px;"></iconify-icon>
+                
+                <!-- Circle 11 - 300° -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-325px - 50%), calc(-187px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:file-chart" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Reports</div>
                 </div>
-                <div class="feature-title">Knowledge</div>
-            </div>
-            
-            <!-- Circle 5 - 120° -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(325px - 50%), calc(187px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:workflow" style="color: white; font-size: 20px;"></iconify-icon>
+                
+                <!-- Circle 12 - 330° -->
+                <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-187px - 50%), calc(-325px - 50%));">
+                    <div class="icon-box">
+                        <iconify-icon icon="mdi:account-group" style="color: white; font-size: 20px;"></iconify-icon>
+                    </div>
+                    <div class="feature-title">Team</div>
                 </div>
-                <div class="feature-title">Workflow</div>
-            </div>
-            
-            <!-- Circle 6 - 150° -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(187px - 50%), calc(325px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:api" style="color: white; font-size: 20px;"></iconify-icon>
-                </div>
-                <div class="feature-title">API</div>
-            </div>
-            
-            <!-- Circle 7 - 180° (bottom) -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(-50%, calc(375px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:sync" style="color: white; font-size: 20px;"></iconify-icon>
-                </div>
-                <div class="feature-title">Real-time</div>
-            </div>
-            
-            <!-- Circle 8 - 210° -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-187px - 50%), calc(325px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:cellphone" style="color: white; font-size: 20px;"></iconify-icon>
-                </div>
-                <div class="feature-title">Mobile</div>
-            </div>
-            
-            <!-- Circle 9 - 240° -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-325px - 50%), calc(187px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:cloud" style="color: white; font-size: 20px;"></iconify-icon>
-                </div>
-                <div class="feature-title">Cloud</div>
-            </div>
-            
-            <!-- Circle 10 - 270° (left) -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-375px - 50%), -50%);">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:arrow-expand" style="color: white; font-size: 20px;"></iconify-icon>
-                </div>
-                <div class="feature-title">Scalable</div>
-            </div>
-            
-            <!-- Circle 11 - 300° -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-325px - 50%), calc(-187px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:file-chart" style="color: white; font-size: 20px;"></iconify-icon>
-                </div>
-                <div class="feature-title">Reports</div>
-            </div>
-            
-            <!-- Circle 12 - 330° -->
-            <div class="feature-circle ring-two-circle" style="left: 50%; top: 50%; transform: translate(calc(-187px - 50%), calc(-325px - 50%));">
-                <div class="icon-box">
-                    <iconify-icon icon="mdi:account-group" style="color: white; font-size: 20px;"></iconify-icon>
-                </div>
-                <div class="feature-title">Team</div>
             </div>
         </div>
     
+
 
 
 </section>

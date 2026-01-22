@@ -551,6 +551,77 @@
     }
 
 
+    /* Feature List Section Styles */
+    .feature-list-section {
+        background: white;
+        padding: 80px 0;
+    }
+    
+    .feature-list-card {
+        background: #f8f9fa;
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .feature-list-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(255, 60, 0, 0.15);
+    }
+    
+    .feature-list-icon {
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
+        background: linear-gradient(135deg, rgb(255, 60, 0), rgb(217, 38, 0));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(255, 60, 0, 0.3);
+    }
+    
+    .feature-list-content h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: rgb(67, 26, 0);
+        margin-bottom: 8px;
+    }
+    
+    .feature-list-content p {
+        font-size: 15px;
+        color: #666;
+        line-height: 1.6;
+        margin: 0;
+    }
+    
+    @media (max-width: 768px) {
+        .feature-list-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+        
+        .feature-list-icon {
+            width: 70px;
+            height: 70px;
+            min-width: 70px;
+        }
+        
+        .feature-list-content h3 {
+            font-size: 18px;
+        }
+        
+        .feature-list-content p {
+            font-size: 14px;
+        }
+    }
+
 
 
 </style>
@@ -894,10 +965,130 @@
             </div>
         </div>
     
-
-
+        <div class="container mx-auto px-4 max-w-7xl"> 
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Left Column -->
+            <div>
+                <!-- Feature 1 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:view-dashboard" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>Separate Dashboard</h3>
+                        <p>Client gets a dedicated dashboard to manage and monitor all bot activities efficiently</p>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:account-cog" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>Account Management</h3>
+                        <p>Access and maintain account details and plan information from one central location</p>
+                    </div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:robot-industrial" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>Multi-Bot Settings</h3>
+                        <p>Manage settings for all three bots (AI Bot, Live Chat, Q&A) if your plan includes them</p>
+                    </div>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:palette" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>UI Customization</h3>
+                        <p>Customize chatbot UI styling to match your brand identity and preferences</p>
+                    </div>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:chat" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>Live Chat Dashboard</h3>
+                        <p>Monitor and manage live conversations between website visitors and your team in real-time</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column -->
+            <div>
+                <!-- Feature 6 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:brain" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>Knowledge Base Management</h3>
+                        <p>Maintain AI knowledge and FAQ data directly from the dashboard for accurate responses</p>
+                    </div>
+                </div>
+                
+                <!-- Feature 7 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:spider-web" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>Web Crawler</h3>
+                        <p>Automatically extract and update AI knowledge from your website using our web crawler</p>
+                    </div>
+                </div>
+                
+                <!-- Feature 8 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:form-select" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>Enquiry Form Integration</h3>
+                        <p>Collect and manage enquiry data from the bot's integrated form in your dashboard</p>
+                    </div>
+                </div>
+                
+                <!-- Feature 9 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:refresh" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>Reset Button</h3>
+                        <p>Clear chat history with a convenient reset button for a fresh conversation start</p>
+                    </div>
+                </div>
+                
+                <!-- Feature 10 -->
+                <div class="feature-list-card">
+                    <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:whatsapp" style="color: white; font-size: 40px;"></iconify-icon>
+                    </div>
+                    <div class="feature-list-content">
+                        <h3>WhatsApp Backup</h3>
+                        <p>Integrate backup WhatsApp number for seamless communication fallback in AI chat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>
+
+
 
 <!-- Additional spacing to account for overlayed cards -->
 <div style="height: 100px;"></div>

@@ -559,7 +559,7 @@
     
     .feature-list-card {
         background: white;
-        border-radius: 20px;
+        {% comment %} border-radius: 20px; {% endcomment %}
         padding: 30px;
         margin-bottom: 24px;
         display: flex;
@@ -972,11 +972,11 @@
             <!-- Left Column -->
             <div>
                 <!-- Feature 1 -->
-                <div class="feature-list-card">
+                <div class="feature-list-card rounded-l-[100px]  ">
                     <div class="feature-list-icon">
                         <iconify-icon icon="mdi:view-dashboard" style="color: white; font-size: 40px;"></iconify-icon>
                     </div>
-                    <div class="feature-list-content">
+                    <div class="feature-list-content bg-gray-100 px-10 py-4  rounded-l-[80px]">
                         <h3>Separate Dashboard</h3>
                         <p>Client gets a dedicated dashboard to manage and monitor all bot activities efficiently</p>
                     </div>
@@ -1031,12 +1031,13 @@
             <div>
                 <!-- Feature 6 -->
                 <div class="feature-list-card">
-                    <div class="feature-list-icon">
-                        <iconify-icon icon="mdi:brain" style="color: white; font-size: 40px;"></iconify-icon>
-                    </div>
+                   
                     <div class="feature-list-content">
                         <h3>Knowledge Base Management</h3>
                         <p>Maintain AI knowledge and FAQ data directly from the dashboard for accurate responses</p>
+                    </div>
+                     <div class="feature-list-icon">
+                        <iconify-icon icon="mdi:brain" style="color: white; font-size: 40px;"></iconify-icon>
                     </div>
                 </div>
                 

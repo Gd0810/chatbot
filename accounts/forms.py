@@ -32,23 +32,25 @@ class ContactForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        CONTACT_INPUT = 'contact-input'
+        
         self.fields['name'].widget.attrs.update({
-            'class': TAILWIND_INPUT,
-            'placeholder': 'Your full name',
+            'class': CONTACT_INPUT,
+            'placeholder': 'Enter your Name',
         })
         self.fields['gmail'].widget.attrs.update({
-            'class': TAILWIND_INPUT,
-            'placeholder': 'your.email@example.com',
+            'class': CONTACT_INPUT,
+            'placeholder': 'Enter a valid email address',
             'type': 'email',
         })
         self.fields['whatsappnumber'].widget.attrs.update({
-            'class': TAILWIND_INPUT,
+            'class': CONTACT_INPUT,
             'placeholder': '+1234567890',
         })
         self.fields['business_name'].widget.attrs.update({
-            'class': TAILWIND_INPUT,
+            'class': CONTACT_INPUT,
             'placeholder': 'Your business name',
         })
         self.fields['plane'].widget.attrs.update({
-            'class': 'border rounded px-2 py-1 w-full',
+            'class': CONTACT_INPUT,
         })

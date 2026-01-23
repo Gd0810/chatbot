@@ -1,64 +1,323 @@
 {% extends "pages/base.html" %}
-{% comment %} {% include 'testing/toast.html' %} {% endcomment %}
+{% load static %}
 {% block content %}
-<div class="container mx-auto px-4 py-12 max-w-2xl">
-    <h1 class="text-4xl font-bold mb-8 text-center">Contact Us</h1>
+<style>
+    .contact-gradient-bg {
+      
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+    }
     
-   
+    .bubble {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.12;
+        animation: float-bubble 25s ease-in-out infinite;
+    }
     
-    <form method="post" class="bg-white shadow-lg rounded-lg p-8">
-        {% csrf_token %}
-        
-        <div class="mb-6">
-            <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-            {{ form.name }}
-            {% if form.name.errors %}
-                <div class="text-red-600 text-sm mt-1">{{ form.name.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="mb-6">
-            <label for="{{ form.gmail.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-            {{ form.gmail }}
-            {% if form.gmail.errors %}
-                <div class="text-red-600 text-sm mt-1">{{ form.gmail.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="mb-6">
-            <label for="{{ form.whatsappnumber.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">WhatsApp Number</label>
-            {{ form.whatsappnumber }}
-            {% if form.whatsappnumber.errors %}
-                <div class="text-red-600 text-sm mt-1">{{ form.whatsappnumber.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="mb-6">
-            <label for="{{ form.business_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Business Name</label>
-            {{ form.business_name }}
-            {% if form.business_name.errors %}
-                <div class="text-red-600 text-sm mt-1">{{ form.business_name.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="mb-6">
-            <label for="{{ form.plane.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Interested Plan</label>
-            {{ form.plane }}
-            {% if form.plane.errors %}
-                <div class="text-red-600 text-sm mt-1">{{ form.plane.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Send Message
-        </button>
-    </form>
+    @keyframes float-bubble {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25% { transform: translate(30px, -30px) scale(1.1); }
+        50% { transform: translate(-20px, 20px) scale(0.9); }
+        75% { transform: translate(20px, 30px) scale(1.05); }
+    }
     
-    <div class="mt-12 text-center">
-        <p class="text-gray-600 mb-4">Or reach out to us directly:</p>
-        <p class="text-lg"><strong>Email:</strong> contact@example.com</p>
+    .contact-container {
+        display: flex;
+        max-width: 1100px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+    
+    .contact-info-panel {
+        background: linear-gradient(135deg, rgb(255, 60, 0), rgb(217, 38, 0));
+        padding: 48px 40px;
+        width: 380px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .contact-info-panel::after {
+        content: '';
+        position: absolute;
+        bottom: -80px;
+        right: -80px;
+        width: 250px;
+        height: 250px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+    
+    .contact-info-panel h2 {
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .contact-info-panel p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .contact-detail {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 28px;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .contact-detail iconify-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+    
+    .contact-detail span {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+    
+    .contact-form-panel {
+        flex: 1;
+        padding: 48px 50px;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+    
+    .form-group {
+        margin-bottom: 24px;
+    }
+    
+    .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: rgb(255, 60, 0);
+        margin-bottom: 8px;
+        text-transform: capitalize;
+    }
+    
+    .contact-input {
+        width: 100%;
+        padding: 0 0 10px 0;
+        border: none;
+        border-bottom: 2px solid #e5e7eb;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background: transparent;
+        color: #333;
+    }
+    
+    .contact-input:focus {
+        outline: none;
+        border-bottom-color: rgb(255, 60, 0);
+    }
+    
+    .contact-input::placeholder {
+        color: #9ca3af;
+    }
+    
+    textarea.contact-input {
+        resize: vertical;
+        min-height: 80px;
+        padding-top: 10px;
+    }
+    
+    .contact-submit-btn {
+        background: linear-gradient(135deg, rgb(255, 60, 0), rgb(217, 38, 0));
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 14px 36px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(255, 60, 0, 0.3);
+        margin-top: 12px;
+    }
+    
+    .contact-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(255, 60, 0, 0.4);
+    }
+    
+    .contact-submit-btn:active {
+        transform: translateY(0);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .contact-container {
+            max-width: 900px;
+        }
+        
+        .contact-info-panel {
+            width: 320px;
+            padding: 40px 32px;
+        }
+        
+        .contact-form-panel {
+            padding: 40px 36px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .contact-container {
+            flex-direction: column;
+            margin: 20px;
+        }
+        
+        .contact-info-panel {
+            width: 100%;
+            padding: 36px 28px;
+        }
+        
+        .contact-form-panel {
+            padding: 36px 28px;
+        }
+        
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+    }
+    
+    @media (max-width: 640px) {
+        .contact-info-panel h2 {
+            font-size: 24px;
+        }
+        
+        .contact-info-panel {
+            padding: 32px 24px;
+        }
+        
+        .contact-form-panel {
+            padding: 32px 24px;
+        }
+        
+        .contact-detail {
+            margin-bottom: 24px;
+        }
+    }
+</style>
+
+<!-- Contact Section -->
+<section class="contact-gradient-bg" style="padding: 80px 0;">
+    <!-- Bubble Background -->
+    <div class="bubble" style="background: rgb(255, 60, 0); width: 400px; height: 400px; top: -100px; left: -100px;"></div>
+    <div class="bubble" style="background: rgb(217, 38, 0); width: 350px; height: 350px; top: 20%; right: -80px; animation-delay: -5s;"></div>
+    <div class="bubble" style="background: rgb(175, 20, 0); width: 300px; height: 300px; bottom: -80px; left: 15%; animation-delay: -10s;"></div>
+    <div class="bubble" style="background: rgb(255, 60, 0); width: 250px; height: 250px; bottom: 10%; right: 10%; animation-delay: -15s;"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl sm:text-6xl font-black mb-4" style="color: rgb(67, 26, 0);">
+                Get In Touch
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                We'll create high-quality linkable content and build at least 40 high-authority links to each asset, paving the way for you to grow your rankings, improve brand.
+            </p>
+        </div>
+        
+        <!-- Contact Container -->
+        <div class="contact-container">
+            <!-- Left Panel - Contact Information -->
+            <div class="contact-info-panel">
+                <h2>Contact Information</h2>
+                <p>We'll create high-quality linkable content and build at least 40 high-authority.</p>
+                
+                <div class="contact-detail">
+                    <iconify-icon icon="mdi:phone"></iconify-icon>
+                    <span>+8801779177888<br>+88987836366</span>
+                </div>
+                
+                <div class="contact-detail">
+                    <iconify-icon icon="mdi:email"></iconify-icon>
+                    <span>Support@nurancly.com</span>
+                </div>
+                
+                <div class="contact-detail">
+                    <iconify-icon icon="mdi:map-marker"></iconify-icon>
+                    <span>New York, USA</span>
+                </div>
+            </div>
+            
+            <!-- Right Panel - Contact Form -->
+            <div class="contact-form-panel">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="text-red-600 text-sm mt-1">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Your Email</label>
+                            {{ form.gmail }}
+                            {% if form.gmail.errors %}
+                                <div class="text-red-600 text-sm mt-1">{{ form.gmail.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>WhatsApp Number</label>
+                            {{ form.whatsappnumber }}
+                            {% if form.whatsappnumber.errors %}
+                                <div class="text-red-600 text-sm mt-1">{{ form.whatsappnumber.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            {{ form.business_name }}
+                            {% if form.business_name.errors %}
+                                <div class="text-red-600 text-sm mt-1">{{ form.business_name.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Interested Plan</label>
+                        {{ form.plane }}
+                        {% if form.plane.errors %}
+                            <div class="text-red-600 text-sm mt-1">{{ form.plane.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="contact-submit-btn">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
 {% endblock %}
-

@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django import forms
-from .models import User, Workspace
+from .models import User, Workspace, Contact
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
@@ -70,3 +70,10 @@ class WorkspaceAdmin(admin.ModelAdmin):
         updated = queryset.update(approved=False)
         self.message_user(request, f"{updated} workspace(s) rejected.")
     reject_workspaces.short_description = "Reject selected workspaces"
+
+
+    @admin.register(Contact)
+    class ContactAdmin(admin.ModelAdmin):
+        list_display = ['name', 'gmail', 'whatsappnumber', 'business_name', 'plane', 'created_at']
+        list_filter = ['plane', 'created_at']
+        search_fields = ['name', 'gmail', 'business_name', 'whatsappnumber']

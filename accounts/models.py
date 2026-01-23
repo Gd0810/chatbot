@@ -119,5 +119,23 @@ class Workspace(models.Model):
             return 'LIVE'
         elif ap.bundle == 'QA_ONLY':
             return 'QA'
-        
-        return 'AI'  # fallback    
+        return 'AI'
+
+class Contact(models.Model):
+    PLAN_CHOICES = (
+        ('Full Pack', 'Full Pack'),
+        ('Live & FAQ', 'Live & FAQ'),
+        ('AI', 'AI'),
+        ('Livechat', 'Livechat'),
+        ('FAQ', 'FAQ'),
+    )
+
+    name = models.CharField(max_length=255)
+    gmail = models.EmailField()
+    whatsappnumber = models.CharField(max_length=20)
+    business_name = models.CharField(max_length=255)
+    plane = models.CharField(max_length=50, choices=PLAN_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.business_name} ({self.plane})"

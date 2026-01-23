@@ -2,13 +2,13 @@
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.shortcuts import render
-from meta.views import Meta
 from django.urls import reverse
 
-from .models import Workspace
+from .models import Workspace, Contact
+from .forms import TailwindPasswordChangeForm, ContactForm
 
 def _get_user_workspace(user):
     # If you allow multiple, pick the latest; else first()
@@ -68,18 +68,7 @@ def not_allowed(request):
         'detail': detail
     })
     
-    
 # accounts/views.py (add/replace this view)
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash
-from django.contrib import messages
-from django.shortcuts import render
-from .forms import TailwindPasswordChangeForm
-from accounts.models import Workspace  # to render account partial after success
-
-def _get_user_workspace(user):
-    return Workspace.objects.filter(owner=user).order_by('-created_at').first()
-
 @login_required
 def password_change_view(request):
     """
@@ -128,10 +117,22 @@ def services(request):
 
 
 def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Thank you! Your contact information has been submitted. We will get back to you soon.")
+            return redirect('accounts:contact')
+        else:
+            messages.error(request, "There was an error submitting the form. Please try again.")
+    else:
+        form = ContactForm()
+    
     return render(request, "pages/contact.html", {
         "meta_title": "Contact Us | My Django Website",
         "meta_description": "Contact our Django team",
         "meta_keywords": "contact, django company",
+        "form": form,
     })  
 
 def about(request):

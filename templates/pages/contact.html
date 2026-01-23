@@ -1,6 +1,64 @@
 {% extends "pages/base.html" %}
-
+{% comment %} {% include 'testing/toast.html' %} {% endcomment %}
 {% block content %}
-<h1>Contact Us</h1>
-<p>Email: contact@example.com</p>
+<div class="container mx-auto px-4 py-12 max-w-2xl">
+    <h1 class="text-4xl font-bold mb-8 text-center">Contact Us</h1>
+    
+   
+    
+    <form method="post" class="bg-white shadow-lg rounded-lg p-8">
+        {% csrf_token %}
+        
+        <div class="mb-6">
+            <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="text-red-600 text-sm mt-1">{{ form.name.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-6">
+            <label for="{{ form.gmail.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+            {{ form.gmail }}
+            {% if form.gmail.errors %}
+                <div class="text-red-600 text-sm mt-1">{{ form.gmail.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-6">
+            <label for="{{ form.whatsappnumber.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">WhatsApp Number</label>
+            {{ form.whatsappnumber }}
+            {% if form.whatsappnumber.errors %}
+                <div class="text-red-600 text-sm mt-1">{{ form.whatsappnumber.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-6">
+            <label for="{{ form.business_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Business Name</label>
+            {{ form.business_name }}
+            {% if form.business_name.errors %}
+                <div class="text-red-600 text-sm mt-1">{{ form.business_name.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-6">
+            <label for="{{ form.plane.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Interested Plan</label>
+            {{ form.plane }}
+            {% if form.plane.errors %}
+                <div class="text-red-600 text-sm mt-1">{{ form.plane.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Send Message
+        </button>
+    </form>
+    
+    <div class="mt-12 text-center">
+        <p class="text-gray-600 mb-4">Or reach out to us directly:</p>
+        <p class="text-lg"><strong>Email:</strong> contact@example.com</p>
+    </div>
+</div>
+
 {% endblock %}
+

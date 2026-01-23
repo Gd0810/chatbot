@@ -17,14 +17,13 @@
         }
 
         header {
-            position: sticky;
-            top: 0;
+            position: static;
             width: 100%;
-            z-index: 1000;
             background:transparent;
             padding: 1rem 0;
             border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
+            overflow: visible;
         }
 
         header.scrolled {
@@ -40,6 +39,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -79,6 +79,11 @@
             list-style: none;
             gap: 2.5rem;
             align-items: center;
+        }
+        
+        nav {
+            position: static;
+            overflow: visible;
         }
 
         nav ul li {
@@ -180,6 +185,10 @@
             .menu-toggle {
                 display: flex;
             }
+            
+            nav {
+                position: relative;
+            }
 
             nav ul {
                 position: absolute;
@@ -194,6 +203,7 @@
                 overflow: hidden;
                 transition: max-height 0.4s ease, padding 0.4s ease;
                 box-shadow: 0 4px 6px rgba(67, 26, 0, 0.1);
+                z-index: 1000;
             }
 
             nav ul.active {

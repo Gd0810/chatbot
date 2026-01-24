@@ -4,6 +4,7 @@ from django import forms
 from django.utils.html import format_html
 
 from .models import Bot, BotFooter, BotEnquiry
+from .email import send_bot_activation_email
 
 
 class BotAdminForm(forms.ModelForm):
@@ -87,6 +88,11 @@ class BotAdmin(admin.ModelAdmin):
     @admin.action(description="Enable selected bots")
     def enable_bots(self, request, queryset):
         updated = queryset.update(is_enabled=True)
+        
+        # Send notification emails to workspace owners
+        for bot in queryset:
+            send_bot_activation_email(bot, request)
+        
         self.message_user(request, f"Enabled {updated} bot(s).")
 
     @admin.action(description="Disable selected bots")

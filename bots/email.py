@@ -32,74 +32,179 @@ def send_bot_activation_email(bot, request):
         
         # HTML version
         html_message = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Chatbot Account Created</title>
-        </head>
-        <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; line-height: 1.6;">
-            <div style="max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;">
-                
-                <!-- Header Section -->
-                <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 30px; text-align: center; color: white;">
-                    <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.5px;">Account Created Successfully!</h1>
-                    <p style="margin: 8px 0 0 0; font-size: 16px; opacity: 0.9;">Your chatbot is ready to use</p>
-                </div>
-                
-                <!-- Content Section -->
-                <div style="padding: 40px 30px;">
-                    <div style="margin-bottom: 30px;">
-                        <p style="font-size: 16px; color: #374151; margin: 0 0 15px 0;">Dear <strong>{owner.username}</strong>,</p>
-                        <p style="font-size: 16px; color: #6b7280; margin: 0; line-height: 1.6;">Your chatbot account has been created successfully. You're all set to start managing your bot and enhancing your customer support experience.</p>
-                    </div>
-                    
-                    <!-- Highlights Box -->
-                    <div style="background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%); border-left: 4px solid #2563eb; padding: 25px; margin: 30px 0; border-radius: 0 8px 8px 0;">
-                        <h3 style="margin: 0 0 20px 0; font-size: 18px; color: #1e40af; font-weight: 600;">Next Steps</h3>
-                        <ul style="margin: 0; padding-left: 20px; color: #374151; font-size: 14px; line-height: 1.8;">
-                            <li>Contact Redback to receive your credentials</li>
-                            <li>Log in to your dashboard with the provided credentials</li>
-                            <li>Configure your chatbot settings and preferences</li>
-                            <li>Start managing your bot and conversations</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Call to Action -->
-                    <div style="text-align: center; margin: 35px 0;">
-                        <a href="{request.build_absolute_uri('/dashboard/')}" 
-                           style="display: inline-block; background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; letter-spacing: 0.3px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);">
-                            Access Your Dashboard
-                        </a>
-                    </div>
-                    
-                    <!-- Support Info -->
-                    <div style="background-color: #fefce8; border: 1px solid #fde047; border-radius: 8px; padding: 20px; margin: 30px 0;">
-                        <h4 style="margin: 0 0 12px 0; font-size: 16px; color: #a16207; font-weight: 600;">Support</h4>
-                        <p style="margin: 0; font-size: 14px; color: #92400e; line-height: 1.6;">
-                            If you have any questions or need assistance, please don't hesitate to contact our support team at Redback.
-                        </p>
-                    </div>
-                    
-                    <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #e5e7eb;">
-                        <p style="margin: 0 0 8px 0; font-size: 16px; color: #374151;">Best regards,</p>
-                        <p style="margin: 0; font-size: 16px; font-weight: 600; color: #111827;">Redback Team</p>
-                    </div>
-                </div>
-                
-                <!-- Footer -->
-                <div style="background-color: #f3f4f6; padding: 25px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
-                    <p style="margin: 0; font-size: 12px; color: #6b7280;">
-                        This is an automated notification. Your chatbot account is now active.<br>
-                        For support, please contact the Redback team.
-                    </p>
-                </div>
-                
-            </div>
-        </body>
-        </html>
-        """
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Chatbot Account Activated</title>
+                    </head>
+
+                    <body style="margin:0; padding:0; background-color:#f6f6f6; font-family:Arial, Helvetica, sans-serif;">
+
+                    <table width="100%" cellpadding="0" cellspacing="0" style="padding:30px 10px;">
+                    <tr>
+                    <td align="center">
+
+                    <!-- Main Container -->
+                    <table width="600" cellpadding="0" cellspacing="0"
+                        style="max-width:600px; background:#ffffff; border-radius:10px;
+                                box-shadow:0 6px 20px rgba(0,0,0,0.08); overflow:hidden;">
+
+                        <!-- Header -->
+                        <tr>
+                            <td style="background:linear-gradient(135deg, rgb(255,60,0), rgb(175,20,0));
+                                    padding:32px; text-align:center;">
+                                <h1 style="margin:0; color:#ffffff; font-size:26px; font-weight:600;">
+                                    Chatbot Account Activated
+                                </h1>
+                                <p style="margin-top:10px; color:#ffe3da; font-size:15px;">
+                                    Your Redback chatbot is ready for use
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding:35px; color:#333333;">
+
+                                <p style="font-size:16px; margin:0 0 16px;">
+                                    Dear <strong>{owner.username}</strong>,
+                                </p>
+
+                                <p style="font-size:15px; line-height:1.7; margin:0 0 28px;">
+                                    Your chatbot account has been created successfully.
+                                    You can now manage your chatbot, configure settings,
+                                    and monitor conversations through your dashboard.
+                                </p>
+
+                                <!-- Steps Box -->
+                                <table width="100%" cellpadding="0" cellspacing="0"
+                                    style="background:#fff3ef; border-left:4px solid rgb(255,60,0);
+                                            border-radius:6px; margin-bottom:30px;">
+                                    <tr>
+                                        <td style="padding:20px;">
+                                            <h3 style="margin:0 0 12px; color:rgb(175,20,0); font-size:17px;">
+                                                Next Steps
+                                            </h3>
+                                            <ul style="margin:0; padding-left:20px; font-size:14px; line-height:1.8;">
+                                                <li>Contact Redback to receive your credentials</li>
+                                                <li>Access your dashboard</li>
+                                                <li>Configure your chatbot</li>
+                                                <li>Start managing customer interactions</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- Dashboard Button -->
+                                <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:35px;">
+                                    <tr>
+                                        <td align="center">
+                                            <a href="{request.build_absolute_uri('/dashboard/')}"
+                                            style="background:rgb(255,60,0); color:#ffffff;
+                                                    text-decoration:none; padding:14px 34px;
+                                                    font-size:15px; font-weight:600;
+                                                    border-radius:6px; display:inline-block;">
+                                                Access Dashboard
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- Support Section -->
+                                <table width="100%" cellpadding="0" cellspacing="0"
+                                    style="background:#fffaf8; border:1px solid #ffd1c4;
+                                            border-radius:8px;">
+                                    <tr>
+                                        <td style="padding:22px;">
+                                            <h3 style="margin:0 0 12px; font-size:16px; color:rgb(67,26,0);">
+                                                Support & Contact
+                                            </h3>
+
+                                            <p style="font-size:14px; line-height:1.6; margin:0 0 20px; color:#444;">
+                                                If you have any questions or need assistance, please don't hesitate
+                                                to contact our support team at Redback.
+                                            </p>
+
+                                            <!-- Buttons Grid -->
+                                            <table width="100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center" style="padding:6px;">
+                                                        <a href="tel:8189985555"
+                                                        style="background:rgb(217,38,0); color:#ffffff;
+                                                                padding:12px 18px; text-decoration:none;
+                                                                border-radius:5px; font-size:14px;
+                                                                display:inline-block; width:100%; max-width:220px;">
+                                                            Call: 81899 85555
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" style="padding:6px;">
+                                                        <a href="tel:8189985554"
+                                                        style="background:rgb(217,38,0); color:#ffffff;
+                                                                padding:12px 18px; text-decoration:none;
+                                                                border-radius:5px; font-size:14px;
+                                                                display:inline-block; width:100%; max-width:220px;">
+                                                            Call: 81899 85554
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" style="padding:6px;">
+                                                        <a href="https://wa.me/918189985555"
+                                                        style="background:rgb(175,20,0); color:#ffffff;
+                                                                padding:12px 18px; text-decoration:none;
+                                                                border-radius:5px; font-size:14px;
+                                                                display:inline-block; width:100%; max-width:220px;">
+                                                            WhatsApp Support
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" style="padding:6px;">
+                                                        <a href="mailto:info@redback.in"
+                                                        style="background:rgb(67,26,0); color:#ffffff;
+                                                                padding:12px 18px; text-decoration:none;
+                                                                border-radius:5px; font-size:14px;
+                                                                display:inline-block; width:100%; max-width:220px;">
+                                                            Email: info@redback.in
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- Signature -->
+                                <p style="margin-top:35px; font-size:15px;">
+                                    Best regards,<br>
+                                    <strong>Redback Team</strong>
+                                </p>
+
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td style="background:#f2f2f2; padding:18px; text-align:center;
+                                    font-size:12px; color:#777;">
+                                This is an automated notification.<br>
+                                © Redback AI. All rights reserved.
+                            </td>
+                        </tr>
+
+                    </table>
+                    <!-- End Container -->
+
+                    </td>
+                    </tr>
+                    </table>
+
+                    </body>
+                    </html>
+                    """
+
+
         
         # Send the email
         from_email = settings.EMAIL_HOST_USER or settings.DEFAULT_FROM_EMAIL

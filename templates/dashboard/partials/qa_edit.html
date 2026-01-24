@@ -169,4 +169,25 @@
       </button>
     </div>
   </form>
+  <script>
+    (function() {
+        // Unique ID for this edit instance to avoid conflicts if multiple are loaded (though usually one at a time)
+        const textarea = document.currentScript.parentElement.querySelector('#answer');
+        const form = textarea.closest('form');
+        
+        ClassicEditor
+            .create(textarea, {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote']
+            })
+            .then(editor => {
+                // Sync data before HTMX request
+                form.addEventListener('htmx:configRequest', function() {
+                    editor.updateSourceElement();
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    })();
+  </script>
 </div>

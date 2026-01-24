@@ -184,31 +184,34 @@
             </div>
         </form>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Initialize CKEditor for Add Form
-                ClassicEditor
-                    .create(document.querySelector('#add-qa-form #answer'), {
-                        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                        placeholder: 'The pricing model is...'
-                    })
-                    .then(editor => {
-                        // Sync data to textarea before HTMX request
-                        document.querySelector('#add-qa-form form').addEventListener('htmx:configRequest', function() {
-                            editor.updateSourceElement();
+            (function() {
+                // Initialize CKEditor for Add Form immediately
+                const textarea = document.querySelector('#add-qa-form #answer');
+                if (textarea) {
+                    ClassicEditor
+                        .create(textarea, {
+                            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                            placeholder: 'The pricing model is...'
+                        })
+                        .then(editor => {
+                            // Sync data to textarea before HTMX request
+                            const form = textarea.closest('form');
+                            form.addEventListener('htmx:configRequest', function() {
+                                editor.updateSourceElement();
+                            });
+                            
+                            // Handle form reset on success
+                            document.body.addEventListener('htmx:afterOnLoad', function(evt) {
+                                if (evt.target.id === 'qa-list-container' && !document.querySelector('.text-red-500')) {
+                                    editor.setData('');
+                                }
+                            });
+                        })
+                        .catch(error => {
+                            console.error(error);
                         });
-                        
-                        // Handle form reset if needed
-                        document.body.addEventListener('htmx:afterOnLoad', function(evt) {
-                            if (evt.target.id === 'qa-list-container' && !document.querySelector('.text-red-500')) {
-                                // If successful addition (content swapped), clear editor
-                                editor.setData('');
-                            }
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            });
+                }
+            })();
         </script>
     </div>
 

@@ -22,10 +22,58 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- CKEditor 5 -->
+  <!-- CKEditor 5 Classic Build -->
   <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
   
   <style>
+    /* CKEditor Dark Mode Overrides */
+    [data-theme="dark"] {
+        --ck-color-base-background: var(--style-card-bg);
+        --ck-color-base-border: var(--style-border);
+        --ck-color-toolbar-background: var(--style-bg);
+        --ck-color-toolbar-border: var(--style-border);
+        --ck-color-text: var(--style-text-primary);
+        --ck-color-list-background: var(--style-bg);
+        --ck-color-button-default-hover-background: var(--style-info-bg);
+        --ck-color-button-default-active-background: var(--style-info-bg);
+        --ck-color-button-on-background: var(--style-accent);
+        --ck-color-button-on-hover-background: var(--style-accent-hover);
+        --ck-color-panel-background: var(--style-card-bg);
+        --ck-color-panel-border: var(--style-border);
+        --ck-color-input-background: var(--style-bg);
+        --ck-color-input-border: var(--style-border);
+        --ck-color-input-text: var(--style-text-primary);
+    }
+
+    [data-theme="dark"] .ck.ck-editor__main > .ck-editor__editable {
+        background: var(--style-bg) !important;
+        color: var(--style-text-primary) !important;
+    }
+    
+    [data-theme="dark"] .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+        border-color: var(--style-border) !important;
+    }
+
+    /* Fix toolbar text color in dark mode */
+    [data-theme="dark"] .ck.ck-icon, 
+    [data-theme="dark"] .ck.ck-button__label {
+        color: var(--style-text-primary);
+    }
+    
+    /* Make toolbar background consistent */
+    .ck.ck-toolbar {
+        border-color: var(--style-border) !important;
+        background: var(--style-info-bg) !important;
+    }
+    [data-theme="dark"] .ck.ck-toolbar {
+        background: var(--style-card-bg) !important;
+    }
+
+    /* Adjust editor height to match textarea rows */
+    .ck-editor__editable {
+        min-height: 100px;
+    }
+    
     /* Theme variables */
     :root {
       --bg-primary: #f5f5f5;

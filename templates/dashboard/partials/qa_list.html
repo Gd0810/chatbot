@@ -190,13 +190,20 @@
                 if (textarea) {
                     ClassicEditor
                         .create(textarea, {
-                            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                            toolbar: {
+                                items: [
+                                    'heading', '|',
+                                    'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+                                    'insertTable', 'mediaEmbed', '|',
+                                    'undo', 'redo'
+                                ],
+                                shouldNotGroupWhenFull: true
+                            },
                             placeholder: 'The pricing model is...'
                         })
                         .then(editor => {
-                            // Sync data to textarea before HTMX request
-                            const form = textarea.closest('form');
-                            form.addEventListener('htmx:configRequest', function() {
+                            // Sync data to textarea whenever editor content changes
+                            editor.model.document.on('change:data', () => {
                                 editor.updateSourceElement();
                             });
                             

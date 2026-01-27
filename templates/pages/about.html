@@ -23,6 +23,29 @@
         50% { transform: translate(-20px, 20px) scale(0.9); }
         75% { transform: translate(20px, 30px) scale(1.05); }
     }
+     .service-card-button {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 700;
+        color: rgb(255, 60, 0);
+        background: transparent;
+        border: 2px solid rgb(255, 60, 0);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+        padding: 10px 24px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        margin-top: 5px;
+    }
+    
+    .service-card-button:hover,
+    .service-card:hover .service-card-button {
+        color: white;
+        background: rgb(255, 60, 0);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 60, 0, 0.3);
+    }
     
     
 </style>
@@ -99,6 +122,9 @@
                                 <p class="text-gray-600 leading-relaxed text-lg m-0">
                                     "Innovation is at the heart of everything we do. We strive to push boundaries and explore new horizons, constantly seeking better ways to solve complex problems and deliver value to our users. Our journey is fueled by a passion for technology and a commitment to excellence that never wavers."
                                 </p>
+                                <div class="text-center">
+                                    <button class="service-card-button">MORE</button>
+                                </div>
                             </div>
                         </div>
                         <!-- Card 2 -->
@@ -242,7 +268,7 @@
                 slidesPerView: "auto", // Allows cards to be of natural height
                 spaceBetween: 0,
                 loop: true,
-                speed: 5000, // Smooth continuous scroll speed
+                speed: 10000, // Smooth continuous scroll speed
                 autoplay: {
                     delay: 0,
                     disableOnInteraction: false,

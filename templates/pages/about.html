@@ -6,7 +6,7 @@
       
         position: relative;
         overflow: hidden;
-        min-height: 100vh;
+        /* min-height: 100vh; Removed to pull content up */
         width: 100%;
     }
     
@@ -28,20 +28,28 @@
 </style>
 
 <!-- Contact Section -->
-<section class="contact-gradient-bg flex items-center justify-center relative px-4 sm:px-6 lg:px-8" style="padding: 80px 0;">
+<section class="contact-gradient-bg flex items-start justify-center relative px-4 sm:px-6 lg:px-8 pt-20 pb-20">
     <!-- Bubble Background -->
     <div class="bubble" style="background: rgb(255, 60, 0); width: 400px; height: 400px; top: -100px; left: -100px;"></div>
     <div class="bubble" style="background: rgb(217, 38, 0); width: 350px; height: 350px; top: 20%; right: -80px; animation-delay: -5s;"></div>
     <div class="bubble" style="background: rgb(175, 20, 0); width: 300px; height: 300px; bottom: -80px; left: 15%; animation-delay: -10s;"></div>
     <div class="bubble" style="background: rgb(255, 60, 0); width: 250px; height: 250px; bottom: 10%; right: 10%; animation-delay: -15s;"></div>
     
-    <div class="container mx-auto relative z-10 max-w-7xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div class="container mx-auto relative z-10 max-w-7xl mt-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <!-- Left Side: Image -->
-            <div class="order-1 md:order-1 flex justify-center md:justify-start">
-               <!-- Placeholder for the generated image, assumed path based on standard static setup or user to fill -->
-               <img src="{% static 'ui/img/ai chatbot provider in vellore.png' %}" alt="About Us" class="w-full max-w-md h-auto object-contain drop-shadow-xl rounded-2xl">
+            <div class="order-1 md:order-1 flex justify-center md:justify-start relative">
+               <div class="relative w-full max-w-md">
+                    <!-- Layered Backgrounds -->
+                    <div class="absolute -inset-4 rounded-3xl" style="background-color: rgb(255, 60, 0); opacity: 0.1;"></div>
+                    <div class="absolute -inset-2 bg-white rounded-3xl"></div>
+                    <!-- Image Container -->
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="{% static 'ui/img/ai chatbot provider in vellore.png' %}" alt="About Us" class="w-full h-auto">
+                    </div>
+               </div>
             </div>
+            
             
             <!-- Right Side: Content -->
             <div class="order-2 md:order-2 text-center md:text-left space-y-6">

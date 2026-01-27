@@ -54,24 +54,217 @@
             <!-- Right Side: Content -->
             <div class="order-2 md:order-2 text-center md:text-left space-y-6">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold  leading-tight" style="color: rgb(67, 26, 0);">
-                    Revolutionizing <br>
-                    <span style="color: rgb(255, 60, 0);">Conversational AI</span>
+                    <span style="color: rgb(255, 60, 0);">Redback </span> IT Solutions Private Limited <br>
+                    
                 </h1>
                 <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
                     We invite you to experience the future of interaction. Our intelligent chatbots are designed to streamline communication, enhance user engagement, and drive business growth through cutting-edge natural language processing.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
-                    <a href="{% url 'contact' %}" class="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white transition-all duration-200 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transform" style="background: linear-gradient(135deg, rgb(255, 60, 0) 0%, rgb(217, 38, 0) 100%);">
-                        Get Started
-                        <iconify-icon icon="material-symbols:arrow-forward" class="ml-2" width="20"></iconify-icon>
-                    </a>
-                    <a href="#our-story" class="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-gray-700 bg-white border border-gray-200 rounded-full shadow-sm hover:bg-gray-50 transition-all duration-200 hover:border-gray-300">
-                        Learn More
-                    </a>
-                </div>
+                <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                    We invite you to experience the future of interaction. Our intelligent chatbots are designed to streamline communication, enhance user engagement, and drive business growth through cutting-edge natural language processing.
+                </p>
+                
+                
             </div>
         </div>
     </div>
 </section>
 
+
+     
+    <!-- Dual Vertical Carousel Section -->
+    <section class="py-24 bg-gray-50 overflow-hidden relative">
+        <div class="bubble" style="background: rgb(255, 60, 0); width: 400px; height: 400px; top: -100px; left: -100px;"></div>
+    <div class="bubble" style="background: rgb(217, 38, 0); width: 350px; height: 350px; top: 20%; right: -80px; animation-delay: -5s;"></div>
+    <div class="bubble" style="background: rgb(175, 20, 0); width: 300px; height: 300px; bottom: -80px; left: 15%; animation-delay: -10s;"></div>
+    <div class="bubble" style="background: rgb(255, 60, 0); width: 250px; height: 250px; bottom: 10%; right: 10%; animation-delay: -15s;"></div>
+      <!-- Background Decorations -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div class="absolute top-1/4 -left-12 w-64 h-64 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+          <div class="absolute top-1/3 -right-12 w-64 h-64 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+      </div>
+
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left Carousel (Upwards) -->
+            <div class="h-[600px] w-full relative"> <!-- Fixed height for vertical swiper -->
+                <div class="swiper mySwiperLeft h-full mask-gradient-y">
+                    <div class="swiper-wrapper">
+                        <!-- Card 1 -->
+                        <div class="swiper-slide h-auto p-4">
+                            <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Redback.png' %}" alt="Innovation" class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Innovation</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Innovation is at the heart of everything we do. We strive to push boundaries and explore new horizons, constantly seeking better ways to solve complex problems and deliver value to our users. Our journey is fueled by a passion for technology and a commitment to excellence that never wavers."
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Redback Studios.png' %}" alt="Creativity"  class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Creativity</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Creativity is the spark that ignites our progress. We believe in the power of ideas to transform the world, and we nurture an environment where imagination can flourish. From the smallest detail to the grandest vision, we bring a unique perspective to every project we undertake."
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Digital marketing venture.png' %}" alt="Collaboration"  class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Collaboration</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Collaboration is key to our success. We value the diverse talents and backgrounds of our team, knowing that we are stronger together. By fostering a culture of open communication and mutual respect, we create a space where everyone can contribute their best work."
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Redback acadmey.png' %}" alt="Collaboration"  class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Collaboration</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Collaboration is key to our success. We value the diverse talents and backgrounds of our team, knowing that we are stronger together. By fostering a culture of open communication and mutual respect, we create a space where everyone can contribute their best work."
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Card 5 -->
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Final RISC logo.png' %}" alt="Collaboration"  class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Collaboration</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Collaboration is key to our success. We value the diverse talents and backgrounds of our team, knowing that we are stronger together. By fostering a culture of open communication and mutual respect, we create a space where everyone can contribute their best work."
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Redback System.png' %}" alt="Collaboration"  class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Collaboration</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Collaboration is key to our success. We value the diverse talents and backgrounds of our team, knowing that we are stronger together. By fostering a culture of open communication and mutual respect, we create a space where everyone can contribute their best work."
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Creative Graphicxs Logo.jpg' %}" alt="Collaboration"  class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Collaboration</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Collaboration is key to our success. We value the diverse talents and backgrounds of our team, knowing that we are stronger together. By fostering a culture of open communication and mutual respect, we create a space where everyone can contribute their best work."
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Vellore-01.png' %}" alt="Collaboration"  class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Collaboration</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Collaboration is key to our success. We value the diverse talents and backgrounds of our team, knowing that we are stronger together. By fostering a culture of open communication and mutual respect, we create a space where everyone can contribute their best work."
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="{% static 'ui/logo/Vellore Ads site Logo.png' %}" alt="Collaboration"  class="w-auto h-auto object-cover mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Collaboration</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Collaboration is key to our success. We value the diverse talents and backgrounds of our team, knowing that we are stronger together. By fostering a culture of open communication and mutual respect, we create a space where everyone can contribute their best work."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Carousel (Downwards - Reverse Direction visually) -->
+            <div class="h-[600px] w-full relative mt-8 lg:mt-0 lg:translate-y-12"> <!-- Offset for visual interest -->
+                 <div class="swiper mySwiperRight h-full mask-gradient-y">
+                    <div class="swiper-wrapper">
+                         <!-- Card 4 -->
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="https://placehold.co/150" alt="Security" class="w-16 h-16 object-cover ">
+                                <h3 class="text-2xl font-bold text-gray-900">Security</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Security and trust are the foundations of our platform. We take the responsibility of protecting your data seriously, employing state-of-the-art measures to ensure privacy and compliance. You can rest assured that your information is safe with us."
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Card 5 -->
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="https://placehold.co/150" alt="Passion" class="w-16 h-16 object-cover rounded-2xl mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Passion</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Passion drives us forward. We are deeply invested in the work we do and the impact it has on our community. This enthusiasm is reflected in the quality of our products and the dedication of our support team, who are always ready to go the extra mile."
+                                </p>
+                            </div>
+                        </div>
+                         <!-- Card 6 -->
+                        <div class="swiper-slide h-auto p-4">
+                             <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full flex flex-col justify-start gap-4 min-h-[400px] transition-transform hover:scale-[1.02] duration-300">
+                                <img src="https://placehold.co/150" alt="Global Reach" class="w-16 h-16 object-cover rounded-2xl mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">Global Reach</h3>
+                                <p class="text-gray-600 leading-relaxed text-lg m-0">
+                                    "Global reach, local impact. We design our solutions to be accessible and relevant to users around the world, while staying rooted in the communities we serve. We understand the nuances of different markets and strive to provide a truly personalized experience."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Swiper JS & CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        .mask-gradient-y {
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Left Swiper (Moves Up)
+            var swiperLeft = new Swiper(".mySwiperLeft", {
+                direction: "vertical",
+                slidesPerView: "auto", // Allows cards to be of natural height
+                spaceBetween: 0,
+                loop: true,
+                speed: 5000, // Smooth continuous scroll speed
+                autoplay: {
+                    delay: 0,
+                    disableOnInteraction: false,
+                    reverseDirection: false, // Scroll down to up
+                },
+                allowTouchMove: false, // Disable manual swiping for pure marquee effect
+            });
+
+            // Right Swiper (Moves Down)
+            var swiperRight = new Swiper(".mySwiperRight", {
+                direction: "vertical",
+                slidesPerView: "auto",
+                spaceBetween: 0,
+                loop: true,
+                speed: 5000,
+                autoplay: {
+                    delay: 0,
+                    disableOnInteraction: false,
+                    reverseDirection: true, // Scroll up to down
+                },
+                allowTouchMove: false,
+            });
+        });
+    </script>
 {% endblock %}

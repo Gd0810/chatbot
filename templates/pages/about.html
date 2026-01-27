@@ -98,105 +98,113 @@
 
      
     <!-- Accordion Section -->
-    <section class="py-12 bg-white">
-        <div class="container mx-auto px-4 max-w-3xl">
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+<section class="py-12 bg-white">
+       
+        
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                <!-- Item 1 -->
-                <div class="accordion-item border-b border-gray-100 last:border-0">
-                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
-                        <div class="mr-6 flex-shrink-0">
-                             <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
-                                <span class="iconify text-xl" data-icon="heroicons:document-text"></span>
+                <!-- Left Column -->
+                <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden h-fit">
+                    <!-- Item 1 -->
+                    <div class="accordion-item border-b border-gray-100 last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:document-text"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">AI-driven cloud-native process improvement</h3>
+                                <p class="text-sm text-gray-500 mt-1">embrace immersive solutions</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
                             </div>
                         </div>
-                        <div class="flex-grow">
-                            <h3 class="text-lg font-semibold text-gray-900">AI-driven cloud-native process improvement</h3>
-                            <p class="text-sm text-gray-500 mt-1">embrace immersive solutions</p>
-                        </div>
-                        <div class="ml-4 flex-shrink-0 text-gray-400">
-                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                Our AI-driven solutions leverage cloud-native architectures to optimize your business processes. By embracing immersive technologies, we help you unlock new levels of efficiency and innovation.
+                            </div>
                         </div>
                     </div>
-                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 pt-0 text-gray-600">
-                            Our AI-driven solutions leverage cloud-native architectures to optimize your business processes. By embracing immersive technologies, we help you unlock new levels of efficiency and innovation.
+
+                    <!-- Item 2 -->
+                    <div class="accordion-item border-gray-100 last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:folder"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
+                                <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                            </div>
+                        </div>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Item 2 -->
-                <div class="accordion-item border-b border-gray-100 last:border-0">
-                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
-                        <div class="mr-6 flex-shrink-0">
-                             <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
-                                <span class="iconify text-xl" data-icon="heroicons:folder"></span>
+                <!-- Right Column -->
+                <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden h-fit">
+                    <!-- Item 3 -->
+                    <div class="accordion-item border-b border-gray-100 last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                             <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-teal-50 flex items-center justify-center text-teal-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:cog-6-tooth"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Adaptive reciprocal circuit</h3>
+                                <p class="text-sm text-gray-500 mt-1">empower impactful convergence</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
                             </div>
                         </div>
-                        <div class="flex-grow">
-                            <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
-                            <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
-                        </div>
-                        <div class="ml-4 flex-shrink-0 text-gray-400">
-                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                 Our adaptive circuits are designed to facilitate reciprocal interactions. Empower your organization with impactful convergence strategies that drive growth and adaptability.
+                            </div>
                         </div>
                     </div>
-                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 pt-0 text-gray-600">
-                            We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Item 3 -->
-                <div class="accordion-item border-b border-gray-100 last:border-0">
-                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
-                         <div class="mr-6 flex-shrink-0">
-                             <div class="w-10 h-10 rounded-lg bg-teal-50 flex items-center justify-center text-teal-600">
-                                <span class="iconify text-xl" data-icon="heroicons:cog-6-tooth"></span>
+                    <!-- Item 4 -->
+                     <div class="accordion-item last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:users"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
+                                <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
                             </div>
                         </div>
-                        <div class="flex-grow">
-                            <h3 class="text-lg font-semibold text-gray-900">Adaptive reciprocal circuit</h3>
-                            <p class="text-sm text-gray-500 mt-1">empower impactful convergence</p>
-                        </div>
-                        <div class="ml-4 flex-shrink-0 text-gray-400">
-                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
-                        </div>
-                    </div>
-                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 pt-0 text-gray-600">
-                             Our adaptive circuits are designed to facilitate reciprocal interactions. Empower your organization with impactful convergence strategies that drive growth and adaptability.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 4 -->
-                 <div class="accordion-item last:border-0">
-                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
-                        <div class="mr-6 flex-shrink-0">
-                             <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
-                                <span class="iconify text-xl" data-icon="heroicons:users"></span>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
                             </div>
-                        </div>
-                        <div class="flex-grow">
-                            <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
-                            <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
-                        </div>
-                        <div class="ml-4 flex-shrink-0 text-gray-400">
-                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
-                        </div>
-                    </div>
-                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 pt-0 text-gray-600">
-                            Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-    </section>
+</section>
 
     
 

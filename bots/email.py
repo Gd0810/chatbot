@@ -213,3 +213,4 @@ def send_bot_activation_email(bot, request):
         
     except Exception as e:
         logger.error(f"[❌] Failed to send email for bot {bot.name}: {str(e)}")
+

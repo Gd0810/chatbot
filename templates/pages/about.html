@@ -1,10 +1,69 @@
 {% extends "pages/base.html" %}
 {% load static %}
 {% block content %}
+<style>
+    .contact-gradient-bg {
+      
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        width: 100%;
+    }
+    
+    .bubble {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.12;
+        animation: float-bubble 25s ease-in-out infinite;
+    }
+    
+    @keyframes float-bubble {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25% { transform: translate(30px, -30px) scale(1.1); }
+        50% { transform: translate(-20px, 20px) scale(0.9); }
+        75% { transform: translate(20px, 30px) scale(1.05); }
+    }
+    
+    
+</style>
 
-
-<h1>About Us</h1>
-<p>We provide Django services</p>
-
+<!-- Contact Section -->
+<section class="contact-gradient-bg flex items-center justify-center relative px-4 sm:px-6 lg:px-8" style="padding: 80px 0;">
+    <!-- Bubble Background -->
+    <div class="bubble" style="background: rgb(255, 60, 0); width: 400px; height: 400px; top: -100px; left: -100px;"></div>
+    <div class="bubble" style="background: rgb(217, 38, 0); width: 350px; height: 350px; top: 20%; right: -80px; animation-delay: -5s;"></div>
+    <div class="bubble" style="background: rgb(175, 20, 0); width: 300px; height: 300px; bottom: -80px; left: 15%; animation-delay: -10s;"></div>
+    <div class="bubble" style="background: rgb(255, 60, 0); width: 250px; height: 250px; bottom: 10%; right: 10%; animation-delay: -15s;"></div>
+    
+    <div class="container mx-auto relative z-10 max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <!-- Left Side: Image -->
+            <div class="order-1 md:order-1 flex justify-center md:justify-start">
+               <!-- Placeholder for the generated image, assumed path based on standard static setup or user to fill -->
+               <img src="{% static 'images/about_hero.png' %}" alt="About Us" class="w-full max-w-md h-auto object-contain drop-shadow-xl rounded-2xl">
+            </div>
+            
+            <!-- Right Side: Content -->
+            <div class="order-2 md:order-2 text-center md:text-left space-y-6">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                    Revolutionizing <br>
+                    <span style="color: rgb(255, 60, 0);">Conversational AI</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                    We invite you to experience the future of interaction. Our intelligent chatbots are designed to streamline communication, enhance user engagement, and drive business growth through cutting-edge natural language processing.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                    <a href="{% url 'contact' %}" class="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white transition-all duration-200 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transform" style="background: linear-gradient(135deg, rgb(255, 60, 0) 0%, rgb(217, 38, 0) 100%);">
+                        Get Started
+                        <iconify-icon icon="material-symbols:arrow-forward" class="ml-2" width="20"></iconify-icon>
+                    </a>
+                    <a href="#our-story" class="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-gray-700 bg-white border border-gray-200 rounded-full shadow-sm hover:bg-gray-50 transition-all duration-200 hover:border-gray-300">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

@@ -98,10 +98,18 @@
 
      
     <!-- Accordion Section -->
-<section class="py-12 bg-white">
-       
+    <section class="py-12 relative overflow-hidden">
+        <div class="bubble" style="background: rgb(255, 60, 0); width: 400px; height: 400px; top: -100px; left: -100px;"></div>
+        <div class="bubble" style="background: rgb(217, 38, 0); width: 350px; height: 350px; top: 20%; right: -80px; animation-delay: -5s;"></div>
+        <div class="bubble" style="background: rgb(175, 20, 0); width: 300px; height: 300px; bottom: -80px; left: 15%; animation-delay: -10s;"></div>
+        <div class="bubble" style="background: rgb(255, 60, 0); width: 250px; height: 250px; bottom: 10%; right: 10%; animation-delay: -15s;"></div>
+
+
+             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-24  leading-tight" style="color: rgb(67, 26, 0);">
+                  Additional Redback Group Companies & Service Offerings
+                </h2>
         
-        <div class="container mx-auto px-4 max-w-6xl">
+        <div class="container mx-auto px-4 max-w-6xl relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
                 <!-- Left Column -->
@@ -130,6 +138,69 @@
                     </div>
 
                     <!-- Item 2 -->
+                    <div class="accordion-item border-gray-100 last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:folder"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
+                                <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                            </div>
+                        </div>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-gray-100 last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:folder"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
+                                <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                            </div>
+                        </div>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-gray-100 last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:folder"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
+                                <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                            </div>
+                        </div>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
+                            </div>
+                        </div>
+                    </div>
                     <div class="accordion-item border-gray-100 last:border-0">
                         <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
                             <div class="mr-6 flex-shrink-0">
@@ -200,6 +271,69 @@
                             </div>
                         </div>
                     </div>
+                     <div class="accordion-item last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:users"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
+                                <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                            </div>
+                        </div>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
+                            </div>
+                        </div>
+                    </div>
+                     <div class="accordion-item last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:users"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
+                                <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                            </div>
+                        </div>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
+                            </div>
+                        </div>
+                    </div>
+                     <div class="accordion-item last:border-0">
+                        <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                            <div class="mr-6 flex-shrink-0">
+                                 <div class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
+                                    <span class="iconify text-xl" data-icon="heroicons:users"></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
+                                <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0 text-gray-400">
+                                 <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                            </div>
+                        </div>
+                        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                            <div class="p-6 pt-0 text-gray-600">
+                                Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -209,7 +343,7 @@
     
 
     <!-- Dual Vertical Carousel Section -->
-    <section class="py-12 bg-gray-50 overflow-hidden relative">
+    <section class="py-12 overflow-hidden relative">
         <div class="bubble" style="background: rgb(255, 60, 0); width: 400px; height: 400px; top: -100px; left: -100px;"></div>
     <div class="bubble" style="background: rgb(217, 38, 0); width: 350px; height: 350px; top: 20%; right: -80px; animation-delay: -5s;"></div>
     <div class="bubble" style="background: rgb(175, 20, 0); width: 300px; height: 300px; bottom: -80px; left: 15%; animation-delay: -10s;"></div>

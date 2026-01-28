@@ -2,9 +2,332 @@
 {% load static %}
 {% block content %}
 
+<style>
+    .contact-gradient-bg {
+      
+        position: relative;
+        overflow: hidden;
+        /* min-height: 100vh; Removed to pull content up */
+        width: 100%;
+    }
+    
+    .bubble {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.12;
+        animation: float-bubble 25s ease-in-out infinite;
+    }
+    
+    @keyframes float-bubble {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25% { transform: translate(30px, -30px) scale(1.1); }
+        50% { transform: translate(-20px, 20px) scale(0.9); }
+        75% { transform: translate(20px, 30px) scale(1.05); }
+    }
+     .service-card-button {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 700;
+        color: rgb(255, 60, 0);
+        background: transparent;
+        border: 2px solid rgb(255, 60, 0);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+        padding: 10px 24px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        margin-top: 5px;
+    }
+    
+    .service-card-button:hover,
+    .service-card:hover .service-card-button {
+        color: white;
+        background: rgb(255, 60, 0);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 60, 0, 0.3);
+    }
+    
+</style>
 
-<h1>AI Chatbot</h1>
-<p>AI Chatbot is a conversational interface that uses natural language processing (NLP) to understand and respond to user queries in a human-like manner. It can be used for customer support, virtual assistants, and other applications where automated responses are needed.</p>
+<!-- Combined Hero and Accordion Section -->
+<section class="contact-gradient-bg relative px-4 sm:px-6 lg:px-8 pt-10 pb-12 overflow-hidden">
+    <!-- Bubble Background -->
+    <div class="bubble" style="background: rgb(255, 60, 0); width: 400px; height: 400px; top: -100px; left: -100px;"></div>
+    <div class="bubble" style="background: rgb(217, 38, 0); width: 350px; height: 350px; top: 20%; right: -80px; animation-delay: -5s;"></div>
+    <div class="bubble" style="background: rgb(175, 20, 0); width: 300px; height: 300px; bottom: -80px; left: 15%; animation-delay: -10s;"></div>
+    <div class="bubble" style="background: rgb(255, 60, 0); width: 250px; height: 250px; bottom: 10%; right: 10%; animation-delay: -15s;"></div>
+    
+    <!-- Hero Content -->
+    <div class="container mx-auto relative z-10 max-w-7xl mt-12 mb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <!-- Left Side: Image -->
+            <div class="order-1 md:order-1 flex justify-center md:justify-start relative">
+               <div class="relative w-full max-w-md">
+                    <!-- Layered Backgrounds -->
+                    <div class="absolute -inset-4 rounded-[50%]" style="background-color: rgb(255, 60, 0); opacity: 0.4;"></div>
+                    <div class="absolute -inset-2 bg-white rounded-[50%]"></div>
+                    <!-- Image Container -->
+                    <div class="relative rounded-[50%] overflow-hidden shadow-2xl p-8 py-12">
+                        <img src="{% static 'ui/img/ai chatbot provider in vellore.png' %}" alt="About Us" class="w-full h-auto">
+                    </div>
+               </div>
+            </div>
+            
+            
+            <!-- Right Side: Content -->
+            <div class="order-2 md:order-2 text-center md:text-left space-y-6">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold  leading-tight" style="color: rgb(67, 26, 0);">
+                    <span style="color: rgb(255, 60, 0);">Redback </span> IT Solutions Private Limited <br>
+                    
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                    We invite you to experience the future of interaction. Our intelligent chatbots are designed to streamline communication, enhance user engagement, and drive business growth through cutting-edge natural language processing.
+                </p>
+                <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                    We invite you to experience the future of interaction. Our intelligent chatbots are designed to streamline communication, enhance user engagement, and drive business growth through cutting-edge natural language processing.
+                </p>
+                
+                
+            </div>
+        </div>
+    </div>
 
+    <!-- Accordion Content -->
+    <div class="container mx-auto relative z-10 max-w-7xl">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-24 leading-tight" style="color: rgb(67, 26, 0);">
+            Redback Service Offerings
+        </h2>
+    
+    <div class="container mx-auto px-4 max-w-12xl relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Left Column -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden h-fit">
+                <!-- Item 1 -->
+                <div class="accordion-item border-b border-gray-100 last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">AI-driven cloud-native process improvement</h3>
+                            <p class="text-sm text-gray-500 mt-1">embrace immersive solutions</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            Our AI-driven solutions leverage cloud-native architectures to optimize your business processes. By embracing immersive technologies, we help you unlock new levels of efficiency and innovation.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="accordion-item border-gray-100 last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
+                            <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border-gray-100 last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
+                            <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border-gray-100 last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
+                            <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border-gray-100 last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">Virtual neutral monitoring</h3>
+                            <p class="text-sm text-gray-500 mt-1">productize granular schemas</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            We provide virtual monitoring capabilities that allow you to maintain neutrality and oversight. Productize your data with granular schemas that offer deep insights and control.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden h-fit">
+                <!-- Item 3 -->
+                <div class="accordion-item border-b border-gray-100 last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                         <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">Adaptive reciprocal circuit</h3>
+                            <p class="text-sm text-gray-500 mt-1">empower impactful convergence</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                             Our adaptive circuits are designed to facilitate reciprocal interactions. Empower your organization with impactful convergence strategies that drive growth and adaptability.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                 <div class="accordion-item last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
+                            <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
+                        </div>
+                    </div>
+                </div>
+                 <div class="accordion-item last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
+                            <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
+                        </div>
+                    </div>
+                </div>
+                 <div class="accordion-item last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
+                            <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+        const content = element.nextElementSibling;
+        const icon = element.querySelector('.accordion-icon');
+        
+        // Toggle current
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            icon.classList.remove('rotate-180');
+        } else {
+            // Close others (optional, but good for "Accordion" behavior usually)
+            /* 
+            document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+            document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('rotate-180'));
+            */
+            
+            content.style.maxHeight = content.scrollHeight + "px";
+            icon.classList.add('rotate-180');
+        }
+    }
+</script>
 
 {% endblock %}

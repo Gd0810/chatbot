@@ -141,3 +141,25 @@ def about(request):
         "meta_description": "About our Django team",
         "meta_keywords": "about, django company",
     })      
+
+
+def aibot(request):
+    return render(request, "pages/ai-chatbot-provider-in-vellore.html", {
+        "meta_title": "AI Chatbot Provider in Vellore | My Django Website",
+        "meta_description": "AI Chatbot Provider in Vellore | My Django Website",
+        "meta_keywords": "AI Chatbot Provider in Vellore | My Django Website",
+    })      
+
+def livebot(request):
+    return render(request, "pages/live-chatbot-provider-in-vellore.html", {
+        "meta_title": "Live Chatbot Provider in Vellore | My Django Website",
+        "meta_description": "Live Chatbot Provider in Vellore | My Django Website",
+        "meta_keywords": "Live Chatbot Provider in Vellore | My Django Website",
+    })      
+
+def faqbot(request):
+    return render(request, "pages/faq-chatbot-provider-in-vellore.html", {
+        "meta_title": "FAQ Chatbot Provider in Vellore | My Django Website",
+        "meta_description": "FAQ Chatbot Provider in Vellore | My Django Website",
+        "meta_keywords": "FAQ Chatbot Provider in Vellore | My Django Website",
+    })         

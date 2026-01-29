@@ -115,6 +115,72 @@
             color: rgb(175, 20, 0);
         }
 
+        /* Dropdown Styles */
+        header nav ul li {
+            position: relative;
+        }
+
+        header nav ul li .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(67, 26, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+        }
+
+        header nav ul li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        header nav ul li .dropdown a {
+            padding: 0.75rem 1.5rem;
+            color: rgb(67, 26, 0);
+            font-size: 0.95rem;
+            white-space: nowrap;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        header nav ul li .dropdown a:hover {
+            background: rgba(255, 60, 0, 0.05);
+            border-left-color: rgb(255, 60, 0);
+            color: rgb(255, 60, 0);
+            padding-left: 2rem;
+        }
+
+        header nav ul li .dropdown a::after {
+            display: none;
+        }
+
+        /* Dropdown arrow indicator */
+        header nav ul li.has-dropdown > a::before {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid currentColor;
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: transform 0.3s ease;
+        }
+
+        header nav ul li.has-dropdown:hover > a::before {
+            transform: rotate(180deg);
+        }
+
         header .menu-toggle {
             display: none;
             flex-direction: column;
@@ -197,7 +263,7 @@
             }
 
             header nav ul.active {
-                max-height: 400px;
+                max-height: 600px;
                 padding: 1rem 0;
             }
 
@@ -218,6 +284,49 @@
 
             header nav ul li a::after {
                 display: none;
+            }
+
+            /* Mobile dropdown styles */
+            header nav ul li .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: rgba(255, 60, 0, 0.03);
+                margin: 0;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            header nav ul li.dropdown-open .dropdown {
+                max-height: 300px;
+            }
+
+            header nav ul li .dropdown a {
+                padding: 0.75rem 2rem;
+                font-size: 0.9rem;
+                border-left: none;
+                border-bottom: 1px solid rgba(255, 60, 0, 0.1);
+            }
+
+            header nav ul li .dropdown a:last-child {
+                border-bottom: none;
+            }
+
+            header nav ul li .dropdown a:hover {
+                padding-left: 2rem;
+            }
+
+            header nav ul li.has-dropdown > a::before {
+                position: absolute;
+                right: 1.5rem;
+            }
+
+            header nav ul li.has-dropdown.dropdown-open > a::before {
+                transform: rotate(180deg);
             }
 
             header .logo img {
@@ -269,7 +378,14 @@
                 <ul id="navMenu">
                     <li><a href="{% url 'index' %}">Home</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'service' %}">Services</a></li>
+                    <li class="has-dropdown">
+                        <a href="{% url 'service' %}" onclick="toggleDropdown(event, this)">Services</a>
+                        <div class="dropdown">
+                            <a href="{% url 'aibot' %}">AI Bot</a>
+                            <a href="{% url 'livebot' %}">Live Chatbot</a>
+                            <a href="{% url 'faqbot' %}">FAQ Bot</a>
+                        </div>
+                    </li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
                     
                 </ul>
@@ -295,6 +411,16 @@
             toggle.classList.toggle('active');
         }
 
+        function toggleDropdown(event, element) {
+            // Only prevent default and toggle on mobile
+            if (window.innerWidth <= 640) {
+                event.preventDefault();
+                const parent = element.parentElement;
+                parent.classList.toggle('dropdown-open');
+            }
+            // On desktop, let the link work normally (dropdown shows on hover)
+        }
+
         // Close menu when clicking outside
         document.addEventListener('click', function(event) {
             const nav = document.querySelector('nav');
@@ -312,6 +438,10 @@
             if (window.innerWidth > 640) {
                 document.getElementById('navMenu').classList.remove('active');
                 document.querySelector('.menu-toggle').classList.remove('active');
+                // Close all dropdowns
+                document.querySelectorAll('.has-dropdown').forEach(item => {
+                    item.classList.remove('dropdown-open');
+                });
             }
         });
     </script>

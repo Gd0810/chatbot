@@ -45,7 +45,7 @@ class ContactForm(forms.ModelForm):
         })
         self.fields['whatsappnumber'].widget.attrs.update({
             'class': CONTACT_INPUT,
-            'placeholder': '+1234567890',
+            'placeholder': 'Enter your WhatsApp Number',
         })
         self.fields['business_name'].widget.attrs.update({
             'class': CONTACT_INPUT,
@@ -53,4 +53,5 @@ class ContactForm(forms.ModelForm):
         })
         self.fields['plane'].widget.attrs.update({
             'class': CONTACT_INPUT,
+            'placeholder': 'Select a plan',
         })

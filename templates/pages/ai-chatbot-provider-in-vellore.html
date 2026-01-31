@@ -225,11 +225,32 @@
             <!-- Right Column -->
             <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden h-fit">
                 <!-- Item 3 -->
-                <div class="accordion-item border-b border-gray-100 last:border-0">
+                  <div class="accordion-item border-b border-gray-100 last:border-0">
+                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
+                        <div class="mr-6 flex-shrink-0">
+                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+                                 <iconify-icon icon="material-symbols:notification-sound" style="font-size: 22px;"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900">How do I turn notification sounds on or off for AI replies?</h3>
+                            <p class="text-sm text-gray-500 mt-1">Customizing the AI Chatbot Interface</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 text-gray-400">
+                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
+                        <div class="p-6 pt-0 text-gray-600">
+                            Go to Bot Styling → Customize Settings and toggle “Enable Notification Sound Reply.” Currently, you can only enable or disable this option. In the future, you will be able to use your own custom message tone for notifications
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item last:border-0">
                     <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
                          <div class="mr-6 flex-shrink-0">
                              <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
-                                 <iconify-icon icon="fluent:bot-sparkle-20-filled" style="font-size: 22px;"></iconify-icon>
+                                 <iconify-icon icon="fluent:bot-sparkle-24-regular" style="font-size: 22px;"></iconify-icon>
                             </div>
                         </div>
                         <div class="flex-grow">
@@ -269,27 +290,7 @@
                         </div>
                     </div>
                 </div>
-                 <div class="accordion-item last:border-0">
-                    <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
-                        <div class="mr-6 flex-shrink-0">
-                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
-                                 <iconify-icon icon="qlementine-icons:user-16" style="font-size: 22px;"></iconify-icon>
-                            </div>
-                        </div>
-                        <div class="flex-grow">
-                            <h3 class="text-lg font-semibold text-gray-900">Upgradable empowering model</h3>
-                            <p class="text-sm text-gray-500 mt-1">target interactive functionalities</p>
-                        </div>
-                        <div class="ml-4 flex-shrink-0 text-gray-400">
-                             <span class="iconify text-2xl transform transition-transform duration-300 accordion-icon" data-icon="heroicons:chevron-down"></span>
-                        </div>
-                    </div>
-                    <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-gray-50">
-                        <div class="p-6 pt-0 text-gray-600">
-                            Build with a model that grows with you. Our upgradable solutions empower your team to target and deploy interactive functionalities that engage users and drive results.
-                        </div>
-                    </div>
-                </div>
+                
                  <div class="accordion-item last:border-0">
                     <div class="accordion-header p-6 flex items-center cursor-pointer hover:bg-gray-50 transition-colors duration-200" onclick="toggleAccordion(this)">
                         <div class="mr-6 flex-shrink-0">

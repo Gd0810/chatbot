@@ -17,15 +17,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts import views  
+from django.http import HttpResponse
 from django.contrib.sitemaps.views import sitemap
-from django.contrib.sitemaps import GenericSitemap
+from .sitemaps import BotSitemap, StaticViewSitemap
 
+sitemaps = {
+    "bots": BotSitemap,
+    "static": StaticViewSitemap,
+}
 
-
-
+def robots_txt(request):
+    return HttpResponse(
+        f"User-agent: *\nAllow: /\n\nSitemap: https://{request.get_host()}/sitemap.xml",
+        content_type="text/plain"
+    )
 
 urlpatterns = [
-    path("sitemap.xml", sitemap),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
+    path("robots.txt", robots_txt),
     path('', views.index, name='index'),
     path('service/', views.services, name='service'),
     path('contact/', views.contact, name='contact'),

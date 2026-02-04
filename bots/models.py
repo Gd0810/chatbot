@@ -84,6 +84,10 @@ class Bot(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('embed:widget', kwargs={'public_key': self.public_key})
+
     # Encryption proxy
     @property
     def ai_api_key(self):

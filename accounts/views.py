@@ -137,9 +137,9 @@ def contact(request):
 
 def about(request):
     return render(request, "pages/about.html", {
-        "meta_title": "About Us | My Django Website",
-        "meta_description": "About our Django team",
-        "meta_keywords": "about, django company",
+        "meta_title": "About Our Chatbot Company | AI Solutions in Vellore",
+        "meta_description": "Learn about our mission to deliver AI chatbot, live chat and FAQ automation services for businesses in Vellore and Tamil Nadu.",
+        "meta_keywords": "about chatbot company, ai automation experts vellore, chatbot development team india, customer support automation",
     })      
 
 

@@ -110,9 +110,9 @@ def index(request):
 
 def services(request):
     return render(request, "pages/service.html", {
-        "meta_title": "Services | My Django Website",
-        "meta_description": "Our professional Django services",
-        "meta_keywords": "django services, backend, frontend",
+        "meta_title": "Chatbot Development Services in Vellore | AI & Live Chat Solutions",
+        "meta_description": "Explore our chatbot services including AI chatbots, live chat integration, and FAQ automation for businesses in Vellore and across Tamil Nadu.",
+        "meta_keywords": "chatbot development services, ai chatbot development india, live chatbot integration, faq automation bots, vellore chatbot company",
     })
 
 

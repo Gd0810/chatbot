@@ -152,10 +152,11 @@ def aibot(request):
 
 def livebot(request):
     return render(request, "pages/live-chatbot-provider-in-vellore.html", {
-        "meta_title": "Live Chatbot Provider in Vellore | My Django Website",
-        "meta_description": "Live Chatbot Provider in Vellore | My Django Website",
-        "meta_keywords": "Live Chatbot Provider in Vellore | My Django Website",
-    })      
+        "meta_title": "Live Chatbot Provider in Vellore | Real-Time Support Solutions",
+        "meta_description": "Enhance customer engagement with our live chatbot solutions in Vellore featuring real-time interaction and seamless human handoff.",
+        "meta_keywords": "live chatbot vellore, real time chat support bot, customer engagement chatbot, live chat integration india, support automation",
+    })
+     
 
 def faqbot(request):
     return render(request, "pages/faq-chatbot-provider-in-vellore.html", {

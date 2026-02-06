@@ -160,7 +160,7 @@ def livebot(request):
 
 def faqbot(request):
     return render(request, "pages/faq-chatbot-provider-in-vellore.html", {
-        "meta_title": "FAQ Chatbot Provider in Vellore | My Django Website",
-        "meta_description": "FAQ Chatbot Provider in Vellore | My Django Website",
-        "meta_keywords": "FAQ Chatbot Provider in Vellore | My Django Website",
-    })         
+        "meta_title": "FAQ Chatbot Provider in Vellore | Automated Query Solutions",
+        "meta_description": "Deploy FAQ chatbots for instant automated responses to customer queries. Serving businesses in Vellore and Tamil Nadu.",
+        "meta_keywords": "faq chatbot vellore, automated question answering bot, customer query automation, support chatbot india, faq automation solution",
+    })        

@@ -129,11 +129,11 @@ def contact(request):
         form = ContactForm()
     
     return render(request, "pages/contact.html", {
-        "meta_title": "Contact Us | My Django Website",
-        "meta_description": "Contact our Django team",
-        "meta_keywords": "contact, django company",
+        "meta_title": "Contact Chatbot Experts in Vellore | Get AI Chatbot Solutions",
+        "meta_description": "Contact our chatbot development team in Vellore, Tamil Nadu for AI chatbot, live chat or FAQ bot solutions tailored for your business.",
+        "meta_keywords": "contact chatbot company vellore, ai chatbot consultation tamil nadu, chatbot support services, business automation contact",
         "form": form,
-    })  
+    })
 
 def about(request):
     return render(request, "pages/about.html", {

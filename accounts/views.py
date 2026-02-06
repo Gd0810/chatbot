@@ -102,9 +102,9 @@ def password_change_view(request):
 
 def index(request):
     return render(request, "pages/index.html", {
-        "meta_title": "Home | My Django Website",
-        "meta_description": "Best Django website for services",
-        "meta_keywords": "django, python, web development",
+        "meta_title": "AI, Live & FAQ Chatbot Services in Vellore | Chatbot Solutions",
+        "meta_description": "We provide AI chatbot, live chat, and FAQ chatbot solutions for businesses in Vellore, Tamil Nadu. Automate support and boost customer engagement.",
+        "meta_keywords": "chatbot services vellore, ai chatbot vellore, live chat support tamil nadu, faq chatbot solutions, business automation chatbot, customer support ai",
     })
 
 

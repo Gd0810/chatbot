@@ -145,10 +145,10 @@ def about(request):
 
 def aibot(request):
     return render(request, "pages/ai-chatbot-provider-in-vellore.html", {
-        "meta_title": "AI Chatbot Provider in Vellore | My Django Website",
-        "meta_description": "AI Chatbot Provider in Vellore | My Django Website",
-        "meta_keywords": "AI Chatbot Provider in Vellore | My Django Website",
-    })      
+        "meta_title": "AI Chatbot Provider in Vellore | Intelligent Automation Solutions",
+        "meta_description": "Leading AI chatbot provider in Vellore offering intelligent customer support automation, NLP chatbots and business workflow integration.",
+        "meta_keywords": "ai chatbot vellore, artificial intelligence chatbot india, nlp chatbot development, business automation ai bot, smart chatbot solutions",
+    })     
 
 def livebot(request):
     return render(request, "pages/live-chatbot-provider-in-vellore.html", {

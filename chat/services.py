@@ -70,15 +70,30 @@ def _call_google_generative(api_key: str, model: str, prompt: str):
     r = requests.post(url, json=payload, timeout=REQUEST_TIMEOUT)
     r.raise_for_status()
     j = r.json()
-    # navigate returned structure robustly
+    
+    # Extract text
+    text = ""
     candidates = j.get("candidates") or []
     if candidates:
         content = candidates[0].get("content", {})
         parts = content.get("parts") or []
         if parts:
-            return parts[0].get("text") or parts[0]
-    # fallback: try common fields
-    return j.get("output", {}).get("text") or j.get("response", "") or json.dumps(j)
+            text = parts[0].get("text") or str(parts[0])
+    if not text:
+        text = j.get("output", {}).get("text") or j.get("response", "") or json.dumps(j)
+    
+    # Extract token usage (Google format)
+    usage = j.get("usageMetadata", {})
+    prompt_tokens = usage.get("promptTokenCount", 0)
+    completion_tokens = usage.get("candidatesTokenCount", 0)
+    
+    token_data = {
+        "prompt_tokens": prompt_tokens,
+        "completion_tokens": completion_tokens,
+        "total_tokens": prompt_tokens + completion_tokens  # Calculate ourselves for accuracy
+    }
+    
+    return {"text": text, "usage": token_data}
 
 def _call_openai(api_key: str, model: str, prompt: str):
     url = "https://api.openai.com/v1/chat/completions"
@@ -92,12 +107,25 @@ def _call_openai(api_key: str, model: str, prompt: str):
     r = requests.post(url, json=payload, headers=headers, timeout=REQUEST_TIMEOUT)
     r.raise_for_status()
     j = r.json()
-    # Standard OpenAI response parsing
+    
+    # Extract text
+    text = ""
     choices = j.get("choices") or []
     if choices:
         msg = choices[0].get("message") or {}
-        return msg.get("content") or choices[0].get("text") or json.dumps(j)
-    return j.get("error", {}).get("message") or json.dumps(j)
+        text = msg.get("content") or choices[0].get("text") or json.dumps(j)
+    if not text:
+        text = j.get("error", {}).get("message") or json.dumps(j)
+    
+    # Extract token usage (OpenAI format)
+    usage = j.get("usage", {})
+    token_data = {
+        "prompt_tokens": usage.get("prompt_tokens", 0),
+        "completion_tokens": usage.get("completion_tokens", 0),
+        "total_tokens": usage.get("total_tokens", 0)
+    }
+    
+    return {"text": text, "usage": token_data}
 
 def _call_openrouter(api_key: str, model: str, prompt: str):
     # OpenRouter implements OpenAI-like chat endpoint
@@ -112,17 +140,32 @@ def _call_openrouter(api_key: str, model: str, prompt: str):
     r = requests.post(url, json=payload, headers=headers, timeout=REQUEST_TIMEOUT)
     r.raise_for_status()
     j = r.json()
+    
+    # Extract text (OpenAI-compatible format)
+    text = ""
     choices = j.get("choices") or []
     if choices:
-        return choices[0].get("message", {}).get("content") or choices[0].get("text") or json.dumps(j)
-    return json.dumps(j)
+        text = choices[0].get("message", {}).get("content") or choices[0].get("text") or json.dumps(j)
+    else:
+        text = json.dumps(j)
+    
+    # Extract token usage (OpenAI-compatible format)
+    usage = j.get("usage", {})
+    token_data = {
+        "prompt_tokens": usage.get("prompt_tokens", 0),
+        "completion_tokens": usage.get("completion_tokens", 0),
+        "total_tokens": usage.get("total_tokens", 0)
+    }
+    
+    return {"text": text, "usage": token_data}
 
 def _call_anthropic(api_key: str, model: str, prompt: str):
     # Anthropic supports /v1/messages with messages array (see current docs)
     url = "https://api.anthropic.com/v1/messages"
     headers = {
         "x-api-key": api_key,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "anthropic-version": "2023-06-01"
     }
     payload = {
         "model": model,
@@ -133,14 +176,25 @@ def _call_anthropic(api_key: str, model: str, prompt: str):
     r = requests.post(url, json=payload, headers=headers, timeout=REQUEST_TIMEOUT)
     r.raise_for_status()
     j = r.json()
-    # try messages-like response parsing
-    if "completion" in j:
-        return j.get("completion")
-    # Traditional Claude style: 'output' or top-level text
-    if "message" in j:
-        return j["message"].get("content") or json.dumps(j)
-    # last fallback
-    return j.get("content") or json.dumps(j)
+    
+    # Extract text (Anthropic format)
+    text = ""
+    if "content" in j and isinstance(j["content"], list) and len(j["content"]) > 0:
+        text = j["content"][0].get("text", "")
+    elif "completion" in j:
+        text = j.get("completion")
+    else:
+        text = json.dumps(j)
+    
+    # Extract token usage (Anthropic format)
+    usage = j.get("usage", {})
+    token_data = {
+        "prompt_tokens": usage.get("input_tokens", 0),
+        "completion_tokens": usage.get("output_tokens", 0),
+        "total_tokens": usage.get("input_tokens", 0) + usage.get("output_tokens", 0)
+    }
+    
+    return {"text": text, "usage": token_data}
 
 def _call_cohere(api_key: str, model: str, prompt: str):
     # Cohere generate endpoint
@@ -202,51 +256,64 @@ def _call_replicate(api_key: str, model: str, prompt: str):
 def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None, model: str = 'gpt-4o', bot_id: int = None):
     """
     Main entry: route to provider-specific callers based on the Bot.ai_provider.
+    Returns a dict with 'text' and 'usage' (token counts).
     Appends a clickable 'For more details:' section with hyperlinks if labeled URLs are found
     in retrieved_data (Service Page / Contact Page / Others).
     """
     try:
         bot = Bot.objects.get(id=bot_id) if bot_id else None
     except Bot.DoesNotExist:
-        return "⚠️ Bot not found."
+        return {"text": "⚠️ Bot not found.", "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}}
 
     provider = bot.ai_provider if bot else 'google'
     # prefer bot's key if stored
     used_api_key = (bot.ai_api_key if bot and bot.ai_api_key else api_key)
     if not used_api_key:
-        return "⚠️ No API key provided."
+        return {"text": "⚠️ No API key provided.", "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}}
 
     prompt = _build_prompt(user_question, retrieved_data)
     answer_text = ""
+    token_usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
 
     try:
         provider = provider.lower()
         if provider == 'google':
             # For Google, model examples: 'gemini-2.5-pro' or 'models/gemini-2.5-pro' accepted
-            answer_text = _call_google_generative(used_api_key, model, prompt)
+            result = _call_google_generative(used_api_key, model, prompt)
+            answer_text = result.get("text", "")
+            token_usage = result.get("usage", token_usage)
 
         elif provider == 'openai':
-            answer_text = _call_openai(used_api_key, model, prompt)
+            result = _call_openai(used_api_key, model, prompt)
+            answer_text = result.get("text", "")
+            token_usage = result.get("usage", token_usage)
 
         elif provider == 'openrouter':
-            answer_text = _call_openrouter(used_api_key, model, prompt)
+            result = _call_openrouter(used_api_key, model, prompt)
+            answer_text = result.get("text", "")
+            token_usage = result.get("usage", token_usage)
 
         elif provider == 'anthropic':
-            answer_text = _call_anthropic(used_api_key, model, prompt)
+            result = _call_anthropic(used_api_key, model, prompt)
+            answer_text = result.get("text", "")
+            token_usage = result.get("usage", token_usage)
 
         elif provider == 'cohere':
             answer_text = _call_cohere(used_api_key, model, prompt)
+            # Cohere doesn't return usage in standard format, keep default
 
         elif provider == 'huggingface':
             # model should be huggingface repo id like "bigscience/bloom" or "meta-llama/Llama-2-13b-chat"
             answer_text = _call_huggingface(used_api_key, model, prompt)
+            # HuggingFace doesn't return usage in standard format, keep default
 
         elif provider == 'replicate':
             # model should be replicate version id (not repo); check Replicate docs for correct value
             answer_text = _call_replicate(used_api_key, model, prompt)
+            # Replicate doesn't return usage in standard format, keep default
 
         else:
-            return f"⚠️ Unsupported or not-yet-implemented AI provider: {provider}"
+            return {"text": f"⚠️ Unsupported or not-yet-implemented AI provider: {provider}", "usage": token_usage}
 
     except requests.HTTPError as e:
         status = getattr(e.response, "status_code", None)
@@ -275,7 +342,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         except Exception:
             pass
         
-        return error_msg
+        return {"text": error_msg, "usage": token_usage}
 
     except requests.RequestException as e:
         print(f"RequestException calling provider {provider}: {e}")
@@ -299,7 +366,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         except Exception:
             pass
         
-        return error_msg
+        return {"text": error_msg, "usage": token_usage}
 
     except ValueError as e:
         print(f"ValueError parsing response from {provider}: {e}")
@@ -323,7 +390,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         except Exception:
             pass
         
-        return error_msg
+        return {"text": error_msg, "usage": token_usage}
 
     except Exception as e:
         print(f"Unexpected error in get_ai_response: {e}")
@@ -347,7 +414,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         except Exception:
             pass
         
-        return error_msg
+        return {"text": error_msg, "usage": token_usage}
 
     # Post-process: convert plain URLs to clickable links and avoid duplicates
     try:
@@ -493,9 +560,9 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
             # Keep first part and only first "For more details:" section
             answer_text = parts[0] + 'For more details:' + parts[1]
 
-        return answer_text
+        return {"text": answer_text, "usage": token_usage}
 
     except Exception as e:
         print(f"Post-process error: {e}")
         # If post-process fails, still return the model's raw answer
-        return answer_text or ""
+        return {"text": answer_text or "", "usage": token_usage}

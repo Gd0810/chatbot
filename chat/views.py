@@ -228,14 +228,24 @@ def ChatAPI(request):
 
         # Retrieve knowledge and call AI
         retrieved_data, source_ids = get_relevant_data(bot_obj, message, top_k=1)
-        answer = get_ai_response(
+        response_data = get_ai_response(
             user_question=message,
             retrieved_data=retrieved_data,
             api_key=bot_obj.ai_api_key,
             model=bot_obj.ai_model,
             bot_id=bot_obj.id,
         )
-        return JsonResponse({"answer": answer, "sources": source_ids})
+        
+        # Extract text and usage from response
+        answer_text = response_data.get("text", "") if isinstance(response_data, dict) else response_data
+        token_usage = response_data.get("usage", {}) if isinstance(response_data, dict) else {}
+        
+        # Log token usage for monitoring
+        if token_usage.get("total_tokens"):
+            print(f"[Token Usage] Prompt: {token_usage.get('prompt_tokens', 0)}, "
+                  f"Completion: {token_usage.get('completion_tokens', 0)}, "
+                  f"Total: {token_usage.get('total_tokens', 0)}")
+        return JsonResponse({"answer": answer_text, "sources": source_ids})
 
     except Exception as e:
         print(f"ChatAPI exception: {e}")

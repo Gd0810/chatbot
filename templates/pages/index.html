@@ -688,6 +688,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-
+<script src="http://127.0.0.1:8000/static/embed/bot.js"></script>
+<script>
+  RedbotLoad('074aa379250e4a898359e1b6f5a2574c');
+  RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));
+</script>
 
 {% endblock %}

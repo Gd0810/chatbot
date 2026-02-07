@@ -27,7 +27,7 @@
 #         )
 
 #         await self.accept()
-#         print(f"[ChatConsumer] WebSocket connected: {self.room_group_name}")
+#        
 
 #     async def disconnect(self, close_code):
 #         # Leave room group
@@ -35,7 +35,7 @@
 #             self.room_group_name,
 #             self.channel_name
 #         )
-#         print(f"[ChatConsumer] WebSocket disconnected: {self.room_group_name}, code: {close_code}")
+#        
 
 #     # Receive message from WebSocket
 #     async def receive(self, text_data):
@@ -53,13 +53,13 @@
 #                 await self.save_message(text, sender)
 
 #         except json.JSONDecodeError as e:
-#             print(f"[ChatConsumer] JSON decode error: {e}")
+#            
 #             await self.send(text_data=json.dumps({
 #                 'type': 'error',
 #                 'message': 'Invalid JSON format'
 #             }))
 #         except Exception as e:
-#             print(f"[ChatConsumer] Error in receive: {e}")
+#            
 #             await self.send(text_data=json.dumps({
 #                 'type': 'error',
 #                 'message': str(e)
@@ -89,7 +89,7 @@
 #             )
             
 #             if created:
-#                 print(f"[ChatConsumer] Created new conversation: {conversation.id}")
+#                
             
 #             # Switch to LIVE mode when user sends first message
 #             if sender == 'USER' and conversation.effective_mode != 'LIVE':
@@ -101,13 +101,13 @@
 #                 sender=sender,
 #                 text=text
 #             )
-#             print(f"[ChatConsumer] Saved message: {message.id} from {sender}")
+#            
 #             return message
 #         except Bot.DoesNotExist:
-#             print(f"[ChatConsumer] Bot not found: {self.public_key}")
+#            
 #             raise Exception("Bot not found")
 #         except Exception as e:
-#             print(f"[ChatConsumer] Error saving message: {e}")
+#            
 #             raise
 
 

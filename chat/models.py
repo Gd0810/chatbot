@@ -23,3 +23,14 @@ class Message(models.Model):
     text = models.TextField()
     sources = models.TextField(blank=True)  # JSON of RAG sources
     timestamp = models.DateTimeField(auto_now_add=True)
+    
+    # Token usage tracking (for AI responses)
+    prompt_tokens = models.IntegerField(null=True, blank=True, help_text="Input tokens used")
+    completion_tokens = models.IntegerField(null=True, blank=True, help_text="Output tokens generated")
+    total_tokens = models.IntegerField(null=True, blank=True, help_text="Total tokens (prompt + completion)")
+    
+    def __str__(self):
+        return f"{self.sender}: {self.text[:50]}"
+    
+    class Meta:
+        ordering = ['timestamp']

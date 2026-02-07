@@ -421,11 +421,32 @@
         const textColor = getTextColor();
         const gridColor = getGridColor();
 
-        // 1. Density Area Chart (Image 1 Style)
+        // 1. Density Area Chart (Image 1 Style - Overall Usage)
         const ctx3 = document.getElementById('densityChart');
         if (ctx3) {
+            // Using User's requested colors for Total Input, Total Output, Total Used
+            // mapped to the density datasets
+            const colors = [
+                'rgba(173, 216, 230, 0.6)', // Total Input
+                'rgba(100, 149, 237, 0.6)', // Total Output
+                'rgba(60, 70, 100, 0.7)'    // Total Usage
+            ];
+
             const densityData = generateDensityData();
             
+            // Override colors for the generated datasets
+            if (densityData.datasets.length >= 3) {
+                // We'll map the first 3 layers to the requested colors
+                densityData.datasets[0].backgroundColor = colors[0];
+                densityData.datasets[0].borderColor = colors[0].replace('0.6', '1');
+                
+                densityData.datasets[1].backgroundColor = colors[1];
+                densityData.datasets[1].borderColor = colors[1].replace('0.6', '1');
+                
+                densityData.datasets[2].backgroundColor = colors[2];
+                densityData.datasets[2].borderColor = colors[2].replace('0.7', '1');
+            }
+
             new Chart(ctx3.getContext('2d'), {
                 type: 'line',
                 data: densityData,
@@ -434,34 +455,19 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                title: function(context) {
-                                    return 'Token Range: ' + Math.floor(context[0].parsed.x);
-                                },
-                                label: function(context) {
-                                    return 'Density: ' + context.parsed.y.toFixed(2);
-                                }
-                            }
-                        }
+                        tooltip: { mode: 'index', intersect: false }
                     },
                     scales: {
                         x: {
                             type: 'linear',
-                            title: {
-                                display: true,
-                                text: 'Token Count',
-                                color: textColor
-                            },
+                            title: { display: true, text: 'Token Count', color: textColor },
                             grid: { color: gridColor },
                             ticks: { color: textColor }
                         },
                         y: {
                             title: {
                                 display: true,
-                                text: 'Density',
+                                text: 'Token Usage', // Updated Y-axis label
                                 color: textColor
                             },
                             min: 0,
@@ -470,20 +476,32 @@
                             ticks: { color: textColor }
                         }
                     },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
-                    }
+                    interaction: { mode: 'nearest', axis: 'x', intersect: false }
                 }
             });
         }
 
-        // 2. Stacked Histogram (Image 2 Style)
+        // 2. Stacked Histogram (Image 2 Style - Last Message)
         const ctx4 = document.getElementById('histogramChart');
         if (ctx4) {
             const histogramData = generateHistogramData();
             
+            // User requested 3 specific colors for Last Message components
+            // Mapping: Input, Output, Total (or slices of it)
+            const histColors = [
+                { bg: 'rgba(216, 191, 216, 0.8)', border: 'rgba(216, 191, 216, 1)' },
+                { bg: 'rgba(106, 90, 205, 0.8)', border: 'rgba(106, 90, 205, 1)' },
+                { bg: 'rgba(75, 0, 130, 0.8)', border: 'rgba(75, 0, 130, 1)' }
+            ];
+
+            // Apply these colors to the datasets
+            // We'll cycle through them if there are more datasets than colors
+            histogramData.datasets.forEach((dataset, index) => {
+                const color = histColors[index % histColors.length];
+                dataset.backgroundColor = color.bg;
+                dataset.borderColor = color.border;
+            });
+
             new Chart(ctx4.getContext('2d'), {
                 type: 'bar',
                 data: histogramData,
@@ -492,48 +510,20 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                title: function(context) {
-                                    return 'Token Range: ' + context[0].label;
-                                },
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.y;
-                                },
-                                footer: function(context) {
-                                    let sum = 0;
-                                    context.forEach(function(tooltipItem) {
-                                        sum += tooltipItem.parsed.y;
-                                    });
-                                    return 'Total: ' + sum;
-                                }
-                            }
-                        }
+                        tooltip: { mode: 'index', intersect: false }
                     },
                     scales: {
                         x: {
                             stacked: true,
-                            title: {
-                                display: true,
-                                text: 'Token Count',
-                                color: textColor
-                            },
+                            title: { display: true, text: 'Token Count', color: textColor },
                             grid: { display: false },
-                            ticks: { 
-                                color: textColor,
-                                maxRotation: 45,
-                                minRotation: 45,
-                                autoSkip: true,
-                                maxTicksLimit: 10
-                            }
+                            ticks: { color: textColor, maxRotation: 45, minRotation: 45 }
                         },
                         y: {
                             stacked: true,
                             title: {
                                 display: true,
-                                text: 'Frequency',
+                                text: 'Token Usage', // Updated Y-axis label
                                 color: textColor
                             },
                             grid: { color: gridColor },

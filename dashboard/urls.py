@@ -56,6 +56,9 @@ urlpatterns = [
     path('qa/<int:qa_id>/update/', views.qa_update, name='qa_update'),
     path('qa/<int:qa_id>/delete/', views.qa_delete, name='qa_delete'),
     
+    # Token Usage Visualization
+    path('partial/token/', views.partial_token_usage, name='partial_token_usage'),
+    
     # Website Datafetcher
     path('website-datafetcher/', views.partial_website_datafetcher, name='partial_website_datafetcher'),
     path('website-datafetcher/crawl/', views.website_datafetcher_crawl, name='website_datafetcher_crawl'),

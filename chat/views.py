@@ -27,6 +27,7 @@ from accounts.models import Workspace
 from knowledge.models import KnowledgeSource
 from .services import get_ai_response
 from .greeting import _handle_greeting
+from .models import Conversation, Message
 
 
 def _tokenize(text: str):
@@ -138,15 +139,17 @@ def ChatAPI(request):
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON body'}, status=400)
 
-        message = data.get('message', '')
-        jwt_token = data.get('jwt')
-
-        print(f"Received chat: {message!r}")
+        data_in = json.loads(request.body)
+        message = data_in.get('message', '').strip()
+        jwt_token = data_in.get('jwt', '')
+        session_id = data_in.get('session_id')  # Extract session_id
 
         if not jwt_token:
             return JsonResponse({'error': 'Missing JWT'}, status=401)
+        if not message:
+            return JsonResponse({'error': 'Empty message'}, status=400)
 
-        # Validate JWT with some leeway (helps dev clock skew)
+        # Verify JWT
         try:
             jwt_leeway = getattr(settings, 'REDBOT_JWT_LEEWAY', 300)  # seconds
             leeway = jwt_leeway if settings.DEBUG else min(jwt_leeway, 120)
@@ -219,10 +222,31 @@ def ChatAPI(request):
         if not ap or not ap.includes_ai:
             return JsonResponse({"answer": "AI chat is not included in this plan.", "sources": []}, status=200)
 
+        # Get or Create Conversation and Save User Message
+        conversation = None
+        if session_id:
+            conversation, _ = Conversation.objects.get_or_create(
+                bot=bot_obj,
+                session_id=session_id
+            )
+            # Save User Message
+            Message.objects.create(
+                conversation=conversation,
+                sender='USER',
+                text=message
+            )
+
         # Greetings
         # 🗣️ Greetings Handling (from greeting.py)
         greeting_response = _handle_greeting(message, bot_obj, ws)
         if greeting_response:
+            # Save Greeting Response
+            if conversation:
+                Message.objects.create(
+                    conversation=conversation,
+                    sender='BOT',
+                    text=greeting_response
+                )
             return JsonResponse({"answer": greeting_response, "sources": []})
 
 
@@ -245,6 +269,19 @@ def ChatAPI(request):
             print(f"[Token Usage] Prompt: {token_usage.get('prompt_tokens', 0)}, "
                   f"Completion: {token_usage.get('completion_tokens', 0)}, "
                   f"Total: {token_usage.get('total_tokens', 0)}")
+        
+        # Save Bot Message with Token Usage
+        if conversation:
+            Message.objects.create(
+                conversation=conversation,
+                sender='BOT',
+                text=answer_text,
+                sources=json.dumps(source_ids),
+                prompt_tokens=token_usage.get("prompt_tokens"),
+                completion_tokens=token_usage.get("completion_tokens"),
+                total_tokens=token_usage.get("total_tokens")
+            )
+
         return JsonResponse({"answer": answer_text, "sources": source_ids})
 
     except Exception as e:

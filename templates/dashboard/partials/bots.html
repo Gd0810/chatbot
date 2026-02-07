@@ -329,6 +329,25 @@
       <iconify-icon icon="material-symbols:smart-toy-outline" width="28" height="28"></iconify-icon>
     </div>
     <h2 class="bots-title">Manage Bots</h2>
+    
+    {% if plan and plan.includes_ai %}
+      <button 
+        class="btn-token-analytics"
+        hx-get="{% url 'dashboard:partial_token_usage' %}"
+        hx-target="#main"
+        hx-push-url="false"
+        style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background-color: var(--bots-card-bg); border: 1px solid var(--bots-border); border-radius: 8px; color: var(--bots-text-primary); font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s;">
+        <iconify-icon icon="material-symbols:analytics-outline" style="color: var(--bots-accent); font-size: 18px;"></iconify-icon>
+        <span>Token Usage</span>
+      </button>
+      <style>
+        .btn-token-analytics:hover {
+          background-color: var(--bots-bg);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px var(--bots-shadow);
+        }
+      </style>
+    {% endif %}
   </div>
   
   <!-- Plan Badge -->

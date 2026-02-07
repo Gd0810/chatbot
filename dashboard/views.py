@@ -1169,3 +1169,46 @@ def website_datafetcher_crawl(request):
         import traceback
         traceback.print_exc()
         return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
+def partial_token_usage(request):
+    """Token usage visualization page"""
+    ws, bounce = _require_operational(request)
+    if bounce:
+        return bounce
+    
+    plan = ws.active_plan
+    if not plan or not plan.includes_ai:
+        messages.error(request, "Token usage tracking is only available for AI-enabled plans.")
+        return redirect('dashboard:index')
+    
+    # Get all messages from this workspace's bots
+    all_messages = Message.objects.filter(
+        conversation__bot__workspace=ws,
+        sender='BOT',  # Only bot messages have token usage
+        total_tokens__isnull=False  # Only messages with token data
+    ).order_by('-timestamp')
+    
+    # Overall statistics
+    total_prompt_tokens = sum(m.prompt_tokens or 0 for m in all_messages)
+    total_completion_tokens = sum(m.completion_tokens or 0 for m in all_messages)
+    total_tokens_used = sum(m.total_tokens or 0 for m in all_messages)
+    
+    # Last message statistics
+    last_message = all_messages.first()
+    last_prompt = last_message.prompt_tokens if last_message else 0
+    last_completion = last_message.completion_tokens if last_message else 0
+    last_total = last_message.total_tokens if last_message else 0
+
+    return render(request, 'dashboard/token.html', {
+        'workspace': ws,
+        'plan': plan,
+        'total_prompt_tokens': total_prompt_tokens,
+        'total_completion_tokens': total_completion_tokens,
+        'total_tokens_used': total_tokens_used,
+        'last_prompt': last_prompt,
+        'last_completion': last_completion,
+        'last_total': last_total,
+        'message_count': all_messages.count(),
+    })
+

@@ -824,3 +824,24 @@ HTTPError calling provider google: status=429 body={
 
 [mHTTP POST /api/chat/ 200 [7.21, 127.0.0.1:52233][0m
 C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\chat\services.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:63610]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:63610]
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\redbot\settings.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:64060]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:64060]

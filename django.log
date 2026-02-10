@@ -1015,3 +1015,43 @@ Not Found: /favicon.ico
 [mHTTP GET /accounts/login/ 200 [0.04, 127.0.0.1:58892][0m
 [mHTTP GET /accounts/login/ 200 [0.00, 127.0.0.1:59694][0m
 [mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:61282][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:64597][0m
+[mHTTP GET /accounts/login/ 200 [0.00, 127.0.0.1:64597][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:64597][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:64597][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:50706][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:50706][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:50706][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:54879][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:54879][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:55151][0m
+[mHTTP POST /accounts/login/ 200 [0.57, 127.0.0.1:55151][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.02, 127.0.0.1:55151][0m
+[mHTTP POST /accounts/login/ 200 [0.59, 127.0.0.1:56526][0m
+[mHTTP POST /accounts/login/ 200 [0.58, 127.0.0.1:56526][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:56526][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:56526][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:56526][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:56526][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:56664][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770721200840&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.07, 127.0.0.1:56526][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770721200840&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=QA 200 [0.06, 127.0.0.1:56526][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:56526][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:56526][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:56526][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:56526][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:56526][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:56526][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:56526][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:56526][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:58345][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:59192][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:59192][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:59192][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:59192][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770721428244&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.05, 127.0.0.1:59192][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770721428244&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=QA 200 [0.04, 127.0.0.1:59192][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:59192][0m

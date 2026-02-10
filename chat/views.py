@@ -1,6 +1,7 @@
 # chat/views.py
 import json
 import re
+import logging
 from urllib.parse import urlparse
 from time import time as epoch_time
 
@@ -10,6 +11,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import requests
+
+logger = logging.getLogger(__name__)
 import numpy as np
 from django.utils.text import slugify
 from knowledge.models import Chunk
@@ -53,13 +56,13 @@ def get_relevant_data(bot, user_question: str, top_k: int = 3):
     # ✅ FIXED: use knowledge_source__bot instead of source__bot
     chunks = Chunk.objects.filter(knowledge_source__bot=bot)
     if not chunks.exists():
-        print("⚠️ No chunks found for this bot.")
+        logger.warning("No chunks found for this bot.")
         return "", []
 
     # Pick first chunk just to get Qdrant connection info
     first_chunk = chunks.first()
     if not first_chunk.qdrant_url or not first_chunk.qdrant_api_key:
-        print("⚠️ Qdrant credentials missing for this bot.")
+        logger.warning("Qdrant credentials missing for this bot.")
         return "", []
 
     # Step 1: Embed the user's question
@@ -85,7 +88,7 @@ def get_relevant_data(bot, user_question: str, top_k: int = 3):
         response.raise_for_status()
         results = response.json().get("result", [])
     except Exception as e:
-        print(f"❌ Qdrant query failed: {e}")
+        logger.error("Qdrant query failed: %s", e)
         return "", []
 
     # Step 3: Collect top text chunks
@@ -160,7 +163,7 @@ def ChatAPI(request):
             if exp:
                 now = int(epoch_time())
                 if now > int(exp) + leeway:
-                    print(f"[ChatAPI] Manual exp check failed: now={now} exp={exp} leeway={leeway}")
+                    logger.debug("Manual exp check failed: now=%s exp=%s leeway=%s", now, exp, leeway)
                     return JsonResponse({'error': 'Token expired'}, status=401)
 
         except ExpiredSignatureError:
@@ -170,12 +173,12 @@ def ChatAPI(request):
                 exp = unverified.get('exp')
                 now = int(epoch_time())
                 delta = (now - int(exp)) if exp else None
-                print(f"[ChatAPI] Token expired: now={now} exp={exp} delta={delta}s")
+                logger.warning("Token expired: now=%s exp=%s delta=%ss", now, exp, delta)
             except Exception:
                 pass
             return JsonResponse({'error': 'Token expired'}, status=401)
         except InvalidTokenError as e:
-            print(f"[ChatAPI] Invalid token: {e}")
+            logger.error("Invalid token: %s", e)
             return JsonResponse({'error': f'Invalid token: {e}'}, status=401)
 
         # Locate bot from token
@@ -266,9 +269,10 @@ def ChatAPI(request):
         
         # Log token usage for monitoring
         if token_usage.get("total_tokens"):
-            print(f"[Token Usage] Prompt: {token_usage.get('prompt_tokens', 0)}, "
-                  f"Completion: {token_usage.get('completion_tokens', 0)}, "
-                  f"Total: {token_usage.get('total_tokens', 0)}")
+            logger.info("Token Usage - Prompt: %s, Completion: %s, Total: %s",
+                       token_usage.get('prompt_tokens', 0),
+                       token_usage.get('completion_tokens', 0),
+                       token_usage.get('total_tokens', 0))
         
         # Save Bot Message with Token Usage
         if conversation:
@@ -285,7 +289,7 @@ def ChatAPI(request):
         return JsonResponse({"answer": answer_text, "sources": source_ids})
 
     except Exception as e:
-        print(f"ChatAPI exception: {e}")
+        logger.error("ChatAPI exception: %s", e)
         return JsonResponse({'error': str(e)}, status=500)
 
 

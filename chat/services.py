@@ -1,8 +1,11 @@
 # services.py
 import json
+import logging
 import requests
 from django.conf import settings
 from bots.models import Bot
+
+logger = logging.getLogger(__name__)
 
 # Common timeout
 REQUEST_TIMEOUT = 30
@@ -321,7 +324,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
             body = e.response.text
         except Exception:
             body = "<unavailable>"
-        print(f"HTTPError calling provider {provider}: status={status} body={body}")
+        logger.error("HTTPError calling provider %s: status=%s body=%s", provider, status, body)
         
         # Build user-friendly error message based on plan
         error_msg = f"⚠️ AI service error (HTTP {status})."
@@ -345,7 +348,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         return {"text": error_msg, "usage": token_usage}
 
     except requests.RequestException as e:
-        print(f"RequestException calling provider {provider}: {e}")
+        logger.error("RequestException calling provider %s: %s", provider, e)
         
         # Build user-friendly error message based on plan
         error_msg = f"⚠️ AI service connection error."
@@ -369,7 +372,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         return {"text": error_msg, "usage": token_usage}
 
     except ValueError as e:
-        print(f"ValueError parsing response from {provider}: {e}")
+        logger.error("ValueError parsing response from %s: %s", provider, e)
         
         # Build user-friendly error message based on plan
         error_msg = "⚠️ Received invalid response from AI service."
@@ -393,7 +396,7 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         return {"text": error_msg, "usage": token_usage}
 
     except Exception as e:
-        print(f"Unexpected error in get_ai_response: {e}")
+        logger.error("Unexpected error in get_ai_response: %s", e)
         
         # Build user-friendly error message based on plan
         error_msg = "⚠️ Unexpected error occurred."
@@ -563,6 +566,6 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
         return {"text": answer_text, "usage": token_usage}
 
     except Exception as e:
-        print(f"Post-process error: {e}")
+        logger.error("Post-process error: %s", e)
         # If post-process fails, still return the model's raw answer
         return {"text": answer_text or "", "usage": token_usage}

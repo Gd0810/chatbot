@@ -6,9 +6,12 @@ Converted from Streamlit script for Django backend use.
 from urllib.parse import urljoin, urlparse
 import time
 import re
+import logging
 import requests
 from bs4 import BeautifulSoup, Tag
 import urllib.robotparser as robotparser
+
+logger = logging.getLogger(__name__)
 
 HEADERS = {"User-Agent": "RedbotCrawler/1.0"}
 
@@ -231,7 +234,7 @@ def crawl_site(start_url: str, max_pages: int = 50):
                     to_visit.append(norm)
 
         except Exception as e:
-            print(f"Error crawling {url}: {e}")
+            logger.error("Error crawling %s: %s", url, e)
             continue
 
         time.sleep(0.2)  # Be polite

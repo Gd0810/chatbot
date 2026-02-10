@@ -1,10 +1,14 @@
 import uuid
 import requests
+import logging
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
 from sentence_transformers import SentenceTransformer
 from bots.models import Bot
+
+# Configure logger
+logger = logging.getLogger(__name__)
 
 # ✅ Load embedding model globally (for performance)
 embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -159,12 +163,12 @@ class Chunk(models.Model):
 
             response = requests.put(points_url, headers=headers, json=payload)
             if response.status_code not in (200, 201):
-                print("⚠️ Qdrant upload failed:", response.text)
+                logger.warning("Qdrant upload failed: %s", response.text)
             else:
                 super().save(update_fields=["vector_id", "collection_name"])
 
         except Exception as e:
-            print("❌ Error pushing to Qdrant:", str(e))
+            logger.error("Error pushing to Qdrant: %s", str(e))
 
     def delete(self, *args, **kwargs):
         """Remove this chunk and its Qdrant vector (if present)."""
@@ -175,9 +179,9 @@ class Chunk(models.Model):
                 payload = {"points": [self.vector_id]}
                 resp = requests.post(delete_url, headers=headers, json=payload, timeout=15)
                 if resp.status_code not in (200, 204, 202):
-                    print("⚠️ Qdrant vector deletion returned:", resp.status_code, resp.text)
+                    logger.warning("Qdrant vector deletion returned: %s %s", resp.status_code, resp.text)
             except Exception as e:
-                print("⚠️ Qdrant vector deletion failed:", e)
+                logger.warning("Qdrant vector deletion failed: %s", e)
 
 
         # finally delete local DB row

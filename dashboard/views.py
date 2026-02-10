@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.db.models import Count
 from django.db.models.functions import TruncDate
 from datetime import timedelta
+import logging
 
 from accounts.models import Workspace
 from billing.models import Plan
@@ -14,6 +15,8 @@ from bots.models import Bot
 from knowledge.models import KnowledgeSource
 from chat.models import Conversation, Message
 from .website_crawler import crawl_site
+
+logger = logging.getLogger(__name__)
 
 def _get_user_workspace(user):
     return Workspace.objects.filter(owner=user).order_by('-created_at').first()
@@ -73,7 +76,7 @@ def workspace_update(request):
                 chunk.save()
                 updated_count += 1
             except Exception as e:
-                print(f"Failed to sync chunk {chunk.id}: {e}")
+                logger.error("Failed to sync chunk %s: %s", chunk.id, e)
 
     if updated_count > 0:
         messages.success(request, f"Configuration updated and {updated_count} chunks synced to Qdrant.")
@@ -685,8 +688,8 @@ def partial_enquiries(request):
         graph_labels.append(day.strftime("%Y-%m-%d"))
         graph_data.append(day_map.get(day, 0))
 
-    print("DEBUG graph_labels:", graph_labels)
-    print("DEBUG graph_data:", graph_data)
+    logger.debug("graph_labels: %s", graph_labels)
+    logger.debug("graph_data: %s", graph_data)
 
     # -------------------------
     # PAGINATION

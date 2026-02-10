@@ -113,12 +113,15 @@
 
 
 import json
+import logging
 from collections import defaultdict
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.utils import timezone
 from .models import Conversation, Message
 from bots.models import Bot
+
+logger = logging.getLogger(__name__)
 
 # Track active dashboard agents per bot
 ACTIVE_AGENTS = defaultdict(set)
@@ -161,7 +164,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
 
-        print(f"[ChatConsumer] Connected: {self.room_group_name}")
+        logger.debug("Connected: %s", self.room_group_name)
 
         # Register agent as online
         if self.is_agent:
@@ -196,7 +199,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if not ACTIVE_AGENTS[self.public_key]:
                 await self.broadcast_status(False)
 
-        print(f"[ChatConsumer] Disconnected: {self.room_group_name} ({close_code})")
+        logger.debug("Disconnected: %s (%s)", self.room_group_name, close_code)
 
     # ===============================
     # RECEIVE FROM WEBSOCKET

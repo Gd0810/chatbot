@@ -5,6 +5,9 @@ from qdrant_client.http.models import PointStruct, VectorParams, Distance
 from redbot.settings import QDRANT_CLIENT, OPENAI_API_KEY  # Use global for dev; later per-bot
 from .models import KnowledgeSource, Chunk
 import uuid
+import logging
+
+logger = logging.getLogger(__name__)
 
 @shared_task
 def ingest_knowledge(source_id):
@@ -43,5 +46,5 @@ def ingest_knowledge(source_id):
         source.status = 'INGESTED'
     except Exception as e:
         source.status = 'FAILED'
-        print(f"Ingestion failed: {e}")
+        logger.error("Ingestion failed: %s", e)
     source.save()

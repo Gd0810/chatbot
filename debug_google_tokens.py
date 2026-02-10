@@ -3,6 +3,7 @@ Debug script to see full Google API token usage response
 """
 import os
 import django
+import logging
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'redbot.settings')
 django.setup()
@@ -10,6 +11,10 @@ django.setup()
 from bots.models import Bot
 import requests
 import json
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+logger = logging.getLogger(__name__)
 
 bot = Bot.objects.first()
 api_key = bot.ai_api_key
@@ -28,19 +33,19 @@ payload = {
 response = requests.post(url, json=payload, timeout=30)
 data = response.json()
 
-print("=" * 80)
-print("FULL GOOGLE API RESPONSE")
-print("=" * 80)
-print(json.dumps(data, indent=2))
+logger.info("=" * 80)
+logger.info("FULL GOOGLE API RESPONSE")
+logger.info("=" * 80)
+logger.info("%s", json.dumps(data, indent=2))
 
-print("\n" + "=" * 80)
-print("USAGE METADATA ONLY")
-print("=" * 80)
+logger.info("\n" + "=" * 80)
+logger.info("USAGE METADATA ONLY")
+logger.info("=" * 80)
 usage = data.get("usageMetadata", {})
-print(json.dumps(usage, indent=2))
+logger.info("%s", json.dumps(usage, indent=2))
 
-print("\n" + "=" * 80)
-print("AVAILABLE FIELDS")
-print("=" * 80)
+logger.info("\n" + "=" * 80)
+logger.info("AVAILABLE FIELDS")
+logger.info("=" * 80)
 for key, value in usage.items():
-    print(f"{key}: {value}")
+    logger.info("%s: %s", key, value)

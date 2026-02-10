@@ -7,6 +7,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 
 import jwt
+import logging
 from datetime import timedelta, datetime, timezone as dt_timezone
 from urllib.parse import urlparse
 import json
@@ -15,6 +16,8 @@ from bots.models import Bot
 from chat.models import Conversation, Message
 from chat.views import get_relevant_data
 from chat.services import get_ai_response
+
+logger = logging.getLogger(__name__)
 
 
 def _host_from_url(url: str) -> str:
@@ -135,7 +138,7 @@ def widget_iframe(request, public_key):
             'jwt_exp': exp_ts,
             'workspace_enable_reset_button': getattr(ws, 'enable_reset_button', False),
         }
-        print(f"[embed.widget] pk={public_key} debug={debug}")
+        logger.debug("embed.widget pk=%s debug=%s", public_key, debug)
 
         # Welcome text (no template filter use)
         default_welcome = "Hi! I'm {name}. How can I help you?"
@@ -435,7 +438,7 @@ def live_chat_send(request):
                     sources=json.dumps(source_ids) if source_ids else ''
                 )
             except Exception as e:
-                print(f"AI generation failed: {e}")
+                logger.error("AI generation failed: %s", e)
                 # Optionally save an error message or fail silently (user just sees no reply)
 
         return JsonResponse({'success': True})

@@ -8,129 +8,176 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: rgb(255, 60, 0);
-            --primary-dark: rgb(217, 38, 0);
-            --primary-darker: rgb(175, 20, 0);
-            --primary-darkest: rgb(67, 26, 0);
-        }
+:root {
+    --primary: rgb(255, 60, 0);
+    --primary-dark: rgb(217, 38, 0);
+    --primary-darker: rgb(175, 20, 0);
+    --primary-darkest: rgb(67, 26, 0);
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: var(--primary);
-            font-family: 'Outfit', sans-serif;
-        }
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
-        /* LARGE WINDOW CARD */
-        .window-card {
-            width: 90%;
-            max-width: 900px; /* Increased size */
-            background-color: rgba(255, 255, 255, 0.1); /* Blends with background */
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px); /* Optional: adds a modern glassy feel */
-        }
+body {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+    overflow: hidden;
+    background-color: var(--primary);
+    font-family: 'Outfit', sans-serif;
+}
 
-        /* Header Bar */
-        .window-header {
-            background-color: rgba(0, 0, 0, 0.15);
-            padding: 15px 20px;
-            display: flex;
-            gap: 8px;
-        }
+/* CARD */
+.window-card {
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.4);
-        }
+.window-header {
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 15px 20px;
+    display: flex;
+    gap: 8px;
+}
 
-        .window-content {
-            padding: 80px 60px; /* More internal space */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+}
 
-        /* Large Avatar */
-        .avatar-circle {
-            width: 100px;
-            height: 100px;
-            background-color: var(--primary-darkest);
-            border-radius: 50%;
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+.window-content {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        .avatar-circle svg {
-            fill: white;
-            width: 50px;
-        }
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    background-color: var(--primary-darkest);
+    border-radius: 50%;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        /* Large Inputs Styling */
-        form {text-align: center; }
-        
-        input {
-            width: 100%;
-            max-width: 370px;
-            padding: 18px; /* Larger padding */
-            margin-bottom: 15px;
-            border: none;
-            outline: none;
-            font-size: 18px; /* Larger font */
-            background-color: #f8f8f8;
-            box-sizing: border-box;
-        }
+.avatar-circle svg {
+    fill: white;
+    width: 50px;
+}
 
-        /* THE STAR (*) MASKING */
-        input[type="password"] {
-            -webkit-text-security: asterisk !important;
-        }
+form { text-align: center; }
 
-        /* Large Blue Button */
-        button {
-            width: 100%;
-            max-width: 370px;
-            padding: 18px;
-            background-color: rgb(217, 38, 0);
-            color: white;
-            border: none;
-            font-weight: bold;
-            font-size: 16px;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 20px;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-        }
+input {
+    width: 100%;
+    max-width: 370px;
+    padding: 18px;
+    margin-bottom: 15px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    background-color: #f8f8f8;
+    box-sizing: border-box;
+}
 
-        button:hover {
-            background-color: rgb(255, 60, 0);
-            transform: translateY(-2px);
-        }
+/* Asterisk password masking */
+input[type="password"] {
+    -webkit-text-security: asterisk;
+    text-security: asterisk;
+}
 
-         .messages {
-            margin-bottom: 20px;
-        }
+button {
+    width: 100%;
+    max-width: 370px;
+    padding: 18px;
+    background-color: rgb(217, 38, 0);
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
 
-        .message {
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            background: rgba(255, 60, 0, 0.1);
-            color: rgb(175, 20, 0);
-            font-size: 14px;
-        }
-    </style>
+button:hover {
+    background-color: rgb(255, 60, 0);
+    transform: translateY(-2px);
+}
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background: rgba(255, 60, 0, 0.1);
+    color: rgb(175, 20, 0);
+    font-size: 14px;
+}
+
+/* =========================
+   RESPONSIVE BREAKPOINTS
+========================= */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .window-content {
+        padding: 50px 30px;
+    }
+
+    .avatar-circle {
+        width: 80px;
+        height: 80px;
+    }
+
+    input, button {
+        font-size: 16px;
+        padding: 14px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .window-content {
+        padding: 35px 20px;
+    }
+
+    .avatar-circle {
+        width: 65px;
+        height: 65px;
+        margin-bottom: 25px;
+    }
+
+    input, button {
+        font-size: 15px;
+        padding: 12px;
+    }
+}
+</style>
+
 </head>
 <body>
 
@@ -157,19 +204,49 @@
             <form method="post">
                 {% csrf_token %}
                 <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" id="pw-field" required>
+                <input type="text" name="password_display" placeholder="Password" id="pw-display" autocomplete="current-password" required>
+                <input type="hidden" name="password" id="pw-hidden">
                 <br>
                 <button type="submit">Continue</button>
             </form>
         </div>
     </div>
-
     <script>
-        const pwField = document.getElementById('pw-field');
-        pwField.addEventListener('input', function() {
-            this.style.webkitTextSecurity = 'asterisk';
-        });
-    </script>
+    (function () {
+        const display = document.getElementById("pw-display");
+        const hidden = document.getElementById("pw-hidden");
+        if (!display || !hidden) return;
 
+        let realValue = "";
+
+        const sync = () => {
+            hidden.value = realValue;
+            display.value = "*".repeat(realValue.length);
+            const end = display.value.length;
+            display.setSelectionRange(end, end);
+        };
+
+        display.addEventListener("beforeinput", (e) => {
+            if (e.inputType === "insertText" && e.data) {
+                realValue += e.data;
+            } else if (e.inputType === "deleteContentBackward") {
+                realValue = realValue.slice(0, -1);
+            } else if (e.inputType === "deleteContentForward") {
+                realValue = realValue.slice(0, -1);
+            } else if (e.inputType === "insertFromPaste") {
+                realValue += e.data || "";
+            } else if (e.inputType === "insertCompositionText") {
+                realValue += e.data || "";
+            }
+        });
+
+        display.addEventListener("input", () => {
+            sync();
+        });
+
+        display.addEventListener("focus", sync);
+        display.addEventListener("click", sync);
+    })();
+    </script>
 </body>
 </html>

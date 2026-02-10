@@ -1057,3 +1057,34 @@ Not Found: /favicon.ico
 [mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:59192][0m
 [32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:59192][0m
 [mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:59192][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:60711][0m
+[mHTTP POST /admin/logout/ 200 [0.05, 127.0.0.1:61092][0m
+[mHTTP GET /static/admin/js/theme.js 200 [0.01, 127.0.0.1:61097][0m
+[mHTTP GET /static/admin/js/nav_sidebar.js 200 [0.01, 127.0.0.1:61098][0m
+[32mHTTP GET /dashboard/ 302 [0.00, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.05, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:61092][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:63314][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:63314][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:63314][0m
+[mHTTP POST /accounts/login/?next=/dashboard/ 200 [0.57, 127.0.0.1:63314][0m
+[mHTTP POST /accounts/login/?next=/dashboard/ 200 [0.59, 127.0.0.1:64241][0m
+[mHTTP POST /accounts/login/?next=/dashboard/ 200 [0.58, 127.0.0.1:64241][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:64241][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:64241][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:64241][0m

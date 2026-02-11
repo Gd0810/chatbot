@@ -1088,3 +1088,510 @@ Not Found: /favicon.ico
 [33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:64241][0m
 [32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:64241][0m
 [mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:64241][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:49534][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:49534][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:53631][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:53631][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:54991][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:56758][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:56758][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:56758][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57532][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:60919][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:60919][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:60919][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:60919][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.58, 127.0.0.1:61703][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:61703][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:61703][0m
+Forbidden (CSRF token from POST incorrect.): /accounts/login/
+[31;1mHTTP POST /accounts/login/?next=/dashboard/ 403 [0.01, 127.0.0.1:61703][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61703][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61703][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.88, 127.0.0.1:61703][0m
+[mHTTP GET /dashboard/ 200 [0.05, 127.0.0.1:61703][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:61703][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61703][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:64220][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:64220][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:64220][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 127.0.0.1:64220][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:64220][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:64220][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:64220][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:54185][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54185][0m
+[32mHTTP GET /dashboard/ 302 [0.00, 127.0.0.1:55812][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:55812][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:55966][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:55966][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:55966][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:55966][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.01, 127.0.0.1:55966][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770724011989&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.05, 127.0.0.1:55966][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770724011989&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=QA 200 [0.04, 127.0.0.1:55966][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.01, 127.0.0.1:55966][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:55966][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:55966][0m
+[mHTTP POST /accounts/login/?next=/dashboard/ 200 [0.58, 127.0.0.1:55966][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:56931][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:56931][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:56931][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770724035195&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.02, 127.0.0.1:56931][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:56931][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:56931][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:56931][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.59, 127.0.0.1:57700][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:57700][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:57700][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57700][0m
+[mHTTP POST /accounts/login/ 200 [0.56, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.08, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57700][0m
+[mHTTP GET /accounts/login/ 200 [0.00, 127.0.0.1:57700][0m
+[32mHTTP POST /accounts/login/ 302 [0.59, 127.0.0.1:59148][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:59148][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:59148][0m
+[32mHTTP GET /accounts/logout/ 302 [0.03, 127.0.0.1:59148][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:59148][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:59148][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:59148][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.01, 127.0.0.1:59148][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770724258892&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.04, 127.0.0.1:59148][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:59148][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:59148][0m
+[mHTTP POST /accounts/login/?next=/dashboard/ 200 [0.59, 127.0.0.1:59148][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.60, 127.0.0.1:59148][0m
+[mHTTP GET /dashboard/ 200 [0.02, 127.0.0.1:59148][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:59148][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 127.0.0.1:59148][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:59148][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:59148][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:59148][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:61806][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61806][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:56346][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:56346][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:56346][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:56346][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:56346][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770725430600&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.02, 127.0.0.1:56346][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770725430600&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=QA 200 [0.04, 127.0.0.1:56346][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:56346][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:56346][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:56346][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:56346][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:56346][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:56346][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:56346][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:56346][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770725459916&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.03, 127.0.0.1:56346][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770725459916&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=QA 200 [0.05, 127.0.0.1:56346][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:56346][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770725459916&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.04, 127.0.0.1:56346][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:57013]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:57013]
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770725459916&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=AI 200 [0.03, 127.0.0.1:56346][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:57013]
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:63003][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:63003][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.59, 127.0.0.1:63003][0m
+[mHTTP GET /dashboard/ 200 [0.02, 127.0.0.1:63003][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:63003][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 127.0.0.1:63003][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:63003][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=0.0.0.0
+Listening on TCP address 0.0.0.0:8000
+[mHTTP GET / 200 [0.05, 192.168.1.17:58912][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.01, 192.168.1.17:58916][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 192.168.1.17:58912][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.00, 192.168.1.17:58928][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.00, 192.168.1.17:58912][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.00, 192.168.1.17:58912][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.00, 192.168.1.17:58928][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.00, 192.168.1.17:58928][0m
+[mHTTP GET / 200 [0.01, 192.168.1.17:58928][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 192.168.1.17:58928][0m
+[32mHTTP GET /dashboard 301 [0.04, 192.168.1.17:40742][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 192.168.1.17:40742][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 192.168.1.17:40742][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.01, 192.168.1.17:40742][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.58, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/ 200 [0.07, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.07, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/live/ 200 [0.05, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/live/5/ 200 [0.06, 192.168.1.17:40742][0m
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [192.168.1.17:46702]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [192.168.1.17:46702]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.06, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/website-datafetcher/ 200 [0.04, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.09, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.08, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/plan/ 200 [0.06, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.05, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.06, 192.168.1.17:40742][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:49890][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:49890][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:49890][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770726276389&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.05, 127.0.0.1:49890][0m
+Token Usage - Prompt: 439, Completion: 130, Total: 569
+[mHTTP POST /api/chat/ 200 [5.73, 127.0.0.1:49890][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:49890][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.07, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.05, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/plan/ 200 [0.05, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.04, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.02, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/live/ 200 [0.02, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.06, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.03, 192.168.1.17:40742][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.07, 192.168.1.17:40742][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 192.168.1.17:40742][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 192.168.1.17:40742][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [192.168.1.17:46702]
+[mHTTP GET /live-chatbot-provider-in-vellore/ 200 [0.01, 127.0.0.1:52360][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:52361][0m
+[mHTTP GET /static/ui/img/live-chatbot-in-vellore.png 200 [0.09, 127.0.0.1:52360][0m
+[mHTTP GET /faq-chatbot-provider-in-vellore/ 200 [0.00, 127.0.0.1:52360][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:52360][0m
+[mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png 200 [0.01, 127.0.0.1:52361][0m
+[mHTTP GET /contact/ 200 [0.03, 127.0.0.1:52361][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:52361][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[32mHTTP GET /dashboard/ 302 [0.05, 127.0.0.1:57875][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57875][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.06, 127.0.0.1:57875][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:57875][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:57875][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:57876][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.07, 127.0.0.1:57875][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770796298366&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.08, 127.0.0.1:57875][0m
+[32mHTTP GET /dashboard/ 302 [0.03, 127.0.0.1:57875][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57875][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.80, 127.0.0.1:57875][0m
+[mHTTP GET /dashboard/ 200 [0.04, 127.0.0.1:57875][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:57875][0m
+[mHTTP GET /dashboard/partial/plan/ 200 [0.04, 127.0.0.1:57875][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:57875][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.03, 127.0.0.1:57875][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.03, 127.0.0.1:57875][0m
+[mHTTP GET /dashboard/bot/1/style/ 200 [0.03, 127.0.0.1:57875][0m
+[mHTTP GET /dashboard/partial/live/ 200 [0.03, 127.0.0.1:62100][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:62100][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.04, 127.0.0.1:62100][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.03, 127.0.0.1:62100][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.05, 127.0.0.1:62100][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.03, 127.0.0.1:62100][0m
+[32mHTTP GET /accounts/logout/ 302 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:64375][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:64375][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.04, 127.0.0.1:64375][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.89, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/ 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.02, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/plan/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /accounts/password_change/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.02, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/6/ 200 [0.03, 127.0.0.1:64375][0m
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:49571]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:49571]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.18, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/5/ 200 [0.02, 127.0.0.1:64375][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:49571]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:50212]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:50212]
+[mHTTP GET /dashboard/partial/live/4/ 200 [0.02, 127.0.0.1:64375][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:50212]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:50236]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:50236]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/4/ 200 [0.02, 127.0.0.1:64375][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:50236]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:50320]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:50320]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:64375][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:64375][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:64375][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770797076759&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770797076759&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.05, 127.0.0.1:64375][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:50705]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:50705]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:64375][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:64375][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:59342][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:59342][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:50705]
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:50320]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55182]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55182]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:55192]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:55192]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:55201][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:55344][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:55344][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 127.0.0.1:55344][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:55344][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:55192]
+[mHTTP GET / 200 [0.01, 127.0.0.1:55344][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:55344][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:55344][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770800062707&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.07, 127.0.0.1:55344][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770800062707&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.04, 127.0.0.1:55344][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55597]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55597]
+[32mHTTP GET /admin/ 302 [0.03, 127.0.0.1:55344][0m
+[mHTTP GET /admin/login/?next=/admin/ 200 [0.04, 127.0.0.1:55344][0m
+[36mHTTP GET /static/admin/css/base.css 304 [0.00, 127.0.0.1:55344][0m
+[36mHTTP GET /static/admin/css/dark_mode.css 304 [0.00, 127.0.0.1:55344][0m
+[36mHTTP GET /static/admin/css/nav_sidebar.css 304 [0.01, 127.0.0.1:55344][0m
+[36mHTTP GET /static/admin/css/responsive.css 304 [0.00, 127.0.0.1:55344][0m
+[36mHTTP GET /static/admin/js/theme.js 304 [0.01, 127.0.0.1:55442][0m
+[36mHTTP GET /static/admin/js/nav_sidebar.js 304 [0.01, 127.0.0.1:55442][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55597]
+[32mHTTP POST /admin/login/?next=/admin/ 302 [0.60, 127.0.0.1:55442][0m
+[mHTTP GET /admin/ 200 [0.05, 127.0.0.1:55442][0m
+[36mHTTP GET /static/admin/css/dashboard.css 304 [0.00, 127.0.0.1:55442][0m
+[36mHTTP GET /static/admin/img/icon-addlink.svg 304 [0.00, 127.0.0.1:55442][0m
+[36mHTTP GET /static/admin/img/icon-changelink.svg 304 [0.00, 127.0.0.1:55344][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:55344][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:55344][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.07, 127.0.0.1:55344][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770800085096&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.05, 127.0.0.1:55344][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770800085096&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.05, 127.0.0.1:55344][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55863]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55863]
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:55344][0m
+[mHTTP GET /accounts/not-allowed/ 200 [0.03, 127.0.0.1:55344][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55863]
+[32mHTTP GET /accounts/logout/ 302 [0.03, 127.0.0.1:57376][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57376][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[32mHTTP GET /dashboard 301 [0.06, 127.0.0.1:52483][0m
+[32mHTTP GET /dashboard/ 302 [0.04, 127.0.0.1:52483][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:52483][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:52483][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:52483][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:52483][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.16, 127.0.0.1:52482][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:52482][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.14, 127.0.0.1:52590][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:52590][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.02, 127.0.0.1:52482][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:52482][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.03, 127.0.0.1:52590][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.08, 127.0.0.1:52482][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770801199448&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.07, 127.0.0.1:52482][0m
+[mHTTP GET /static/embed/notify.mp3 200 [0.02, 127.0.0.1:52590][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770801199448&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.14, 127.0.0.1:52482][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52628]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52628]
+[32mHTTP GET /admin/ 302 [0.05, 127.0.0.1:52482][0m
+[mHTTP GET /admin/login/?next=/admin/ 200 [0.08, 127.0.0.1:52482][0m
+[mHTTP GET /static/admin/css/base.css 200 [0.01, 127.0.0.1:52482][0m
+[mHTTP GET /static/admin/css/dark_mode.css 200 [0.01, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/css/nav_sidebar.css 200 [0.01, 127.0.0.1:52483][0m
+[mHTTP GET /static/admin/css/responsive.css 200 [0.01, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/css/login.css 200 [0.02, 127.0.0.1:52483][0m
+[mHTTP GET /static/admin/js/theme.js 200 [0.02, 127.0.0.1:52482][0m
+[mHTTP GET /static/admin/js/nav_sidebar.js 200 [0.01, 127.0.0.1:52590][0m
+[32mHTTP GET /dashboard/ 302 [0.03, 127.0.0.1:52590][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.24, 127.0.0.1:52590][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52628]
+[32mHTTP GET /admin/ 302 [0.02, 127.0.0.1:52590][0m
+[mHTTP GET /admin/login/?next=/admin/ 200 [0.03, 127.0.0.1:52590][0m
+[mHTTP POST /admin/login/?next=/admin/ 200 [0.85, 127.0.0.1:52590][0m
+[mHTTP POST /admin/login/?next=/admin/ 200 [0.87, 127.0.0.1:52590][0m
+[32mHTTP POST /admin/login/?next=/admin/ 302 [0.97, 127.0.0.1:52590][0m
+[mHTTP GET /admin/ 200 [0.09, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/css/dashboard.css 200 [0.01, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/img/icon-addlink.svg 200 [0.01, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/img/icon-changelink.svg 200 [0.02, 127.0.0.1:52482][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:52482][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:52482][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:52482][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770801252850&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.11, 127.0.0.1:52482][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770801252850&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.08, 127.0.0.1:52482][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53241]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53241]
+[32mHTTP GET /dashboard/ 302 [0.04, 127.0.0.1:52482][0m
+[mHTTP GET /accounts/not-allowed/ 200 [0.05, 127.0.0.1:52482][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53241]
+[mHTTP GET / 200 [0.04, 127.0.0.1:52482][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:52482][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:52482][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770801259255&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.09, 127.0.0.1:52482][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770801259255&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.08, 127.0.0.1:52482][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53320]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53320]
+[mHTTP GET /admin/ 200 [0.04, 127.0.0.1:52482][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53320]
+[mHTTP GET /admin/accounts/workspace/ 200 [0.06, 127.0.0.1:52482][0m
+[mHTTP GET /static/admin/css/changelists.css 200 [0.01, 127.0.0.1:52482][0m
+[mHTTP GET /static/admin/js/vendor/jquery/jquery.js 200 [0.01, 127.0.0.1:53506][0m
+[mHTTP GET /static/admin/js/jquery.init.js 200 [0.03, 127.0.0.1:53507][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.06, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/js/core.js 200 [0.02, 127.0.0.1:53509][0m
+[mHTTP GET /static/admin/js/admin/RelatedObjectLookups.js 200 [0.03, 127.0.0.1:53510][0m
+[mHTTP GET /static/admin/js/actions.js 200 [0.00, 127.0.0.1:52482][0m
+[mHTTP GET /static/admin/js/urlify.js 200 [0.02, 127.0.0.1:53506][0m
+[mHTTP GET /static/admin/js/prepopulate.js 200 [0.01, 127.0.0.1:53507][0m
+[mHTTP GET /static/admin/js/vendor/xregexp/xregexp.js 200 [0.01, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/img/search.svg 200 [0.01, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/img/icon-yes.svg 200 [0.01, 127.0.0.1:53507][0m
+[mHTTP GET /static/admin/js/filters.js 200 [0.01, 127.0.0.1:52590][0m
+[mHTTP GET /static/admin/img/tooltag-add.svg 200 [0.02, 127.0.0.1:53507][0m
+[mHTTP GET /static/admin/img/icon-viewlink.svg 200 [0.02, 127.0.0.1:53506][0m
+[mHTTP GET /admin/accounts/workspace/1/change/ 200 [0.16, 127.0.0.1:53506][0m
+[mHTTP GET /static/admin/css/forms.css 200 [0.01, 127.0.0.1:53506][0m
+[mHTTP GET /static/admin/js/prepopulate_init.js 200 [0.01, 127.0.0.1:52590][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:53507][0m
+[mHTTP GET /static/admin/css/widgets.css 200 [0.01, 127.0.0.1:53506][0m
+[mHTTP GET /static/admin/js/change_form.js 200 [0.01, 127.0.0.1:53506][0m
+[32mHTTP POST /admin/accounts/workspace/1/change/ 302 [0.03, 127.0.0.1:53506][0m
+[mHTTP GET /admin/accounts/workspace/ 200 [0.04, 127.0.0.1:53506][0m
+[mHTTP GET /static/admin/img/icon-no.svg 200 [0.01, 127.0.0.1:53507][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.02, 127.0.0.1:53506][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:53506][0m
+[mHTTP GET /accounts/not-allowed/ 200 [0.02, 127.0.0.1:53506][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 127.0.0.1:53506][0m
+[mHTTP GET /accounts/login/ 200 [0.00, 127.0.0.1:53506][0m
+[32mHTTP GET /dashboard/ 302 [0.00, 127.0.0.1:53506][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:53506][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.64, 127.0.0.1:53506][0m
+[mHTTP GET /accounts/not-allowed/ 200 [0.04, 127.0.0.1:53506][0m

@@ -4,14 +4,42 @@
   <meta charset="utf-8">
   <title>Access Restricted</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: 'rgb(255, 60, 0)',
+            'primary-dark': 'rgb(217, 38, 0)',
+            'primary-darker': 'rgb(175, 20, 0)',
+            'primary-darkest': 'rgb(67, 26, 0)',
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gray-50">
-  <div class="bg-white shadow rounded p-8 max-w-lg w-full text-center">
-    <h1 class="text-2xl font-semibold mb-4">Access Restricted</h1>
-    <p class="text-gray-700 mb-6">{{ detail }}</p>
-    <div class="space-x-2">
-      <a class="px-4 py-2 bg-blue-600 text-white rounded" href="/">Home</a>
-       <a class="text-sm text-blue-600" href="{% url 'accounts:logout' %}">Logout</a>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-darkest via-primary-darker to-primary-dark">
+  <div class="bg-white shadow-2xl rounded-lg p-10 max-w-lg w-full text-center border-t-4 border-primary">
+    <div class="mb-6">
+      <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Access Restricted</h1>
+      <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+    </div>
+    
+    <p class="text-gray-600 mb-8 leading-relaxed">{{ detail }}</p>
+    
+    <div class="flex gap-3 justify-center">
+      <a class="px-6 py-3 bg-primary hover:bg-primary-dark active:bg-primary-darker text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5" href="/">
+        Go to Home
+      </a>
+      <a class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-all duration-200" href="{% url 'accounts:logout' %}">
+        Logout
+      </a>
     </div>
   </div>
 </body>

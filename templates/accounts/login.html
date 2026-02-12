@@ -48,7 +48,12 @@ body {
             <!-- Username -->
             <div class="mb-5">
                 <div class="flex items-center bg-[#1e2d4a] rounded-xl overflow-hidden">
-                    <div class="px-4 text-white/70"><iconify-icon icon="mingcute:user-4-fill"></iconify-icon></div>
+                    <div class="px-4 text-white/70"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                 stroke="rgba(255,255,255,0.48)" stroke-width="1.8"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                            </svg></div>
 
                     {{ form.username }}
                 </div>
@@ -61,7 +66,12 @@ body {
             <!-- Password -->
             <div class="mb-5">
                 <div class="flex items-center bg-[#1e2d4a] rounded-xl overflow-hidden">
-                    <div class="px-4 text-white/70"><iconify-icon icon="tabler:password-user" width="24" height="24"></iconify-icon></div>
+                    <div class="px-4 text-white/70"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                 stroke="rgba(255,255,255,0.48)" stroke-width="1.8"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5" y="11" width="14" height="10" rx="2" ry="2"/>
+                                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+                            </svg></div>
 
                     {{ form.password }}
                 </div>

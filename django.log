@@ -1683,3 +1683,134 @@ Not Found: /favicon.ico
 [33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:59753][0m
 [32mHTTP GET /accounts/logout/ 302 [0.05, 127.0.0.1:59753][0m
 [mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:59753][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:60933][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:60933][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:60933][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770879265495&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.05, 127.0.0.1:60933][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770879265495&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.06, 127.0.0.1:60933][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60956]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60956]
+[mHTTP GET /faq-chatbot-provider-in-vellore/ 200 [0.02, 127.0.0.1:60933][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60956]
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:60933][0m
+[32mHTTP GET /admin/ 302 [0.04, 127.0.0.1:50313][0m
+[mHTTP GET /admin/login/?next=/admin/ 200 [0.04, 127.0.0.1:50313][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:50313][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:50313][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:53385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:53385][0m
+Not Found: /mnt/data/website-user-login-page-template-design_1017-30786.jpeg
+[33mHTTP GET /mnt/data/website-user-login-page-template-design_1017-30786.jpeg 404 [0.03, 127.0.0.1:53385][0m
+Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\core\handlers\exception.py", line 42, in inner
+    response = await get_response(request)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\core\handlers\base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\accounts\views.py", line 39, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 565, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 48: 'static'. Did you forget to register or load this tag?
+[35;1mHTTP GET /accounts/login/?next=/dashboard/ 500 [0.08, 127.0.0.1:54300][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:54300][0m
+[mHTTP GET /static/ui/img/login.png 200 [0.10, 127.0.0.1:54300][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:54300][0m
+[mHTTP GET /static/ui/img/login2.png 200 [0.01, 127.0.0.1:54300][0m
+Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\core\handlers\exception.py", line 42, in inner
+    response = await get_response(request)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\core\handlers\base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\accounts\views.py", line 39, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\template\defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\urls\resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'password_reset' not found. 'password_reset' is not a valid view function or pattern name.
+[35;1mHTTP GET /accounts/login/?next=/dashboard/ 500 [0.07, 127.0.0.1:61201][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:61201][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:51376][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:51376][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.04, 127.0.0.1:51376][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:54408][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:55375][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:57785][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.60, 127.0.0.1:57785][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:57785][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:57785][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 127.0.0.1:57785][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:57785][0m
+[mHTTP GET /accounts/login/ 200 [0.01, 127.0.0.1:59096][0m
+[mHTTP POST /accounts/login/ 200 [0.57, 127.0.0.1:59096][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:59096][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:59096][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:60750][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:60750][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:60750][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:63179][0m

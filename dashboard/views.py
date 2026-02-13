@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.utils import timezone
 from django.db.models import Count
-from django.db.models.functions import TruncDate
 from datetime import timedelta
 import logging
 
@@ -684,46 +683,44 @@ def partial_enquiries(request):
     # -------------------------
     # GRAPH DATA (LAST 30 DAYS)
     # -------------------------
-    start_date = (local_now.date() - timedelta(days=29))
+    # Use timezone-aware datetime ranges for graph data too (same as counts)
+    start_date_dt = local_now.replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=29)
+    end_date_dt = local_now.replace(hour=23, minute=59, second=59, microsecond=999999) + timedelta(days=1)
 
-    qs = (
-        all_enquiries
-        .filter(created_at__date__gte=start_date)
-        .annotate(day=TruncDate("created_at"))
-        .values("day")
-        .annotate(count=Count("id"))
-        .order_by("day")
-    )
-
-    # Normalize day keys to YYYY-MM-DD strings so DB return types (date vs datetime)
-    # don't cause mismatches between keys and generated labels.
+    # Get all records in the range (avoids MySQL TruncDate issues by grouping in Python)
+    raw_records = all_enquiries.filter(created_at__gte=start_date_dt, created_at__lt=end_date_dt).values('created_at')
+    
+    # Group by date manually in Python
     day_map = {}
-    for row in qs:
-        d = row.get("day")
-        if hasattr(d, 'strftime'):
-            k = d.strftime("%Y-%m-%d")
+    for record in raw_records:
+        created_at = record['created_at']
+        # Convert to local timezone and get the date
+        if created_at.tzinfo is not None:
+            local_created_at = timezone.localtime(created_at)
         else:
-            k = str(d)
-        day_map[k] = row.get("count", 0)
+            local_created_at = created_at
+        date_key = local_created_at.date().strftime("%Y-%m-%d")
+        day_map[date_key] = day_map.get(date_key, 0) + 1
 
     graph_labels = []
     graph_data = []
 
+    # Generate labels and data using the same date range as the query
+    start_date = start_date_dt.date()
     for i in range(30):
         day = start_date + timedelta(days=i)
         key = day.strftime("%Y-%m-%d")
         graph_labels.append(key)
         graph_data.append(day_map.get(key, 0))
 
-    logger.debug("graph_labels: %s", graph_labels)
-    logger.debug("graph_data: %s", graph_data)
-
     # -------------------------
     # PAGINATION
     # -------------------------
     paginator = Paginator(all_enquiries.order_by("-created_at"), 10)
     page_obj = paginator.get_page(request.GET.get("page", 1))
-
+    print("Workspace:", ws.id)
+    print("Total enquiries:", BotEnquiry.objects.count())
+    print("Filtered enquiries:", all_enquiries.count())
     return render(request, "dashboard/partials/enquiries.html", {
         "workspace": ws,
         "enquiries": page_obj.object_list,

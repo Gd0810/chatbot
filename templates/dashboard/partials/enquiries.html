@@ -1,6 +1,9 @@
 <!-- templates/dashboard/partials/enquiries.html -->
 {% include 'toast.html' %}
 
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
   :root {
     --style-bg: #f8f9fa;
@@ -281,18 +284,18 @@
             const ctx = document.getElementById('enquiryChart');
             if (!ctx) return;
 
-            // Destroy existing chart if any
             if (window.myEnquiryChart) {
-                window.myEnquiryChart.destroy();
+                try { window.myEnquiryChart.destroy(); } catch (e) {}
                 window.myEnquiryChart = null;
             }
 
             try {
-                // Get data from data attributes safely
                 const labelsRaw = ctx.dataset.labels;
                 const dataRaw = ctx.dataset.data;
 
-                if (!labelsRaw || !dataRaw) return;
+                if (!labelsRaw || !dataRaw) {
+                    return;
+                }
 
                 const labels = JSON.parse(labelsRaw);
                 const data = JSON.parse(dataRaw);
@@ -303,14 +306,6 @@
                 const accentColor = getThemeColor('--style-accent');
                 const cardBg = getThemeColor('--style-card-bg');
                 const textPrimary = getThemeColor('--style-text-primary');
-
-                // Determine Accent Color with Opacity for Fill
-                // Note: CSS vars are usually hex, we need to convert to rgba for fill opacity if needed, 
-                // but Chart.js handles hex fine for line color. For fill, let's just use the accent color directly or a fixed opacity hack if we can't parse hex easily in vanilla JS without a lib.
-                // Simpler approach: Use the accent color for line, and a standard low opacity version or just the same color with 'fill: false' if complexity is high.
-                // Assuming hex (e.g. #1a73e8), we can try to set backgroundcolor to it with opacity.
-                // For now, let's stick to the accent color for the line. For the fill, we might need a HEX to RGBA converter or just use a derived variable if available.
-                // Let's assume the user is okay with the fill match for now or use a safe fallback.
                 
                 if (labels && data && labels.length > 0) {
                      window.myEnquiryChart = new Chart(ctx, {
@@ -373,10 +368,8 @@
                             }
                         }
                     });
-                }
-            } catch (e) {
-                console.error("Error initializing chart:", e);
-            }
+                } else {}
+            } catch (e) {}
         }
         
         // Update Chart colors when theme changes
@@ -442,7 +435,7 @@
             });
         }
 
-        // Run immediately
+        // Initialize chart
         initEnquiryChart();
         setupThemeObserver();
     })();

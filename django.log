@@ -2315,3 +2315,364 @@ WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:607
 WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60890]
 WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60890]
 [mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:60950][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/ 200 [0.04, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.07, 127.0.0.1:53028][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.08, 127.0.0.1:53028][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.06, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/ 200 [0.05, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.06, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:53028][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.04, 127.0.0.1:56110][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.06, 127.0.0.1:56110][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:56110][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.04, 127.0.0.1:56110][0m
+[mHTTP GET /dashboard/ 200 [0.06, 127.0.0.1:56110][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:56110][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:56110][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.03, 127.0.0.1:56110][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60890]
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60738]
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.22, 127.0.0.1:61794][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:61805]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:61805]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:61807]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:61807]
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.11, 127.0.0.1:62096][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:63919][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:63919][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.06, 127.0.0.1:63919][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.06, 127.0.0.1:63919][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.04, 127.0.0.1:64448][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:64448][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:64448][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:50202][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:50202][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.06, 127.0.0.1:50202][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.10, 127.0.0.1:50202][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:50202][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:50202][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:53082][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:53082][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.06, 127.0.0.1:53082][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.06, 127.0.0.1:53082][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.04, 127.0.0.1:53082][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:54922][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.04, 127.0.0.1:54922][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:54922][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.09, 127.0.0.1:54922][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:58673]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:58673]
+[mHTTP GET /dashboard/partial/account/ 200 [0.10, 127.0.0.1:58715][0m
+[mHTTP GET /dashboard/ 200 [0.05, 127.0.0.1:58715][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.15, 127.0.0.1:58715][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.07, 127.0.0.1:58715][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.12, 127.0.0.1:58715][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:58937]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:58937]
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listen failure: Couldn't listen on 127.0.0.1:8000: [WinError 10048] Only one usage of each socket address (protocol/network address/port) is normally permitted.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[mHTTP GET /dashboard/partial/account/ 200 [0.09, 127.0.0.1:64216][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:64216][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.18, 127.0.0.1:64216][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.06, 127.0.0.1:64216][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:64216][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.06, 127.0.0.1:64216][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:50684][0m
+[mHTTP GET /dashboard/ 200 [0.04, 127.0.0.1:50684][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.05, 127.0.0.1:50684][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.21, 127.0.0.1:50684][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:50684][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.08, 127.0.0.1:50684][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:51867]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:51867]
+[mHTTP GET /dashboard/partial/account/ 200 [0.08, 127.0.0.1:51992][0m
+[mHTTP GET /dashboard/ 200 [0.05, 127.0.0.1:51992][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.14, 127.0.0.1:51992][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:51992][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:51992][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.13, 127.0.0.1:51992][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52110]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52110]
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:55310][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.10, 127.0.0.1:55310][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.07, 127.0.0.1:55310][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.11, 127.0.0.1:55310][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.08, 127.0.0.1:55310][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:59211]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:59211]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:59442]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:59442]
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:59904]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:59904]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60061]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60061]
+[mHTTP GET /dashboard/ 200 [0.07, 127.0.0.1:60320][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.08, 127.0.0.1:60320][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.12, 127.0.0.1:60320][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:60320][0m
+  Query range: 2026-01-15 00:00:00+05:30 to 2026-02-14 23:59:59.999999+05:30
+  Total matching enquiries in range: 3
+  Graph labels count: 30
+  Graph data sum: 0
+  graph_labels: ['2026-01-15', '2026-01-16', '2026-01-17', '2026-01-18', '2026-01-19']
+  graph_data: [0, 0, 0, 0, 0]
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.14, 127.0.0.1:60320][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET /dashboard/ 200 [0.08, 127.0.0.1:61728][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.17, 127.0.0.1:61728][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:61767]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:61767]
+[mHTTP GET /dashboard/partial/account/ 200 [0.09, 127.0.0.1:61728][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:61728][0m
+  start_date_dt: 2026-01-15 00:00:00+05:30
+  end_date_dt: 2026-02-14 23:59:59.999999+05:30
+  Raw records in range: 3
+    - ID: 3, created_at: 2026-02-13 07:30:07.838036+00:00
+    - ID: 2, created_at: 2026-02-13 07:28:25.931561+00:00
+    - ID: 1, created_at: 2026-02-13 07:25:03.246760+00:00
+  Aggregated query results:
+    - day: None, count: 3
+  Query range: 2026-01-15 00:00:00+05:30 to 2026-02-14 23:59:59.999999+05:30
+  Total matching enquiries in range: 3
+  Graph labels count: 30
+  Graph data sum: 0
+  graph_labels: ['2026-01-15', '2026-01-16', '2026-01-17', '2026-01-18', '2026-01-19']
+  graph_data: [0, 0, 0, 0, 0]
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.27, 127.0.0.1:61728][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62008]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62008]
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET /dashboard/ 200 [0.08, 127.0.0.1:62688][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.09, 127.0.0.1:62688][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.08, 127.0.0.1:62688][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.05, 127.0.0.1:62688][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62755]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62755]
+[GRAPH AGGREGATION DEBUG]
+  start_date_dt: 2026-01-15 00:00:00+05:30
+  end_date_dt: 2026-02-14 23:59:59.999999+05:30
+  Raw records in range: 3
+    - ID: 3, created_at: 2026-02-13 07:30:07.838036+00:00
+    - ID: 2, created_at: 2026-02-13 07:28:25.931561+00:00
+    - ID: 1, created_at: 2026-02-13 07:25:03.246760+00:00
+  Aggregated query results:
+    - day: None, count: 3
+[FINAL GRAPH DATA DEBUG]
+  Query range: 2026-01-15 00:00:00+05:30 to 2026-02-14 23:59:59.999999+05:30
+  Total matching enquiries in range: 3
+  Graph labels count: 30
+  Graph data sum: 0
+  graph_labels (first 5): ['2026-01-15', '2026-01-16', '2026-01-17', '2026-01-18', '2026-01-19']
+  graph_data (first 5): [0, 0, 0, 0, 0]
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.16, 127.0.0.1:62688][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62998]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62998]
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET /dashboard/ 200 [0.08, 127.0.0.1:64118][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.14, 127.0.0.1:64118][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.07, 127.0.0.1:64118][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:64118][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64175]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64175]
+[GRAPH AGGREGATION DEBUG]
+  start_date_dt: 2026-01-15 00:00:00+05:30
+  end_date_dt: 2026-02-14 23:59:59.999999+05:30
+  Raw records in range: 3
+    - ID: 3, created_at: 2026-02-13 07:30:07.838036+00:00
+    - ID: 2, created_at: 2026-02-13 07:28:25.931561+00:00
+    - ID: 1, created_at: 2026-02-13 07:25:03.246760+00:00
+  Aggregated query results:
+    - day: None, count: 3
+[FINAL GRAPH DATA DEBUG]
+  Query range: 2026-01-15 00:00:00+05:30 to 2026-02-14 23:59:59.999999+05:30
+  Total matching enquiries in range: 3
+  Graph labels count: 30
+  Graph data sum: 0
+  graph_labels (first 5): ['2026-01-15', '2026-01-16', '2026-01-17', '2026-01-18', '2026-01-19']
+  graph_data (first 5): [0, 0, 0, 0, 0]
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.23, 127.0.0.1:64118][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64419]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64419]
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:65114]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:65114]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:65360]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:65360]
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:49243]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:49243]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:49402]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:49402]
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:51213]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:51213]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:51453]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:51453]
+[mHTTP GET /dashboard/ 200 [0.07, 127.0.0.1:53003][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.06, 127.0.0.1:53003][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.08, 127.0.0.1:53003][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:53003][0m
+[FINAL GRAPH DATA DEBUG]
+  Query range: 2026-01-15 00:00:00+05:30 to 2026-02-14 23:59:59.999999+05:30
+  Total matching enquiries in range: 3
+  Graph labels count: 30
+  Graph data sum: 3
+  graph_labels (first 5): ['2026-01-15', '2026-01-16', '2026-01-17', '2026-01-18', '2026-01-19']
+  graph_data (first 5): [0, 0, 0, 0, 0]
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.11, 127.0.0.1:53003][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:58934]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:58934]
+[mHTTP GET /dashboard/ 200 [0.06, 127.0.0.1:59037][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.11, 127.0.0.1:59037][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.06, 127.0.0.1:59037][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.07, 127.0.0.1:59037][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:59100]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:59100]
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.09, 127.0.0.1:60993][0m
+[mHTTP GET /dashboard/ 200 [0.05, 127.0.0.1:60993][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.08, 127.0.0.1:60993][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.31, 127.0.0.1:60993][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.09, 127.0.0.1:60993][0m

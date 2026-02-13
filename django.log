@@ -1893,3 +1893,252 @@ WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:650
 WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:65049]
 Not Found: /favicon.ico
 [33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:64997][0m
+[mHTTP POST /accounts/login/?next=/dashboard/ 200 [0.95, 127.0.0.1:50057][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:51787][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.04, 127.0.0.1:51787][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:53769][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:53769][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:53769][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:53769][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:53769][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:53769][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:55958][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:55958][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.62, 127.0.0.1:56921][0m
+[mHTTP GET /dashboard/ 200 [0.07, 127.0.0.1:56921][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.09, 127.0.0.1:56921][0m
+[32mHTTP GET /accounts/logout/ 302 [0.03, 127.0.0.1:56921][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:56921][0m
+[32mHTTP GET /dashboard/ 302 [0.03, 127.0.0.1:56921][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:56921][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:58076][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:58076][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:58076][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:58076][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.03, 127.0.0.1:58076][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:62586][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:62586][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:62586][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:62586][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:49790][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:49790][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:50950][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:50950][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:52018][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:52018][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:52018][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:52018][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:52018][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:52018][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:52827][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:53660][0m
+[33mHTTP GET /static/ui/img/login2.png%22 404 [0.01, 127.0.0.1:53660][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/login2.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/login2.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/login2.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/login2.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/login2.png%22 404 [0.01, 127.0.0.1:54385][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/login2.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.02, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:54385][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:54385][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54385][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:54385][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:54385][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:55525][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:55525][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:55525][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:55525][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.02, 127.0.0.1:55525][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:55525][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:55525][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:55525][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:55525][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:55525][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.02, 127.0.0.1:55525][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:55525][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:55525][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:55525][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57147][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.24, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:57147][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:57147][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57148][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:57148][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:57148][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57148][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:57148][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57148][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:57148][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57148][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:57147][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57147][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:57147][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57147][0m
+[33mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png%22 404 [0.01, 127.0.0.1:57147][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+Exception inside application: The joined path (C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\static\ui\img\login2.png") is located outside of the base path component (C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\embed\static)
+Traceback (most recent call last):
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\contrib\staticfiles\handlers.py", line 99, in __call__
+    return await super().__call__(scope, receive, send)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\core\handlers\asgi.py", line 170, in __call__
+    await self.handle(scope, receive, send)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\core\handlers\asgi.py", line 216, in handle
+    task.result()
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\core\handlers\asgi.py", line 193, in process_request
+    response = await self.run_get_response(request)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\core\handlers\asgi.py", line 252, in run_get_response
+    response = await self.get_response_async(request)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\contrib\staticfiles\handlers.py", line 104, in get_response_async
+    response = await super().get_response_async(request)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\contrib\staticfiles\handlers.py", line 60, in get_response_async
+    return await sync_to_async(self.serve, thread_sensitive=False)(request)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "C:\Users\redback\AppData\Local\Programs\Python\Python310\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\asgiref\sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\contrib\staticfiles\handlers.py", line 50, in serve
+    return serve(request, self.file_path(request.path), insecure=True)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\contrib\staticfiles\views.py", line 34, in serve
+    absolute_path = finders.find(normalized_path)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\contrib\staticfiles\finders.py", line 298, in find
+    result = finder.find(path, all=all)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\contrib\staticfiles\finders.py", line 124, in find
+    matched_path = self.find_location(root, path, prefix)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\contrib\staticfiles\finders.py", line 141, in find_location
+    path = safe_join(root, path)
+  File "C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\env\lib\site-packages\django\utils\_os.py", line 31, in safe_join
+    raise SuspiciousFileOperation(
+django.core.exceptions.SuspiciousFileOperation: The joined path (C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\static\ui\img\login2.png") is located outside of the base path component (C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\embed\static)
+[35;1mHTTP GET /static/C%3A/vignesh/Giridharan/chatbot/chatbot-main/chatbot-main/static/ui/img/login2.png%22 500 [0.57, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /static/ui/img/login2.png 200 [0.00, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.00, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:57147][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:61136][0m
+[32mHTTP GET /dashboard/ 302 [0.00, 127.0.0.1:62225][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:62225][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:63053][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.01, 127.0.0.1:63053][0m
+[mHTTP POST /accounts/login/?next=/dashboard/ 200 [0.57, 127.0.0.1:63053][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.58, 127.0.0.1:63053][0m
+[mHTTP GET /dashboard/ 200 [0.04, 127.0.0.1:63053][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:63053][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:63053][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.05, 127.0.0.1:63053][0m
+[mHTTP GET /dashboard/partial/plan/ 200 [0.02, 127.0.0.1:63053][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:63053][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:63053][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:63053][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:63053][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:63618][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770892024849&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.04, 127.0.0.1:63053][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770892024849&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.05, 127.0.0.1:63053][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64277]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64277]
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770892024849&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=AI 200 [0.03, 127.0.0.1:63053][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64277]
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770892024849&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=LIVE 200 [0.04, 127.0.0.1:63053][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64367]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64367]
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770892024849&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=QA 200 [0.05, 127.0.0.1:63053][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:64367]
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:63053][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET / 200 [0.13, 127.0.0.1:60214][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:60214][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:60214][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.03, 127.0.0.1:60213][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770966518138&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C%20system-ui%2C%20-apple-system%2C%20Segoe%20UI%2C%20Roboto%2C%20Arial%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=normal&pos=bottom-right 200 [0.20, 127.0.0.1:60213][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770966518138&theme=%232563eb&bgcolor=%23f9fafb&font=Inter%2C+system-ui%2C+-apple-system%2C+Segoe+UI%2C+Roboto%2C+Arial%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=normal&pos=bottom-right&bot_type=QA 200 [0.09, 127.0.0.1:60213][0m
+[32mHTTP GET /admin/ 302 [0.06, 127.0.0.1:60214][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:60214][0m
+[mHTTP GET /admin/login/?next=/admin/ 200 [0.16, 127.0.0.1:60213][0m
+[mHTTP GET /static/admin/css/base.css 200 [0.16, 127.0.0.1:60213][0m
+[mHTTP GET /static/admin/css/dark_mode.css 200 [0.19, 127.0.0.1:60214][0m
+[mHTTP GET /static/admin/css/nav_sidebar.css 200 [0.01, 127.0.0.1:60323][0m
+[mHTTP GET /static/admin/css/login.css 200 [0.01, 127.0.0.1:60324][0m
+[mHTTP GET /static/admin/css/responsive.css 200 [0.02, 127.0.0.1:60325][0m
+[mHTTP GET /static/admin/js/theme.js 200 [0.01, 127.0.0.1:60327][0m
+[mHTTP GET /static/admin/js/nav_sidebar.js 200 [0.01, 127.0.0.1:60327][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/ 200 [0.06, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.06, 127.0.0.1:60327][0m
+[32mHTTP GET /accounts/logout/ 302 [0.04, 127.0.0.1:60327][0m
+[mHTTP GET /accounts/login/ 200 [0.03, 127.0.0.1:60327][0m
+[mHTTP POST /accounts/login/ 200 [0.98, 127.0.0.1:60327][0m
+[mHTTP POST /accounts/login/ 200 [1.02, 127.0.0.1:60327][0m
+[32mHTTP POST /accounts/login/ 302 [1.10, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/ 200 [0.04, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.12, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.06, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/website-datafetcher/ 200 [0.05, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.06, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.05, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.06, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.07, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.04, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.05, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.07, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:60327][0m
+[mHTTP GET /accounts/password_change/ 200 [0.05, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.03, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.04, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.02, 127.0.0.1:60327][0m
+[mHTTP GET /dashboard/bot/1/style/ 200 [0.03, 127.0.0.1:60327][0m

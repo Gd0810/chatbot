@@ -2142,3 +2142,176 @@ Not Found: /favicon.ico
 [mHTTP GET /dashboard/partial/qa/ 200 [0.04, 127.0.0.1:60327][0m
 [mHTTP GET /dashboard/partial/bot_style/ 200 [0.02, 127.0.0.1:60327][0m
 [mHTTP GET /dashboard/bot/1/style/ 200 [0.03, 127.0.0.1:60327][0m
+[mHTTP POST /dashboard/bot/1/style/save/ 200 [0.03, 127.0.0.1:63865][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:63865][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:63865][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:63865][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770966836231&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-left 200 [0.06, 127.0.0.1:63865][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770966836231&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-left&bot_type=QA 200 [0.09, 127.0.0.1:63865][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:63865][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770966836231&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-left&bot_type=AI 200 [0.04, 127.0.0.1:63865][0m
+[mHTTP POST /api/chat/ 200 [0.06, 127.0.0.1:63865][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:63865][0m
+[mHTTP POST /api/chat/ 200 [0.04, 127.0.0.1:63865][0m
+[mHTTP POST /api/chat/ 200 [0.04, 127.0.0.1:63865][0m
+[mHTTP POST /api/chat/ 200 [0.03, 127.0.0.1:63865][0m
+Token Usage - Prompt: 440, Completion: 10, Total: 450
+[mHTTP POST /api/chat/ 200 [5.95, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.05, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/bots/1/edit/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.02, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/ 200 [0.01, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/5/ 200 [0.02, 127.0.0.1:49732][0m
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:50140]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:50140]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/4/ 200 [0.03, 127.0.0.1:49732][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:50140]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:51383]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:51383]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/website-datafetcher/ 200 [0.02, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.03, 127.0.0.1:49732][0m
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[33mHTTP GET /.well-known/appspecific/com.chrome.devtools.json 404 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/bots/1/edit/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.02, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/bots/1/edit/ 200 [0.04, 127.0.0.1:49732][0m
+[mHTTP GET /dashboard/ 200 [0.04, 127.0.0.1:54207][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:51383]
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/bots/1/edit/ 200 [0.03, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.03, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/live/ 200 [0.05, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.07, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/live/5/ 200 [0.05, 127.0.0.1:54207][0m
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:54714]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:54714]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.03, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/website-datafetcher/ 200 [0.01, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.05, 127.0.0.1:54207][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.04, 127.0.0.1:54207][0m
+[mHTTP POST /dashboard/partial/enquiries/ 200 [0.03, 127.0.0.1:54207][0m
+[mHTTP GET / 200 [0.04, 127.0.0.1:54207][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:54207][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:54207][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770967488864&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-left 200 [0.06, 127.0.0.1:54207][0m
+[mHTTP POST /embed/save-enquiry/ 200 [0.03, 127.0.0.1:54207][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770967488864&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-left&bot_type=QA 200 [0.05, 127.0.0.1:54207][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:54207][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770967488864&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-left&bot_type=AI 200 [0.04, 127.0.0.1:54207][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770967488864&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-left&bot_type=QA 200 [0.05, 127.0.0.1:54207][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:54207][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770967488864&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-left&bot_type=LIVE 200 [0.05, 127.0.0.1:54207][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:56361]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:56361]
+[mHTTP GET /dashboard/partial/live/ 200 [0.03, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.06, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/partial/live/4/ 200 [0.03, 127.0.0.1:56602][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:54714]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:56635]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:56635]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.04, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.03, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:56602][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:56635]
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.06, 127.0.0.1:56602][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:56361]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:57599]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:57599]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:57606]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:57606]
+[mHTTP POST /embed/save-enquiry/ 200 [0.02, 127.0.0.1:56602][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.03, 127.0.0.1:56602][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:58558][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:58558][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.79, 127.0.0.1:58558][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:58558][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:58558][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.03, 127.0.0.1:58558][0m
+[mHTTP GET / 200 [0.04, 127.0.0.1:58558][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.02, 127.0.0.1:58840][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:58558][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.03, 127.0.0.1:58839][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.03, 127.0.0.1:58839][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:58558][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:58839][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.02, 127.0.0.1:58558][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:58558][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1770967798797&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-left 200 [0.06, 127.0.0.1:58558][0m
+[mHTTP GET /static/embed/notify.mp3 200 [0.04, 127.0.0.1:58558][0m
+[mHTTP POST /embed/save-enquiry/ 200 [0.02, 127.0.0.1:58558][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.03, 127.0.0.1:58558][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.02, 127.0.0.1:64421][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.03, 127.0.0.1:53994][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60153]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60153]
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60387]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60387]
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60738]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60738]
+[mHTTP GET /dashboard/partial/live/ 200 [0.05, 127.0.0.1:60811][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.05, 127.0.0.1:60811][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.06, 127.0.0.1:60811][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60890]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:60890]
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.05, 127.0.0.1:60950][0m

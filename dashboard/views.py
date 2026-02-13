@@ -649,25 +649,42 @@ def partial_enquiries(request):
     # -------------------------
     # STATS
     # -------------------------
+    # Use timezone-aware ranges to avoid DB-specific date lookup issues
     now = timezone.now()
+    local_now = timezone.localtime(now)
 
+    # Today range
+    start_today = local_now.replace(hour=0, minute=0, second=0, microsecond=0)
+    start_tomorrow = start_today + timedelta(days=1)
     count_today = all_enquiries.filter(
-        created_at__date=now.date()
+        created_at__gte=start_today,
+        created_at__lt=start_tomorrow
     ).count()
+
+    # Month range
+    start_month = start_today.replace(day=1)
+    if local_now.month == 12:
+        next_month = start_month.replace(year=local_now.year + 1, month=1)
+    else:
+        next_month = start_month.replace(month=local_now.month + 1)
 
     count_month = all_enquiries.filter(
-        created_at__year=now.year,
-        created_at__month=now.month
+        created_at__gte=start_month,
+        created_at__lt=next_month
     ).count()
 
+    # Year range
+    start_year = start_month.replace(month=1, day=1)
+    next_year = start_year.replace(year=start_year.year + 1)
     count_year = all_enquiries.filter(
-        created_at__year=now.year
+        created_at__gte=start_year,
+        created_at__lt=next_year
     ).count()
 
     # -------------------------
     # GRAPH DATA (LAST 30 DAYS)
     # -------------------------
-    start_date = now.date() - timedelta(days=29)
+    start_date = (local_now.date() - timedelta(days=29))
 
     qs = (
         all_enquiries
@@ -678,15 +695,25 @@ def partial_enquiries(request):
         .order_by("day")
     )
 
-    day_map = {row["day"]: row["count"] for row in qs}
+    # Normalize day keys to YYYY-MM-DD strings so DB return types (date vs datetime)
+    # don't cause mismatches between keys and generated labels.
+    day_map = {}
+    for row in qs:
+        d = row.get("day")
+        if hasattr(d, 'strftime'):
+            k = d.strftime("%Y-%m-%d")
+        else:
+            k = str(d)
+        day_map[k] = row.get("count", 0)
 
     graph_labels = []
     graph_data = []
 
     for i in range(30):
         day = start_date + timedelta(days=i)
-        graph_labels.append(day.strftime("%Y-%m-%d"))
-        graph_data.append(day_map.get(day, 0))
+        key = day.strftime("%Y-%m-%d")
+        graph_labels.append(key)
+        graph_data.append(day_map.get(key, 0))
 
     logger.debug("graph_labels: %s", graph_labels)
     logger.debug("graph_data: %s", graph_data)

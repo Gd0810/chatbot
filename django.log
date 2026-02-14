@@ -3033,3 +3033,20 @@ Listening on TCP address 127.0.0.1:8000
 [32mHTTP GET /admin 301 [0.04, 127.0.0.1:52390][0m
 [32mHTTP GET /admin/ 302 [0.01, 127.0.0.1:52390][0m
 [mHTTP GET /admin/login/?next=/admin/ 200 [0.02, 127.0.0.1:52390][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:53241][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:53241][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.62, 127.0.0.1:53241][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:53241][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:53241][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.06, 127.0.0.1:53241][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.04, 127.0.0.1:53241][0m
+[mHTTP GET /dashboard/qa/1/edit/ 200 [0.04, 127.0.0.1:53241][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\redbot\settings.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000

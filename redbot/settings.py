@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'embed',
     'adminpanel',
     'meta',
+    'ckeditor',
 ]
 
 ASGI_APPLICATION = 'redbot.asgi.application'

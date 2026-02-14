@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
   <meta charset="utf-8">
@@ -22,56 +23,11 @@
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- CKEditor 5 Classic Build -->
-  <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+  <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
   
   <style>
-    /* CKEditor Dark Mode Overrides */
-    [data-theme="dark"] {
-        --ck-color-base-background: var(--style-card-bg);
-        --ck-color-base-border: var(--style-border);
-        --ck-color-toolbar-background: var(--style-bg);
-        --ck-color-toolbar-border: var(--style-border);
-        --ck-color-text: var(--style-text-primary);
-        --ck-color-list-background: var(--style-bg);
-        --ck-color-button-default-hover-background: var(--style-info-bg);
-        --ck-color-button-default-active-background: var(--style-info-bg);
-        --ck-color-button-on-background: var(--style-accent);
-        --ck-color-button-on-hover-background: var(--style-accent-hover);
-        --ck-color-panel-background: var(--style-card-bg);
-        --ck-color-panel-border: var(--style-border);
-        --ck-color-input-background: var(--style-bg);
-        --ck-color-input-border: var(--style-border);
-        --ck-color-input-text: var(--style-text-primary);
-    }
-
-    [data-theme="dark"] .ck.ck-editor__main > .ck-editor__editable {
-        background: var(--style-bg) !important;
-        color: var(--style-text-primary) !important;
-    }
-    
-    [data-theme="dark"] .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
-        border-color: var(--style-border) !important;
-    }
-
-    /* Fix toolbar text color in dark mode */
-    [data-theme="dark"] .ck.ck-icon, 
-    [data-theme="dark"] .ck.ck-button__label {
-        color: var(--style-text-primary);
-    }
-    
-    /* Make toolbar background consistent */
-    .ck.ck-toolbar {
-        border-color: var(--style-border) !important;
-        background: var(--style-info-bg) !important;
-    }
-    [data-theme="dark"] .ck.ck-toolbar {
-        background: var(--style-card-bg) !important;
-    }
-
-    /* Adjust editor height to match textarea rows */
-    .ck-editor__editable {
-        min-height: 100px;
+    .tox .tox-edit-area__iframe {
+      background: #fff;
     }
     
     /* Theme variables */
@@ -834,6 +790,121 @@
         closeMobileSidebar();
       }
     });
+
+    // QA TinyMCE initializer for static load + HTMX swaps.
+    (function() {
+      function destroyQaEditors(root) {
+        if (!window.tinymce) return;
+        const scope = root || document;
+        const fields = scope.querySelectorAll('textarea[data-qa-editor]');
+        fields.forEach(function(textarea) {
+          if (textarea.id) {
+            const existing = window.tinymce.get(textarea.id);
+            if (existing) existing.remove();
+          }
+          textarea.removeAttribute('data-editor-ready');
+          textarea.removeAttribute('data-editor-initializing');
+          textarea.style.removeProperty('display');
+        });
+      }
+
+      function bindFormSubmit(textarea) {
+        const form = textarea.closest('form');
+        if (form && !form.dataset.qaEditorBound) {
+          form.dataset.qaEditorBound = '1';
+          form.addEventListener('submit', function() {
+            if (window.tinymce && window.tinymce.triggerSave) {
+              window.tinymce.triggerSave();
+            }
+          });
+        }
+      }
+
+      function initQaEditors(root) {
+        if (!window.tinymce) return;
+        const scope = root || document;
+        const fields = scope.querySelectorAll('textarea[data-qa-editor]:not([data-editor-ready="1"]):not([data-editor-initializing="1"])');
+        fields.forEach(function(textarea) {
+          // TinyMCE indexes by textarea id; ensure stale instance is cleared.
+          if (textarea.id) {
+            const existing = window.tinymce.get(textarea.id);
+            if (existing) existing.remove();
+          }
+          textarea.setAttribute('data-editor-initializing', '1');
+          bindFormSubmit(textarea);
+          window.tinymce.init({
+            target: textarea,
+            height: 600,
+            license_key: 'gpl',
+            plugins: `
+              advlist autolink lists link image charmap preview anchor
+              searchreplace visualblocks code fullscreen
+              insertdatetime media table help wordcount
+              autoresize directionality emoticons
+              codesample nonbreaking pagebreak
+              quickbars
+            `,
+            toolbar:
+              'undo redo | blocks fontfamily fontsize | ' +
+              'bold italic underline strikethrough | ' +
+              'forecolor backcolor removeformat | ' +
+              'alignleft aligncenter alignright alignjustify | ' +
+              'ltr rtl | ' +
+              'bullist numlist outdent indent | ' +
+              'link image media table anchor | ' +
+              'insertdatetime charmap emoticons | ' +
+              'codesample pagebreak nonbreaking | ' +
+              'searchreplace visualblocks | ' +
+              'code fullscreen preview | ' +
+              'help',
+            menubar: 'file edit view insert format tools table help',
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+            quickbars_insert_toolbar: 'quickimage quicktable',
+            toolbar_mode: 'sliding',
+            font_size_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
+            font_family_formats: `
+              Andale Mono=andale mono,times;
+              Arial=arial,helvetica,sans-serif;
+              Arial Black=arial black,avant garde;
+              Book Antiqua=book antiqua,palatino;
+              Courier New=courier new,courier;
+              Georgia=georgia,palatino;
+              Helvetica=helvetica;
+              Impact=impact,chicago;
+              Tahoma=tahoma,arial,helvetica,sans-serif;
+              Times New Roman=times new roman,times;
+              Verdana=verdana,geneva;
+            `,
+            content_style: `
+              body {
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+              }
+            `,
+            setup: function(editor) {
+              editor.on('init', function() {
+                textarea.setAttribute('data-editor-ready', '1');
+                textarea.removeAttribute('data-editor-initializing');
+                textarea.style.display = 'none';
+              });
+            }
+          }).catch(function() {
+            textarea.removeAttribute('data-editor-initializing');
+            textarea.style.removeProperty('display');
+          });
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        initQaEditors(document);
+      });
+      document.body.addEventListener('htmx:beforeSwap', function(evt) {
+        destroyQaEditors(evt.target);
+      });
+      document.body.addEventListener('htmx:afterSwap', function(evt) {
+        initQaEditors(evt.target);
+      });
+    })();
   </script>
 </body>
 </html>

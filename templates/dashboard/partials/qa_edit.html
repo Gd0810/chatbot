@@ -148,7 +148,7 @@
 
     <div>
       <label class="style-label">Answer</label>
-      <textarea name="answer" id="answer" rows="6" 
+      <textarea name="answer" id="answer" rows="6" data-qa-editor="1"
                 class="style-input"
                 placeholder="Enter the answer...">{{ qa.answer }}</textarea>
       <p class="mt-2 text-xs flex items-center gap-1" style="color: var(--style-text-secondary);">
@@ -169,33 +169,4 @@
       </button>
     </div>
   </form>
-  <script>
-    (function() {
-        // Unique ID for this edit instance
-        const textarea = document.currentScript.parentElement.querySelector('#answer');
-        const form = textarea.closest('form');
-        
-        ClassicEditor
-            .create(textarea, {
-                toolbar: {
-                    items: [
-                        'heading', '|',
-                        'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
-                        'insertTable', 'mediaEmbed', '|',
-                        'undo', 'redo'
-                    ],
-                    shouldNotGroupWhenFull: true
-                }
-            })
-            .then(editor => {
-                // Sync data to textarea whenever editor content changes
-                editor.model.document.on('change:data', () => {
-                    editor.updateSourceElement();
-                });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    })();
-  </script>
 </div>

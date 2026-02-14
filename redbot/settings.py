@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'channels',
     'rest_framework',
     'celery',
+    'tinymce',
     # 'django_celery_beat',  # Commented out - not needed for WebSocket
     'accounts',
     'billing',
@@ -64,7 +65,6 @@ INSTALLED_APPS = [
     'embed',
     'adminpanel',
     'meta',
-    'ckeditor',
 ]
 
 ASGI_APPLICATION = 'redbot.asgi.application'
@@ -251,5 +251,4 @@ LOGGING = {
         },
     },
 }
-
 

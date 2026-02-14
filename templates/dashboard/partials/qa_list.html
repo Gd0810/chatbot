@@ -173,7 +173,7 @@
             
             <div>
                 <label for="answer" class="style-label">Answer <span class="text-xs opacity-70">(Optional if it has children)</span></label>
-                <textarea name="answer" id="answer" rows="3" class="style-input" placeholder="The pricing model is..."></textarea>
+                <textarea name="answer" id="answer" rows="3" data-qa-editor="1" class="style-input" placeholder="The pricing model is..."></textarea>
             </div>
             
             <div class="flex justify-end pt-2">
@@ -183,43 +183,6 @@
                 </button>
             </div>
         </form>
-        <script>
-            (function() {
-                // Initialize CKEditor for Add Form immediately
-                const textarea = document.querySelector('#add-qa-form #answer');
-                if (textarea) {
-                    ClassicEditor
-                        .create(textarea, {
-                            toolbar: {
-                                items: [
-                                    'heading', '|',
-                                    'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
-                                    'insertTable', 'mediaEmbed', '|',
-                                    'undo', 'redo'
-                                ],
-                                shouldNotGroupWhenFull: true
-                            },
-                            placeholder: 'The pricing model is...'
-                        })
-                        .then(editor => {
-                            // Sync data to textarea whenever editor content changes
-                            editor.model.document.on('change:data', () => {
-                                editor.updateSourceElement();
-                            });
-                            
-                            // Handle form reset on success
-                            document.body.addEventListener('htmx:afterOnLoad', function(evt) {
-                                if (evt.target.id === 'qa-list-container' && !document.querySelector('.text-red-500')) {
-                                    editor.setData('');
-                                }
-                            });
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
-                }
-            })();
-        </script>
     </div>
 
     <!-- List -->

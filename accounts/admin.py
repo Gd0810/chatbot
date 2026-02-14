@@ -4,6 +4,11 @@ from django.contrib.auth.admin import UserAdmin
 from django import forms
 from .models import User, Workspace, Contact
 
+admin.site.site_header = "Redback Admin"
+admin.site.site_title = "Redback Admin Area"
+admin.site.index_title = "Welcome to the Redback Admin Area"
+
+
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     list_display = ['username', 'email', 'is_staff', 'is_approved']

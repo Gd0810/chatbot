@@ -31,7 +31,6 @@ daphne==4.1.2
 dataclasses-json==0.6.7
 Django==5.0.7
 django-celery-beat==2.6.0
-django-ckeditor==6.7.3
 django-js-asset==3.1.2
 django-meta==2.4.2
 django-timezone-field==6.1.0

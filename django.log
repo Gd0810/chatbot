@@ -3050,3 +3050,482 @@ Load pretrained SentenceTransformer: all-MiniLM-L6-v2
 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
 Configuring endpoint tcp:port=8000:interface=127.0.0.1
 Listening on TCP address 127.0.0.1:8000
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\knowledge\models.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\forms.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[mHTTP GET /dashboard/partial/account/ 200 [0.07, 127.0.0.1:59724][0m
+[mHTTP GET /dashboard/ 200 [0.05, 127.0.0.1:59724][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:59724][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.07, 127.0.0.1:59724][0m
+[mHTTP GET /static/ckeditor/ckeditor.css 200 [0.15, 127.0.0.1:59724][0m
+[mHTTP GET /static/ckeditor/ckeditor-init.js 200 [0.18, 127.0.0.1:59756][0m
+[mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 200 [0.18, 127.0.0.1:59863][0m
+[mHTTP GET /static/ckeditor/fixups.js 200 [0.18, 127.0.0.1:59864][0m
+[mHTTP GET /static/ckeditor/ckeditor/config.js?t=N5UC 200 [0.00, 127.0.0.1:59864][0m
+[mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/editor.css?t=N5UC 200 [0.01, 127.0.0.1:59864][0m
+[mHTTP GET /static/ckeditor/ckeditor/lang/en.js?t=N5UC 200 [0.01, 127.0.0.1:59863][0m
+[mHTTP GET /static/ckeditor/ckeditor/styles.js?t=N5UC 200 [0.00, 127.0.0.1:59863][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css?t=N5UC 200 [0.01, 127.0.0.1:59863][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/dialogs/dialog.css?t=N5UC 200 [0.01, 127.0.0.1:59864][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 200 [0.01, 127.0.0.1:59756][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/dialog/styles/dialog.css?t=N5UC 200 [0.01, 127.0.0.1:59724][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 200 [0.01, 127.0.0.1:59875][0m
+[mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 200 [0.01, 127.0.0.1:59875][0m
+[mHTTP GET /static/ckeditor/ckeditor-init.js 200 [0.02, 127.0.0.1:59911][0m
+[mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 200 [0.03, 127.0.0.1:59912][0m
+[mHTTP GET /static/ckeditor/fixups.js 200 [0.02, 127.0.0.1:59913][0m
+[mHTTP GET /static/ckeditor/ckeditor/config.js?t=N5UC 200 [0.04, 127.0.0.1:59914][0m
+[mHTTP GET /static/ckeditor/ckeditor/styles.js?t=N5UC 200 [0.03, 127.0.0.1:59916][0m
+[mHTTP GET /static/ckeditor/ckeditor/lang/en.js?t=N5UC 200 [0.04, 127.0.0.1:59915][0m
+[mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/icons.png?t=4a1fb11f44 200 [0.01, 127.0.0.1:59875][0m
+[mHTTP GET /dashboard/qa/1/edit/ 200 [0.03, 127.0.0.1:59875][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/colordialog/dialogs/colordialog.js?t=N5UC 200 [0.06, 127.0.0.1:59875][0m
+[mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/dialog.css?t=N5UC 200 [0.06, 127.0.0.1:59724][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/colordialog/dialogs/colordialog.css?t=N5UC 200 [0.01, 127.0.0.1:59724][0m
+[mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/images/close.png 200 [0.01, 127.0.0.1:59875][0m
+[mHTTP POST /dashboard/qa/1/update/ 200 [0.06, 127.0.0.1:59875][0m
+[36mHTTP GET /static/ckeditor/ckeditor.css 304 [0.01, 127.0.0.1:59875][0m
+[36mHTTP GET /static/ckeditor/ckeditor-init.js 304 [0.01, 127.0.0.1:59724][0m
+[36mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 304 [0.01, 127.0.0.1:61922][0m
+[36mHTTP GET /static/ckeditor/fixups.js 304 [0.01, 127.0.0.1:61923][0m
+[36mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 304 [0.01, 127.0.0.1:61923][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 304 [0.00, 127.0.0.1:59724][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 304 [0.01, 127.0.0.1:61922][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:62358][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771045870196&theme=%23f43f5e&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-left 200 [0.04, 127.0.0.1:62357][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:62468][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:62468][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:62468][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771045875015&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.05, 127.0.0.1:62468][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771045875015&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.06, 127.0.0.1:62468][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:62468][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:62468][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:62468][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:63662][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:63662][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771045927397&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.06, 127.0.0.1:63662][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771045927397&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.06, 127.0.0.1:63662][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:63662][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:63662][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:63662][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771045933977&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.06, 127.0.0.1:63662][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771045933977&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.06, 127.0.0.1:63662][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:63662][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:63662][0m
+[mHTTP GET /dashboard/qa/1/edit/ 200 [0.03, 127.0.0.1:63662][0m
+[36mHTTP GET /static/ckeditor/ckeditor.css 304 [0.00, 127.0.0.1:63662][0m
+[36mHTTP GET /static/ckeditor/ckeditor-init.js 304 [0.00, 127.0.0.1:63662][0m
+[36mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 304 [0.01, 127.0.0.1:63661][0m
+[36mHTTP GET /static/ckeditor/fixups.js 304 [0.00, 127.0.0.1:64624][0m
+[36mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 304 [0.00, 127.0.0.1:64624][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 304 [0.01, 127.0.0.1:63661][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 304 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/magicline/images/icon.png?t=N5UC 200 [0.01, 127.0.0.1:63662][0m
+[mHTTP POST /dashboard/qa/1/update/ 200 [0.50, 127.0.0.1:63662][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:63662][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:50284][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:50291][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.02, 127.0.0.1:50291][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:50284][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:50284][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:50291][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.01, 127.0.0.1:50291][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:50284][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771046057205&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.05, 127.0.0.1:50291][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771046057205&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.05, 127.0.0.1:50291][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:50291][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:50291][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:50291][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:50291][0m
+[mHTTP POST /embed/save-enquiry/ 200 [0.01, 127.0.0.1:50291][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:50291][0m
+[mHTTP GET /dashboard/qa/1/edit/ 200 [0.03, 127.0.0.1:50291][0m
+[36mHTTP GET /static/ckeditor/ckeditor.css 304 [0.00, 127.0.0.1:50291][0m
+[36mHTTP GET /static/ckeditor/ckeditor-init.js 304 [0.01, 127.0.0.1:50291][0m
+[36mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 304 [0.01, 127.0.0.1:50284][0m
+[36mHTTP GET /static/ckeditor/fixups.js 304 [0.01, 127.0.0.1:63662][0m
+[36mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 304 [0.00, 127.0.0.1:63662][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 304 [0.01, 127.0.0.1:50284][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 304 [0.00, 127.0.0.1:50291][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/dialogs/smiley.js?t=N5UC 200 [0.00, 127.0.0.1:50291][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/regular_smile.png 200 [0.00, 127.0.0.1:50291][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/sad_smile.png 200 [0.01, 127.0.0.1:50284][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/wink_smile.png 200 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/teeth_smile.png 200 [0.01, 127.0.0.1:51440][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/tongue_smile.png 200 [0.01, 127.0.0.1:51442][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/confused_smile.png 200 [0.01, 127.0.0.1:51441][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/whatchutalkingabout_smile.png 200 [0.01, 127.0.0.1:50291][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/kiss.png 200 [0.01, 127.0.0.1:50284][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/angry_smile.png 200 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/devil_smile.png 200 [0.01, 127.0.0.1:51440][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/thumbs_down.png 200 [0.01, 127.0.0.1:51442][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/thumbs_up.png 200 [0.01, 127.0.0.1:51441][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/lightbulb.png 200 [0.01, 127.0.0.1:50291][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/angel_smile.png 200 [0.01, 127.0.0.1:50284][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/shades_smile.png 200 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/heart.png 200 [0.01, 127.0.0.1:51440][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/omg_smile.png 200 [0.01, 127.0.0.1:51442][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/cry_smile.png 200 [0.01, 127.0.0.1:51441][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/embarrassed_smile.png 200 [0.01, 127.0.0.1:50291][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/broken_heart.png 200 [0.01, 127.0.0.1:50284][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/envelope.png 200 [0.00, 127.0.0.1:63662][0m
+[mHTTP GET /static/ckeditor/ckeditor/plugins/image/dialogs/image.js?t=N5UC 200 [0.02, 127.0.0.1:63662][0m
+[mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/images/lock.png 200 [0.01, 127.0.0.1:63662][0m
+[mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/images/refresh.png 200 [0.01, 127.0.0.1:50284][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.05, 127.0.0.1:50284][0m
+[mHTTP GET /about/ 200 [0.02, 127.0.0.1:53274][0m
+[mHTTP GET /static/ui/logo/Redback.png 200 [0.01, 127.0.0.1:53276][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:53277][0m
+[mHTTP GET /static/ui/img/ai%20chatbot%20provider%20in%20vellore.png 200 [0.03, 127.0.0.1:53274][0m
+[mHTTP GET /static/ui/logo/Redback%20Studios.png 200 [0.01, 127.0.0.1:53276][0m
+[mHTTP GET /static/ui/logo/Digital%20marketing%20venture.png 200 [0.02, 127.0.0.1:53276][0m
+[mHTTP GET /static/ui/logo/Redback%20acadmey.png 200 [0.03, 127.0.0.1:53274][0m
+[mHTTP GET /static/ui/logo/Redback%20System.png 200 [0.03, 127.0.0.1:53281][0m
+[mHTTP GET /static/ui/logo/Final%20RISC%20logo.png 200 [0.04, 127.0.0.1:53277][0m
+[mHTTP GET /static/ui/logo/Creative%20Graphicxs%20Logo.jpg 200 [0.04, 127.0.0.1:53282][0m
+[mHTTP GET /static/ui/logo/Vellore-01.png 200 [0.05, 127.0.0.1:53283][0m
+[mHTTP GET /static/ui/logo/logo%2001-01.png 200 [0.03, 127.0.0.1:53274][0m
+[mHTTP GET /static/ui/logo/My%20business%20filiings.png 200 [0.03, 127.0.0.1:53281][0m
+[mHTTP GET /static/ui/logo/Analyticxs%20.png 200 [0.03, 127.0.0.1:53277][0m
+[mHTTP GET /static/ui/logo/Vellore%20Ads%20site%20Logo.png 200 [0.02, 127.0.0.1:53282][0m
+[mHTTP GET /static/ui/logo/Blues%20Aquarium%20logo%201.png 200 [0.05, 127.0.0.1:53276][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/colordialog/dialogs/colordialog.css?t=N5UC 304 [0.00, 127.0.0.1:54652][0m
+[mHTTP POST /dashboard/qa/add/ 200 [0.06, 127.0.0.1:54652][0m
+[36mHTTP GET /static/ckeditor/ckeditor.css 304 [0.00, 127.0.0.1:54652][0m
+[36mHTTP GET /static/ckeditor/ckeditor-init.js 304 [0.00, 127.0.0.1:54652][0m
+[36mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 304 [0.00, 127.0.0.1:54880][0m
+[36mHTTP GET /static/ckeditor/fixups.js 304 [0.00, 127.0.0.1:54881][0m
+[36mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 304 [0.00, 127.0.0.1:54881][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 304 [0.00, 127.0.0.1:54880][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 304 [0.00, 127.0.0.1:54652][0m
+[mHTTP GET /dashboard/qa/2/edit/ 200 [0.03, 127.0.0.1:54652][0m
+[mHTTP POST /dashboard/qa/2/update/ 200 [0.06, 127.0.0.1:54652][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[mHTTP GET /dashboard/ 200 [0.05, 127.0.0.1:62236][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:62236][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:62236][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:62236][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.06, 127.0.0.1:62236][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:62237][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:62237][0m
+[mHTTP GET /dashboard/ 200 [0.02, 127.0.0.1:62237][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:62237][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:62237][0m
+[mHTTP GET /dashboard/ 200 [0.05, 127.0.0.1:62237][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:62236][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:62236][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:62236][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.04, 127.0.0.1:62236][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.07, 127.0.0.1:62236][0m
+[36mHTTP GET /static/ckeditor/ckeditor.css 304 [0.01, 127.0.0.1:62236][0m
+[36mHTTP GET /static/ckeditor/ckeditor-init.js 304 [0.00, 127.0.0.1:62236][0m
+[36mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 304 [0.00, 127.0.0.1:62236][0m
+[36mHTTP GET /static/ckeditor/fixups.js 304 [0.01, 127.0.0.1:62339][0m
+[36mHTTP GET /static/ckeditor/ckeditor/config.js?t=N5UC 304 [0.00, 127.0.0.1:62339][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/editor.css?t=N5UC 304 [0.01, 127.0.0.1:62339][0m
+[36mHTTP GET /static/ckeditor/ckeditor/lang/en.js?t=N5UC 304 [0.01, 127.0.0.1:62236][0m
+[36mHTTP GET /static/ckeditor/ckeditor/styles.js?t=N5UC 304 [0.00, 127.0.0.1:62236][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css?t=N5UC 304 [0.00, 127.0.0.1:62236][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/dialogs/dialog.css?t=N5UC 304 [0.01, 127.0.0.1:62339][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 304 [0.01, 127.0.0.1:62236][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/dialog/styles/dialog.css?t=N5UC 304 [0.01, 127.0.0.1:63093][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 304 [0.01, 127.0.0.1:63093][0m
+[36mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 304 [0.01, 127.0.0.1:63093][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/icons.png?t=4a1fb11f44 304 [0.01, 127.0.0.1:63093][0m
+[mHTTP DELETE /dashboard/qa/2/delete/ 200 [0.07, 127.0.0.1:63093][0m
+[mHTTP POST /dashboard/qa/add/ 200 [0.07, 127.0.0.1:49292][0m
+[mHTTP GET /dashboard/qa/3/edit/ 200 [0.04, 127.0.0.1:49292][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.05, 127.0.0.1:49292][0m
+[mHTTP GET /dashboard/qa/1/edit/ 200 [0.04, 127.0.0.1:49292][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/magicline/images/icon.png?t=N5UC 304 [0.01, 127.0.0.1:49292][0m
+[mHTTP POST /dashboard/qa/1/update/ 200 [0.07, 127.0.0.1:49292][0m
+[36mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 304 [0.01, 127.0.0.1:49292][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 304 [0.01, 127.0.0.1:50508][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 304 [0.01, 127.0.0.1:50509][0m
+[mHTTP GET /dashboard/qa/1/edit/ 200 [0.04, 127.0.0.1:50509][0m
+[32mHTTP GET /admin/ 302 [0.04, 127.0.0.1:50509][0m
+[mHTTP GET /admin/login/?next=/admin/ 200 [0.09, 127.0.0.1:50509][0m
+[32mHTTP POST /admin/login/?next=/admin/ 302 [0.60, 127.0.0.1:50509][0m
+[mHTTP GET /admin/ 200 [0.06, 127.0.0.1:50509][0m
+[mHTTP GET /admin/knowledge/qapair/ 200 [0.23, 127.0.0.1:50509][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.02, 127.0.0.1:52193][0m
+[mHTTP GET /static/admin/css/changelists.css 200 [0.11, 127.0.0.1:50509][0m
+[mHTTP GET /static/admin/js/admin/RelatedObjectLookups.js 200 [0.01, 127.0.0.1:52375][0m
+[mHTTP GET /static/admin/js/vendor/jquery/jquery.js 200 [0.15, 127.0.0.1:52368][0m
+[mHTTP GET /static/admin/js/jquery.init.js 200 [0.15, 127.0.0.1:52370][0m
+[mHTTP GET /static/admin/js/actions.js 200 [0.03, 127.0.0.1:52193][0m
+[mHTTP GET /static/admin/js/core.js 200 [0.15, 127.0.0.1:52371][0m
+[mHTTP GET /static/admin/js/urlify.js 200 [0.02, 127.0.0.1:50509][0m
+[mHTTP GET /static/admin/js/prepopulate.js 200 [0.02, 127.0.0.1:52375][0m
+[mHTTP GET /static/admin/js/vendor/xregexp/xregexp.js 200 [0.01, 127.0.0.1:52368][0m
+[mHTTP GET /static/admin/img/search.svg 200 [0.01, 127.0.0.1:52368][0m
+[mHTTP GET /static/admin/js/filters.js 200 [0.01, 127.0.0.1:52375][0m
+[mHTTP GET /static/admin/img/tooltag-add.svg 200 [0.01, 127.0.0.1:52375][0m
+[mHTTP GET /static/admin/img/icon-viewlink.svg 200 [0.01, 127.0.0.1:50509][0m
+[mHTTP GET /static/admin/img/sorting-icons.svg 200 [0.02, 127.0.0.1:52368][0m
+[mHTTP GET /admin/knowledge/qapair/add/ 200 [0.06, 127.0.0.1:52368][0m
+[mHTTP GET /static/admin/css/forms.css 200 [0.00, 127.0.0.1:52368][0m
+[36mHTTP GET /static/ckeditor/ckeditor.css 304 [0.00, 127.0.0.1:52375][0m
+[36mHTTP GET /static/ckeditor/ckeditor-init.js 304 [0.01, 127.0.0.1:52375][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:50509][0m
+[36mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 304 [0.01, 127.0.0.1:52371][0m
+[36mHTTP GET /static/ckeditor/fixups.js 304 [0.00, 127.0.0.1:52375][0m
+[mHTTP GET /static/admin/js/prepopulate_init.js 200 [0.01, 127.0.0.1:50509][0m
+[mHTTP GET /static/admin/css/widgets.css 200 [0.01, 127.0.0.1:52368][0m
+[mHTTP GET /static/admin/js/change_form.js 200 [0.00, 127.0.0.1:52368][0m
+[36mHTTP GET /static/ckeditor/ckeditor/config.js?t=N5UC 304 [0.01, 127.0.0.1:52368][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/editor.css?t=N5UC 304 [0.01, 127.0.0.1:52368][0m
+[36mHTTP GET /static/ckeditor/ckeditor/lang/en.js?t=N5UC 304 [0.00, 127.0.0.1:50509][0m
+[36mHTTP GET /static/ckeditor/ckeditor/styles.js?t=N5UC 304 [0.00, 127.0.0.1:50509][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css?t=N5UC 304 [0.00, 127.0.0.1:50509][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/dialogs/dialog.css?t=N5UC 304 [0.01, 127.0.0.1:52368][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/dialog/styles/dialog.css?t=N5UC 304 [0.00, 127.0.0.1:52368][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/icons.png?t=4a1fb11f44 304 [0.01, 127.0.0.1:52368][0m
+[32mHTTP POST /admin/knowledge/qapair/add/ 302 [0.03, 127.0.0.1:52368][0m
+[mHTTP GET /admin/knowledge/qapair/ 200 [0.05, 127.0.0.1:52368][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:52368][0m
+[mHTTP GET /static/admin/img/icon-yes.svg 200 [0.00, 127.0.0.1:52368][0m
+[mHTTP GET /admin/knowledge/qapair/4/change/ 200 [0.05, 127.0.0.1:52368][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:52368][0m
+[32mHTTP POST /admin/knowledge/qapair/4/change/ 302 [0.02, 127.0.0.1:52368][0m
+[mHTTP GET /admin/knowledge/qapair/ 200 [0.06, 127.0.0.1:52368][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.02, 127.0.0.1:52368][0m
+[mHTTP GET /admin/knowledge/qapair/3/change/ 200 [0.04, 127.0.0.1:52368][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.02, 127.0.0.1:52368][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:54176][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:54176][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:54176][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771046939965&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.04, 127.0.0.1:54176][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771046939965&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.05, 127.0.0.1:54176][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:54176][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:54176][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:54176][0m
+[mHTTP GET /admin/knowledge/qapair/ 200 [0.05, 127.0.0.1:56748][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:56748][0m
+[mHTTP GET /admin/knowledge/qapair/4/change/ 200 [0.04, 127.0.0.1:56748][0m
+[36mHTTP GET /static/ckeditor/ckeditor.css 304 [0.01, 127.0.0.1:56751][0m
+[36mHTTP GET /static/ckeditor/ckeditor-init.js 304 [0.01, 127.0.0.1:56813][0m
+[36mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 304 [0.01, 127.0.0.1:56751][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:56748][0m
+[36mHTTP GET /static/ckeditor/fixups.js 304 [0.01, 127.0.0.1:56813][0m
+[36mHTTP GET /static/ckeditor/ckeditor/config.js?t=N5UC 304 [0.00, 127.0.0.1:56748][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/editor.css?t=N5UC 304 [0.01, 127.0.0.1:56748][0m
+[36mHTTP GET /static/ckeditor/ckeditor/lang/en.js?t=N5UC 304 [0.01, 127.0.0.1:56813][0m
+[36mHTTP GET /static/ckeditor/ckeditor/styles.js?t=N5UC 304 [0.00, 127.0.0.1:56813][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css?t=N5UC 304 [0.00, 127.0.0.1:56813][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/dialogs/dialog.css?t=N5UC 304 [0.01, 127.0.0.1:56748][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/dialog/styles/dialog.css?t=N5UC 304 [0.01, 127.0.0.1:56813][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 304 [0.01, 127.0.0.1:56748][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 304 [0.01, 127.0.0.1:56751][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/icons.png?t=4a1fb11f44 304 [0.01, 127.0.0.1:56751][0m
+[36mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 304 [0.01, 127.0.0.1:56751][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[32mHTTP GET /dashboard/ 302 [0.05, 127.0.0.1:49642][0m
+[mHTTP GET /accounts/not-allowed/ 200 [0.03, 127.0.0.1:49642][0m
+[32mHTTP GET /accounts/logout/ 302 [0.02, 127.0.0.1:49642][0m
+[mHTTP GET /accounts/login/ 200 [0.03, 127.0.0.1:49642][0m
+[32mHTTP POST /accounts/login/ 302 [0.62, 127.0.0.1:49642][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:49642][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.08, 127.0.0.1:49642][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.05, 127.0.0.1:49642][0m
+[36mHTTP GET /static/ckeditor/ckeditor.css 304 [0.02, 127.0.0.1:49642][0m
+[36mHTTP GET /static/ckeditor/ckeditor-init.js 304 [0.01, 127.0.0.1:49642][0m
+[36mHTTP GET /static/ckeditor/ckeditor/ckeditor.js 304 [0.00, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/fixups.js 304 [0.02, 127.0.0.1:50035][0m
+[36mHTTP GET /static/ckeditor/ckeditor/config.js?t=N5UC 304 [0.01, 127.0.0.1:50035][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/editor.css?t=N5UC 304 [0.01, 127.0.0.1:50035][0m
+[36mHTTP GET /static/ckeditor/ckeditor/lang/en.js?t=N5UC 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/styles.js?t=N5UC 304 [0.00, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css?t=N5UC 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/scayt/dialogs/dialog.css?t=N5UC 304 [0.00, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=N5UC 304 [0.00, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/dialog/styles/dialog.css?t=N5UC 304 [0.00, 127.0.0.1:50035][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=N5UC 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/contents.css?t=N5UC 304 [0.00, 127.0.0.1:49727][0m
+[mHTTP GET /dashboard/qa/4/edit/ 200 [0.03, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/icons.png?t=4a1fb11f44 304 [0.00, 127.0.0.1:49727][0m
+[mHTTP POST /dashboard/qa/4/update/ 200 [0.05, 127.0.0.1:49727][0m
+[mHTTP GET /dashboard/qa/4/edit/ 200 [0.04, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/dialogs/smiley.js?t=N5UC 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/dialog.css?t=N5UC 304 [0.01, 127.0.0.1:51693][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/regular_smile.png 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/sad_smile.png 304 [0.01, 127.0.0.1:51693][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/wink_smile.png 304 [0.01, 127.0.0.1:51693][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/teeth_smile.png 304 [0.01, 127.0.0.1:51693][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/confused_smile.png 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/tongue_smile.png 304 [0.01, 127.0.0.1:51696][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/devil_smile.png 304 [0.01, 127.0.0.1:51697][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/cry_smile.png 304 [0.01, 127.0.0.1:51693][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/omg_smile.png 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/whatchutalkingabout_smile.png 304 [0.01, 127.0.0.1:51696][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/thumbs_up.png 304 [0.01, 127.0.0.1:51693][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/heart.png 304 [0.01, 127.0.0.1:51696][0m
+[36mHTTP GET /static/ckeditor/ckeditor/skins/moono-lisa/images/close.png 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/lightbulb.png 304 [0.01, 127.0.0.1:51693][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/shades_smile.png 304 [0.01, 127.0.0.1:51697][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/broken_heart.png 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/thumbs_down.png 304 [0.01, 127.0.0.1:51697][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/kiss.png 304 [0.01, 127.0.0.1:51693][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/envelope.png 304 [0.01, 127.0.0.1:49727][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/angry_smile.png 304 [0.02, 127.0.0.1:51696][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/angel_smile.png 304 [0.02, 127.0.0.1:51699][0m
+[36mHTTP GET /static/ckeditor/ckeditor/plugins/smiley/images/embarrassed_smile.png 304 [0.01, 127.0.0.1:51697][0m
+[mHTTP POST /dashboard/qa/4/update/ 200 [0.06, 127.0.0.1:51699][0m
+[mHTTP GET /dashboard/qa/4/edit/ 200 [0.03, 127.0.0.1:51699][0m
+[32mHTTP GET /accounts/logout/ 302 [0.03, 127.0.0.1:53531][0m
+[mHTTP GET /accounts/login/ 200 [0.02, 127.0.0.1:53531][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:53531][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:53531][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:53531][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771047635355&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.04, 127.0.0.1:53531][0m
+[32mHTTP GET /admin/ 302 [0.04, 127.0.0.1:53534][0m
+[mHTTP GET /admin/login/?next=/admin/ 200 [0.03, 127.0.0.1:53534][0m
+[32mHTTP POST /admin/login/?next=/admin/ 302 [0.60, 127.0.0.1:53534][0m
+[mHTTP GET /admin/ 200 [0.06, 127.0.0.1:53534][0m
+[mHTTP GET /admin/knowledge/qapair/ 200 [0.09, 127.0.0.1:53534][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:53534][0m
+[mHTTP GET /admin/knowledge/qapair/4/change/ 200 [0.06, 127.0.0.1:53534][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.02, 127.0.0.1:53534][0m
+[32mHTTP POST /admin/knowledge/qapair/4/change/ 302 [0.05, 127.0.0.1:53534][0m
+[mHTTP GET /admin/knowledge/qapair/ 200 [0.05, 127.0.0.1:53534][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:53534][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:55081][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:55081][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:55081][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771047697579&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.05, 127.0.0.1:55081][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.00, 127.0.0.1:55099][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771047697579&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.07, 127.0.0.1:55081][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:55081][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:55081][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:55081][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\dashboard\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET /admin/ 200 [0.10, 127.0.0.1:62314][0m
+[mHTTP GET /admin/knowledge/qapair/ 200 [0.08, 127.0.0.1:62314][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.02, 127.0.0.1:62314][0m
+[mHTTP GET /admin/knowledge/qapair/add/ 200 [0.06, 127.0.0.1:62314][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:62314][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:63107][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.02, 127.0.0.1:63107][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:63107][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.62, 127.0.0.1:63107][0m
+[mHTTP GET /dashboard/ 200 [0.04, 127.0.0.1:63107][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.19, 127.0.0.1:63107][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.03, 127.0.0.1:63107][0m
+[mHTTP GET /dashboard/qa/4/edit/ 200 [0.03, 127.0.0.1:63107][0m
+[mHTTP POST /dashboard/qa/4/update/ 200 [0.05, 127.0.0.1:50898][0m
+[mHTTP GET / 200 [0.04, 127.0.0.1:50898][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.01, 127.0.0.1:51228][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.01, 127.0.0.1:51229][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:50898][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.01, 127.0.0.1:50898][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:50898][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771048246679&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.04, 127.0.0.1:50898][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771048246679&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.07, 127.0.0.1:50898][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:50898][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:50898][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:50898][0m
+[mHTTP GET /dashboard/qa/4/edit/ 200 [0.03, 127.0.0.1:50898][0m
+[mHTTP POST /dashboard/qa/4/update/ 200 [0.05, 127.0.0.1:50898][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:50898][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:50898][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:50898][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771048290208&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.06, 127.0.0.1:50898][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1771048290208&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.05, 127.0.0.1:50898][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:50898][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:50898][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:50898][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:50898][0m
+[mHTTP POST /embed/save-enquiry/ 200 [0.03, 127.0.0.1:50898][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:50898][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP DELETE /dashboard/qa/4/delete/ 200 [0.08, 127.0.0.1:55893][0m
+[mHTTP DELETE /dashboard/qa/3/delete/ 200 [0.05, 127.0.0.1:55893][0m
+[mHTTP DELETE /dashboard/qa/1/delete/ 200 [0.05, 127.0.0.1:55893][0m
+[mHTTP GET /about/ 200 [0.04, 127.0.0.1:55893][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:55893][0m

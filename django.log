@@ -5283,3 +5283,225 @@ Load pretrained SentenceTransformer: all-MiniLM-L6-v2
 HTTP/2 support not enabled (install the http2 and tls Twisted extras)
 Configuring endpoint tcp:port=8000:interface=127.0.0.1
 Listening on TCP address 127.0.0.1:8000
+[mHTTP GET / 200 [0.17, 127.0.0.1:56870][0m
+[33mHTTP GET /static/css/style.css 404 [0.30, 127.0.0.1:56870][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.52, 127.0.0.1:56878][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.68, 127.0.0.1:56877][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.11, 127.0.0.1:56878][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.05, 127.0.0.1:56877][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.06, 127.0.0.1:56878][0m
+[mHTTP GET /static/embed/bot.js 200 [0.07, 127.0.0.1:56877][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.30, 127.0.0.1:56877][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774690763653&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.30, 127.0.0.1:56877][0m
+[mHTTP GET /static/embed/notify.mp3 200 [0.13, 127.0.0.1:56877][0m
+[32mHTTP GET /dashboard/ 302 [0.19, 127.0.0.1:58678][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.19, 127.0.0.1:58678][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [2.14, 127.0.0.1:58678][0m
+[mHTTP GET /dashboard/ 200 [0.08, 127.0.0.1:58678][0m
+[mHTTP GET /static/tinymce/tinymce.min.js 200 [0.01, 127.0.0.1:58678][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.11, 127.0.0.1:58678][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.10, 127.0.0.1:58678][0m
+Qdrant vector deletion returned: 404 404 page not found
+
+[mHTTP POST /dashboard/knowledge/2/delete/ 200 [1.65, 127.0.0.1:58678][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.09, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/bots/1/edit/ 200 [0.12, 127.0.0.1:61073][0m
+[mHTTP POST /dashboard/bots/1/edit/ 200 [0.16, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/website-datafetcher/ 200 [0.09, 127.0.0.1:61073][0m
+[mHTTP POST /dashboard/website-datafetcher/crawl/ 200 [36.22, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.16, 127.0.0.1:61073][0m
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+Qdrant upload failed: 404 page not found
+
+[mHTTP POST /dashboard/knowledge/add/ 200 [183.02, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/ 200 [0.13, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/20/edit/ 200 [0.06, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/ 200 [0.17, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.07, 127.0.0.1:61073][0m
+[mHTTP POST /dashboard/workspace/update/ 200 [99.31, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.15, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/ 200 [0.11, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/20/edit/ 200 [0.10, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.15, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/ 200 [0.11, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/25/edit/ 200 [0.16, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/ 200 [0.18, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/27/edit/ 200 [0.07, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/ 200 [0.15, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/63/edit/ 200 [0.12, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/knowledge/3/chunks/ 200 [0.10, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.15, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/bots/1/edit/ 200 [0.10, 127.0.0.1:61073][0m
+[mHTTP GET /dashboard/ 200 [0.61, 127.0.0.1:61068][0m
+Not Found: /favicon.ico
+[mHTTP GET /dashboard/partial/account/ 200 [0.21, 127.0.0.1:61068][0m
+[33mHTTP GET /favicon.ico 404 [0.13, 127.0.0.1:61127][0m
+[mHTTP GET / 200 [0.17, 127.0.0.1:61127][0m
+[33mHTTP GET /static/css/style.css 404 [0.06, 127.0.0.1:61127][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.05, 127.0.0.1:61068][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.14, 127.0.0.1:61127][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.30, 127.0.0.1:61127][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.55, 127.0.0.1:61127][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.15, 127.0.0.1:61127][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=AI 200 [0.11, 127.0.0.1:61127][0m
+[mHTTP POST /api/chat/ 200 [0.15, 127.0.0.1:61127][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.10, 127.0.0.1:61127][0m
+Token Usage - Prompt: 912, Completion: 361, Total: 1273
+[mHTTP POST /api/chat/ 200 [7.45, 127.0.0.1:61889][0m
+Token Usage - Prompt: 901, Completion: 207, Total: 1108
+[mHTTP POST /api/chat/ 200 [4.18, 127.0.0.1:55425][0m
+Token Usage - Prompt: 833, Completion: 374, Total: 1207
+[mHTTP POST /api/chat/ 200 [6.20, 127.0.0.1:55425][0m
+Token Usage - Prompt: 878, Completion: 305, Total: 1183
+[mHTTP POST /api/chat/ 200 [5.12, 127.0.0.1:58817][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.06, 127.0.0.1:60107][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.20, 127.0.0.1:60107][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.19, 127.0.0.1:60107][0m
+[mHTTP POST /api/chat/ 200 [0.12, 127.0.0.1:60939][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.10, 127.0.0.1:60107][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.10, 127.0.0.1:60107][0m
+Token Usage - Prompt: 829, Completion: 319, Total: 1148
+[mHTTP POST /api/chat/ 200 [4.89, 127.0.0.1:62484][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.05, 127.0.0.1:64790][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.29, 127.0.0.1:64790][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.08, 127.0.0.1:51486][0m
+[mHTTP GET /dashboard/bot/1/style/ 200 [0.24, 127.0.0.1:51486][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.14, 127.0.0.1:52410][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.12, 127.0.0.1:52410][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=LIVE 200 [0.23, 127.0.0.1:52410][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52472]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52472]
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.50, 127.0.0.1:52410][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52472]
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.11, 127.0.0.1:52410][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=AI 200 [0.33, 127.0.0.1:52410][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=LIVE 200 [0.19, 127.0.0.1:52410][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52760]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52760]
+[mHTTP GET /dashboard/partial/live/ 200 [0.06, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.42, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/6/ 200 [0.15, 127.0.0.1:54586][0m
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:54672]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:54672]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.45, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.14, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.19, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.15, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.36, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.11, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.18, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.11, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/7/ 200 [0.07, 127.0.0.1:54586][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:54672]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_36g8j2xfh_1770967692246/ [127.0.0.1:55653]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_36g8j2xfh_1770967692246/ [127.0.0.1:55653]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.56, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.18, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.21, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.14, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:54586][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.26, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.57, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.17, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.20, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.24, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.15, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.19, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.30, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.20, 127.0.0.1:59820][0m

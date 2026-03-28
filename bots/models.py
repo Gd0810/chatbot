@@ -13,6 +13,7 @@ def generate_public_key():
 SUPPORTED_PROVIDERS = [
     ('google', 'Google'),
     ('openai', 'OpenAI'),
+    ('nvidia', 'NVIDIA'),
     ('openrouter', 'OpenRouter'),
     ('anthropic', 'Anthropic'),
     ('xai', 'xAI'),

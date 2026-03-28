@@ -130,6 +130,37 @@ def _call_openai(api_key: str, model: str, prompt: str):
     
     return {"text": text, "usage": token_data}
 
+def _call_nvidia(api_key: str, model: str, prompt: str):
+    # NVIDIA integrates an OpenAI-compatible chat completions API.
+    url = "https://integrate.api.nvidia.com/v1/chat/completions"
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    payload = {
+        "model": model,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.0,
+        "max_tokens": 1024
+    }
+    r = requests.post(url, json=payload, headers=headers, timeout=REQUEST_TIMEOUT)
+    r.raise_for_status()
+    j = r.json()
+
+    text = ""
+    choices = j.get("choices") or []
+    if choices:
+        msg = choices[0].get("message") or {}
+        text = msg.get("content") or choices[0].get("text") or json.dumps(j)
+    if not text:
+        text = j.get("error", {}).get("message") or json.dumps(j)
+
+    usage = j.get("usage", {})
+    token_data = {
+        "prompt_tokens": usage.get("prompt_tokens", 0),
+        "completion_tokens": usage.get("completion_tokens", 0),
+        "total_tokens": usage.get("total_tokens", 0)
+    }
+
+    return {"text": text, "usage": token_data}
+
 def _call_openrouter(api_key: str, model: str, prompt: str):
     # OpenRouter implements OpenAI-like chat endpoint
     url = "https://openrouter.ai/api/v1/chat/completions"
@@ -288,6 +319,11 @@ def get_ai_response(user_question: str, retrieved_data: str, api_key: str = None
 
         elif provider == 'openai':
             result = _call_openai(used_api_key, model, prompt)
+            answer_text = result.get("text", "")
+            token_usage = result.get("usage", token_usage)
+
+        elif provider == 'nvidia':
+            result = _call_nvidia(used_api_key, model, prompt)
             answer_text = result.get("text", "")
             token_usage = result.get("usage", token_usage)
 

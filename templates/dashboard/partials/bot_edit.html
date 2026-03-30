@@ -438,7 +438,7 @@
     <p class="form-hint" style="margin-bottom: 12px;">
       Copy and paste this code into your website to embed the chatbot:
     </p>
-    <pre id="embed-script-block" class="embed-code"><code>&lt;script src="http://{{ request.get_host }}/static/embed/bot.js"&gt;&lt;/script&gt;
+    <pre id="embed-script-block" class="embed-code"><code>&lt;script src="https://{{ request.get_host }}/static/embed/bot.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   RedbotLoad('{{ bot.public_key }}');
   RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));

@@ -5505,3 +5505,279 @@ WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_36g8j2xfh_17709
 [mHTTP GET /dashboard/partial/live/list/ 200 [0.19, 127.0.0.1:59820][0m
 [mHTTP GET /dashboard/partial/live/list/ 200 [0.30, 127.0.0.1:59820][0m
 [mHTTP GET /dashboard/partial/live/list/ 200 [0.20, 127.0.0.1:59820][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.15, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.17, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.42, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.10, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/ 200 [0.06, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/6/ 200 [0.07, 127.0.0.1:65350][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_36g8j2xfh_1770967692246/ [127.0.0.1:55653]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:51668]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:51668]
+[mHTTP GET /dashboard/partial/live/5/ 200 [0.07, 127.0.0.1:65350][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/cbc178f9-9d38-4c1e-84e4-50574d549fda/ [127.0.0.1:51668]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:51704]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:51704]
+[mHTTP GET /dashboard/partial/live/4/ 200 [0.19, 127.0.0.1:65350][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/16547883-b35b-4ad9-b077-8dcfee7b4328/ [127.0.0.1:51704]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:51740]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:51740]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.11, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.15, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.11, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.11, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.14, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.17, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.14, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.45, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.11, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.37, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.21, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.11, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.17, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.11, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:65350][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.09, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/8/ 200 [0.05, 127.0.0.1:59829][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_ms3t45txg_1767944056087/ [127.0.0.1:51740]
+WebSocket HANDSHAKING /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_iup8uhr4v_1768967713046/ [127.0.0.1:51622]
+WebSocket CONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_iup8uhr4v_1768967713046/ [127.0.0.1:51622]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.15, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.08, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.10, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:59829][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=AI 200 [0.09, 127.0.0.1:53384][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:52760]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.15, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.16, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.15, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.14, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.68, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.13, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.16, 127.0.0.1:59829][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=LIVE 200 [0.14, 127.0.0.1:55319][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55334]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55334]
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.14, 127.0.0.1:59829][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774691664945&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.12, 127.0.0.1:55319][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:55334]
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:55319][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:55319][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:55319][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.26, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/live/list/ 200 [0.12, 127.0.0.1:59829][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.14, 127.0.0.1:59829][0m
+[mHTTP GET /static/tinymce/themes/silver/theme.min.js 200 [0.15, 127.0.0.1:59829][0m
+[mHTTP GET /static/tinymce/plugins/advlist/plugin.min.js 200 [0.12, 127.0.0.1:57178][0m
+[mHTTP GET /static/tinymce/plugins/autolink/plugin.min.js 200 [0.08, 127.0.0.1:57179][0m
+[mHTTP GET /static/tinymce/models/dom/model.min.js 200 [0.14, 127.0.0.1:57177][0m
+[mHTTP GET /static/tinymce/plugins/lists/plugin.min.js 200 [0.05, 127.0.0.1:57180][0m
+[mHTTP GET /static/tinymce/icons/default/icons.min.js 200 [0.19, 127.0.0.1:57176][0m
+[mHTTP GET /static/tinymce/plugins/image/plugin.min.js 200 [0.05, 127.0.0.1:57179][0m
+[mHTTP GET /static/tinymce/plugins/anchor/plugin.min.js 200 [0.04, 127.0.0.1:57180][0m
+[mHTTP GET /static/tinymce/plugins/searchreplace/plugin.min.js 200 [0.02, 127.0.0.1:57176][0m
+[mHTTP GET /static/tinymce/plugins/preview/plugin.min.js 200 [0.05, 127.0.0.1:57177][0m
+[mHTTP GET /static/tinymce/plugins/charmap/plugin.min.js 200 [0.05, 127.0.0.1:59829][0m
+[mHTTP GET /static/tinymce/plugins/link/plugin.min.js 200 [0.05, 127.0.0.1:57178][0m
+[mHTTP GET /static/tinymce/plugins/media/plugin.min.js 200 [0.03, 127.0.0.1:59829][0m
+[mHTTP GET /static/tinymce/plugins/visualblocks/plugin.min.js 200 [0.06, 127.0.0.1:57176][0m
+[mHTTP GET /static/tinymce/plugins/code/plugin.min.js 200 [0.06, 127.0.0.1:57179][0m
+[mHTTP GET /static/tinymce/plugins/insertdatetime/plugin.min.js 200 [0.04, 127.0.0.1:57178][0m
+[mHTTP GET /static/tinymce/plugins/table/plugin.min.js 200 [0.04, 127.0.0.1:57177][0m
+[mHTTP GET /static/tinymce/plugins/fullscreen/plugin.min.js 200 [0.05, 127.0.0.1:57180][0m
+[mHTTP GET /static/tinymce/plugins/help/plugin.min.js 200 [0.07, 127.0.0.1:59829][0m
+[mHTTP GET /static/tinymce/plugins/wordcount/plugin.min.js 200 [0.05, 127.0.0.1:57179][0m
+[mHTTP GET /static/tinymce/plugins/autoresize/plugin.min.js 200 [0.05, 127.0.0.1:57176][0m
+[mHTTP GET /static/tinymce/plugins/directionality/plugin.min.js 200 [0.05, 127.0.0.1:57178][0m
+[mHTTP GET /static/tinymce/plugins/emoticons/plugin.min.js 200 [0.05, 127.0.0.1:57177][0m
+[mHTTP GET /static/tinymce/plugins/codesample/plugin.min.js 200 [0.08, 127.0.0.1:57180][0m
+[mHTTP GET /static/tinymce/plugins/nonbreaking/plugin.min.js 200 [0.05, 127.0.0.1:59829][0m
+[mHTTP GET /static/tinymce/plugins/pagebreak/plugin.min.js 200 [0.02, 127.0.0.1:57179][0m
+[mHTTP GET /static/tinymce/plugins/quickbars/plugin.min.js 200 [0.03, 127.0.0.1:57177][0m
+[mHTTP GET /static/tinymce/skins/ui/oxide/skin.min.css 200 [0.02, 127.0.0.1:57177][0m
+[mHTTP GET /static/tinymce/skins/ui/oxide/content.min.css 200 [0.01, 127.0.0.1:57177][0m
+[mHTTP GET /static/tinymce/skins/content/default/content.min.css 200 [0.01, 127.0.0.1:57179][0m
+[mHTTP GET /static/tinymce/plugins/help/js/i18n/keynav/en.js 200 [0.01, 127.0.0.1:57179][0m
+[mHTTP GET /static/tinymce/plugins/emoticons/js/emojis.min.js 200 [0.01, 127.0.0.1:57177][0m
+[mHTTP GET /dashboard/qa/11/edit/ 200 [0.05, 127.0.0.1:57177][0m
+[mHTTP POST /dashboard/qa/11/update/ 200 [0.08, 127.0.0.1:49350][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:49678][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:49678][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:49678][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774694756466&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C%20sans-serif&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.10, 127.0.0.1:49678][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774694756466&theme=%23ff6642&bgcolor=%23ffffff&font=Poppins%2C+sans-serif&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.14, 127.0.0.1:49678][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.09, 127.0.0.1:49678][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:49678][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:49678][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.04, 127.0.0.1:51013][0m
+[mHTTP GET /dashboard/bot/1/style/ 200 [0.04, 127.0.0.1:51013][0m
+[mHTTP POST /dashboard/bot/1/style/save/ 200 [0.08, 127.0.0.1:51013][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:51450][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:51450][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.08, 127.0.0.1:51450][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774694832554&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.12, 127.0.0.1:51450][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774694832554&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.11, 127.0.0.1:51450][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:51450][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:51450][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:51450][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:51450][0m
+[mHTTP GET /about/ 200 [0.06, 127.0.0.1:53571][0m
+[36mHTTP GET /static/ui/logo/Redback.png 304 [0.01, 127.0.0.1:53577][0m
+[36mHTTP GET /static/ui/img/ai%20chatbot%20provider%20in%20vellore.png 304 [0.02, 127.0.0.1:53576][0m
+[33mHTTP GET /static/css/style.css 404 [0.04, 127.0.0.1:53571][0m
+[36mHTTP GET /static/ui/logo/Redback%20Studios.png 304 [0.05, 127.0.0.1:53577][0m
+[36mHTTP GET /static/ui/logo/Final%20RISC%20logo.png 304 [0.10, 127.0.0.1:53580][0m
+[36mHTTP GET /static/ui/logo/Redback%20acadmey.png 304 [0.12, 127.0.0.1:53576][0m
+[36mHTTP GET /static/ui/logo/Vellore-01.png 304 [0.03, 127.0.0.1:53577][0m
+[36mHTTP GET /static/ui/logo/Creative%20Graphicxs%20Logo.jpg 304 [0.05, 127.0.0.1:53582][0m
+[36mHTTP GET /static/ui/logo/Digital%20marketing%20venture.png 304 [0.15, 127.0.0.1:53571][0m
+[36mHTTP GET /static/ui/logo/Redback%20System.png 304 [0.14, 127.0.0.1:53581][0m
+[36mHTTP GET /static/ui/logo/Blues%20Aquarium%20logo%201.png 304 [0.13, 127.0.0.1:53580][0m
+[36mHTTP GET /static/ui/logo/logo%2001-01.png 304 [0.13, 127.0.0.1:53581][0m
+[36mHTTP GET /static/ui/logo/Analyticxs%20.png 304 [0.09, 127.0.0.1:53582][0m
+[36mHTTP GET /static/ui/logo/Vellore%20Ads%20site%20Logo.png 304 [0.09, 127.0.0.1:53576][0m
+[36mHTTP GET /static/ui/logo/My%20business%20filiings.png 304 [0.09, 127.0.0.1:53580][0m
+[mHTTP GET /service/ 200 [0.05, 127.0.0.1:55023][0m
+[mHTTP GET /static/ui/img/g2.png 200 [0.02, 127.0.0.1:55023][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:55027][0m
+[mHTTP GET /contact/ 200 [0.08, 127.0.0.1:55023][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:55023][0m
+[mHTTP GET / 200 [0.04, 127.0.0.1:55023][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:55023][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.13, 127.0.0.1:55023][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774695018748&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.08, 127.0.0.1:55023][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774695018748&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.10, 127.0.0.1:55023][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:55023][0m
+[mHTTP GET /faq-chatbot-provider-in-vellore/ 200 [0.05, 127.0.0.1:55023][0m
+[36mHTTP GET /static/ui/img/faq-chatbot-in-vellore.png 304 [0.01, 127.0.0.1:56813][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:55023][0m
+[mHTTP GET /live-chatbot-provider-in-vellore/ 200 [0.05, 127.0.0.1:63584][0m
+[36mHTTP GET /static/ui/img/live-chatbot-in-vellore.png 304 [0.01, 127.0.0.1:63590][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:63584][0m
+[mHTTP GET /ai-chatbot-provider-in-vellore/ 200 [0.03, 127.0.0.1:63584][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:63590][0m
+[mHTTP GET /static/ui/img/ai-chatbot-in-vellore.png 200 [0.03, 127.0.0.1:63584][0m
+[32mHTTP GET /admin/ 302 [0.06, 127.0.0.1:57375][0m
+[mHTTP GET /admin/login/?next=/admin/ 200 [0.08, 127.0.0.1:57375][0m
+WebSocket DISCONNECT /ws/chat/074aa379250e4a898359e1b6f5a2574c/sess_iup8uhr4v_1768967713046/ [127.0.0.1:51622]
+[mHTTP GET /static/admin/css/dark_mode.css 200 [0.03, 127.0.0.1:57383][0m
+[mHTTP GET /static/admin/css/base.css 200 [0.03, 127.0.0.1:57375][0m
+[mHTTP GET /static/admin/css/responsive.css 200 [0.02, 127.0.0.1:57387][0m
+[mHTTP GET /static/admin/css/login.css 200 [0.03, 127.0.0.1:57386][0m
+[mHTTP GET /static/admin/css/nav_sidebar.css 200 [0.03, 127.0.0.1:57384][0m
+[mHTTP GET /static/admin/js/theme.js 200 [0.02, 127.0.0.1:57388][0m
+[mHTTP GET /static/admin/js/nav_sidebar.js 200 [0.03, 127.0.0.1:57375][0m
+[32mHTTP POST /admin/login/?next=/admin/ 302 [1.11, 127.0.0.1:57375][0m
+[mHTTP GET /admin/ 200 [0.08, 127.0.0.1:57375][0m
+[mHTTP GET /static/admin/css/dashboard.css 200 [0.01, 127.0.0.1:57375][0m
+[mHTTP GET /static/admin/img/icon-addlink.svg 200 [0.01, 127.0.0.1:57375][0m
+[mHTTP GET /static/admin/img/icon-changelink.svg 200 [0.02, 127.0.0.1:57388][0m
+[mHTTP GET /admin/bots/bot/ 200 [0.12, 127.0.0.1:57388][0m
+[mHTTP GET /static/admin/css/changelists.css 200 [0.02, 127.0.0.1:57388][0m
+[mHTTP GET /static/js/bot_admin.js 200 [0.03, 127.0.0.1:57386][0m
+[mHTTP GET /static/admin/js/jquery.init.js 200 [0.02, 127.0.0.1:57387][0m
+[mHTTP GET /static/admin/js/core.js 200 [0.03, 127.0.0.1:57383][0m
+[mHTTP GET /static/admin/js/vendor/jquery/jquery.js 200 [0.04, 127.0.0.1:57384][0m
+[mHTTP GET /static/admin/js/admin/RelatedObjectLookups.js 200 [0.03, 127.0.0.1:57388][0m
+[mHTTP GET /static/admin/js/urlify.js 200 [0.07, 127.0.0.1:57387][0m
+[mHTTP GET /static/admin/js/actions.js 200 [0.07, 127.0.0.1:57386][0m
+[mHTTP GET /static/admin/js/prepopulate.js 200 [0.07, 127.0.0.1:57384][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.14, 127.0.0.1:57375][0m
+[mHTTP GET /static/admin/img/search.svg 200 [0.03, 127.0.0.1:57388][0m
+[mHTTP GET /static/admin/js/vendor/xregexp/xregexp.js 200 [0.06, 127.0.0.1:57383][0m
+[mHTTP GET /static/admin/img/icon-yes.svg 200 [0.05, 127.0.0.1:57387][0m
+[mHTTP GET /static/admin/js/filters.js 200 [0.02, 127.0.0.1:57383][0m
+[mHTTP GET /static/admin/img/tooltag-add.svg 200 [0.01, 127.0.0.1:57387][0m
+[mHTTP GET /static/admin/img/icon-viewlink.svg 200 [0.02, 127.0.0.1:57375][0m
+[mHTTP GET /admin/bots/bot/1/change/ 200 [0.13, 127.0.0.1:57375][0m
+[mHTTP GET /static/admin/css/forms.css 200 [0.01, 127.0.0.1:57375][0m
+[mHTTP GET /static/admin/js/prepopulate_init.js 200 [0.01, 127.0.0.1:57383][0m
+[mHTTP GET /static/admin/css/widgets.css 200 [0.01, 127.0.0.1:57383][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.05, 127.0.0.1:57387][0m
+[mHTTP GET /static/admin/js/change_form.js 200 [0.01, 127.0.0.1:57383][0m
+[mHTTP GET /static/admin/img/tooltag-arrowright.svg 200 [0.01, 127.0.0.1:57383][0m
+[mHTTP GET /bots/api/workspace-plan/1/ 200 [0.06, 127.0.0.1:57383][0m
+[32mHTTP POST /admin/bots/bot/1/change/ 302 [0.05, 127.0.0.1:57383][0m
+[mHTTP GET /admin/bots/bot/ 200 [0.06, 127.0.0.1:57383][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:57383][0m
+[mHTTP GET / 200 [0.04, 127.0.0.1:58511][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:58511][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:58511][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774696528614&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.08, 127.0.0.1:58511][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774696528614&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.10, 127.0.0.1:58511][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:58511][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774696528614&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=AI 200 [0.06, 127.0.0.1:58511][0m
+[mHTTP POST /api/chat/ 200 [0.06, 127.0.0.1:58511][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.03, 127.0.0.1:58511][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\redbot\settings.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET / 200 [0.26, 127.0.0.1:60809][0m
+[33mHTTP GET /static/css/style.css 404 [0.18, 127.0.0.1:60809][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.16, 127.0.0.1:60809][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774696631903&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.19, 127.0.0.1:60809][0m
+[mHTTP GET / 200 [0.15, 127.0.0.1:60809][0m
+[33mHTTP GET /static/css/style.css 404 [0.10, 127.0.0.1:60809][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.14, 127.0.0.1:60809][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774696636196&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.22, 127.0.0.1:60809][0m
+[mHTTP GET /admin/bots/bot/1/change/ 200 [0.61, 127.0.0.1:54969][0m
+[mHTTP GET /admin/jsi18n/ 200 [0.14, 127.0.0.1:54969][0m
+[mHTTP GET /bots/api/workspace-plan/1/ 200 [0.13, 127.0.0.1:54969][0m
+[mHTTP GET / 200 [0.35, 127.0.0.1:65408][0m
+[33mHTTP GET /static/css/style.css 404 [0.19, 127.0.0.1:65408][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.09, 127.0.0.1:65408][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774698284622&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.10, 127.0.0.1:65408][0m
+[32mHTTP GET /dashboard/ 302 [0.06, 127.0.0.1:65408][0m
+[mHTTP GET /accounts/not-allowed/ 200 [0.08, 127.0.0.1:65408][0m
+[32mHTTP GET /accounts/logout/ 302 [0.10, 127.0.0.1:65408][0m
+[mHTTP GET /accounts/login/ 200 [0.07, 127.0.0.1:65408][0m
+[32mHTTP POST /accounts/login/ 302 [2.47, 127.0.0.1:65408][0m
+[mHTTP GET /dashboard/ 200 [0.08, 127.0.0.1:65408][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.08, 127.0.0.1:65408][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.12, 127.0.0.1:65408][0m
+[mHTTP GET /dashboard/bots/1/edit/ 200 [0.13, 127.0.0.1:65408][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000

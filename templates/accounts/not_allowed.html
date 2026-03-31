@@ -1,23 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>Access Restricted</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: 'rgb(255, 60, 0)',
-            'primary-dark': 'rgb(217, 38, 0)',
-            'primary-darker': 'rgb(175, 20, 0)',
-            'primary-darkest': 'rgb(67, 26, 0)',
-          }
-        }
-      }
-    }
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/tailwind-pages.css' %}">
 </head>
 <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-darkest via-primary-darker to-primary-dark">
   <div class="bg-white shadow-2xl rounded-lg p-10 max-w-lg w-full text-center border-t-4 border-primary">

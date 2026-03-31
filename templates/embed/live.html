@@ -853,7 +853,7 @@
           <div id="bot-switcher-menu" class="bot-switcher-menu" style="display: none;"></div>
         </div>
         {% endif %}
-        <button class="icon" title="Minimize chat" type="button" onclick="parent.postMessage('redbot:close','*')" aria-label="Minimize">
+        <button id="rb-minimize" class="icon" title="Minimize chat" type="button" onclick="parent.postMessage('redbot:close','*')" aria-label="Minimize">
           <span class="iconify" data-icon="mdi:window-minimize" data-width="20"></span>
         </button>
       </div>
@@ -945,6 +945,7 @@
         const input = document.getElementById('input');
         const sendBtn = document.getElementById('send-btn');
         const resetBtn = document.getElementById('rb-reset');
+        const minimizeBtn = document.getElementById('rb-minimize');
         const notify = document.getElementById('rb-sound');
         
         // Enquiry form elements (if enabled)
@@ -1109,6 +1110,39 @@
           welcomeText = `Hi! I'm ${cfg.botName || 'Agent'}. How can I help you?`;
         }
 
+        // Apply config values first so production matches QA behavior even when query params are absent.
+        (function applyThemeFromConfig() {
+          try {
+            const root = document.documentElement;
+            if (cfg.bg_color) {
+              root.style.setProperty('--rb-bg', cfg.bg_color);
+            }
+            if (cfg.font_family) {
+              const fontName = cfg.font_family.split(',')[0].trim().replace(/['"]/g, '');
+              if (fontName) {
+                const link = document.createElement('link');
+                link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName)}:wght@400;500;600;700&display=swap`;
+                link.rel = 'stylesheet';
+                document.head.appendChild(link);
+              }
+              root.style.setProperty('--rb-font', cfg.font_family);
+            }
+            if (cfg.font_size) {
+              root.style.setProperty('--rb-font-size', cfg.font_size + 'px');
+            }
+            if (cfg.primary_color) {
+              const hex = cfg.primary_color.startsWith('#') ? cfg.primary_color : ('#' + cfg.primary_color);
+              root.style.setProperty('--rb-primary', hex);
+              root.style.setProperty('--rb-primary-dark', adjustBrightness(hex, -15));
+              root.style.setProperty('--rb-bot-bubble-1', hexToRgba(hex, 0.1));
+              root.style.setProperty('--rb-bot-bubble-2', hexToRgba(hex, 0.18));
+            }
+            root.setAttribute('data-animation', cfg.animation_speed || 'normal');
+          } catch(e) {
+            console.error('Config theme application error:', e);
+          }
+        })();
+
         // Apply theme overrides from query params
         (function applyThemeFromQuery() {
           try {
@@ -1126,7 +1160,7 @@
             }
             
             // Background color
-            const bg = p.get('bg');
+            const bg = p.get('bgcolor');
             if (bg) {
               const hex = bg.startsWith('#') ? bg : ('#' + bg);
               root.style.setProperty('--rb-bg', hex);
@@ -1437,6 +1471,13 @@
         function setLoading(on) {
           input.disabled = on; 
           sendBtn.disabled = on;
+        }
+
+        if (minimizeBtn) {
+          minimizeBtn.addEventListener('click', function () {
+            try { parent.postMessage('redbot:close', '*'); } catch (e) {}
+            try { parent.postMessage({ type: 'redbot:close' }, '*'); } catch (e) {}
+          });
         }
 
         // Validation helpers

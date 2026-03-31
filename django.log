@@ -5794,3 +5794,278 @@ Listening on TCP address 127.0.0.1:8000
 [mHTTP GET /static/ui/img/live-chatbot-in-vellore.png 200 [0.02, 127.0.0.1:50488][0m
 [mHTTP GET / 200 [0.02, 127.0.0.1:51769][0m
 [33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:51769][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET / 200 [0.07, 127.0.0.1:54974][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:54974][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.01, 127.0.0.1:54974][0m
+[32mHTTP GET /dashboard/ 302 [0.01, 127.0.0.1:54974][0m
+[mHTTP GET /accounts/not-allowed/ 200 [0.03, 127.0.0.1:54974][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.03, 127.0.0.1:54974][0m
+[32mHTTP GET /accounts/logout/ 302 [0.05, 127.0.0.1:54974][0m
+[mHTTP GET /accounts/login/ 200 [0.04, 127.0.0.1:54974][0m
+[32mHTTP POST /accounts/login/ 302 [0.61, 127.0.0.1:54974][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:54974][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:54974][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.04, 127.0.0.1:54974][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.04, 127.0.0.1:54974][0m
+[mHTTP GET /dashboard/partial/token/ 200 [0.05, 127.0.0.1:54974][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:54974][0m
+[mHTTP GET /dashboard/bots/1/edit/ 200 [0.03, 127.0.0.1:54974][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:54974][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:54974][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:54974][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:54974][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET / 200 [0.07, 127.0.0.1:57201][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:57201][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:57201][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774857871705&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.06, 127.0.0.1:57201][0m
+[mHTTP GET / 200 [0.11, 127.0.0.1:61976][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:61976][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.20, 127.0.0.1:61975][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.22, 127.0.0.1:61987][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:61987][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:61975][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.02, 127.0.0.1:61975][0m
+[mHTTP GET /static/embed/bot.js 200 [0.02, 127.0.0.1:61987][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:61987][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.03, 127.0.0.1:61975][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774862297188&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.09, 127.0.0.1:61975][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774862297188&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=LIVE 200 [0.15, 127.0.0.1:61975][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62115]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62115]
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774862297188&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.12, 127.0.0.1:61975][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:62115]
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:61975][0m
+[33mHTTP GET /static/css/style.css 404 [0.04, 127.0.0.1:53385][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.09, 127.0.0.1:53445][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774862964921&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.50, 127.0.0.1:53443][0m
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\embed\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+C:\vignesh\Giridharan\chatbot\chatbot-main\chatbot-main\embed\views.py changed, reloading.
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET / 200 [0.28, 127.0.0.1:49442][0m
+[33mHTTP GET /static/css/style.css 404 [0.38, 127.0.0.1:49442][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.25, 127.0.0.1:49458][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.29, 127.0.0.1:49441][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.02, 127.0.0.1:49441][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.03, 127.0.0.1:49458][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.05, 127.0.0.1:49458][0m
+[mHTTP GET /static/embed/bot.js 200 [0.02, 127.0.0.1:49441][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:49441][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.05, 127.0.0.1:49441][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774869788890&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.14, 127.0.0.1:49458][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774869788890&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.15, 127.0.0.1:49458][0m
+[mHTTP GET /static/embed/notify.mp3 200 [0.06, 127.0.0.1:49441][0m
+[mHTTP GET /static/embed/notify.mp3 200 [0.03, 127.0.0.1:49458][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.07, 127.0.0.1:49441][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774869788890&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=LIVE 200 [0.18, 127.0.0.1:49458][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:49607]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:49607]
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774869788890&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=AI 200 [0.13, 127.0.0.1:49458][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:49607]
+[mHTTP GET / 200 [0.06, 127.0.0.1:57137][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:57137][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:57137][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:57137][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774870413904&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.07, 127.0.0.1:57137][0m
+[mHTTP GET / 200 [0.07, 127.0.0.1:58389][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:58389][0m
+[mHTTP GET / 200 [0.09, 127.0.0.1:58388][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.05, 127.0.0.1:58415][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.03, 127.0.0.1:58418][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:58388][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:58389][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:58431][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.03, 127.0.0.1:58431][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.03, 127.0.0.1:58389][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:58389][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:58431][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.09, 127.0.0.1:58431][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.03, 127.0.0.1:58431][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774870523540&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.14, 127.0.0.1:58389][0m
+[mHTTP GET / 200 [0.10, 127.0.0.1:62669][0m
+[mHTTP GET / 200 [0.07, 127.0.0.1:62668][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:62668][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.02, 127.0.0.1:62675][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.02, 127.0.0.1:62681][0m
+[mHTTP GET / 200 [0.07, 127.0.0.1:62682][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.02, 127.0.0.1:62675][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:62681][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:62668][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:62681][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.00, 127.0.0.1:62675][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:62689][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.02, 127.0.0.1:62689][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:62675][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:62675][0m
+[mHTTP GET /static/embed/bot.js 200 [0.02, 127.0.0.1:62689][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:62689][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774870890448&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.11, 127.0.0.1:62689][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.04, 127.0.0.1:62675][0m
+[mHTTP GET / 200 [0.06, 127.0.0.1:63675][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:63675][0m
+[mHTTP GET /static/embed/bot.js 200 [0.02, 127.0.0.1:63676][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:63676][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774870979321&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.10, 127.0.0.1:63676][0m
+[mHTTP GET / 200 [0.06, 127.0.0.1:63676][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:63676][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:63675][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.02, 127.0.0.1:63860][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:63676][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:63676][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:63860][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:63675][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:63675][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.01, 127.0.0.1:63860][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:63860][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:63675][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:63675][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.03, 127.0.0.1:63860][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774870993114&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.10, 127.0.0.1:63860][0m
+[mHTTP GET / 200 [0.08, 127.0.0.1:49189][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:49188][0m
+[mHTTP GET / 200 [0.06, 127.0.0.1:49189][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:49199][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.02, 127.0.0.1:49200][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:49189][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:49188][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:49205][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:49207][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:49207][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:49205][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:49188][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:49188][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.01, 127.0.0.1:49205][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:49205][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:49205][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:49205][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.04, 127.0.0.1:49188][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774871131233&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.09, 127.0.0.1:49205][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:49205][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:49188][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:49207][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:49189][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:49189][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.03, 127.0.0.1:49207][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.01, 127.0.0.1:49188][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:49188][0m
+[mHTTP GET /static/embed/bot.js 200 [0.02, 127.0.0.1:49207][0m
+[mHTTP GET / 200 [0.07, 127.0.0.1:49207][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:49188][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.04, 127.0.0.1:49188][0m
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:49207][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:49487][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:49489][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:49489][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.01, 127.0.0.1:49487][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:49487][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:49489][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.17, 127.0.0.1:49489][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.03, 127.0.0.1:49487][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774871154249&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.11, 127.0.0.1:49487][0m
+[mHTTP GET / 200 [0.08, 127.0.0.1:55776][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:55776][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:55777][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.02, 127.0.0.1:55788][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:55776][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:55788][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:55776][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.02, 127.0.0.1:55777][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:55803][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:55803][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.01, 127.0.0.1:55777][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:55777][0m
+[mHTTP GET /static/embed/bot.js 200 [0.04, 127.0.0.1:55803][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:55777][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.20, 127.0.0.1:55803][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774871691579&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.09, 127.0.0.1:55803][0m
+[mHTTP GET / 200 [0.10, 127.0.0.1:57317][0m
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:57317][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:57317][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:57316][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:57316][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:57317][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:57317][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:57316][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:57316][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:57317][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774871849809&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.47, 127.0.0.1:57317][0m
+[mHTTP GET / 200 [0.18, 127.0.0.1:57853][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.03, 127.0.0.1:57859][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.03, 127.0.0.1:57860][0m
+[33mHTTP GET /static/css/style.css 404 [0.08, 127.0.0.1:57853][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.03, 127.0.0.1:57859][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.04, 127.0.0.1:57860][0m
+[mHTTP GET /static/embed/bot.js 200 [0.03, 127.0.0.1:57860][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.10, 127.0.0.1:57859][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:57859][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.10, 127.0.0.1:57860][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774871867310&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.20, 127.0.0.1:57859][0m
+[mHTTP GET /static/embed/notify.mp3 200 [0.06, 127.0.0.1:57859][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:52817][0m
+[33mHTTP GET /static/images/favicon.ico 404 [0.02, 127.0.0.1:52832][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774928565851&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.14, 127.0.0.1:52817][0m
+[mHTTP GET / 200 [0.07, 127.0.0.1:52956][0m
+[33mHTTP GET /static/css/style.css 404 [0.01, 127.0.0.1:52956][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.01, 127.0.0.1:52956][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774928575532&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.04, 127.0.0.1:52956][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774928575532&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=LIVE 200 [0.05, 127.0.0.1:52956][0m
+WebSocket HANDSHAKING /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53175]
+WebSocket CONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53175]
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1774928575532&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.05, 127.0.0.1:52956][0m
+WebSocket DISCONNECT /ws/live-chat/074aa379250e4a898359e1b6f5a2574c/ [127.0.0.1:53175]
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:52956][0m

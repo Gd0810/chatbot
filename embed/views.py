@@ -157,8 +157,15 @@ def widget_iframe(request, public_key):
             'available_bots': json.dumps(ws.get_available_bot_modes()),
             'current_bot_type': bot_type_to_serve,               # pass exp for auto-refresh
             'sound': bot.ui_sound_enabled,    # for sound toggle
+            'sound_enabled': bool(bot.ui_sound_enabled),
             # expose workspace-level UI toggles for client debug/fallback
             'workspace_enable_reset_button': getattr(ws, 'enable_reset_button', False),
+            'primary_color': bot.ui_primary_color or '',
+            'bg_color': bot.ui_bg_color or '',
+            'font_family': bot.ui_font_family or '',
+            'font_size': bot.ui_font_size or 14,
+            'animation_speed': bot.ui_animation_speed or 'normal',
+            'widget_position': bot.ui_widget_position or 'bottom-right',
         }
 
         # Bot footer: use workspace setting and first footer for workspace if available
@@ -507,7 +514,7 @@ def bot_config_api(request, public_key):
     """
     try:
         bot = Bot.objects.get(public_key=public_key)
-        return HttpResponse(
+        response = HttpResponse(
             json.dumps({
                 'public_key': bot.public_key,
                 'primary_color': bot.ui_primary_color or '',
@@ -522,10 +529,22 @@ def bot_config_api(request, public_key):
             }, default=str),
             content_type='application/json'
         )
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type"
+        return response
     except Bot.DoesNotExist:
-        return HttpResponse('{"error": "Bot not found"}', status=404, content_type='application/json')
+        response = HttpResponse('{"error": "Bot not found"}', status=404, content_type='application/json')
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type"
+        return response
     except Exception as e:
-        return HttpResponse(f'{{"error": "{str(e)}"}}', status=500, content_type='application/json')
+        response = HttpResponse(f'{{"error": "{str(e)}"}}', status=500, content_type='application/json')
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type"
+        return response
 
 
 def test_embed_page(request, public_key=None):

@@ -1,238 +1,951 @@
+// function RedbotLoad(public_key) {
+//     const div = document.getElementById('redbot-chat');
+//     if (!div) return;
+
+//     const iframe = document.createElement('iframe');
+//     iframe.src = `http://localhost:8000/embed/widget/${public_key}?origin=${encodeURIComponent(window.location.origin)}`;
+//     iframe.style.position = 'fixed';
+//     iframe.style.bottom = '20px';
+//     iframe.style.right = '20px';
+//     iframe.style.width = '300px';
+//     iframe.style.height = '400px';
+//     iframe.style.border = 'none';
+//     iframe.style.zIndex = '9999';
+//     div.appendChild(iframe);
+// }
+
+// static/embed/bot.js (floating launcher + sliding chat iframe)
+// (function () {
+//   'use strict';
+
+//   function getScriptOrigin() {
+//     var s = document.currentScript ||
+//             document.querySelector('script[src*="/static/embed/bot.js"]') ||
+//             document.querySelector('script[src*="bot.js"]');
+//     if (!s) return window.location.origin || 'http://127.0.0.1:8000';
+//     try {
+//       return new URL(s.getAttribute('src'), window.location.href).origin;
+//     } catch (e) {
+//       return window.location.origin || 'http://127.0.0.1:8000';
+//     }
+//   }
+
+//   var SERVER_ORIGIN = getScriptOrigin();
+
+//   function computeParentOrigin(originOverride) {
+//     if (originOverride && typeof originOverride === 'string' && originOverride.trim() !== '') {
+//       return originOverride;
+//     }
+//     var o = (window.location && window.location.origin) || '';
+//     if (!o || o === 'null' || o === 'file://' || (typeof o === 'string' && o.indexOf('file:') === 0)) {
+//       return SERVER_ORIGIN || 'http://127.0.0.1:8000';
+//     }
+//     return o;
+//   }
+
+//   function buildWidgetUrl(host, publicKey, parentOrigin) {
+//     var t = Date.now();
+//     return host.replace(/\/+$/, '') + '/embed/widget/' + encodeURIComponent(publicKey) +
+//            '?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
+//   }
+
+//   function injectStyles() {
+//     if (document.getElementById('redbot-embed-styles')) return;
+//     var css = `
+//       .rb-launcher {
+//         position: fixed; right: 20px; bottom: 20px; width: 56px; height: 56px;
+//         border-radius: 50%; background: #2563eb; color: #fff; border: none;
+//         display: flex; align-items: center; justify-content: center;
+//         box-shadow: 0 10px 24px rgba(0,0,0,0.2); cursor: pointer; z-index: 2147483000;
+//       }
+//       .rb-launcher svg { width: 28px; height: 28px; }
+//       .rb-wrapper {
+//         position: fixed; right: 20px; bottom: 86px; width: 360px; max-width: calc(100vw - 24px);
+//         height: 520px; border-radius: 12px; overflow: hidden; border: none;
+//         box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+//         background: transparent; z-index: 2147483001;
+//         opacity: 0; pointer-events: none; transform: translateY(10px);
+//         transition: opacity 160ms ease, transform 160ms ease;
+//       }
+//       .rb-wrapper.open {
+//         opacity: 1; pointer-events: auto; transform: translateY(0);
+//       }
+//       .rb-iframe { width: 100%; height: 100%; border: none; }
+//       @media (max-width: 480px) {
+//         .rb-wrapper { right: 12px; bottom: 76px; width: calc(100vw - 24px); height: 70vh; }
+//         .rb-launcher { right: 12px; bottom: 12px; width: 52px; height: 52px; }
+//       }
+//     `;
+//     var style = document.createElement('style');
+//     style.id = 'redbot-embed-styles';
+//     style.textContent = css;
+//     document.head.appendChild(style);
+//   }
+
+//   function createLauncherBtn(primaryColor) {
+//     var btn = document.createElement('button');
+//     btn.className = 'rb-launcher';
+//     if (primaryColor) btn.style.background = primaryColor;
+//     btn.setAttribute('aria-label', 'Open chat');
+//     btn.innerHTML = `
+//       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+//         <path d="M12 3C7.03 3 3 6.58 3 11c0 2.04.91 3.89 2.41 5.29-.08.79-.31 1.86-.98 3.08-.12.22-.07.5.12.67.19.17.47.2.69.08 1.6-.86 2.7-1.44 3.34-1.8.91.24 1.87.36 2.92.36 4.97 0 9-3.58 9-8s-4.03-7-9-7z"/>
+//       </svg>`;
+//     return btn;
+//   }
+
+//   function RedbotLoad(publicKeyOrOptions, maybeOptions) {
+//     var publicKey = typeof publicKeyOrOptions === 'string'
+//       ? publicKeyOrOptions
+//       : (publicKeyOrOptions && publicKeyOrOptions.publicKey);
+
+//     var opts = (typeof publicKeyOrOptions === 'string' ? (maybeOptions || {}) : (publicKeyOrOptions || {}));
+//     var host = opts.host || SERVER_ORIGIN;
+//     var originOverride = opts.originOverride || null;
+//     var primaryColor = opts.primaryColor || null;
+//     var openByDefault = !!opts.open;
+
+//     if (!publicKey) {
+//       var el = document.getElementById(opts.containerId || 'redbot-chat');
+//       if (el && el.dataset && el.dataset.publicKey) {
+//         publicKey = el.dataset.publicKey;
+//       }
+//     }
+//     if (!publicKey) {
+//       console.warn('[Redbot] Missing public key.');
+//       return null;
+//     }
+
+//     injectStyles();
+
+//     var parentOrigin = computeParentOrigin(originOverride);
+//     var widgetUrl = buildWidgetUrl(host, publicKey, parentOrigin);
+
+//     // Wrapper (iframe container)
+//     var wrapper = document.createElement('div');
+//     wrapper.className = 'rb-wrapper';
+//     var iframe = document.createElement('iframe');
+//     iframe.className = 'rb-iframe';
+//     iframe.src = widgetUrl;
+//     wrapper.appendChild(iframe);
+//     document.body.appendChild(wrapper);
+
+//     // Launcher
+//     var launcher = createLauncherBtn(primaryColor);
+//     document.body.appendChild(launcher);
+
+//     function open() { wrapper.classList.add('open'); }
+//     function close() { wrapper.classList.remove('open'); }
+//     function toggle() { wrapper.classList.toggle('open'); }
+
+//     launcher.addEventListener('click', toggle);
+
+//     // Listen for minimize requests from iframe (optional)
+//     window.addEventListener('message', function (evt) {
+//       try {
+//         if (!evt || !evt.data) return;
+//         if (evt.data === 'redbot:close') close();
+//         if (evt.data && evt.data.type === 'redbot:open') open();
+//         if (evt.data && evt.data.type === 'redbot:toggle') toggle();
+//       } catch (e) {}
+//     });
+
+//     if (openByDefault) open();
+
+//     var controller = {
+//       publicKey: publicKey,
+//       open: open, close: close, toggle: toggle,
+//       destroy: function () {
+//         if (launcher && launcher.parentNode) launcher.parentNode.removeChild(launcher);
+//         if (wrapper && wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+//       }
+//     };
+
+//     window.Redbot = window.Redbot || { widgets: {} };
+//     window.Redbot.widgets[publicKey] = controller;
+//     return controller;
+//   }
+
+//   window.RedbotLoad = RedbotLoad;
+
+//   // Auto-init
+//   document.addEventListener('DOMContentLoaded', function () {
+//     var el = document.getElementById('redbot-chat');
+//     if (!el) return;
+//     var pk = el.getAttribute('data-public-key');
+//     if (!pk) return;
+//     RedbotLoad({
+//       publicKey: pk,
+//       originOverride: el.getAttribute('data-origin-override') || null,
+//       open: (el.getAttribute('data-open') || 'false') === 'true',
+//       primaryColor: el.getAttribute('data-primary-color') || null
+//     });
+//   });
+// })();
+
+
+// // static/embed/bot.js
+// (function () {
+//   'use strict';
+
+//   function getScriptOrigin() {
+//     var s = document.currentScript ||
+//             document.querySelector('script[src*="/static/embed/bot.js"]') ||
+//             document.querySelector('script[src*="bot.js"]');
+//     if (!s) return window.location.origin || 'http://127.0.0.1:8000';
+//     try {
+//       return new URL(s.getAttribute('src'), window.location.href).origin;
+//     } catch (e) {
+//       return window.location.origin || 'http://127.0.0.1:8000';
+//     }
+//   }
+
+//   var SERVER_ORIGIN = getScriptOrigin();
+
+//   function computeParentOrigin(originOverride) {
+//     if (originOverride && typeof originOverride === 'string' && originOverride.trim() !== '') {
+//       return originOverride;
+//     }
+//     var o = (window.location && window.location.origin) || '';
+//     if (!o || o === 'null' || o === 'file://' || (typeof o === 'string' && o.indexOf('file:') === 0)) {
+//       return SERVER_ORIGIN || 'http://127.0.0.1:8000';
+//     }
+//     return o;
+//   }
+
+//   function injectStyles() {
+//     if (document.getElementById('rb-launcher-styles')) return;
+//     var css = `
+//       .rb-launcher {
+//         position: fixed; right: 20px; bottom: 20px; width: 56px; height: 56px;
+//         border-radius: 50%; border: none; color: #fff; background: var(--rb-launcher-bg, #2563eb);
+//         display: inline-flex; align-items: center; justify-content: center;
+//         box-shadow: 0 12px 28px rgba(0,0,0,0.25); cursor: pointer; z-index: 2147483000;
+//         transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+//       }
+//       .rb-launcher:hover { transform: translateY(-1px) scale(1.02); box-shadow: 0 16px 36px rgba(0,0,0,0.28); }
+//       .rb-launcher:active { transform: translateY(0) scale(0.98); }
+
+//       .rb-launcher svg { width: 28px; height: 28px; }
+
+//       .rb-wrapper {
+//         position: fixed; right: 20px; bottom: 86px; width: 380px; max-width: calc(100vw - 24px);
+//         height: 560px; border-radius: 16px; overflow: hidden; border: none; background: transparent;
+//         box-shadow: 0 24px 48px rgba(0,0,0,0.25); z-index: 2147483001;
+//         opacity: 0; pointer-events: none; transform: translateY(12px);
+//         transition: opacity .22s ease, transform .22s ease;
+//       }
+//       .rb-wrapper.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+//       .rb-iframe { width: 100%; height: 100%; border: none; }
+
+//       @media (max-width: 480px) {
+//         .rb-wrapper { right: 12px; bottom: 76px; width: calc(100vw - 24px); height: 70vh; }
+//         .rb-launcher { right: 12px; bottom: 12px; width: 54px; height: 54px; }
+//       }
+//     `;
+//     var style = document.createElement('style');
+//     style.id = 'rb-launcher-styles';
+//     style.textContent = css;
+//     document.head.appendChild(style);
+//   }
+
+//   function buildWidgetUrl(host, publicKey, parentOrigin, themeHex) {
+//     var t = Date.now();
+//     var url = host.replace(/\/+$/, '') + '/embed/widget/' + encodeURIComponent(publicKey) +
+//               '/?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
+//     if (themeHex && typeof themeHex === 'string' && themeHex.trim() !== '') {
+//       var c = themeHex.trim();
+//       url += '&theme=' + encodeURIComponent(c);
+//     }
+//     return url;
+//   }
+
+//   function createLauncher(color) {
+//     var btn = document.createElement('button');
+//     btn.className = 'rb-launcher';
+//     if (color) btn.style.setProperty('--rb-launcher-bg', color);
+//     btn.setAttribute('aria-label', 'Open chat');
+//     btn.innerHTML = `
+//       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+//         <path d="M12 3C7.03 3 3 6.58 3 11c0 2.04.91 3.89 2.41 5.29-.08.79-.31 1.86-.98 3.08-.12.22-.07.5.12.67.19.17.47.2.69.08 1.6-.86 2.7-1.44 3.34-1.8.91.24 1.87.36 2.92.36 4.97 0 9-3.58 9-8s-4.03-7-9-7z"/>
+//       </svg>
+//     `;
+//     return btn;
+//   }
+
+//   function RedbotLoad(publicKeyOrOptions, maybeOptions) {
+//     var publicKey = typeof publicKeyOrOptions === 'string'
+//       ? publicKeyOrOptions
+//       : (publicKeyOrOptions && publicKeyOrOptions.publicKey);
+
+//     var opts = (typeof publicKeyOrOptions === 'string' ? (maybeOptions || {}) : (publicKeyOrOptions || {}));
+
+//     // Prefer placeholder if publicKey missing
+//     if (!publicKey) {
+//       var el = document.getElementById(opts.containerId || 'redbot-chat');
+//       if (el && el.dataset && el.dataset.publicKey) {
+//         publicKey = el.dataset.publicKey;
+//         opts.primaryColor = opts.primaryColor || el.getAttribute('data-primary-color') || undefined;
+//         opts.open = (el.getAttribute('data-open') || 'false') === 'true';
+//         opts.originOverride = opts.originOverride || el.getAttribute('data-origin-override') || undefined;
+//       }
+//     }
+//     if (!publicKey) {
+//       console.warn('[Redbot] Missing public key.');
+//       return null;
+//     }
+
+//     injectStyles();
+
+//     var host = opts.host || SERVER_ORIGIN;
+//     var parentOrigin = computeParentOrigin(opts.originOverride);
+//     var theme = (opts.primaryColor || '').trim();
+//     var widgetUrl = buildWidgetUrl(host, publicKey, parentOrigin, theme);
+
+//     // Elements
+//     var wrapper = document.createElement('div');
+//     wrapper.className = 'rb-wrapper';
+//     var iframe = document.createElement('iframe');
+//     iframe.className = 'rb-iframe';
+//     iframe.src = widgetUrl;
+//     wrapper.appendChild(iframe);
+//     document.body.appendChild(wrapper);
+
+//     var launcher = createLauncher(theme || null);
+//     document.body.appendChild(launcher);
+
+//     // State persistence
+//     var stateKey = 'rb_open_' + publicKey;
+//     function saveOpenState(isOpen) {
+//       try { localStorage.setItem(stateKey, isOpen ? '1' : '0'); } catch(e){}
+//     }
+//     function loadOpenState() {
+//       try { return localStorage.getItem(stateKey) === '1'; } catch(e) { return false; }
+//     }
+
+//     function open() { wrapper.classList.add('open'); saveOpenState(true); }
+//     function close() { wrapper.classList.remove('open'); saveOpenState(false); }
+//     function toggle() { if (wrapper.classList.contains('open')) { close(); } else { open(); } }
+
+//     launcher.addEventListener('click', toggle);
+
+//     // Listen to iframe requests
+//     window.addEventListener('message', function (evt) {
+//       if (!evt || !evt.data) return;
+//       var d = evt.data;
+//       if (d === 'redbot:close') close();
+//       if (d && d.type === 'redbot:open') open();
+//       if (d && d.type === 'redbot:toggle') toggle();
+//     });
+
+//     // Initial open state
+//     var savedOpen = loadOpenState();
+//     if (typeof opts.open === 'boolean') {
+//       if (opts.open) open(); else close();
+//     } else if (savedOpen) {
+//       open();
+//     }
+
+//     // Public controller
+//     var controller = {
+//       publicKey: publicKey,
+//       open: open,
+//       close: close,
+//       toggle: toggle,
+//       setTheme: function (hex) {
+//         // Update launcher color and reload iframe with theme param
+//         if (hex && typeof hex === 'string') {
+//           launcher.style.setProperty('--rb-launcher-bg', hex);
+//           var newUrl = buildWidgetUrl(host, publicKey, parentOrigin, hex);
+//           iframe.src = newUrl;
+//         }
+//       },
+//       destroy: function () {
+//         if (launcher && launcher.parentNode) launcher.parentNode.removeChild(launcher);
+//         if (wrapper && wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+//       }
+//     };
+
+//     window.Redbot = window.Redbot || { widgets: {} };
+//     window.Redbot.widgets[publicKey] = controller;
+//     return controller;
+//   }
+
+//   window.RedbotLoad = RedbotLoad;
+
+//   // Auto-init via placeholder
+//   document.addEventListener('DOMContentLoaded', function () {
+//     var el = document.getElementById('redbot-chat');
+//     if (!el) return;
+//     var pk = el.getAttribute('data-public-key');
+//     if (!pk) return;
+//     RedbotLoad({
+//       publicKey: pk,
+//       primaryColor: el.getAttribute('data-primary-color') || null,
+//       originOverride: el.getAttribute('data-origin-override') || null,
+//       open: (el.getAttribute('data-open') || 'false') === 'true'
+//     });
+//   });
+// })();
+
+
+// static/embed/bot.js
+// static/embed/bot.js (updated for theme color, position, animation speed, persistence)
+// static/embed/bot.js
+// static/embed/bot.js
+// static/embed/bot.js
 (function () {
-    'use strict';
+  'use strict';
 
-    // Determine which host to load the iframe from (the host serving this script)
-    function getScriptOrigin() {
-        var s = document.currentScript ||
-            document.querySelector('script[src*="/static/embed/bot.js"]') ||
-            document.querySelector('script[src*="bot.js"]');
-        if (!s) return window.location.origin;
-        try {
-            // Resolve relative src against the current page URL
-            return new URL(s.getAttribute('src'), window.location.href).origin;
-        } catch (e) {
-            return window.location.origin;
-        }
+  function getScriptOrigin() {
+    var s = document.currentScript ||
+      document.querySelector('script[src*="/static/embed/bot.js"]') ||
+      document.querySelector('script[src*="bot.js"]');
+    if (!s) return window.location.origin || 'http://127.0.0.1:8000';
+    try {
+      return new URL(s.getAttribute('src'), window.location.href).origin;
+    } catch (e) {
+      return window.location.origin || 'http://127.0.0.1:8000';
     }
+  }
 
-    var SERVER_ORIGIN = getScriptOrigin() || window.location.origin || 'http://127.0.0.1:8000';
+  var SERVER_ORIGIN = getScriptOrigin();
 
-    function computeParentOrigin(originOverride) {
-        // Always prefer explicit override (important for file:// pages)
-        if (originOverride && typeof originOverride === 'string' && originOverride.trim() !== '') {
-            return originOverride;
-        }
-        var o = (window.location && window.location.origin) || '';
-        // Treat file:// as no origin and fall back to the server origin
-        if (!o || o === 'null' || o === 'file://' || (typeof o === 'string' && o.indexOf('file:') === 0)) {
-            return SERVER_ORIGIN;
-        }
-        return o;
+  function ensurePlaceholder() {
+    var existing = document.getElementById('redbot-chat');
+    if (existing) return existing;
+    try {
+      var el = document.createElement('div');
+      el.id = 'redbot-chat';
+      el.style.display = 'none';
+      (document.body || document.documentElement).appendChild(el);
+      return el;
+    } catch (e) {
+      return null;
     }
+  }
 
-    function normalizeOptions(opts) {
-        opts = opts || {};
-        return {
-            host: opts.host || SERVER_ORIGIN,
-            originOverride: opts.originOverride || null,
-            position: opts.position || 'bottom-right', // 'bottom-right' | 'bottom-left' | 'inline'
-            width: String(opts.width || 360),
-            height: String(opts.height || 600),
-            zIndex: String(opts.zIndex || 999999),
-            open: opts.open !== false,
-            showLauncher: opts.showLauncher === true,
-            launcherText: opts.launcherText || 'Chat',
-            containerId: opts.containerId || 'redbot-chat'
-        };
+  ensurePlaceholder();
+
+  function getRegistry() {
+    window.Redbot = window.Redbot || { widgets: {}, loading: {} };
+    window.Redbot.widgets = window.Redbot.widgets || {};
+    window.Redbot.loading = window.Redbot.loading || {};
+    return window.Redbot;
+  }
+
+  function computeParentOrigin(originOverride) {
+    if (originOverride && typeof originOverride === 'string' && originOverride.trim() !== '') {
+      return originOverride;
     }
+    var o = (window.location && window.location.origin) || '';
+    if (!o || o === 'null' || o === 'file://' || (typeof o === 'string' && o.indexOf('file:') === 0)) {
+      return SERVER_ORIGIN || 'http://127.0.0.1:8000';
+    }
+    return o;
+  }
 
-    function createStyles() {
-        if (document.getElementById('redbot-embed-styles')) return;
-        var css = `
-      .redbot-wrapper { position: fixed; bottom: 20px; right: 20px; }
-      .redbot-wrapper.left { left: 20px; right: auto; }
-      .redbot-iframe { border: none; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); background: #fff; }
-      .redbot-launcher {
-        position: fixed; bottom: 20px; right: 20px;
-        background: #2563eb; color: #fff; border: none; border-radius: 9999px;
-        padding: 12px 16px; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-size: 14px;
+  function injectStyles() {
+    if (document.getElementById('rb-launcher-styles')) return;
+    var css = `
+      .rb-launcher {
+        position: fixed; right: 24px; bottom: 24px; width: 64px; height: 64px;
+        border-radius: 50%; border: none; color: #fff; 
+        background: var(--rb-launcher-bg, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+        display: inline-flex; align-items: center; justify-content: center;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.1);
+        cursor: pointer; z-index: 2147483000;
+        transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                    box-shadow .25s ease, 
+                    opacity .2s ease;
+        animation: rb-pulse 2s ease-in-out infinite;
+        isolation: isolate;
+        overflow: hidden;
       }
-      .redbot-launcher.left { left: 20px; right: auto; }
+      
+      @keyframes rb-pulse {
+        0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.1); }
+        50% { box-shadow: 0 8px 28px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.15), 0 0 0 8px rgba(102, 126, 234, 0.1); }
+      }
+
+      .rb-launcher::before {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.28), rgba(255,255,255,0.02) 65%);
+        z-index: -1;
+      }
+
+      .rb-launcher::after {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255,255,255,0.22);
+        opacity: 0.75;
+        animation: rb-orbit 2.8s linear infinite;
+      }
+
+      @keyframes rb-orbit {
+        from { transform: rotate(0deg) scale(1); opacity: 0.75; }
+        50% { transform: rotate(180deg) scale(1.04); opacity: 0.28; }
+        to { transform: rotate(360deg) scale(1); opacity: 0.75; }
+      }
+      
+      .rb-launcher:hover { 
+        transform: translateY(-4px) scale(1.05); 
+        box-shadow: 0 16px 40px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.15);
+        animation: none;
+      }
+      
+      .rb-launcher:active { 
+        transform: translateY(-2px) scale(1.02); 
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      }
+
+      .rb-launcher svg { 
+        width: 34px !important; height: 34px !important; 
+        display: block;
+        flex-shrink: 0;
+        overflow: visible;
+        position: relative;
+        z-index: 1;
+        fill: #ffffff;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
+        transition: transform .2s ease;
+      }
+      
+      .rb-launcher:hover svg {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .rb-launcher:hover::after {
+        animation-duration: 1.4s;
+      }
+
+      .rb-wrapper {
+        position: fixed; right: 24px; bottom: 100px; 
+        width: 400px; max-width: calc(100vw - 32px);
+        height: 600px; max-height: calc(100vh - 140px);
+        border-radius: 20px; overflow: hidden; border: none; 
+        background: #ffffff;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.2), 
+                    0 8px 24px rgba(0,0,0,0.15),
+                    0 0 0 1px rgba(0,0,0,0.05);
+        z-index: 2147483001;
+        opacity: 0; pointer-events: none; 
+        transform: translateY(20px) scale(0.95);
+        transform-origin: bottom right;
+        transition: opacity .3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                    transform .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      
+      .rb-wrapper.open { 
+        opacity: 1; 
+        pointer-events: auto; 
+        transform: translateY(0) scale(1); 
+      }
+      
+      .rb-iframe { 
+        width: 100%; 
+        height: 100%; 
+        border: none; 
+        background: #fff;
+      }
+
+      @media (max-width: 640px) {
+        .rb-wrapper { 
+          right: 16px; bottom: 90px; 
+          width: calc(100vw - 32px); 
+          height: calc(100vh - 120px);
+          border-radius: 16px;
+        }
+        .rb-launcher { 
+          right: 16px; bottom: 16px; 
+          width: 56px; height: 56px; 
+        }
+        .rb-launcher svg { width: 30px !important; height: 30px !important; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .rb-launcher, .rb-wrapper, .rb-launcher::after { transition: none; animation: none; }
+      }
     `;
-        var el = document.createElement('style');
-        el.id = 'redbot-embed-styles';
-        el.textContent = css;
-        document.head.appendChild(el);
+    var style = document.createElement('style');
+    style.id = 'rb-launcher-styles';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+
+  function buildConfigUrl(host, publicKey) {
+    return host.replace(/\/+$/, '') + '/embed/config/' + encodeURIComponent(publicKey) + '/';
+  }
+
+  function buildWidgetUrl(host, publicKey, parentOrigin, themeHex, fontFamily, fontSize, welcomeMsg, soundEnabled, bgColor, animSpeed, widgetPos) {
+    var t = Date.now();
+    var url = host.replace(/\/+$/, '') + '/embed/widget/' + encodeURIComponent(publicKey) +
+      '/?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
+
+    if (themeHex && typeof themeHex === 'string' && themeHex.trim() !== '') {
+      url += '&theme=' + encodeURIComponent(themeHex.trim());
+    }
+    if (bgColor && typeof bgColor === 'string' && bgColor.trim() !== '') {
+      url += '&bgcolor=' + encodeURIComponent(bgColor.trim());
+    }
+    if (fontFamily && typeof fontFamily === 'string' && fontFamily.trim() !== '') {
+      url += '&font=' + encodeURIComponent(fontFamily.trim());
+    }
+    if (fontSize && (typeof fontSize === 'number' || typeof fontSize === 'string')) {
+      url += '&fontsize=' + encodeURIComponent(String(fontSize));
+    }
+    if (welcomeMsg && typeof welcomeMsg === 'string' && welcomeMsg.trim() !== '') {
+      url += '&welcome=' + encodeURIComponent(welcomeMsg.trim());
+    }
+    if (typeof soundEnabled === 'boolean') {
+      url += '&sound=' + (soundEnabled ? '1' : '0');
+    }
+    if (animSpeed && typeof animSpeed === 'string') {
+      url += '&animspeed=' + encodeURIComponent(animSpeed);
+    }
+    if (widgetPos && typeof widgetPos === 'string') {
+      url += '&pos=' + encodeURIComponent(widgetPos);
     }
 
-    function buildWidgetUrl(host, publicKey, parentOrigin) {
-        var t = Date.now(); // cache buster
-        return host.replace(/\/+$/, '') + '/embed/widget/' + encodeURIComponent(publicKey) +
-            '?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
+    return url;
+  }
+
+  function createLauncher(color) {
+    var btn = document.createElement('button');
+    btn.className = 'rb-launcher';
+    btn.setAttribute('aria-label', 'Open chat');
+    btn.setAttribute('role', 'button');
+
+    if (color) {
+      // Support both solid colors and gradients
+      if (color.includes('linear-gradient') || color.includes('radial-gradient')) {
+        btn.style.background = color;
+      } else {
+        btn.style.background = 'linear-gradient(135deg, ' + color + ' 0%, ' + adjustColorBrightness(color, -20) + ' 100%)';
+      }
     }
 
-    function buildQAWidgetUrl(host, publicKey, parentOrigin) {
-        var t = Date.now(); // cache buster
-        return host.replace(/\/+$/, '') + '/embed/qa/' + encodeURIComponent(publicKey) +
-            '?origin=' + encodeURIComponent(parentOrigin) + '&v=' + t;
+    btn.innerHTML = `
+      <svg viewBox="0 0 115.99 122.88" aria-hidden="true">
+        <path d="M17.4,0H76.75a17.45,17.45,0,0,1,17.4,17.4V55.68a17.45,17.45,0,0,1-17.4,17.4H47.16l-26,22.36a3.12,3.12,0,0,1-4.39-.35A3.06,3.06,0,0,1,16,92.86l1.36-19.78A17.45,17.45,0,0,1,0,55.68V17.4A17.45,17.45,0,0,1,17.4,0ZM66.62,31.14a6,6,0,1,1-6,6,6,6,0,0,1,6-6Zm-19.55,0a6,6,0,1,1-6,6,6,6,0,0,1,6-6Zm-19.54,0a6,6,0,1,1-6,6,6,6,0,0,1,6-6Zm74.81-3A16.87,16.87,0,0,1,116,44.67V83A16.87,16.87,0,0,1,99.18,99.77h-.61l1.41,20.4h0a2.57,2.57,0,0,1-.6,1.82,2.54,2.54,0,0,1-3.58.28L69.63,99.11H35.17l17-17.26h36a14.32,14.32,0,0,0,14.27-14.27V29.29c0-.38,0-.76,0-1.13ZM76.75,6.25H17.4A11.18,11.18,0,0,0,6.25,17.4V55.68A11.18,11.18,0,0,0,17.4,66.83h3.53a3.13,3.13,0,0,1,2.91,3.32L22.75,85.84l21.06-18.1a3.14,3.14,0,0,1,2.2-.91H76.75A11.2,11.2,0,0,0,87.9,55.68V17.4A11.2,11.2,0,0,0,76.75,6.25Z"/>
+      </svg>
+    `;
+    return btn;
+  }
+
+  function adjustColorBrightness(hex, percent) {
+    // Simple color adjustment for gradient
+    hex = hex.replace('#', '');
+    var r = parseInt(hex.substring(0, 2), 16);
+    var g = parseInt(hex.substring(2, 4), 16);
+    var b = parseInt(hex.substring(4, 6), 16);
+
+    r = Math.max(0, Math.min(255, r + (r * percent / 100)));
+    g = Math.max(0, Math.min(255, g + (g * percent / 100)));
+    b = Math.max(0, Math.min(255, b + (b * percent / 100)));
+
+    return '#' +
+      ('0' + Math.round(r).toString(16)).slice(-2) +
+      ('0' + Math.round(g).toString(16)).slice(-2) +
+      ('0' + Math.round(b).toString(16)).slice(-2);
+  }
+
+  function RedbotLoad(publicKeyOrOptions, maybeOptions) {
+    var publicKey = typeof publicKeyOrOptions === 'string'
+      ? publicKeyOrOptions
+      : (publicKeyOrOptions && publicKeyOrOptions.publicKey);
+
+    var opts = (typeof publicKeyOrOptions === 'string' ? (maybeOptions || {}) : (publicKeyOrOptions || {}));
+
+    // Prefer placeholder if publicKey missing
+    if (!publicKey) {
+      var el = document.getElementById(opts.containerId || 'redbot-chat');
+      if (el && el.dataset && el.dataset.publicKey) {
+        publicKey = el.dataset.publicKey;
+      }
+    }
+    if (!publicKey) {
+      console.warn('[Redbot] Missing public key.');
+      return null;
     }
 
-    function createWrapper(opts) {
-        var wrapper = document.createElement('div');
-        wrapper.className = 'redbot-wrapper' + (opts.position === 'bottom-left' ? ' left' : '');
-        wrapper.style.zIndex = opts.zIndex;
-        wrapper.style.display = opts.open ? 'block' : 'none';
-        return wrapper;
+    var registry = getRegistry();
+    if (registry.widgets[publicKey]) {
+      return registry.widgets[publicKey];
+    }
+    if (registry.loading[publicKey]) {
+      return registry.loading[publicKey];
     }
 
-    function createIframe(url, opts) {
-        var iframe = document.createElement('iframe');
-        iframe.src = url;
-        iframe.className = 'redbot-iframe';
-        iframe.width = opts.width;
-        iframe.height = opts.height;
-        iframe.setAttribute('allow', 'clipboard-write;'); // extend as needed
-        iframe.title = 'Redbot Chat';
-        return iframe;
-    }
+    var host = opts.host || SERVER_ORIGIN;
+    registry.loading[publicKey] = { publicKey: publicKey, loading: true };
 
-    function createLauncher(opts, position, onClick) {
-        var btn = document.createElement('button');
-        btn.className = 'redbot-launcher' + (position === 'bottom-left' ? ' left' : '');
-        btn.textContent = opts.launcherText || 'Chat';
-        btn.addEventListener('click', onClick);
-        return btn;
-    }
+    // Fetch config from server if not already in opts
+    // This allows user's page to have just: <div id="redbot-chat" data-public-key="..."></div>
+    // and <script>RedbotLoad('...');</script>
+    if (!opts.widgetPosition) {
+      try {
+        fetch(buildConfigUrl(host, publicKey))
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (cfg) {
+            if (!cfg) return;
 
-    function RedbotLoad(publicKeyOrOptions, maybeOptions) {
-        var publicKey = typeof publicKeyOrOptions === 'string'
-            ? publicKeyOrOptions
-            : (publicKeyOrOptions && publicKeyOrOptions.publicKey);
-
-        var opts = normalizeOptions(typeof publicKeyOrOptions === 'string' ? maybeOptions : publicKeyOrOptions);
-
-        if (!publicKey) {
-            // Try placeholder data attribute
-            var placeholder = document.getElementById(opts.containerId);
-            if (placeholder && placeholder.dataset && placeholder.dataset.publicKey) {
-                publicKey = placeholder.dataset.publicKey;
+            // Check master toggle
+            if (cfg.bot_widget_enabled === false) {
+              try { console.log('[Redbot] Widget disabled by workspace owner.'); } catch (e) { }
+              return; // ABORT: Do not call _doLoad
             }
-        }
-        if (!publicKey) {
-            console.warn('[Redbot] Missing public key.');
-            return null;
-        }
 
-        createStyles();
+            try { console.log('[Redbot] Fetched config from server:', cfg); } catch (e) { }
+            opts.primaryColor = opts.primaryColor || cfg.primary_color;
+            opts.bgColor = opts.bgColor || cfg.bg_color;
+            opts.fontFamily = opts.fontFamily || cfg.font_family;
+            opts.fontSize = opts.fontSize || cfg.font_size;
+            opts.welcomeMessage = opts.welcomeMessage || cfg.welcome_message;
+            if (typeof opts.soundEnabled === 'undefined') opts.soundEnabled = cfg.sound_enabled;
+            opts.animationSpeed = opts.animationSpeed || cfg.animation_speed;
+            opts.widgetPosition = opts.widgetPosition || cfg.widget_position;
+            _doLoad(publicKey, opts);
+          })
+          .catch(function (e) {
+            try { console.warn('[Redbot] Config fetch failed:', e); } catch (e2) { }
+            // If API fails, we generally continue with default/attribute options.
+            // BUT if the goal is strictly disappear, we might want to be careful.
+            // However, usually API failure means network issue, not "disabled".
+            // If "Disabled", API likely returns 404 or config with false.
+            // If we want to be strict: if API fails, maybe we should still load? 
+            // The user wants "if i disable... literally disappear". Disabling works via success response with flag false.
+            _doLoad(publicKey, opts);
+          });
+      } catch (e) {
+        _doLoad(publicKey, opts);
+      }
+    } else {
+      _doLoad(publicKey, opts);
+    }
+  }
 
-        var parentOrigin = computeParentOrigin(opts.originOverride);
-        var widgetUrl = buildWidgetUrl(opts.host, publicKey, parentOrigin);
+  function _doLoad(publicKey, opts) {
+    injectStyles();
 
-        // Append iframe
-        var placeholderEl = document.getElementById(opts.containerId);
-        var wrapper = createWrapper(opts);
-        var iframe = createIframe(widgetUrl, opts);
-
-        if (opts.position === 'inline' && placeholderEl) {
-            iframe.style.borderRadius = '8px';
-            iframe.style.boxShadow = 'none';
-            placeholderEl.innerHTML = '';
-            placeholderEl.appendChild(iframe);
-        } else {
-            wrapper.appendChild(iframe);
-            document.body.appendChild(wrapper);
-        }
-
-        // Optional launcher
-        var launcher = null;
-        if (opts.showLauncher && opts.position !== 'inline') {
-            launcher = createLauncher(opts, opts.position, function () {
-                var visible = wrapper.style.display !== 'none';
-                wrapper.style.display = visible ? 'none' : 'block';
-            });
-            document.body.appendChild(launcher);
-        }
-
-        // Public controller
-        var controller = {
-            publicKey: publicKey,
-            open: function () { if (opts.position !== 'inline') wrapper.style.display = 'block'; },
-            close: function () { if (opts.position !== 'inline') wrapper.style.display = 'none'; },
-            toggle: function () { if (opts.position !== 'inline') wrapper.style.display = (wrapper.style.display === 'none') ? 'block' : 'none'; },
-            setPosition: function (pos) {
-                opts.position = pos;
-                if (launcher) {
-                    if (pos === 'bottom-left') launcher.classList.add('left');
-                    else launcher.classList.remove('left');
-                }
-                if (pos === 'bottom-left') wrapper.classList.add('left');
-                else wrapper.classList.remove('left');
-            },
-            setSize: function (w, h) { if (w) iframe.width = String(w); if (h) iframe.height = String(h); },
-            destroy: function () {
-                if (launcher && launcher.parentNode) launcher.parentNode.removeChild(launcher);
-                if (wrapper && wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-            },
-            switchToLive: function () {
-                // Change iframe src to live widget
-                var liveUrl = buildWidgetUrl(opts.host, publicKey, parentOrigin).replace('/embed/widget/', '/embed/live/');
-                iframe.src = liveUrl;
-            },
-            switchToQA: function () {
-                // Change iframe src to QA widget
-                var qaUrl = buildQAWidgetUrl(opts.host, publicKey, parentOrigin);
-                iframe.src = qaUrl;
-            }
-        };
-
-        // Store reference
-        window.Redbot = window.Redbot || { widgets: {} };
-        window.Redbot.widgets[publicKey] = controller;
-
-        return controller;
+    var registry = getRegistry();
+    if (registry.widgets[publicKey]) {
+      delete registry.loading[publicKey];
+      return registry.widgets[publicKey];
     }
 
-    // Expose global
-    window.RedbotLoad = RedbotLoad;
+    var host = opts.host || SERVER_ORIGIN;
+    var parentOrigin = computeParentOrigin(opts.originOverride);
+    var theme = (opts.primaryColor || '').trim();
+    var bgColor = (opts.bgColor || '').trim();
+    var fontFamily = (opts.fontFamily || '').trim();
+    var fontSize = opts.fontSize;
+    var welcomeMsg = (opts.welcomeMessage || '').trim();
+    var soundEnabled = opts.soundEnabled;
+    var animSpeed = (opts.animationSpeed || '').trim();
+    // Normalize widget position into a small set of supported values
+    var rawPos = (opts.widgetPosition || 'bottom-right').toString().trim().toLowerCase();
+    var widgetPos = 'bottom-right';
+    if (rawPos === 'left' || rawPos === 'bottom-left' || rawPos === 'left-bottom' || rawPos === 'left-bottom') widgetPos = 'bottom-left';
+    else if (rawPos === 'right' || rawPos === 'bottom-right' || rawPos === 'right-bottom') widgetPos = 'bottom-right';
+    else if (rawPos === 'top-left' || rawPos === 'left-top') widgetPos = 'top-left';
+    else if (rawPos === 'top-right' || rawPos === 'right-top') widgetPos = 'top-right';
+    else widgetPos = rawPos || 'bottom-right';
+    // debug: report what we received and the normalized position
+    try { console.log('[Redbot] init: raw widget position ->', rawPos, 'normalized ->', widgetPos); } catch (e) { }
 
-    // Auto-init from a placeholder with data-public-key
-    document.addEventListener('DOMContentLoaded', function () {
-        var el = document.getElementById('redbot-chat');
-        if (!el) return;
-        var pk = el.getAttribute('data-public-key');
-        if (!pk) return;
-        var opts = {
-            publicKey: pk,
-            position: el.getAttribute('data-position') || undefined,
-            width: el.getAttribute('data-width') || undefined,
-            height: el.getAttribute('data-height') || undefined,
-            zIndex: el.getAttribute('data-z-index') || undefined,
-            open: (el.getAttribute('data-open') || 'true') !== 'false',
-            showLauncher: (el.getAttribute('data-launcher') || 'false') === 'true',
-            originOverride: el.getAttribute('data-origin-override') || undefined,
-            containerId: el.id || 'redbot-chat'
-        };
-        RedbotLoad(opts);
+    var widgetUrl = buildWidgetUrl(host, publicKey, parentOrigin, theme, fontFamily, fontSize, welcomeMsg, soundEnabled, bgColor, animSpeed, widgetPos);
+
+    // Elements
+    var wrapper = document.createElement('div');
+    wrapper.className = 'rb-wrapper';
+    wrapper.setAttribute('role', 'dialog');
+    wrapper.setAttribute('aria-label', 'Chat window');
+
+    // Apply widget position styling (supports bottom-left, bottom-right, top-left, top-right)
+    function applyPosition(pos) {
+      try { console.log('[Redbot] applyPosition called with pos =', pos); } catch (e) { }
+      // reset a few possible styles
+      wrapper.style.left = wrapper.style.right = wrapper.style.top = wrapper.style.bottom = '';
+      launcher.style.left = launcher.style.right = launcher.style.top = launcher.style.bottom = '';
+
+      if (pos === 'bottom-left') {
+        wrapper.style.right = 'auto';
+        wrapper.style.left = '24px';
+        wrapper.style.bottom = '100px';
+        wrapper.style.transformOrigin = 'bottom left';
+
+        launcher.style.right = 'auto';
+        launcher.style.left = '24px';
+        launcher.style.bottom = '24px';
+      } else if (pos === 'top-left') {
+        wrapper.style.bottom = 'auto';
+        wrapper.style.top = '24px';
+        wrapper.style.left = '24px';
+        wrapper.style.transformOrigin = 'top left';
+
+        launcher.style.bottom = 'auto';
+        launcher.style.top = '24px';
+        launcher.style.left = '24px';
+      } else if (pos === 'top-right') {
+        wrapper.style.bottom = 'auto';
+        wrapper.style.top = '24px';
+        wrapper.style.right = '24px';
+        wrapper.style.transformOrigin = 'top right';
+
+        launcher.style.bottom = 'auto';
+        launcher.style.top = '24px';
+        launcher.style.right = '24px';
+      } else { // bottom-right (default)
+        wrapper.style.left = 'auto';
+        wrapper.style.right = '24px';
+        wrapper.style.bottom = '100px';
+        wrapper.style.transformOrigin = 'bottom right';
+
+        launcher.style.left = 'auto';
+        launcher.style.right = '24px';
+        launcher.style.bottom = '24px';
+      }
+
+      // small-screen override: keep launcher near edge but wrapper full width
+      try {
+        if (window.innerWidth <= 640) {
+          wrapper.style.left = '16px';
+          wrapper.style.right = '16px';
+          wrapper.style.bottom = '90px';
+          wrapper.style.width = 'calc(100vw - 32px)';
+        }
+      } catch (e) { }
+    }
+
+    var launcher = createLauncher(theme || null);
+
+    var iframe = document.createElement('iframe');
+    iframe.className = 'rb-iframe';
+    iframe.src = widgetUrl;
+    iframe.title = 'Chat widget';
+    wrapper.appendChild(iframe);
+    document.body.appendChild(wrapper);
+    document.body.appendChild(launcher);
+
+    // Apply positions for launcher and wrapper
+    try { if (typeof applyPosition === 'function') { applyPosition(widgetPos); console.log('[Redbot] applied initial widgetPos =', widgetPos); } } catch (e) { }
+
+    // State persistence
+    var stateKey = 'rb_open_' + publicKey;
+    function saveOpenState(isOpen) {
+      try { localStorage.setItem(stateKey, isOpen ? '1' : '0'); } catch (e) { }
+    }
+    function loadOpenState() {
+      try { return localStorage.getItem(stateKey) === '1'; } catch (e) { return false; }
+    }
+
+    function open() {
+      wrapper.classList.add('open');
+      saveOpenState(true);
+      launcher.setAttribute('aria-expanded', 'true');
+    }
+
+    function close() {
+      wrapper.classList.remove('open');
+      saveOpenState(false);
+      launcher.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggle() {
+      if (wrapper.classList.contains('open')) {
+        close();
+      } else {
+        open();
+      }
+    }
+
+    launcher.addEventListener('click', toggle);
+
+    // Listen to iframe requests
+    window.addEventListener('message', function (evt) {
+      if (!evt || !evt.data) return;
+      var d = evt.data;
+      if (d === 'redbot:close') close();
+      if (d && d.type === 'redbot:close') close();
+      if (d && d.type === 'redbot:open') open();
+      if (d && d.type === 'redbot:toggle') toggle();
     });
 
-    // Listen for switch-live message from iframe
-    window.addEventListener('message', function (e) {
-        if (e.data === 'redbot:switch-live') {
-            Object.keys(window.Redbot.widgets).forEach(function (pk) {
-                var widget = window.Redbot.widgets[pk];
-                if (widget && widget.switchToLive) {
-                    widget.switchToLive();
-                }
-            });
+    // Initial open state
+    var savedOpen = loadOpenState();
+    if (typeof opts.open === 'boolean') {
+      if (opts.open) open(); else close();
+    } else if (savedOpen) {
+      open();
+    }
+
+    // Public controller
+    var controller = {
+      publicKey: publicKey,
+      open: open,
+      close: close,
+      toggle: toggle,
+      setTheme: function (hex, fontFam, fontSz, welcome, sound, bg, anim, pos) {
+        // Update launcher color and reload iframe with all theme params
+        if (hex && typeof hex === 'string') {
+          if (hex.includes('gradient')) {
+            launcher.style.background = hex;
+          } else {
+            launcher.style.background = 'linear-gradient(135deg, ' + hex + ' 0%, ' + adjustColorBrightness(hex, -20) + ' 100%)';
+          }
         }
-        if (e.data === 'redbot:switch-qa') {
-            Object.keys(window.Redbot.widgets).forEach(function (pk) {
-                var widget = window.Redbot.widgets[pk];
-                if (widget && widget.switchToQA) {
-                    widget.switchToQA();
-                }
-            });
-        }
+
+        // Update position if specified (normalize synonyms)
+        try {
+          var p = (pos || '').toString().trim().toLowerCase();
+          if (p === 'left' || p === 'bottom-left' || p === 'left-bottom') p = 'bottom-left';
+          else if (p === 'right' || p === 'bottom-right' || p === 'right-bottom') p = 'bottom-right';
+          else if (p === 'top-left' || p === 'left-top') p = 'top-left';
+          else if (p === 'top-right' || p === 'right-top') p = 'top-right';
+          try { console.log('[Redbot] setTheme received pos ->', pos, 'normalized ->', p); } catch (e) { }
+          if (typeof applyPosition === 'function') applyPosition(p);
+        } catch (e) { }
+
+        var newUrl = buildWidgetUrl(host, publicKey, parentOrigin, hex, fontFam, fontSz, welcome, sound, bg, anim, pos);
+        iframe.src = newUrl;
+      },
+      destroy: function () {
+        if (launcher && launcher.parentNode) launcher.parentNode.removeChild(launcher);
+        if (wrapper && wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+      }
+    };
+
+    registry.widgets[publicKey] = controller;
+    delete registry.loading[publicKey];
+    return controller;
+  }
+
+  window.RedbotLoad = RedbotLoad;
+
+  // Auto-init via placeholder
+  document.addEventListener('DOMContentLoaded', function () {
+    var el = document.getElementById('redbot-chat');
+    if (!el) return;
+    var pk = el.getAttribute('data-public-key');
+    if (!pk) return;
+    RedbotLoad({
+      publicKey: pk,
+      primaryColor: el.getAttribute('data-primary-color') || null,
+      bgColor: el.getAttribute('data-bg-color') || null,
+      fontFamily: el.getAttribute('data-font-family') || null,
+      fontSize: el.getAttribute('data-font-size') || null,
+      welcomeMessage: el.getAttribute('data-welcome-message') || null,
+      soundEnabled: el.hasAttribute('data-sound-enabled') ? el.getAttribute('data-sound-enabled') === 'true' : null,
+      animationSpeed: el.getAttribute('data-animation-speed') || null,
+      widgetPosition: el.getAttribute('data-widget-position') || null,
+      originOverride: el.getAttribute('data-origin-override') || null,
+      open: (el.getAttribute('data-open') || 'false') === 'true'
     });
+  });
 })();

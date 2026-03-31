@@ -441,7 +441,6 @@
     <pre id="embed-script-block" class="embed-code"><code>&lt;script src="https://{{ request.get_host }}/static/embed/bot.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   RedbotLoad('{{ bot.public_key }}');
-  RedbotLoad(document.getElementById('redbot-chat').getAttribute('data-public-key'));
 &lt;/script&gt;</code></pre>
     <button class="btn-copy" onclick="copyEmbedScript(this)">
       <iconify-icon icon="material-symbols:content-copy-outline" width="18" height="18"></iconify-icon>

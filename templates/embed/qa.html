@@ -63,6 +63,7 @@
       display: flex; 
       flex-direction: column; 
       height: 100%;
+      min-height: 0;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       position: relative;
@@ -246,6 +247,7 @@
     /* Messages Area */
     #messages {
       flex: 1;
+      min-height: 0;
       overflow-y: auto;
       background: var(--rb-bg); /* Use theme background */
       padding: 20px 16px;
@@ -479,6 +481,26 @@
     .blocked-state-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.6; }
     .blocked-state-title { font-weight: 600; font-size: 18px; margin-bottom: 8px; color: var(--rb-text); }
     .blocked-state-text { color: var(--rb-subtext); line-height: 1.5; }
+
+    @media (max-width: 480px) {
+      html, body { height: 100dvh; }
+      body { max-height: 100dvh; }
+      .rb-header { padding: 10px 12px; }
+      .rb-header .left { gap: 8px; }
+      .rb-header .bot-avatar { width: 30px; height: 30px; }
+      .rb-header .title { font-size: 14px; }
+      .rb-header .status { font-size: 11px; }
+      .rb-header .actions { gap: 4px; }
+      .rb-header .btn { padding: 5px 8px; font-size: 11px; }
+      .rb-header .icon { width: 30px; height: 30px; padding: 5px; }
+      #messages { padding: 12px 10px; }
+      .bubble { max-width: 90%; padding: 10px 14px; }
+      #input-container { padding: 10px; gap: 8px; }
+      #input { padding: 11px 12px; font-size: 14px; }
+      #send-btn { width: 52px; min-width: 52px; height: 46px; padding: 0; font-size: 0; }
+      #send-btn iconify-icon { width: 22px; height: 22px; }
+      .rb-footer { padding: 4px 16px; }
+    }
     
     /* Accessibility */
     @media (prefers-reduced-motion: reduce) {

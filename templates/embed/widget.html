@@ -79,6 +79,7 @@
       display: flex; 
       flex-direction: column; 
       height: 100%;
+      min-height: 0;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       position: relative;
@@ -279,6 +280,7 @@
     /* Messages Area */
     #messages {
       flex: 1;
+      min-height: 0;
       overflow-y: auto;
       background: var(--rb-bg);
       padding: 20px 16px;
@@ -588,10 +590,12 @@
       background: var(--rb-bg-alt);
       border-top: 1px solid var(--rb-border);
       flex-shrink: 0;
+      align-items: center;
     }
     
     #input {
       flex: 1; 
+      min-width: 0;
       padding: 14px 16px; 
       border: 2px solid var(--rb-border);
       border-radius: 14px; 
@@ -614,6 +618,7 @@
     }
 
     #send-btn {
+      flex: 0 0 auto;
       padding: 12px 16px; 
       border: none;
       background: linear-gradient(135deg, var(--rb-primary) 0%, var(--rb-primary-dark) 100%);
@@ -706,14 +711,23 @@
 
     /* Mobile Responsive */
     @media (max-width: 480px) {
-      .rb-header { padding: 12px; }
-      .rb-header .title { font-size: 15px; }
-      .rb-header .btn { padding: 6px 10px; font-size: 12px; }
-      #messages { padding: 16px 12px; }
+      html, body { height: 100dvh; }
+      body { max-height: 100dvh; }
+      .rb-header { padding: 10px 12px; }
+      .rb-header .left { gap: 8px; }
+      .rb-header .bot-avatar { width: 30px; height: 30px; }
+      .rb-header .title { font-size: 14px; }
+      .rb-header .status { font-size: 11px; }
+      .rb-header .actions { gap: 4px; }
+      .rb-header .btn { padding: 5px 8px; font-size: 11px; }
+      .rb-header .icon { width: 30px; height: 30px; padding: 5px; }
+      #messages { padding: 12px 10px; }
       .bubble { max-width: 90%; padding: 10px 14px; }
-      #input-container { padding: 12px; gap: 8px; }
-      #input { padding: 12px 14px; font-size: 14px; }
-      #send-btn { padding: 12px 16px; min-width: 70px; font-size: 14px; }
+      #input-container { padding: 10px; gap: 8px; }
+      #input { min-width: 0; padding: 11px 12px; font-size: 14px; }
+      #send-btn { width: 52px; min-width: 52px; height: 46px; padding: 0; font-size: 0; }
+      #send-btn iconify-icon { width: 22px; height: 22px; }
+      .rb-footer { padding: 4px 16px !important; }
     }
 
     /* Accessibility */

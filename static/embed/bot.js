@@ -558,7 +558,8 @@
         .rb-wrapper { 
           right: 16px; bottom: 90px; 
           width: calc(100vw - 32px); 
-          height: calc(100vh - 120px);
+          height: calc(100dvh - 160px);
+          max-height: calc(100dvh - 160px);
           border-radius: 16px;
         }
         .rb-launcher { 

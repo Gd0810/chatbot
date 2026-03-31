@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from accounts import views  
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import BotSitemap, StaticViewSitemap
 
@@ -31,6 +32,10 @@ def robots_txt(request):
         f"User-agent: *\nAllow: /\n\nSitemap: https://{request.get_host()}/sitemap.xml",
         content_type="text/plain"
     )
+
+
+def custom_page_not_found(request, exception):
+    return render(request, "404.html", status=404)
 
 urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
@@ -53,3 +58,6 @@ urlpatterns = [
     path('adminpanel/', include('adminpanel.urls')),
     path('dashboard/', include('dashboard.urls')),  # Dashboard as the root
 ]
+
+
+handler404 = "redbot.urls.custom_page_not_found"

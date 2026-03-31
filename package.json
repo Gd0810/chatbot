@@ -1,0 +1,11 @@
+{
+  "name": "redbot-tailwind-build",
+  "private": true,
+  "scripts": {
+    "build:tailwind:pages": "tailwindcss -c tailwind.config.js -i ./src/tailwind-pages.css -o ./static/css/tailwind-pages.css --minify",
+    "watch:tailwind:pages": "tailwindcss -c tailwind.config.js -i ./src/tailwind-pages.css -o ./static/css/tailwind-pages.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -30,6 +30,7 @@
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tailwind-pages.css' %}">
     <!-- Google Font - Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,23 +40,7 @@
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
-{% comment %} Tailwind CDN {% endcomment %}
-     <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: 'rgb(255, 60, 0)',
-              'primary-dark': 'rgb(217, 38, 0)',
-              'primary-darker': 'rgb(175, 20, 0)',
-              'primary-darkest': 'rgb(67, 26, 0)',
-            }
-          }
-        }
-      }
-    </script>
+{% comment %} Local Tailwind build {% endcomment %}
     
 </head>
 <style>

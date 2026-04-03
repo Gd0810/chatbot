@@ -822,7 +822,7 @@
         }
     }
 
-    function renderQAOptions(pairs, save = true) {
+    function renderQAOptions(pairs, save = true, scrollMode = 'preserve') {
         // Remove any existing options first to prevent duplication
         const existingOptions = messagesDiv.querySelectorAll('.qa-options');
         existingOptions.forEach(el => el.remove());
@@ -839,7 +839,12 @@
         });
 
         messagesDiv.appendChild(container);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        if (scrollMode === 'top') {
+            messagesDiv.scrollTop = 0;
+        } else if (scrollMode === 'bottom') {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
 
         if (save) {
             // Overwrite the last 'options' entry in history instead of appending new one
@@ -848,12 +853,13 @@
         }
     }
 
-    function fetchQA(parentId) {
+    function fetchQA(parentId, options = {}) {
+        const scrollMode = options.scrollMode || 'preserve';
         fetch(`${API_URL}${parentId ? '?parent_id=' + parentId : ''}`)
             .then(r => r.json())
             .then(data => {
                 if (data.pairs && data.pairs.length > 0) {
-                    renderQAOptions(data.pairs);
+                    renderQAOptions(data.pairs, true, scrollMode);
                 } else if (!parentId) {
                     addBubble('bot', "I don't have any questions set up yet.");
                 }
@@ -892,7 +898,7 @@
             }
 
             if (pair.has_children) {
-                fetchQA(pair.id);
+                fetchQA(pair.id, { scrollMode: 'bottom' });
             } else {
                 // Leaf node
                 if (!hasAnswer) {
@@ -900,7 +906,7 @@
                     playSound();
                 }
                 // Go back to main menu
-                setTimeout(() => fetchQA(null), 1500);
+                setTimeout(() => fetchQA(null, { scrollMode: 'preserve' }), 1500);
             }
         }, 500);
     }
@@ -997,7 +1003,7 @@
     function startNewSession() {
         const welcomeText = getWelcomeText();
         addBubble('bot', welcomeText, true, { isWelcome: true });
-        fetchQA(null);
+        fetchQA(null, { scrollMode: 'top' });
     }
 
     function renderPreviousChatButton() {

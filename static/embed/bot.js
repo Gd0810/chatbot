@@ -417,6 +417,7 @@
     try {
       var el = document.createElement('div');
       el.id = 'redbot-chat';
+      el.setAttribute('data-redbot-auto-placeholder', 'true');
       el.style.display = 'none';
       (document.body || document.documentElement).appendChild(el);
       return el;
@@ -426,6 +427,26 @@
   }
 
   ensurePlaceholder();
+
+  function findPlaceholder(containerId) {
+    var id = containerId || 'redbot-chat';
+    var candidates = document.querySelectorAll('#' + id);
+    var fallback = null;
+
+    for (var i = 0; i < candidates.length; i++) {
+      var el = candidates[i];
+      if (!fallback) fallback = el;
+      if (el && el.getAttribute('data-redbot-auto-placeholder') === 'true') continue;
+      if (el && (el.getAttribute('data-public-key') || (el.dataset && el.dataset.publicKey))) {
+        return el;
+      }
+      if (el) {
+        fallback = el;
+      }
+    }
+
+    return fallback;
+  }
 
   function getRegistry() {
     window.Redbot = window.Redbot || { widgets: {}, loading: {} };
@@ -665,7 +686,7 @@
 
     // Prefer placeholder if publicKey missing
     if (!publicKey) {
-      var el = document.getElementById(opts.containerId || 'redbot-chat');
+      var el = findPlaceholder(opts.containerId);
       if (el && el.dataset && el.dataset.publicKey) {
         publicKey = el.dataset.publicKey;
       }
@@ -677,7 +698,16 @@
 
     var registry = getRegistry();
     if (registry.widgets[publicKey]) {
-      return registry.widgets[publicKey];
+      var existingWidget = registry.widgets[publicKey];
+      if (existingWidget && typeof existingWidget.isMounted === 'function' && existingWidget.isMounted()) {
+        return existingWidget;
+      }
+      try {
+        if (existingWidget && typeof existingWidget.destroy === 'function') {
+          existingWidget.destroy();
+        }
+      } catch (e) { }
+      delete registry.widgets[publicKey];
     }
     if (registry.loading[publicKey]) {
       return registry.loading[publicKey];
@@ -892,6 +922,9 @@
       open: open,
       close: close,
       toggle: toggle,
+      isMounted: function () {
+        return !!(launcher && wrapper && document.body && document.body.contains(launcher) && document.body.contains(wrapper));
+      },
       setTheme: function (hex, fontFam, fontSz, welcome, sound, bg, anim, pos) {
         // Update launcher color and reload iframe with all theme params
         if (hex && typeof hex === 'string') {
@@ -919,6 +952,12 @@
       destroy: function () {
         if (launcher && launcher.parentNode) launcher.parentNode.removeChild(launcher);
         if (wrapper && wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+        if (registry.widgets && registry.widgets[publicKey] === controller) {
+          delete registry.widgets[publicKey];
+        }
+        if (registry.loading && registry.loading[publicKey]) {
+          delete registry.loading[publicKey];
+        }
       }
     };
 
@@ -929,12 +968,17 @@
 
   window.RedbotLoad = RedbotLoad;
 
-  // Auto-init via placeholder
-  document.addEventListener('DOMContentLoaded', function () {
-    var el = document.getElementById('redbot-chat');
+  function initFromPlaceholder() {
+    var el = findPlaceholder('redbot-chat');
     if (!el) return;
     var pk = el.getAttribute('data-public-key');
     if (!pk) return;
+
+    var autoPlaceholder = document.querySelector('#redbot-chat[data-redbot-auto-placeholder="true"]');
+    if (autoPlaceholder && autoPlaceholder !== el && autoPlaceholder.parentNode) {
+      autoPlaceholder.parentNode.removeChild(autoPlaceholder);
+    }
+
     RedbotLoad({
       publicKey: pk,
       primaryColor: el.getAttribute('data-primary-color') || null,
@@ -948,5 +992,47 @@
       originOverride: el.getAttribute('data-origin-override') || null,
       open: (el.getAttribute('data-open') || 'false') === 'true'
     });
-  });
+  }
+
+  function scheduleInitFromPlaceholder() {
+    window.clearTimeout(window.__redbotInitTimer);
+    window.__redbotInitTimer = window.setTimeout(initFromPlaceholder, 0);
+  }
+
+  function installSpaHooks() {
+    if (window.__redbotSpaHooksInstalled) return;
+    window.__redbotSpaHooksInstalled = true;
+
+    var originalPushState = history.pushState;
+    var originalReplaceState = history.replaceState;
+
+    history.pushState = function () {
+      var result = originalPushState.apply(history, arguments);
+      scheduleInitFromPlaceholder();
+      return result;
+    };
+
+    history.replaceState = function () {
+      var result = originalReplaceState.apply(history, arguments);
+      scheduleInitFromPlaceholder();
+      return result;
+    };
+
+    window.addEventListener('popstate', scheduleInitFromPlaceholder);
+
+    if (window.MutationObserver && document.documentElement) {
+      var observer = new MutationObserver(function () {
+        scheduleInitFromPlaceholder();
+      });
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+    }
+  }
+
+  installSpaHooks();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFromPlaceholder);
+  } else {
+    initFromPlaceholder();
+  }
 })();

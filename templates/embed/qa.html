@@ -336,6 +336,68 @@
       transform: translateY(0);
     }
 
+    .qa-empty-state {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.78);
+      border: 1px dashed var(--rb-border);
+      color: var(--rb-subtext);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    /* FAQ Search */
+    #faq-search-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px;
+      background: var(--rb-bg-alt);
+      border-top: 1px solid var(--rb-border);
+      flex-shrink: 0;
+    }
+
+    .faq-search-field {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .faq-search-field iconify-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--rb-subtext);
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+
+    #faq-search {
+      width: 100%;
+      min-width: 0;
+      padding: 14px 16px 14px 44px;
+      border: 2px solid var(--rb-border);
+      border-radius: 14px;
+      outline: none;
+      background: #fff;
+      font-family: var(--rb-font);
+      font-size: var(--rb-font-size);
+      color: var(--rb-text);
+      transition: all var(--anim-duration-fast) ease;
+    }
+
+    #faq-search:focus {
+      border-color: var(--rb-primary);
+      box-shadow: 0 0 0 4px rgba(58, 95, 58, 0.1);
+    }
+
+    #faq-search::placeholder {
+      color: var(--rb-subtext);
+      opacity: 0.7;
+    }
+
     /* Enquiry Form */
     .enquiry-form-container {
       position: absolute;
@@ -495,10 +557,9 @@
       .rb-header .icon { width: 30px; height: 30px; padding: 5px; }
       #messages { padding: 12px 10px; }
       .bubble { max-width: 90%; padding: 10px 14px; }
-      #input-container { padding: 10px; gap: 8px; }
-      #input { padding: 11px 12px; font-size: 14px; }
-      #send-btn { width: 52px; min-width: 52px; height: 46px; padding: 0; font-size: 0; }
-      #send-btn iconify-icon { width: 22px; height: 22px; }
+      #faq-search-container { padding: 10px; }
+      #faq-search { padding: 11px 12px 11px 40px; font-size: 14px; }
+      .faq-search-field iconify-icon { left: 12px; width: 18px; height: 18px; }
       .rb-footer { padding: 4px 16px; }
     }
     
@@ -570,6 +631,13 @@
 
     <div id="messages"></div>
 
+    <div id="faq-search-container">
+      <div class="faq-search-field">
+        <iconify-icon icon="mdi:magnify"></iconify-icon>
+        <input id="faq-search" type="text" placeholder="Search FAQs..." autocomplete="off" aria-label="Search FAQs" />
+      </div>
+    </div>
+
     {% if bot.workspace.bot_footer and bot_footer %}
     <footer class="rb-footer" style="padding: 4px 45px; text-align: right; background: linear-gradient(to top, #f9fafb 0%, transparent 100%); border-top: 1px solid #e5e7eb;">
       <p style="margin: 0; line-height: 1.6; display: inline-flex; align-items: center; justify-content: flex-end; width: 100%;">
@@ -623,6 +691,7 @@
     const messagesDiv = document.getElementById('messages');
     const notify = document.getElementById('rb-sound');
     const resetBtn = document.getElementById('rb-reset');
+    const faqSearchInput = document.getElementById('faq-search');
     
     // Enquiry elements
     const enquiryFormContainer = document.getElementById('enquiry-form-container');
@@ -636,6 +705,8 @@
     let soundEnabled = true;
     let pendingQuestion = null;
     let previousHistory = [];
+    let currentFaqPairs = [];
+    let currentSearchTerm = '';
     
     // Persistence Keys
     const HISTORY_KEY = 'redbot_qa_history_' + PUBLIC_KEY;
@@ -822,21 +893,35 @@
         }
     }
 
-    function renderQAOptions(pairs, save = true, scrollMode = 'preserve') {
+    function renderFilteredQAOptions(scrollMode, save) {
         // Remove any existing options first to prevent duplication
         const existingOptions = messagesDiv.querySelectorAll('.qa-options');
         existingOptions.forEach(el => el.remove());
 
         const container = document.createElement('div');
         container.className = 'qa-options';
-        
-        pairs.forEach(p => {
-            const btn = document.createElement('button');
-            btn.className = 'qa-option-btn';
-            btn.textContent = p.question;
-            btn.onclick = () => handleQuestionClick(p);
-            container.appendChild(btn);
-        });
+
+        const filteredPairs = currentSearchTerm
+            ? currentFaqPairs.filter(p => {
+                const question = (p.question || '').toLowerCase();
+                return question.indexOf(currentSearchTerm) !== -1;
+              })
+            : currentFaqPairs.slice();
+
+        if (filteredPairs.length > 0) {
+            filteredPairs.forEach(p => {
+                const btn = document.createElement('button');
+                btn.className = 'qa-option-btn';
+                btn.textContent = p.question;
+                btn.onclick = () => handleQuestionClick(p);
+                container.appendChild(btn);
+            });
+        } else {
+            const empty = document.createElement('div');
+            empty.className = 'qa-empty-state';
+            empty.textContent = 'No matching FAQs found.';
+            container.appendChild(empty);
+        }
 
         messagesDiv.appendChild(container);
 
@@ -849,11 +934,20 @@
         if (save) {
             // Overwrite the last 'options' entry in history instead of appending new one
             // This ensures only the latest set of options is saved
-            updateHistoryOptions({ type: 'options', pairs });
+            updateHistoryOptions({ type: 'options', pairs: currentFaqPairs });
         }
     }
 
+    function renderQAOptions(pairs, save = true, scrollMode = 'preserve') {
+        currentFaqPairs = Array.isArray(pairs) ? pairs.slice() : [];
+        renderFilteredQAOptions(scrollMode, save);
+    }
+
     function fetchQA(parentId, options = {}) {
+        currentSearchTerm = '';
+        if (faqSearchInput) {
+            faqSearchInput.value = '';
+        }
         const scrollMode = options.scrollMode || 'preserve';
         fetch(`${API_URL}${parentId ? '?parent_id=' + parentId : ''}`)
             .then(r => r.json())
@@ -865,6 +959,11 @@
                 }
             })
             .catch(err => console.error(err));
+    }
+
+    function handleFaqSearchInput() {
+        currentSearchTerm = ((faqSearchInput && faqSearchInput.value) || '').trim().toLowerCase();
+        renderFilteredQAOptions('preserve', false);
     }
 
     function handleQuestionClick(pair) {
@@ -1232,9 +1331,18 @@
         resetBtn.onclick = () => {
             if (confirm('Reset conversation?')) {
                 clearHistory();
+                currentFaqPairs = [];
+                currentSearchTerm = '';
+                if (faqSearchInput) {
+                    faqSearchInput.value = '';
+                }
                 loadHistory(); 
             }
         };
+    }
+
+    if (faqSearchInput) {
+        faqSearchInput.addEventListener('input', handleFaqSearchInput);
     }
 
 </script>

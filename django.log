@@ -8068,3 +8068,444 @@ Not Found: /static/css/style.css
 [mHTTP GET /static/embed/notify.mp3 206 [0.00, 127.0.0.1:52957][0m
 [mHTTP POST /api/chat/ 200 [0.05, 127.0.0.1:53757][0m
 [36mHTTP GET /static/ui/img/fav5.png 304 [0.00, 127.0.0.1:53757][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775187917550&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.05, 127.0.0.1:51520][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.01, 127.0.0.1:51524][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:51520][0m
+[mHTTP GET / 200 [0.10, 127.0.0.1:53159][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.01, 127.0.0.1:53160][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.05, 127.0.0.1:53159][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.01, 127.0.0.1:53160][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.01, 127.0.0.1:53160][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.04, 127.0.0.1:53159][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.01, 127.0.0.1:53159][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.01, 127.0.0.1:53159][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.01, 127.0.0.1:53159][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.10, 127.0.0.1:53159][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.04, 127.0.0.1:53160][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189345511&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.12, 127.0.0.1:53159][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.02, 127.0.0.1:53160][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189345511&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.16, 127.0.0.1:53159][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.08, 127.0.0.1:53159][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:53159][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:53159][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:53159][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.01, 127.0.0.1:54205][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.02, 127.0.0.1:54205][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.01, 127.0.0.1:54205][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.01, 127.0.0.1:54205][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.01, 127.0.0.1:54205][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.01, 127.0.0.1:54205][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.00, 127.0.0.1:54205][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:54205][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189436083&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.11, 127.0.0.1:54205][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189436083&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.10, 127.0.0.1:54205][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.01, 127.0.0.1:53159][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.10, 127.0.0.1:54205][0m
+[32mHTTP GET /dashboard 301 [0.03, 127.0.0.1:54205][0m
+[32mHTTP GET /dashboard/ 302 [0.06, 127.0.0.1:54205][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.08, 127.0.0.1:54205][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.04, 127.0.0.1:54205][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [1.62, 127.0.0.1:54205][0m
+[mHTTP GET /dashboard/ 200 [0.06, 127.0.0.1:54205][0m
+[mHTTP GET /static/tinymce/tinymce.min.js 200 [0.04, 127.0.0.1:54205][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.09, 127.0.0.1:54205][0m
+[mHTTP GET /dashboard/partial/enquiries/ 200 [0.32, 127.0.0.1:54205][0m
+[mHTTP POST /dashboard/partial/enquiries/ 200 [0.28, 127.0.0.1:54205][0m
+[mHTTP GET / 200 [0.08, 127.0.0.1:54205][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.06, 127.0.0.1:54205][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.27, 127.0.0.1:54205][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.02, 127.0.0.1:53159][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189473335&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=14&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.11, 127.0.0.1:54205][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189473335&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=14&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.14, 127.0.0.1:54205][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.08, 127.0.0.1:54205][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.08, 127.0.0.1:54205][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.08, 127.0.0.1:55235][0m
+[mHTTP GET /dashboard/bot/1/style/ 200 [0.05, 127.0.0.1:55235][0m
+[mHTTP POST /dashboard/bot/1/style/save/ 200 [0.38, 127.0.0.1:55235][0m
+[mHTTP GET / 200 [0.05, 127.0.0.1:55235][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.01, 127.0.0.1:55390][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:55235][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.01, 127.0.0.1:55400][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.00, 127.0.0.1:55401][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.00, 127.0.0.1:55401][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.00, 127.0.0.1:55400][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.02, 127.0.0.1:55235][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.01, 127.0.0.1:55390][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:55390][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189536580&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.17, 127.0.0.1:55390][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.01, 127.0.0.1:55235][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189536580&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.15, 127.0.0.1:55390][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.09, 127.0.0.1:55390][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.01, 127.0.0.1:55390][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:55390][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:55390][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.07, 127.0.0.1:55390][0m
+[mHTTP GET / 200 [0.10, 127.0.0.1:60592][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.02, 127.0.0.1:60591][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.05, 127.0.0.1:60592][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.01, 127.0.0.1:60591][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.01, 127.0.0.1:60591][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.00, 127.0.0.1:60592][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.00, 127.0.0.1:60592][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.00, 127.0.0.1:60592][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.02, 127.0.0.1:60592][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:60592][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.01, 127.0.0.1:60591][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189984099&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.18, 127.0.0.1:60592][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.05, 127.0.0.1:60591][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775189984099&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.14, 127.0.0.1:60592][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.11, 127.0.0.1:60592][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET / 200 [0.09, 127.0.0.1:58768][0m
+[mHTTP GET /static/css/tailwind-pages.css 200 [0.02, 127.0.0.1:58767][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:58768][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.02, 127.0.0.1:58771][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.02, 127.0.0.1:58772][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.02, 127.0.0.1:58772][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:58771][0m
+[mHTTP GET /static/embed/bot.js 200 [0.01, 127.0.0.1:58767][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.03, 127.0.0.1:58768][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.07, 127.0.0.1:58768][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554469189&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.08, 127.0.0.1:58768][0m
+[mHTTP GET /static/embed/notify.mp3 206 [0.01, 127.0.0.1:58767][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554469189&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.07, 127.0.0.1:58768][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.08, 127.0.0.1:58768][0m
+[mHTTP GET /static/ui/img/fav5.png 200 [0.02, 127.0.0.1:58768][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.01, 127.0.0.1:60584][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:60584][0m
+[32mHTTP GET /dashboard 301 [0.01, 127.0.0.1:60584][0m
+[32mHTTP GET /dashboard/ 302 [0.02, 127.0.0.1:60584][0m
+[mHTTP GET /accounts/login/?next=/dashboard/ 200 [0.04, 127.0.0.1:60584][0m
+Not Found: /favicon.ico
+[33mHTTP GET /favicon.ico 404 [0.01, 127.0.0.1:60584][0m
+[32mHTTP POST /accounts/login/?next=/dashboard/ 302 [0.64, 127.0.0.1:60584][0m
+[mHTTP GET /dashboard/ 200 [0.04, 127.0.0.1:60584][0m
+[mHTTP GET /static/tinymce/tinymce.min.js 200 [0.00, 127.0.0.1:60584][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.05, 127.0.0.1:60584][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.05, 127.0.0.1:60584][0m
+[mHTTP GET /static/tinymce/themes/silver/theme.min.js 200 [0.01, 127.0.0.1:60584][0m
+[mHTTP GET /static/tinymce/models/dom/model.min.js 200 [0.01, 127.0.0.1:60714][0m
+[mHTTP GET /static/tinymce/icons/default/icons.min.js 200 [0.03, 127.0.0.1:60786][0m
+[mHTTP GET /static/tinymce/plugins/advlist/plugin.min.js 200 [0.02, 127.0.0.1:60787][0m
+[mHTTP GET /static/tinymce/plugins/autolink/plugin.min.js 200 [0.02, 127.0.0.1:60788][0m
+[mHTTP GET /static/tinymce/plugins/lists/plugin.min.js 200 [0.01, 127.0.0.1:60789][0m
+[mHTTP GET /static/tinymce/plugins/link/plugin.min.js 200 [0.00, 127.0.0.1:60789][0m
+[mHTTP GET /static/tinymce/plugins/image/plugin.min.js 200 [0.01, 127.0.0.1:60788][0m
+[mHTTP GET /static/tinymce/plugins/charmap/plugin.min.js 200 [0.00, 127.0.0.1:60787][0m
+[mHTTP GET /static/tinymce/plugins/preview/plugin.min.js 200 [0.01, 127.0.0.1:60786][0m
+[mHTTP GET /static/tinymce/plugins/anchor/plugin.min.js 200 [0.01, 127.0.0.1:60714][0m
+[mHTTP GET /static/tinymce/plugins/searchreplace/plugin.min.js 200 [0.00, 127.0.0.1:60584][0m
+[mHTTP GET /static/tinymce/plugins/code/plugin.min.js 200 [0.00, 127.0.0.1:60786][0m
+[mHTTP GET /static/tinymce/plugins/visualblocks/plugin.min.js 200 [0.01, 127.0.0.1:60714][0m
+[mHTTP GET /static/tinymce/plugins/fullscreen/plugin.min.js 200 [0.02, 127.0.0.1:60584][0m
+[mHTTP GET /static/tinymce/plugins/insertdatetime/plugin.min.js 200 [0.00, 127.0.0.1:60787][0m
+[mHTTP GET /static/tinymce/plugins/media/plugin.min.js 200 [0.03, 127.0.0.1:60788][0m
+[mHTTP GET /static/tinymce/plugins/table/plugin.min.js 200 [0.04, 127.0.0.1:60789][0m
+[mHTTP GET /static/tinymce/plugins/help/plugin.min.js 200 [0.03, 127.0.0.1:60787][0m
+[mHTTP GET /static/tinymce/plugins/wordcount/plugin.min.js 200 [0.03, 127.0.0.1:60584][0m
+[mHTTP GET /static/tinymce/plugins/autoresize/plugin.min.js 200 [0.03, 127.0.0.1:60786][0m
+[mHTTP GET /static/tinymce/plugins/directionality/plugin.min.js 200 [0.03, 127.0.0.1:60714][0m
+[mHTTP GET /static/tinymce/plugins/emoticons/plugin.min.js 200 [0.02, 127.0.0.1:60788][0m
+[mHTTP GET /static/tinymce/plugins/codesample/plugin.min.js 200 [0.15, 127.0.0.1:60787][0m
+[mHTTP GET /static/tinymce/plugins/nonbreaking/plugin.min.js 200 [0.18, 127.0.0.1:60789][0m
+[mHTTP GET /static/tinymce/plugins/quickbars/plugin.min.js 200 [0.04, 127.0.0.1:60714][0m
+[mHTTP GET /static/tinymce/plugins/pagebreak/plugin.min.js 200 [0.04, 127.0.0.1:60788][0m
+[mHTTP GET /static/tinymce/skins/ui/oxide/skin.min.css 200 [0.01, 127.0.0.1:60788][0m
+[mHTTP GET /static/tinymce/skins/ui/oxide/content.min.css 200 [0.02, 127.0.0.1:60788][0m
+[mHTTP GET /static/tinymce/skins/content/default/content.min.css 200 [0.03, 127.0.0.1:60714][0m
+[mHTTP GET /static/tinymce/plugins/help/js/i18n/keynav/en.js 200 [0.01, 127.0.0.1:60714][0m
+[mHTTP GET /static/tinymce/plugins/emoticons/js/emojis.min.js 200 [0.00, 127.0.0.1:60788][0m
+[mHTTP GET /dashboard/qa/10/edit/ 200 [0.03, 127.0.0.1:60714][0m
+[mHTTP POST /dashboard/qa/10/update/ 200 [0.10, 127.0.0.1:60714][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:60714][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.01, 127.0.0.1:60788][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:60714][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.00, 127.0.0.1:60788][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.00, 127.0.0.1:60789][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.00, 127.0.0.1:60714][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.00, 127.0.0.1:60714][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.01, 127.0.0.1:60714][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.00, 127.0.0.1:60714][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:60714][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554658285&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.03, 127.0.0.1:60714][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.00, 127.0.0.1:60789][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554658285&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.08, 127.0.0.1:60714][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:60714][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.00, 127.0.0.1:60714][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:60714][0m
+Not Found: /embed/widget/074aa379250e4a898359e1b6f5a2574c/redbackai.in
+[33mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/redbackai.in 404 [0.02, 127.0.0.1:60714][0m
+[mHTTP GET /static/ui/img/fyu.png 200 [0.03, 127.0.0.1:60714][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:60714][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:60714][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:60714][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554671869&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.05, 127.0.0.1:60714][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554671869&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.04, 127.0.0.1:60714][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.13, 127.0.0.1:60714][0m
+Not Found: /embed/widget/074aa379250e4a898359e1b6f5a2574c/redbackai.in
+[33mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/redbackai.in 404 [0.05, 127.0.0.1:60714][0m
+[36mHTTP GET /static/ui/img/fyu.png 304 [0.00, 127.0.0.1:60714][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554671869&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.03, 127.0.0.1:60714][0m
+[mHTTP GET /about/ 200 [0.04, 127.0.0.1:60714][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.00, 127.0.0.1:62942][0m
+Not Found: /static/css/style.css
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.01, 127.0.0.1:62943][0m
+[33mHTTP GET /static/css/style.css 404 [0.04, 127.0.0.1:60714][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.01, 127.0.0.1:62944][0m
+[mHTTP GET /static/ui/img/ai%20chatbot%20provider%20in%20vellore.png 200 [0.02, 127.0.0.1:62944][0m
+[mHTTP GET /static/ui/logo/Redback.png 200 [0.02, 127.0.0.1:60714][0m
+[mHTTP GET /static/ui/logo/Redback%20Studios.png 200 [0.01, 127.0.0.1:62943][0m
+[mHTTP GET /static/ui/logo/Digital%20marketing%20venture.png 200 [0.00, 127.0.0.1:62942][0m
+[mHTTP GET /static/ui/logo/Redback%20acadmey.png 200 [0.02, 127.0.0.1:62947][0m
+[mHTTP GET /static/ui/logo/Final%20RISC%20logo.png 200 [0.02, 127.0.0.1:62948][0m
+[mHTTP GET /static/ui/logo/Redback%20System.png 200 [0.01, 127.0.0.1:62947][0m
+[mHTTP GET /static/ui/logo/Creative%20Graphicxs%20Logo.jpg 200 [0.05, 127.0.0.1:62948][0m
+[mHTTP GET /static/ui/logo/Vellore-01.png 200 [0.01, 127.0.0.1:62942][0m
+[mHTTP GET /static/ui/logo/Blues%20Aquarium%20logo%201.png 200 [0.01, 127.0.0.1:62943][0m
+[mHTTP GET /static/ui/logo/logo%2001-01.png 200 [0.01, 127.0.0.1:60714][0m
+[mHTTP GET /static/ui/logo/My%20business%20filiings.png 200 [0.02, 127.0.0.1:62944][0m
+[mHTTP GET /static/ui/logo/Analyticxs%20.png 200 [0.01, 127.0.0.1:60714][0m
+[mHTTP GET /static/ui/logo/Vellore%20Ads%20site%20Logo.png 200 [0.00, 127.0.0.1:62943][0m
+[mHTTP GET /contact/ 200 [0.05, 127.0.0.1:62943][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.06, 127.0.0.1:62943][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:62943][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.04, 127.0.0.1:62943][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.01, 127.0.0.1:62943][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.01, 127.0.0.1:62943][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.02, 127.0.0.1:62943][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.00, 127.0.0.1:62943][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:62943][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554805676&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.13, 127.0.0.1:62943][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.01, 127.0.0.1:60714][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775554805676&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.12, 127.0.0.1:62943][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.18, 127.0.0.1:62943][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.01, 127.0.0.1:62943][0m
+[32mHTTP GET /dashboard 301 [0.02, 127.0.0.1:49197][0m
+[mHTTP GET /dashboard/ 200 [0.03, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/tinymce.min.js 304 [0.00, 127.0.0.1:49197][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:49197][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.04, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/themes/silver/theme.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/models/dom/model.min.js 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/icons/default/icons.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/advlist/plugin.min.js 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/plugins/autolink/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/lists/plugin.min.js 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/plugins/link/plugin.min.js 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/plugins/image/plugin.min.js 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/plugins/charmap/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/preview/plugin.min.js 304 [0.01, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/plugins/anchor/plugin.min.js 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/plugins/searchreplace/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/visualblocks/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/code/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/fullscreen/plugin.min.js 304 [0.01, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/insertdatetime/plugin.min.js 304 [0.01, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/media/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/table/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/help/plugin.min.js 304 [0.02, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/wordcount/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/autoresize/plugin.min.js 304 [0.02, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/directionality/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/emoticons/plugin.min.js 304 [0.02, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/codesample/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/nonbreaking/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/pagebreak/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/plugins/quickbars/plugin.min.js 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/skins/ui/oxide/skin.min.css 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/skins/ui/oxide/content.min.css 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/tinymce/skins/content/default/content.min.css 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/plugins/help/js/i18n/keynav/en.js 304 [0.01, 127.0.0.1:49241][0m
+[36mHTTP GET /static/tinymce/plugins/emoticons/js/emojis.min.js 304 [0.00, 127.0.0.1:49241][0m
+[mHTTP GET /dashboard/qa/10/edit/ 200 [0.03, 127.0.0.1:49241][0m
+[mHTTP POST /dashboard/qa/10/update/ 200 [0.05, 127.0.0.1:49241][0m
+[mHTTP GET / 200 [0.01, 127.0.0.1:49241][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.00, 127.0.0.1:49197][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:49241][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.00, 127.0.0.1:49197][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.00, 127.0.0.1:49588][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.00, 127.0.0.1:49241][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.00, 127.0.0.1:49241][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:49241][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555053921&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.05, 127.0.0.1:49241][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555053921&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.06, 127.0.0.1:49241][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.01, 127.0.0.1:49588][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:49241][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.01, 127.0.0.1:49241][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:49241][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:49241][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:49241][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:49241][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555062375&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.05, 127.0.0.1:49241][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555062375&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.04, 127.0.0.1:49241][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:49241][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:49241][0m
+Not Found: /embed/widget/074aa379250e4a898359e1b6f5a2574c/redbackai.in
+[33mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/redbackai.in 404 [0.01, 127.0.0.1:49241][0m
+[36mHTTP GET /static/ui/img/fyu.png 304 [0.00, 127.0.0.1:49241][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:49241][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.03, 127.0.0.1:49241][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.01, 127.0.0.1:49241][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555070334&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.05, 127.0.0.1:49241][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555070334&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.05, 127.0.0.1:49241][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.11, 127.0.0.1:49241][0m
+[mHTTP GET / 200 [0.06, 127.0.0.1:50240][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.04, 127.0.0.1:50244][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.02, 127.0.0.1:50245][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.02, 127.0.0.1:50246][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.08, 127.0.0.1:50240][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.03, 127.0.0.1:50240][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.01, 127.0.0.1:50245][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.03, 127.0.0.1:50245][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.02, 127.0.0.1:50240][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.07, 127.0.0.1:50240][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555107147&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.10, 127.0.0.1:50240][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.02, 127.0.0.1:50240][0m
+[mHTTP GET /dashboard/ 200 [0.09, 127.0.0.1:50240][0m
+[36mHTTP GET /static/tinymce/tinymce.min.js 304 [0.12, 127.0.0.1:50240][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.12, 127.0.0.1:50240][0m
+[mHTTP GET /dashboard/partial/qa/ 200 [0.05, 127.0.0.1:50240][0m
+[36mHTTP GET /static/tinymce/models/dom/model.min.js 304 [0.17, 127.0.0.1:50245][0m
+[36mHTTP GET /static/tinymce/icons/default/icons.min.js 304 [0.18, 127.0.0.1:50246][0m
+[36mHTTP GET /static/tinymce/themes/silver/theme.min.js 304 [0.21, 127.0.0.1:50240][0m
+[36mHTTP GET /static/tinymce/plugins/advlist/plugin.min.js 304 [0.17, 127.0.0.1:50244][0m
+[36mHTTP GET /static/tinymce/plugins/lists/plugin.min.js 304 [0.17, 127.0.0.1:50359][0m
+[36mHTTP GET /static/tinymce/plugins/autolink/plugin.min.js 304 [0.04, 127.0.0.1:50360][0m
+[36mHTTP GET /static/tinymce/plugins/link/plugin.min.js 304 [0.03, 127.0.0.1:50360][0m
+[36mHTTP GET /static/tinymce/plugins/image/plugin.min.js 304 [0.02, 127.0.0.1:50244][0m
+[36mHTTP GET /static/tinymce/plugins/charmap/plugin.min.js 304 [0.02, 127.0.0.1:50359][0m
+[36mHTTP GET /static/tinymce/plugins/preview/plugin.min.js 304 [0.01, 127.0.0.1:50359][0m
+[36mHTTP GET /static/tinymce/plugins/anchor/plugin.min.js 304 [0.01, 127.0.0.1:50359][0m
+[36mHTTP GET /static/tinymce/plugins/searchreplace/plugin.min.js 304 [0.03, 127.0.0.1:50359][0m
+[36mHTTP GET /static/tinymce/plugins/visualblocks/plugin.min.js 304 [0.03, 127.0.0.1:50244][0m
+[36mHTTP GET /static/tinymce/plugins/fullscreen/plugin.min.js 304 [0.03, 127.0.0.1:50245][0m
+[36mHTTP GET /static/tinymce/plugins/code/plugin.min.js 304 [0.03, 127.0.0.1:50360][0m
+[36mHTTP GET /static/tinymce/plugins/insertdatetime/plugin.min.js 304 [0.02, 127.0.0.1:50240][0m
+[36mHTTP GET /static/tinymce/plugins/media/plugin.min.js 304 [0.02, 127.0.0.1:50360][0m
+[36mHTTP GET /static/tinymce/plugins/help/plugin.min.js 304 [0.04, 127.0.0.1:50240][0m
+[36mHTTP GET /static/tinymce/plugins/table/plugin.min.js 304 [0.04, 127.0.0.1:50245][0m
+[36mHTTP GET /static/tinymce/plugins/wordcount/plugin.min.js 304 [0.03, 127.0.0.1:50244][0m
+[36mHTTP GET /static/tinymce/plugins/autoresize/plugin.min.js 304 [0.05, 127.0.0.1:50360][0m
+[36mHTTP GET /static/tinymce/plugins/directionality/plugin.min.js 304 [0.05, 127.0.0.1:50359][0m
+[36mHTTP GET /static/tinymce/plugins/emoticons/plugin.min.js 304 [0.03, 127.0.0.1:50246][0m
+[36mHTTP GET /static/tinymce/plugins/codesample/plugin.min.js 304 [0.02, 127.0.0.1:50245][0m
+[36mHTTP GET /static/tinymce/plugins/nonbreaking/plugin.min.js 304 [0.02, 127.0.0.1:50244][0m
+[36mHTTP GET /static/tinymce/plugins/pagebreak/plugin.min.js 304 [0.02, 127.0.0.1:50360][0m
+[36mHTTP GET /static/tinymce/plugins/quickbars/plugin.min.js 304 [0.01, 127.0.0.1:50245][0m
+[36mHTTP GET /static/tinymce/skins/ui/oxide/skin.min.css 304 [0.01, 127.0.0.1:50245][0m
+[36mHTTP GET /static/tinymce/skins/ui/oxide/content.min.css 304 [0.02, 127.0.0.1:50245][0m
+[36mHTTP GET /static/tinymce/skins/content/default/content.min.css 304 [0.01, 127.0.0.1:50360][0m
+[36mHTTP GET /static/tinymce/plugins/help/js/i18n/keynav/en.js 304 [0.06, 127.0.0.1:50360][0m
+[36mHTTP GET /static/tinymce/plugins/emoticons/js/emojis.min.js 304 [0.04, 127.0.0.1:50245][0m
+[mHTTP GET /dashboard/qa/10/edit/ 200 [0.05, 127.0.0.1:50245][0m
+[mHTTP POST /dashboard/qa/10/update/ 200 [0.06, 127.0.0.1:50245][0m
+[mHTTP GET / 200 [0.02, 127.0.0.1:50616][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.05, 127.0.0.1:50616][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.02, 127.0.0.1:50617][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.00, 127.0.0.1:50625][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.00, 127.0.0.1:50626][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.00, 127.0.0.1:50626][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.00, 127.0.0.1:50625][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.00, 127.0.0.1:50617][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.00, 127.0.0.1:50616][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:50616][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.02, 127.0.0.1:50617][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555140438&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.10, 127.0.0.1:50616][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.02, 127.0.0.1:50617][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555140438&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.09, 127.0.0.1:50616][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.08, 127.0.0.1:50616][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.04, 127.0.0.1:50616][0m
+Not Found: /embed/widget/074aa379250e4a898359e1b6f5a2574c/redback.in
+[33mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/redback.in 404 [0.05, 127.0.0.1:50616][0m
+[36mHTTP GET /static/ui/img/fyu.png 304 [0.01, 127.0.0.1:50616][0m
+[mHTTP GET / 200 [0.03, 127.0.0.1:50616][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.02, 127.0.0.1:50616][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.02, 127.0.0.1:50616][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555153045&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.07, 127.0.0.1:50616][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555153045&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.11, 127.0.0.1:50616][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.08, 127.0.0.1:50616][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:50616][0m
+[mHTTP GET / 200 [0.28, 127.0.0.1:53816][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.04, 127.0.0.1:53816][0m
+[36mHTTP GET /static/css/tailwind-pages.css 304 [0.00, 127.0.0.1:53815][0m
+[36mHTTP GET /static/ui/img/redbackai0.png 304 [0.00, 127.0.0.1:53815][0m
+[36mHTTP GET /static/ui/img/redbackai1.png 304 [0.01, 127.0.0.1:53815][0m
+[36mHTTP GET /static/ui/img/home2.png 304 [0.02, 127.0.0.1:53816][0m
+[36mHTTP GET /static/ui/img/home4.png 304 [0.03, 127.0.0.1:53816][0m
+[36mHTTP GET /static/ui/img/home6.png 304 [0.01, 127.0.0.1:53816][0m
+[36mHTTP GET /static/embed/bot.js 304 [0.01, 127.0.0.1:53816][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.06, 127.0.0.1:53816][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555419393&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.31, 127.0.0.1:53816][0m
+[36mHTTP GET /static/ui/img/fav5.png 304 [0.02, 127.0.0.1:53815][0m
+[36mHTTP GET /static/embed/notify.mp3 304 [0.02, 127.0.0.1:53815][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775555419393&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.15, 127.0.0.1:53816][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.15, 127.0.0.1:53816][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.09, 127.0.0.1:53816][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.09, 127.0.0.1:53816][0m
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+Watching for file changes with StatReloader
+Use pytorch device_name: cpu
+Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+HTTP/2 support not enabled (install the http2 and tls Twisted extras)
+Configuring endpoint tcp:port=8000:interface=127.0.0.1
+Listening on TCP address 127.0.0.1:8000
+[mHTTP GET / 200 [0.14, 127.0.0.1:63273][0m
+[mHTTP GET /static/css/tailwind-pages.css 200 [0.00, 127.0.0.1:63272][0m
+Not Found: /static/css/style.css
+[33mHTTP GET /static/css/style.css 404 [0.04, 127.0.0.1:63273][0m
+[mHTTP GET /static/ui/img/redbackai0.png 200 [0.01, 127.0.0.1:63281][0m
+[mHTTP GET /static/ui/img/redbackai1.png 200 [0.01, 127.0.0.1:63282][0m
+[mHTTP GET /static/ui/img/home2.png 200 [0.01, 127.0.0.1:63282][0m
+[mHTTP GET /static/ui/img/home4.png 200 [0.02, 127.0.0.1:63281][0m
+[mHTTP GET /static/embed/bot.js 200 [0.00, 127.0.0.1:63282][0m
+[mHTTP GET /static/ui/img/home6.png 200 [0.01, 127.0.0.1:63281][0m
+[mHTTP GET /embed/config/074aa379250e4a898359e1b6f5a2574c/ 200 [0.03, 127.0.0.1:63281][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775795331178&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains%20Mono%2C%20monospace&fontsize=12&welcome=Hi!%20I%27m%20%7Bname%7D.%20How%20can%20I%20help%20you%3F&sound=1&animspeed=slow&pos=bottom-right 200 [0.06, 127.0.0.1:63281][0m
+[mHTTP GET /embed/widget/074aa379250e4a898359e1b6f5a2574c/?origin=http%3A%2F%2F127.0.0.1%3A8000&v=1775795331178&theme=%23ff6642&bgcolor=%23ffffff&font=JetBrains+Mono%2C+monospace&fontsize=12&welcome=Hi%21+I%27m+%7Bname%7D.+How+can+I+help+you%3F&sound=1&animspeed=slow&pos=bottom-right&bot_type=QA 200 [0.06, 127.0.0.1:63281][0m
+[mHTTP GET /static/embed/notify.mp3 206 [0.00, 127.0.0.1:63282][0m
+[mHTTP GET /embed/qa/data/074aa379250e4a898359e1b6f5a2574c/ 200 [0.05, 127.0.0.1:63282][0m
+[32mHTTP GET /dashboard 301 [0.02, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/ 200 [0.06, 127.0.0.1:65392][0m
+[mHTTP GET /static/tinymce/tinymce.min.js 200 [0.02, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.03, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.03, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/partial/account/ 200 [0.04, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/partial/plan/ 200 [0.04, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/website-datafetcher/ 200 [0.03, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/partial/knowledge/ 200 [0.07, 127.0.0.1:65392][0m
+[mHTTP GET /dashboard/partial/bots/ 200 [0.04, 127.0.0.1:51055][0m
+[mHTTP GET /dashboard/partial/bot_style/ 200 [0.03, 127.0.0.1:51055][0m

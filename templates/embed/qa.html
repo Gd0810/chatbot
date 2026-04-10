@@ -871,6 +871,58 @@
     })();
         
     // Chat Rendering
+    function normalizeLinkHref(href) {
+        const value = (href || '').trim();
+        if (!value) return value;
+        if (/^(https?:\/\/|mailto:|tel:)/i.test(value)) return value;
+        if (/^(\/|#)/.test(value)) return value;
+        if (/^[a-z][a-z0-9+.-]*:/i.test(value)) return value;
+        return 'https://' + value.replace(/^\/+/, '');
+    }
+
+    function linkifyBotHtml(text) {
+        const container = document.createElement('div');
+        container.innerHTML = text || '';
+
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
+        const textNodes = [];
+        let currentNode;
+
+        while ((currentNode = walker.nextNode())) {
+            if (currentNode.parentNode && currentNode.parentNode.nodeName !== 'A') {
+                textNodes.push(currentNode);
+            }
+        }
+
+        textNodes.forEach(node => {
+            const original = node.nodeValue || '';
+            const replaced = original.replace(/((?:https?:\/\/)?(?:www\.)?(?:[a-z0-9-]+\.)+[a-z]{2,}(?:\/[^\s<]*)?)/gi, function (match) {
+                const trimmed = match.replace(/[),.;!?]+$/, '');
+                const trailing = match.slice(trimmed.length);
+                const href = normalizeLinkHref(trimmed);
+                return '<a href="' + href + '" target="_blank" rel="noopener noreferrer">' + trimmed + '</a>' + trailing;
+            });
+
+            if (replaced !== original) {
+                const fragment = document.createElement('span');
+                fragment.innerHTML = replaced;
+                while (fragment.firstChild) {
+                    node.parentNode.insertBefore(fragment.firstChild, node);
+                }
+                node.parentNode.removeChild(node);
+            }
+        });
+
+        container.querySelectorAll('a').forEach(link => {
+            const href = link.getAttribute('href') || '';
+            link.setAttribute('href', normalizeLinkHref(href));
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+        });
+
+        return container.innerHTML;
+    }
+
     function addBubble(who, text, save = true, metadata = {}) {
         const wrap = document.createElement('div');
         wrap.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
@@ -880,8 +932,11 @@
         from.textContent = who === 'user' ? 'You' : BOT_NAME;
         
         const body = document.createElement('div');
-        body.innerHTML = text; 
-        if (who === 'user') body.textContent = text; 
+        if (who === 'user') {
+            body.textContent = text;
+        } else {
+            body.innerHTML = linkifyBotHtml(text);
+        }
 
         wrap.appendChild(from);
         wrap.appendChild(body);
@@ -1184,8 +1239,11 @@
         from.textContent = who === 'user' ? 'You' : BOT_NAME;
         
         const body = document.createElement('div');
-        body.innerHTML = text; 
-        if (who === 'user') body.textContent = text; 
+        if (who === 'user') {
+            body.textContent = text;
+        } else {
+            body.innerHTML = linkifyBotHtml(text);
+        }
 
         wrap.appendChild(from);
         wrap.appendChild(body);
